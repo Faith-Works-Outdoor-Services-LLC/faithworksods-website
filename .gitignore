@@ -1,0 +1,8 @@
+formspree-id.txt
+.env
+.DS_Store
+Thumbs.db
+*.log
+website/_gh_create_org.graphql
+Gallery/
+website/__pycache__/
