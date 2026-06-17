@@ -119,7 +119,7 @@ def main() -> None:
         "Option A — Dashboard (recommended for first-time setup):\n"
         f"  1. Go to https://formspree.io/register and sign up with {TARGET_EMAIL}\n"
         "  2. Verify the email Formspree sends to that inbox\n"
-        "  3. Create a new form → set target email to contact@faithworksods.com\n"
+        "  3. Create a new form -> set target email to contact@faithworksods.com\n"
         "  4. Copy the form ID from Integration (e.g. xyzabcde)\n"
         f"  5. Save it: echo YOUR_FORM_ID > \"{ID_FILE}\"\n"
         "  6. Re-run: python website/register_formspree.py\n"
