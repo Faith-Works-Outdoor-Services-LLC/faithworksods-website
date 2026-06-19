@@ -1256,7 +1256,7 @@ def page_shell(
 {favicon_head(root_prefix)}
 {fonts_head()}
 {hero_preloads}
-  <link rel="stylesheet" href="{root_prefix}styles.css">
+  <link rel="stylesheet" href="{root_prefix}styles.css?v=20260616">
 {analytics_head()}
 </head>
 <body>
@@ -2028,6 +2028,14 @@ def write_styles() -> None:
     src = src.replace('url("Images/ScreenTeamBanner.webp")', f'url("Gallery/{HERO_DESKTOP}")')
     src = src.replace('url("Images/ScreenTeamBanner-mobile.webp")', f'url("Gallery/{HERO_MOBILE}")')
     src = src.replace('url("Images/service-hero-bg.jpg")', f'url("Gallery/{HERO_DESKTOP}")')
+    src = src.replace(
+        ".hero {\n  position: relative;\n  min-height: 92vh;\n  display: flex;\n  align-items: center;\n  background:",
+        ".hero {\n  position: relative;\n  min-height: 92vh;\n  display: block;\n  width: 100%;\n  max-width: none;\n  background:",
+    )
+    src = src.replace(
+        ".hero-overlay {\n  position: absolute;\n  inset: -2px 0 0 0;",
+        ".hero-overlay {\n  position: absolute;\n  inset: 0;",
+    )
     src = src.replace("filter: brightness(0) invert(1);\n  mix-blend-mode: screen;", "filter: none;")
     src = src.replace(
         "font-size: clamp(3.8rem, 8.5vw, 7rem);",
@@ -2818,6 +2826,9 @@ def write_styles() -> None:
 /* Hero parallax */
 .hero {
   position: relative;
+  display: block;
+  width: 100%;
+  max-width: none;
   overflow: hidden;
   isolation: isolate;
   background: #0a0a0a;
@@ -2827,6 +2838,9 @@ def write_styles() -> None:
 .hero-bg {
   position: absolute;
   inset: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
@@ -2835,18 +2849,22 @@ def write_styles() -> None:
   display: block;
   width: 100%;
   height: 100%;
+  min-height: 100%;
 }
 .hero-bg__img {
   display: block;
   width: 100%;
   height: 100%;
   min-height: 100%;
+  max-width: none;
   object-fit: cover;
-  object-position: center;
+  object-position: 65% center;
   transform: translate3d(0, var(--hero-shift, 0px), 0);
   will-change: transform;
 }
 .hero-overlay {
+  position: absolute;
+  inset: 0;
   z-index: 1;
 }
 .hero-inner {
@@ -2854,6 +2872,9 @@ def write_styles() -> None:
   z-index: 2;
   gap: clamp(32px, 4vw, 56px);
   max-width: none;
+  margin: 0 auto;
+  padding-top: clamp(64px, 10vh, 100px);
+  padding-bottom: clamp(72px, 10vh, 100px);
 }
 
 @media (max-width: 1060px) {
