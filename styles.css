@@ -3875,3 +3875,128 @@ footer.fw-site-footer .footer-disclaimer {
     justify-content: center;
   }
 }
+
+/* ---- Rich service area pages (SEO / AEO / GEO) ---- */
+.area-rich-content h2 {
+  margin-top: 2.25rem;
+  margin-bottom: 0.85rem;
+}
+.area-rich-content h2:first-child {
+  margin-top: 0;
+}
+.area-rich-content h3 {
+  font-family: var(--font-head);
+  font-size: 1rem;
+  color: #fff;
+  margin: 1.5rem 0 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.area-rich-content p,
+.area-rich-content li {
+  color: var(--muted);
+  font-size: 0.96rem;
+  line-height: 1.72;
+}
+.area-rich-content ul {
+  margin: 0.75rem 0 1rem;
+  padding-left: 1.2rem;
+}
+.area-rich-content a {
+  color: var(--accent);
+}
+.area-service-catalog {
+  display: grid;
+  gap: 1.25rem;
+  margin: 1.25rem 0 1.5rem;
+}
+.area-service-group {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1.1rem 1.15rem 1rem;
+}
+.area-service-group p {
+  margin-bottom: 0.65rem;
+  font-size: 0.9rem;
+}
+.area-service-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.area-service-list li {
+  padding: 0.45rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+.area-service-list li:first-child {
+  border-top: none;
+}
+.area-service-list a {
+  font-weight: 700;
+  text-decoration: none;
+}
+.area-service-list a:hover {
+  text-decoration: underline;
+}
+.area-intent-grid {
+  margin: 1rem 0 1.5rem;
+}
+.area-process-grid {
+  margin: 1rem 0 1.5rem;
+}
+.area-card-links--wrap {
+  margin: 0.5rem 0 1.5rem;
+}
+.area-sidebar-note {
+  margin-top: 1rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: rgba(201, 162, 39, 0.05);
+}
+.area-sidebar-note p {
+  margin: 0 0 0.45rem;
+  font-size: 0.86rem;
+  color: var(--muted);
+}
+.area-sidebar-note p:last-child {
+  margin-bottom: 0;
+}
+.area-sidebar-note a {
+  color: var(--accent);
+  font-weight: 700;
+  text-decoration: none;
+}
+.area-card--rich p {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  min-height: 3.2em;
+}
+.area-county-footer {
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+.area-county-footer h2 {
+  font-family: var(--font-head);
+  font-size: 1.15rem;
+  color: #fff;
+  margin-bottom: 0.65rem;
+}
+.area-county-footer p {
+  color: var(--muted);
+  line-height: 1.65;
+}
+@media (max-width: 900px) {
+  .area-process-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 560px) {
+  .area-process-grid {
+    grid-template-columns: 1fr;
+  }
+}

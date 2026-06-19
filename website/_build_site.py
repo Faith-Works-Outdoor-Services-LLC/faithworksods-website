@@ -10,6 +10,25 @@ from datetime import date
 from pathlib import Path
 from urllib.parse import quote
 
+from area_page_content import (
+    area_intent_cards,
+    area_services_by_category,
+    area_webpage_schema,
+    city_area_faqs,
+    city_common_jobs_section,
+    city_intro_html,
+    city_meta_description,
+    city_page_title,
+    city_process_section,
+    city_property_section,
+    city_scope_section,
+    county_area_faqs,
+    county_intro_html,
+    county_meta_description,
+    county_property_section,
+    nearby_cities_html,
+    nearby_counties_html,
+)
 from service_areas_data import (
     CITIES as AREA_CITIES,
     CITY_BY_SLUG,
@@ -1696,8 +1715,7 @@ def write_contact() -> None:
 
 
 def area_service_links(root_prefix: str = "") -> str:
-    core = [SERVICE_BY_SLUG[item["slug"]] for item in INTENT_ROUTES[:5]]
-    return "".join(f'<a href="{root_prefix}{s["slug"]}.html">{s["nav"]}</a>' for s in core)
+    return "".join(f'<a href="{root_prefix}{s["slug"]}.html">{s["nav"]}</a>' for s in SERVICES)
 
 
 def write_city_area_page(city: dict, areas_dir: Path) -> None:
@@ -1705,51 +1723,75 @@ def write_city_area_page(city: dict, areas_dir: Path) -> None:
     canonical = f"areas/{city['slug']}.html"
     county = COUNTY_BY_NAME[city["county"]]
     county_href = f"{county['slug']}.html"
-    nearby = [c for c in cities_in_county(city["county"]) if c["slug"] != city["slug"]][:6]
-    nearby_html = "".join(
-        f'<a href="{c["slug"]}.html">{c["name"]}, FL</a>' for c in nearby
-    )
-    core_links = area_service_links(root_prefix)
-    title = f"{SITE_POSITIONING} in {city['name']}, FL"
-    desc = (
-        f"{SITE['brand']} serves {city['name']}, {city['county']} with land clearing, pond bank clearing, "
-        f"ditch clearing, brush cutting, debris removal, and outdoor property services. Based in {HOME_CITY} — "
-        f"within {SERVICE_RADIUS_MILES} miles of {HOME_ZIP}."
-    )
+    name = city["name"]
+    faqs = city_area_faqs(name, city["county"])
+    faq_block = faq_accordion(faqs, city["slug"])
+    desc = city_meta_description(name, city["county"])
+    title = city_page_title(name)
+    nearby_html = nearby_cities_html(city)
+    service_groups = area_services_by_category(root_prefix, name)
+    intent_cards = area_intent_cards(root_prefix, name, INTENT_ROUTES)
+    all_service_links = area_service_links(root_prefix)
     schema = f"""  <script type="application/ld+json">{business_schema()}</script>
-  <script type="application/ld+json">{breadcrumb_schema([('Home', 'index.html'), ('Service Areas', 'service-areas.html'), (f"{city['name']}, FL", canonical)])}</script>"""
+  <script type="application/ld+json">{breadcrumb_schema([('Home', 'index.html'), ('Service Areas', 'service-areas.html'), (f"{name}, FL", canonical)])}</script>
+  <script type="application/ld+json">{faq_page_schema(faqs)}</script>
+  <script type="application/ld+json">{area_webpage_schema(f"{name}, FL Outdoor Property Services", desc, canonical)}</script>"""
     body = f"""
     <section class="sp-hero">
       <div class="container">
-        <p class="eyebrow"><a href="{root_prefix}index.html">Home</a> &rsaquo; <a href="{root_prefix}service-areas.html">Service Areas</a> &rsaquo; <a href="{county_href}">{city['county']}</a> &rsaquo; {city['name']}</p>
-        <h1>{SITE_POSITIONING} in {city['name']}, FL</h1>
+        <p class="eyebrow"><a href="{root_prefix}index.html">Home</a> &rsaquo; <a href="{root_prefix}service-areas.html">Service Areas</a> &rsaquo; <a href="{county_href}">{city['county']}</a> &rsaquo; {name}</p>
+        <h1>{title}</h1>
         <p>{desc}</p>
       </div>
     </section>
     <section class="section-shell">
       <div class="container sp-layout">
-        <div class="sp-content" data-fw-enter="left">
-          <h2>Outdoor Property Services in {city['name']}</h2>
-          <p>{SITE['brand']} is based in {HOME_CITY}, Florida ({HOME_ZIP}) and serves {city['name']} property owners across {city['county']}. Typical jobs include overgrown lots, pond banks, ditches, brush, trails, storm debris, acreage cleanup, and outdoor property maintenance.</p>
-          <p>We focus on outdoor property work — not utility trenching, engineered drainage, or pool installation. Pool dig-out support is available under licensed pool contractors when needed.</p>
-          <h2>Popular Services Near {city['name']}</h2>
-          <div class="area-card-links">{core_links}</div>
+        <div class="sp-content area-rich-content" data-fw-enter="left">
+          {city_intro_html(city)}
+          {city_property_section(city)}
+          {city_common_jobs_section(city)}
+          <h2>Start With Your Project Type in {name}</h2>
+          <p>Select the outdoor property problem that best matches your {name} site — each links to a full service page with scope details and estimate options.</p>
+          {intent_cards}
+          <h2>All Outdoor Services in {name}, FL</h2>
+          <p>Faith Works offers {len(SERVICES)} outdoor property services in {name}. Browse by category or view the full <a href="{root_prefix}services.html">services overview</a>.</p>
+          <div class="area-service-catalog">
+            {service_groups}
+          </div>
+          <div class="area-card-links area-card-links--wrap">{all_service_links}</div>
+          {city_process_section(name)}
+          {city_scope_section()}
           <h2>Also Serving Nearby in {city['county']}</h2>
+          <p>Faith Works serves {name} and neighboring {city['county']} communities within our {SERVICE_RADIUS_MILES}-mile radius from {HOME_CITY}:</p>
           <div class="area-card-links">{nearby_html}</div>
-          <p class="utility-note"><strong>Coverage note:</strong> {city['name']} is within our approximately {SERVICE_RADIUS_MILES}-mile service radius from {HOME_CITY}. Send photos through the form and Tyler will confirm scope and scheduling.</p>
+          <p>View the full <a href="{county_href}">{city['county']} service area page</a> or browse <a href="{root_prefix}service-areas.html">all {len(COUNTIES)} counties and {len(AREA_CITIES)} cities</a> we serve.</p>
+          <h2>{name}, FL Outdoor Property FAQs</h2>
+          <p>Common questions from {name} and {city['county']} property owners about land clearing, pond banks, ditches, and outdoor cleanup.</p>
+          {faq_block}
         </div>
         <aside class="sp-sidebar" data-fw-enter="right">
           <div class="hero-card" aria-label="Get a free estimate">
             <p class="card-eyebrow">Free photo-based estimate</p>
-            <h2 class="card-name">Request Service in {city['name']}</h2>
-            <p class="card-note">Upload photos of your property in {city['name']}, FL for a faster quote.</p>
-            {estimate_form(selected=None, subject=f"{city['name']} estimate - {SITE['brand']}", page=canonical, compact=True)}
+            <h2 class="card-name">Request Service in {name}</h2>
+            <p class="card-note">Upload photos of your property in {name}, FL for a faster quote. {SITE['owner']} reviews every request personally.</p>
+            {estimate_form(selected=None, subject=f"{name} estimate - {SITE['brand']}", page=canonical, compact=True)}
+          </div>
+          <div class="area-sidebar-note">
+            <p><strong>Based in {HOME_CITY}</strong> &nbsp;&middot;&nbsp; {SERVICE_RADIUS_MILES}-mile radius</p>
+            <p><a href="tel:{SITE['phone_tel']}">{SITE['phone_display']}</a></p>
+            <p><a href="mailto:{SITE['email']}">{SITE['email']}</a></p>
           </div>
         </aside>
       </div>
+    </section>
+    <section class="areas-strip">
+      <div class="container">
+        <p class="eyebrow">Ready for a {name} estimate?</p>
+        <p>Send photos of your overgrown lot, pond bank, ditch line, trails, or debris piles in <strong>{name}, FL</strong>. {SITE['owner']} will review scope and follow up with next steps. <a href="{root_prefix}contact.html">Contact Faith Works &rarr;</a></p>
+      </div>
     </section>"""
     html = page_shell(
-        f"{city['name']}, FL Outdoor Property Services | {SITE['brand']}",
+        f"{name}, FL Outdoor Property Services | {SITE['brand']}",
         desc,
         canonical,
         body,
@@ -1766,39 +1808,67 @@ def write_county_area_page(county: dict, areas_dir: Path) -> None:
     cities = cities_in_county(county["name"])
     city_cards = ""
     for i, city in enumerate(cities):
+        city_desc = city_meta_description(city["name"], county["name"]).split(".")[0] + "."
         city_cards += f"""
-          <article class="area-card" data-fw-enter="bottom" style="--fw-enter-delay: {(i % 6) * 60}ms;">
+          <article class="area-card area-card--rich" data-fw-enter="bottom" style="--fw-enter-delay: {(i % 6) * 60}ms;">
             <h3><a href="{city['slug']}.html">{city['name']}, FL</a></h3>
-            <p>{SITE_POSITIONING} for {city['name']} property owners in {county['name']}.</p>
-            <a class="area-card-cta" href="{city['slug']}.html">View {city['name']} services &rarr;</a>
+            <p>{city_desc}</p>
+            <a class="area-card-cta" href="{city['slug']}.html">{city['name']} land clearing &amp; outdoor services &rarr;</a>
           </article>"""
-    core_links = area_service_links(root_prefix)
-    desc = f"{SITE['brand']} serves {county['name']} with land clearing, pond bank clearing, ditch clearing, brush cutting, and outdoor property cleanup. Based in {HOME_CITY} within {SERVICE_RADIUS_MILES} miles."
+    faqs = county_area_faqs(county["name"], cities)
+    faq_block = faq_accordion(faqs, county["slug"])
+    desc = county_meta_description(county["name"], len(cities))
+    service_groups = area_services_by_category(root_prefix, county["name"])
+    intent_cards = area_intent_cards(root_prefix, county["name"], INTENT_ROUTES)
+    all_service_links = area_service_links(root_prefix)
+    nearby_counties = nearby_counties_html(county["name"], root_prefix)
     schema = f"""  <script type="application/ld+json">{business_schema()}</script>
-  <script type="application/ld+json">{breadcrumb_schema([('Home', 'index.html'), ('Service Areas', 'service-areas.html'), (county['name'], canonical)])}</script>"""
+  <script type="application/ld+json">{breadcrumb_schema([('Home', 'index.html'), ('Service Areas', 'service-areas.html'), (county['name'], canonical)])}</script>
+  <script type="application/ld+json">{faq_page_schema(faqs)}</script>
+  <script type="application/ld+json">{area_webpage_schema(f"{county['name']} Outdoor Property Services", desc, canonical)}</script>"""
     body = f"""
     <section class="sp-hero">
       <div class="container">
         <p class="eyebrow"><a href="{root_prefix}index.html">Home</a> &rsaquo; <a href="{root_prefix}service-areas.html">Service Areas</a> &rsaquo; {county['name']}</p>
         <h1>Outdoor Property Services in {county['name']}</h1>
-        <p>{county['description']}</p>
+        <p>{desc}</p>
       </div>
     </section>
     <section class="section-shell">
       <div class="container">
-        <div class="section-heading" data-fw-enter="left">
-          <p class="eyebrow">Cities we serve</p>
-          <h2>{county['name']} Service Areas</h2>
-          <p>Faith Works travels from {HOME_CITY} to serve property owners across {county['name']} within approximately {SERVICE_RADIUS_MILES} miles.</p>
+        <div class="sp-content area-rich-content" data-fw-enter="left">
+          {county_intro_html(county, cities)}
+          {county_property_section(county["name"])}
+          <h2>Project Types Across {county['name']}</h2>
+          <p>Property owners in {county['name']} often start with one of these outdoor property needs:</p>
+          {intent_cards}
+          <h2>All Services Available in {county['name']}</h2>
+          <p>Every service below is available throughout {county['name']} within our {SERVICE_RADIUS_MILES}-mile radius from {HOME_CITY}.</p>
+          <div class="area-service-catalog">
+            {service_groups}
+          </div>
+          <div class="area-card-links area-card-links--wrap">{all_service_links}</div>
+          <h2>{county['name']} Outdoor Property FAQs</h2>
+          {faq_block}
+        </div>
+        <div class="section-heading" style="margin-top:2.5rem" data-fw-enter="left">
+          <p class="eyebrow">{len(cities)} cities in {county['name']}</p>
+          <h2>{county['name']} City Service Pages</h2>
+          <p>Each city page includes localized FAQs, full service listings, and a photo-based estimate form for {county['name']} property owners.</p>
         </div>
         <div class="areas-grid">{city_cards}
         </div>
-        <div class="section-heading" style="margin-top:2.5rem" data-fw-enter="left">
-          <p class="eyebrow">Core services</p>
-          <h2>Popular Services in {county['name']}</h2>
+        <div class="area-county-footer" data-fw-enter="left">
+          <h2>Nearby Counties</h2>
+          <p>Faith Works also serves property owners in {nearby_counties}.</p>
+          <p class="areas-note"><a href="{root_prefix}service-areas.html">&larr; All service areas</a> &nbsp;&middot;&nbsp; <a href="{root_prefix}contact.html">Request an estimate</a> &nbsp;&middot;&nbsp; <a href="tel:{SITE['phone_tel']}">{SITE['phone_display']}</a></p>
         </div>
-        <div class="area-card-links">{core_links}</div>
-        <p class="areas-note" style="margin-top:2rem"><a href="{root_prefix}service-areas.html">&larr; All service areas</a> &nbsp;&middot;&nbsp; <a href="{root_prefix}contact.html">Request an estimate</a></p>
+      </div>
+    </section>
+    <section class="areas-strip">
+      <div class="container">
+        <p class="eyebrow">{county['name']} estimates</p>
+        <p>Land clearing, pond bank clearing, ditch clearing, brush cutting, and outdoor property cleanup across <strong>{county['name']}</strong>. Based in {HOME_CITY} — serving {len(cities)} communities. <a href="{root_prefix}contact.html">Get a free estimate &rarr;</a></p>
       </div>
     </section>"""
     html = page_shell(
@@ -4217,6 +4287,131 @@ footer.fw-site-footer .footer-disclaimer {
   }
   footer.fw-site-footer .footer-social .social-icons {
     justify-content: center;
+  }
+}
+
+/* ---- Rich service area pages (SEO / AEO / GEO) ---- */
+.area-rich-content h2 {
+  margin-top: 2.25rem;
+  margin-bottom: 0.85rem;
+}
+.area-rich-content h2:first-child {
+  margin-top: 0;
+}
+.area-rich-content h3 {
+  font-family: var(--font-head);
+  font-size: 1rem;
+  color: #fff;
+  margin: 1.5rem 0 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.area-rich-content p,
+.area-rich-content li {
+  color: var(--muted);
+  font-size: 0.96rem;
+  line-height: 1.72;
+}
+.area-rich-content ul {
+  margin: 0.75rem 0 1rem;
+  padding-left: 1.2rem;
+}
+.area-rich-content a {
+  color: var(--accent);
+}
+.area-service-catalog {
+  display: grid;
+  gap: 1.25rem;
+  margin: 1.25rem 0 1.5rem;
+}
+.area-service-group {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1.1rem 1.15rem 1rem;
+}
+.area-service-group p {
+  margin-bottom: 0.65rem;
+  font-size: 0.9rem;
+}
+.area-service-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.area-service-list li {
+  padding: 0.45rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+.area-service-list li:first-child {
+  border-top: none;
+}
+.area-service-list a {
+  font-weight: 700;
+  text-decoration: none;
+}
+.area-service-list a:hover {
+  text-decoration: underline;
+}
+.area-intent-grid {
+  margin: 1rem 0 1.5rem;
+}
+.area-process-grid {
+  margin: 1rem 0 1.5rem;
+}
+.area-card-links--wrap {
+  margin: 0.5rem 0 1.5rem;
+}
+.area-sidebar-note {
+  margin-top: 1rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: rgba(201, 162, 39, 0.05);
+}
+.area-sidebar-note p {
+  margin: 0 0 0.45rem;
+  font-size: 0.86rem;
+  color: var(--muted);
+}
+.area-sidebar-note p:last-child {
+  margin-bottom: 0;
+}
+.area-sidebar-note a {
+  color: var(--accent);
+  font-weight: 700;
+  text-decoration: none;
+}
+.area-card--rich p {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  min-height: 3.2em;
+}
+.area-county-footer {
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+.area-county-footer h2 {
+  font-family: var(--font-head);
+  font-size: 1.15rem;
+  color: #fff;
+  margin-bottom: 0.65rem;
+}
+.area-county-footer p {
+  color: var(--muted);
+  line-height: 1.65;
+}
+@media (max-width: 900px) {
+  .area-process-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 560px) {
+  .area-process-grid {
+    grid-template-columns: 1fr;
   }
 }
 """

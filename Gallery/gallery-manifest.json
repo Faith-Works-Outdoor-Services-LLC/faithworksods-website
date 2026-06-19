@@ -1,0 +1,86 @@
+{
+  "hero_desktop": "photo-of-all-equipment.webp",
+  "hero_mobile": "excavator-and-truck-photo.webp",
+  "gallery": [
+    {
+      "file": "equipment-photos1.webp",
+      "alt": "Equipment photos1",
+      "label": "Gallery"
+    },
+    {
+      "file": "equipment-photos5.webp",
+      "alt": "Equipment photos5",
+      "label": "Gallery"
+    },
+    {
+      "file": "equipment-photos.webp",
+      "alt": "Equipment photos",
+      "label": "Gallery"
+    },
+    {
+      "file": "excavator-and-truck-photo.webp",
+      "alt": "Kubota excavator and dump trailer on a residential pool dig-out site in Polk County Florida",
+      "label": "Pool Digging"
+    },
+    {
+      "file": "excavator-photo.webp",
+      "alt": "Kubota mini excavator on a land clearing and excavation job site",
+      "label": "Land Clearing"
+    },
+    {
+      "file": "photo-of-all-equipment.webp",
+      "alt": "Faith Works Outdoor Services fleet \u2014 Kubota excavator, tractor with loader, pickup, dump trailer, and flatbed trailer",
+      "label": "Equipment"
+    },
+    {
+      "file": "stump-before-ground-leveled.webp",
+      "alt": "Tree stump removal site before ground leveling and cleanup in a residential yard",
+      "label": "Land Clearing"
+    },
+    {
+      "file": "stump-during-removal-1.webp",
+      "alt": "Kubota excavator removing a tree stump during an active land clearing job",
+      "label": "Land Clearing"
+    },
+    {
+      "file": "stump-during-removal-2.webp",
+      "alt": "Excavator pulling a tree stump and root ball during stump removal",
+      "label": "Land Clearing"
+    },
+    {
+      "file": "stump-during-removal.webp",
+      "alt": "Mini excavator working to extract a tree stump from the ground",
+      "label": "Land Clearing"
+    },
+    {
+      "file": "stump-post-removal-1.webp",
+      "alt": "Property after tree stump removal with excavated soil ready for leveling",
+      "label": "Land Clearing"
+    },
+    {
+      "file": "stump-post-removal.webp",
+      "alt": "Completed tree stump removal with cleared ground and debris pile on site",
+      "label": "Land Clearing"
+    },
+    {
+      "file": "stump-prior-to-removal.webp",
+      "alt": "Large tree stump in a yard before Faith Works stump removal service begins",
+      "label": "Land Clearing"
+    },
+    {
+      "file": "tractor.webp",
+      "alt": "Kubota compact tractor with loader attachment on a Central Florida job site",
+      "label": "Equipment"
+    },
+    {
+      "file": "tractor-moving-item-with-grapple.webp",
+      "alt": "Kubota tractor using a grapple attachment to move brush and debris during property cleanup",
+      "label": "Debris Removal"
+    },
+    {
+      "file": "tractor-with-box-blade-leveling-ground.webp",
+      "alt": "Kubota tractor with box blade leveling and grading ground after stump removal",
+      "label": "Land Clearing"
+    }
+  ]
+}
