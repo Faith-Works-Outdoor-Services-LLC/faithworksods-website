@@ -125,6 +125,51 @@ GALLERY = [
 HERO_DESKTOP = "photo-of-all-equipment.webp"
 HERO_MOBILE = "excavator-and-truck-photo.webp"
 
+GOOGLE_G_LOGO = """<svg class="fw-google-g-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+                                <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+                                <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+                                <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+                                <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+                            </svg>"""
+
+REVIEW_PLACEHOLDERS = [
+    {
+        "name": "Property Owner",
+        "meta": "Winter Haven, FL",
+        "avatar": "#8a6d12",
+        "text": "Tyler cleared an overgrown pond bank and opened up access we had not been able to use in years. Clear communication and fair pricing.",
+        "date": "Placeholder review",
+    },
+    {
+        "name": "Homeowner",
+        "meta": "Lakeland, FL",
+        "avatar": "#1e6b2e",
+        "text": "Sent photos through the website and got a quick response. Land clearing and debris haul-off were handled professionally from start to finish.",
+        "date": "Placeholder review",
+    },
+    {
+        "name": "Acreage Owner",
+        "meta": "Bartow, FL",
+        "avatar": "#1a56c4",
+        "text": "Brush clearing and trail work on our property was done with the right equipment and left the area usable again. Would recommend for outdoor property work.",
+        "date": "Placeholder review",
+    },
+    {
+        "name": "Local Customer",
+        "meta": "Haines City, FL",
+        "avatar": "#c0392b",
+        "text": "Ditch clearing and cleanup after storm debris — Tyler showed up when he said he would and explained the scope before starting.",
+        "date": "Placeholder review",
+    },
+    {
+        "name": "Polk County Client",
+        "meta": "Auburndale area",
+        "avatar": "#7c3aed",
+        "text": "Owner-operated service with direct contact throughout the job. Good fit for pond bank and acreage cleanup projects.",
+        "date": "Placeholder review",
+    },
+]
+
 INTENT_ROUTES = [
     {
         "label": "Overgrown lots and acreage",
@@ -164,8 +209,20 @@ HOME_FAQS = [
         f"Yes. Send photos through the contact form or email {SITE['email']}. Photo-based estimates help us review access, vegetation, debris, and project scope before scheduling.",
     ),
     (
-        "What areas do you serve?",
-        f"{SITE['brand']} is based in {SITE['city']} and serves {SITE['area']}, including Winter Haven, Lakeland, Bartow, Haines City, Lake Wales, and nearby communities.",
+        "What areas do you serve near Auburndale, FL?",
+        f"{SITE['brand']} is based in {SITE['city']} (33823) and serves property owners within approximately {SERVICE_RADIUS_MILES} miles — including Polk, Osceola, Orange, Lake, Hillsborough, Pasco, and nearby Central Florida counties. Winter Haven, Lakeland, Bartow, Haines City, Kissimmee, and Orlando are common service areas.",
+    ),
+    (
+        "How far from Auburndale will Faith Works travel for a job?",
+        f"We regularly travel up to about {SERVICE_RADIUS_MILES} miles from {HOME_CITY} for land clearing, pond bank work, ditch clearing, brush cutting, and property cleanup. Send your city and photos — Tyler will confirm scheduling and travel for your property.",
+    ),
+    (
+        "What outdoor property services do you offer in Polk County?",
+        f"Faith Works provides {SITE_POSITIONING.lower()} — including land clearing, trail clearing, brush cutting, forestry mulching, pond bank clearing, pond cleanup, ditch clearing, debris removal, acreage cleanup, pool dig-out support, and tractor services across Polk County and Central Florida.",
+    ),
+    (
+        "Do you clear overgrown pond banks and ditches?",
+        "Yes. Pond bank clearing and ditch clearing are core services. We use mulching equipment, brush cutters, and tractors to open access, remove overgrowth, and clean vegetation from outdoor ditch and pond-edge areas — not engineered stormwater or utility systems.",
     ),
     (
         "Do I need to call 811 before digging?",
@@ -182,6 +239,10 @@ HOME_FAQS = [
     (
         "Can you help with pool dig-out dirt removal?",
         "Yes, as support under a licensed pool contractor. Faith Works can help with dirt removal and site cleanup, but does not contract directly as a pool installer.",
+    ),
+    (
+        "Do you handle storm debris cleanup in Central Florida?",
+        "Yes. Storm debris cleanup, yard debris removal, and property cleanup are available after wind and storm events when access and scope allow. Send photos of limbs, brush piles, and blocked areas for a faster estimate.",
     ),
 ]
 
@@ -449,7 +510,7 @@ def service_mosaic_card(s: dict, delay_ms: int, featured: bool = False) -> str:
     return f"""
           <a class="fw-service-card{" fw-service-card--featured" if featured else ""}" href="{s['slug']}.html" data-fw-enter="bottom" style="--fw-enter-delay: {delay_ms}ms;">
             {badge}
-            <img class="fw-service-card__bg" src="Images/gallery/{s['mosaic_image']}" alt="{img_alt}" loading="lazy" decoding="async" width="800" height="800">
+            <img class="fw-service-card__bg" src="Gallery/{s['mosaic_image']}" alt="{img_alt}" loading="lazy" decoding="async" width="800" height="800">
             <span class="fw-service-card__overlay" aria-hidden="true"></span>
             <span class="fw-service-card__panel fw-service-card__panel--front">
               <strong class="fw-service-card__headline">{s['mosaic_headline']}</strong>
@@ -564,6 +625,169 @@ def intent_router_section(context: str = "home") -> str:
     </section>"""
 
 
+def reviews_section() -> str:
+    cards = ""
+    for i, review in enumerate(REVIEW_PLACEHOLDERS):
+        initial = review["name"][0]
+        cards += f"""
+            <article class="fw-review-card" data-fw-enter="bottom" style="--fw-enter-delay: {(i % 3) * 70}ms;">
+              <span class="fw-review-placeholder-badge">Sample layout</span>
+              <div class="fw-review-header">
+                <span class="fw-review-avatar" style="background:{review['avatar']};" aria-hidden="true">{initial}</span>
+                <div>
+                  <h3 class="fw-review-name">{review['name']}</h3>
+                  <div class="fw-review-sub">{review['meta']}</div>
+                </div>
+              </div>
+              <div class="fw-review-stars" role="img" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              <p class="fw-review-text">{review['text']}</p>
+              <div class="fw-review-date">{review['date']}</div>
+            </article>"""
+    return f"""
+    <section id="reviews" class="reviews-section section-shell">
+      <div class="container">
+        <div class="section-heading" data-fw-enter="left">
+          <p class="eyebrow">What people say</p>
+          <h2>Customer Reviews</h2>
+          <p>Google reviews from Polk County property owners will appear here once connected. The cards below show the layout — sample copy only until real reviews are added.</p>
+        </div>
+        <div class="fw-reviews-showcase" aria-label="Customer reviews">
+          <div class="fw-reviews-header">
+            {GOOGLE_G_LOGO}
+            <span class="fw-reviews-header__label">Google Reviews</span>
+            <div class="fw-review-stars fw-review-stars--header" role="img" aria-label="5 star rating">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <div class="fw-reviews-summary" id="fw-review-summary">Reviews coming soon</div>
+          </div>
+          <div class="fw-review-carousel">
+            <button class="fw-review-btn" type="button" id="fw-review-prev" aria-label="Previous review">&#8249;</button>
+            <div class="fw-review-viewport">
+              <div class="fw-review-track" id="fw-review-track">{cards}
+              </div>
+            </div>
+            <button class="fw-review-btn" type="button" id="fw-review-next" aria-label="Next review">&#8250;</button>
+          </div>
+          <div class="fw-review-dots" id="fw-review-dots" role="group" aria-label="Review pages"></div>
+          <p class="fw-reviews-footnote">Placeholder reviews for layout preview. Connect Google Business Profile to display live ratings.</p>
+        </div>
+      </div>
+    </section>"""
+
+
+def process_section() -> str:
+    return f"""
+    <section id="process" class="process-section section-shell">
+      <div class="container">
+        <div class="section-heading" data-fw-enter="left">
+          <p class="eyebrow">How it works</p>
+          <h2>How to Get Land Clearing or Property Cleanup in {SITE['city']}</h2>
+          <p>A simple four-step process — from photos to scheduled outdoor property work across {SITE['area']}.</p>
+        </div>
+        <div class="process-grid">
+          <div class="process-step" data-fw-enter="bottom" style="--fw-enter-delay: 0ms;"><span>1</span><h3>Send photos or call</h3><p>Share your property city and upload photos of overgrowth, pond banks, ditches, brush, or debris through the form or by text.</p></div>
+          <div class="process-step" data-fw-enter="bottom" style="--fw-enter-delay: 70ms;"><span>2</span><h3>Confirm scope</h3><p>We review access, vegetation volume, equipment room, haul-off needs, and the outdoor service that fits the job.</p></div>
+          <div class="process-step" data-fw-enter="bottom" style="--fw-enter-delay: 140ms;"><span>3</span><h3>Receive estimate</h3><p>Get a clear estimate before work begins — scoped for outdoor property services, not utility excavation.</p></div>
+          <div class="process-step" data-fw-enter="bottom" style="--fw-enter-delay: 210ms;"><span>4</span><h3>Schedule service</h3><p>Tyler shows up with the right equipment for clearing, cleanup, or tractor work on your property.</p></div>
+        </div>
+      </div>
+    </section>"""
+
+
+def home_geo_section() -> str:
+    county_links = "".join(
+        f'<a class="home-geo-pill" href="areas/{c["slug"]}.html">{c["name"]}</a>' for c in COUNTIES
+    )
+    city_links = "".join(
+        f'<a class="home-geo-pill home-geo-pill--city" href="{city_href(c["slug"])}">{c["name"]}, FL</a>'
+        for c in FEATURED_CITIES
+    )
+    return f"""
+    <section id="service-areas" class="home-geo-section section-shell">
+      <div class="container">
+        <div class="section-heading" data-fw-enter="left">
+          <p class="eyebrow">Service areas</p>
+          <h2>Land Clearing &amp; Outdoor Services Within {SERVICE_RADIUS_MILES} Miles of {HOME_CITY}</h2>
+          <p>Based in {HOME_CITY}, FL ({HOME_ZIP}), {SITE['brand']} serves {len(COUNTIES)} counties and {len(AREA_CITIES)} cities across Central Florida — from Polk County to Orlando, Tampa, and The Villages.</p>
+        </div>
+        <div class="home-geo-block" data-fw-enter="bottom">
+          <h3>Counties we serve</h3>
+          <div class="home-geo-pills">{county_links}</div>
+        </div>
+        <div class="home-geo-block" data-fw-enter="bottom" style="--fw-enter-delay: 80ms;">
+          <h3>Popular cities &amp; communities</h3>
+          <div class="home-geo-pills">{city_links}</div>
+        </div>
+        <p class="home-geo-note">Looking for land clearing, pond bank clearing, or ditch clearing in your city? <a href="service-areas.html">View all service areas</a> or <a href="contact.html">request an estimate</a> with your property photos.</p>
+      </div>
+    </section>"""
+
+
+def gallery_teaser_section() -> str:
+    thumbs = ""
+    for i, (img, alt, label) in enumerate(GALLERY[:6]):
+        thumbs += f"""
+          <a class="work-thumb" href="gallery.html" aria-label="View {label} gallery" data-fw-enter="bottom" style="--fw-enter-delay: {(i % 3) * 70}ms;">
+            <img src="Gallery/{img}" alt="{alt}" loading="lazy" width="600" height="450">
+            <span class="work-thumb-label">{label}</span>
+          </a>"""
+    return f"""
+    <section id="gallery" class="work-teaser section-shell">
+      <div class="container">
+        <div class="section-heading" data-fw-enter="left">
+          <p class="eyebrow">Proof of work</p>
+          <h2>Real Land Clearing &amp; Property Cleanup Jobs in Central Florida</h2>
+          <p>Photos from actual outdoor property work — land clearing, brush cutting, pond bank clearing, ditch work, and debris removal across Polk County and nearby areas.</p>
+        </div>
+        <div class="work-teaser-grid work-teaser-grid--6">{thumbs}
+        </div>
+        <div style="text-align:center;margin-top:2rem">
+          <a class="btn btn-ghost" href="gallery.html">See Full Project Gallery &rarr;</a>
+        </div>
+      </div>
+    </section>"""
+
+
+def home_services_hub_section() -> str:
+    groups = ""
+    for i, cat in enumerate(SERVICE_CATEGORIES):
+        services = services_for_category(cat["id"])[:4]
+        links = "".join(f'<a href="{s["slug"]}.html">{s["nav"]}</a>' for s in services)
+        groups += f"""
+          <article class="home-services-hub-card" data-fw-enter="bottom" style="--fw-enter-delay: {(i % 3) * 60}ms;">
+            <h3>{cat['label']}</h3>
+            <p>{cat['description']}</p>
+            <div class="home-services-hub-links">{links}</div>
+          </article>"""
+    return f"""
+    <section id="all-services" class="home-services-hub section-shell">
+      <div class="container">
+        <div class="section-heading" data-fw-enter="left">
+          <p class="eyebrow">Full service list</p>
+          <h2>All {SERVICE_COUNT} Outdoor Property Services by Category</h2>
+          <p>Browse every service Faith Works offers — from core land clearing and pond bank work to cleanup, maintenance, and tractor services across {SITE['area']}.</p>
+        </div>
+        <div class="home-services-hub-grid">{groups}
+        </div>
+        <div style="text-align:center;margin-top:2.5rem">
+          <a class="btn btn-ghost" href="services.html">Open full services hub &rarr;</a>
+        </div>
+      </div>
+    </section>"""
+
+
+def home_faq_section() -> str:
+    return f"""
+    <section id="faq" class="faq-section section-shell">
+      <div class="container">
+        <div class="section-heading" data-fw-enter="left">
+          <p class="eyebrow">Common questions</p>
+          <h2>Land Clearing &amp; Outdoor Property FAQs</h2>
+          <p>Answers property owners in {SITE['city']}, Polk County, and Central Florida often ask before requesting an estimate.</p>
+        </div>
+        {faq_accordion(HOME_FAQS, "home")}
+      </div>
+    </section>"""
+
+
 def service_scope_details(s: dict) -> str:
     details = "\n".join(f"              <li>{b}</li>" for b in s["bullets"][:4])
     fits = "\n".join(f"              <li>{item}</li>" for item in s["ideal_for"][:4])
@@ -674,7 +898,7 @@ def service_schema(s: dict) -> str:
         "description": s["desc"],
         "url": f"{SITE['url']}/{s['slug']}.html",
         "mainEntityOfPage": f"{SITE['url']}/{s['slug']}.html",
-        "image": f"{SITE['url']}/Images/gallery/{s['mosaic_image']}",
+        "image": f"{SITE['url']}/Gallery/{s['mosaic_image']}",
         "provider": {"@id": f"{SITE['url']}/#business"},
         "areaServed": [{"@type": "City", "name": f"{city}, FL"} for city in CITY_NAMES],
     }, indent=2)
@@ -790,6 +1014,23 @@ def call_cta_link(extra_class: str = "") -> str:
       </a>"""
 
 
+def footer_service_links(root_prefix: str) -> str:
+    return "\n          ".join(
+        f'<a href="{root_prefix}{s["slug"]}.html">{s["nav"]}</a>' for s in SERVICES
+    )
+
+
+def footer_service_area_summary(root_prefix: str) -> str:
+    county_links = " &nbsp;&middot;&nbsp; ".join(
+        f'<a href="{root_prefix}areas/{c["slug"]}.html">{c["name"].replace(" County", "")}</a>'
+        for c in COUNTIES
+    )
+    city_count = len(AREA_CITIES)
+    return f"""<p class="footer-area-intro">Serving <strong>{len(COUNTIES)} counties</strong> and <strong>{city_count} cities</strong> across Central Florida within a {SERVICE_RADIUS_MILES}-mile radius of {HOME_CITY}.</p>
+            <p class="footer-area-counties">{county_links}</p>
+            <p class="footer-area-hub"><a href="{root_prefix}service-areas.html">View all service areas →</a></p>"""
+
+
 def header(current: str = "", root_prefix: str = "") -> str:
     logo_src = f"{root_prefix}{LOGO}"
 
@@ -843,27 +1084,67 @@ def header(current: str = "", root_prefix: str = "") -> str:
 
 def footer(root_prefix: str = "") -> str:
     logo_src = f"{root_prefix}{LOGO}"
-    cities = " &nbsp;&middot;&nbsp; ".join(CITY_NAMES[:6])
-    return f"""  <footer class="site-footer">
-    <div class="container footer-inner">
-      {logo_coin("fw-logo-coin--footer", 80, SITE['brand'], logo_src)}
-      <div class="footer-info">
-        <p><strong>{SITE['legal_name']}</strong></p>
-        <p>{SITE['owner']} &nbsp;-&nbsp; <a href="tel:{SITE['phone_tel']}">{SITE['phone_display']}</a></p>
-        <p><a href="mailto:{SITE['email']}">{SITE['email']}</a></p>
-        <p>Based in {SITE['city']}, {SITE['region']} &nbsp;&middot;&nbsp; Serving within {SERVICE_RADIUS_MILES} miles of {HOME_CITY}</p>
-        <p class="footer-cities">{cities}</p>
-        {social_block("footer")}
+    service_links = footer_service_links(root_prefix)
+    area_summary = footer_service_area_summary(root_prefix)
+    call_link = call_cta_link("fw-footer-call")
+    return f"""  <footer class="site-footer fw-site-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-left">
+          <div class="footer-company">
+            <div class="footer-logo">
+              {logo_coin("fw-logo-coin--footer", 72, SITE['brand'], logo_src)}
+              <div class="footer-brand-lockup">
+                <h3>Faith Works</h3>
+                <p>Outdoor Services LLC</p>
+              </div>
+            </div>
+            <p>{SITE['city']}, FL &nbsp;&middot;&nbsp; {SERVICE_RADIUS_MILES}-mile radius from {HOME_CITY}</p>
+            <p class="company-description">{SITE_POSITIONING}</p>
+            <div class="footer-service-area">
+              {area_summary}
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-center">
+          <h4>Our Services</h4>
+          <div class="footer-quick-links">
+            {service_links}
+          </div>
+        </div>
+
+        <div class="footer-right">
+          <h4>Connect With Us</h4>
+          <div class="footer-contact">
+            <div class="footer-contact__phone">
+              {call_link}
+            </div>
+            <p>
+              <span class="contact-icon">Email</span>
+              <a href="mailto:{SITE['email']}" class="footer-email-link">{SITE['email']}</a>
+            </p>
+            <p class="footer-owner">{SITE['owner']}, Owner</p>
+          </div>
+          {social_block("footer")}
+        </div>
       </div>
     </div>
-    <div class="footer-copy-bar">
-      <nav class="footer-links" aria-label="Footer links">
+
+    <div class="footer-legal">
+      <nav aria-label="Legal and policy pages">
         <a href="{root_prefix}gallery.html">Gallery</a>
+        <span aria-hidden="true">&middot;</span>
         <a href="{root_prefix}service-areas.html">Service Areas</a>
+        <span aria-hidden="true">&middot;</span>
         <a href="{root_prefix}contact.html">Contact</a>
+        <span aria-hidden="true">&middot;</span>
         <a href="{root_prefix}privacy-policy.html">Privacy Policy</a>
       </nav>
-      <p class="footer-copy">&copy; <span id="current-year"></span> {SITE['legal_name']}. All rights reserved. &nbsp;&middot;&nbsp; <a href="https://knightlogics.com" rel="noopener noreferrer" style="color:inherit;text-decoration:none;opacity:.7;">Site by Knight Logics</a></p>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; <span id="current-year"></span> {SITE['legal_name']}. All rights reserved. &nbsp;&middot;&nbsp; <a href="https://knightlogics.com" rel="noopener noreferrer">Site by Knight Logics</a></p>
       <p class="footer-disclaimer">Outdoor property services — not utility trenching or engineered stormwater installation. For digging projects, contact Sunshine 811 at least two full business days before work begins so underground utilities can be marked.</p>
     </div>
   </footer>
@@ -924,8 +1205,8 @@ def page_shell(
     canonical_url = f"{SITE['url']}/" if canonical == "index.html" else f"{SITE['url']}/{canonical}"
     hero_preloads = ""
     if preload_hero:
-        hero_preloads = f"""  <link rel="preload" as="image" href="{root_prefix}Images/gallery/{HERO_MOBILE}" fetchpriority="high" media="(max-width: 768px)">
-  <link rel="preload" as="image" href="{root_prefix}Images/gallery/{HERO_DESKTOP}" fetchpriority="high" media="(min-width: 769px)">"""
+        hero_preloads = f"""  <link rel="preload" as="image" href="{root_prefix}Gallery/{HERO_MOBILE}" fetchpriority="high" media="(max-width: 768px)">
+  <link rel="preload" as="image" href="{root_prefix}Gallery/{HERO_DESKTOP}" fetchpriority="high" media="(min-width: 769px)">"""
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -945,13 +1226,13 @@ def page_shell(
   <meta property="og:url" content="{canonical_url}">
   <meta property="og:title" content="{title}">
   <meta property="og:description" content="{description}">
-  <meta property="og:image" content="{SITE['url']}/Images/gallery/{HERO_DESKTOP}">
+  <meta property="og:image" content="{SITE['url']}/Gallery/{HERO_DESKTOP}">
   <meta property="og:site_name" content="{SITE['brand']}">
   <meta property="og:locale" content="en_US">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{title}">
   <meta name="twitter:description" content="{description}">
-  <meta name="twitter:image" content="{SITE['url']}/Images/gallery/{HERO_DESKTOP}">
+  <meta name="twitter:image" content="{SITE['url']}/Gallery/{HERO_DESKTOP}">
 {extra_head}
 {favicon_head(root_prefix)}
 {fonts_head()}
@@ -989,7 +1270,7 @@ def business_schema() -> str:
             "addressRegion": SITE["region"],
             "addressCountry": "US",
         },
-        "image": f"{SITE['url']}/Images/gallery/{HERO_DESKTOP}",
+        "image": f"{SITE['url']}/Gallery/{HERO_DESKTOP}",
         "logo": f"{SITE['url']}/{LOGO}",
         "priceRange": "$$",
         "openingHours": "Mo-Sa 07:00-18:00",
@@ -1011,18 +1292,6 @@ def write_index() -> None:
     for i, s in enumerate(PHASE1_SERVICES):
         phase1_cards += service_mosaic_card(s, i * 70, featured=True)
 
-    directory = ""
-    for cat in SERVICE_CATEGORIES:
-        directory += service_directory_group(cat)
-
-    thumbs = ""
-    for i, (img, alt, label) in enumerate(GALLERY[:4]):
-        thumbs += f"""
-          <a class="work-thumb" href="gallery.html" aria-label="View {label} gallery" data-fw-enter="bottom" style="--fw-enter-delay: {i * 70}ms;">
-            <img src="Images/gallery/{img}" alt="{alt}" loading="lazy" width="600" height="450">
-            <span class="work-thumb-label">{label}</span>
-          </a>"""
-
     schema = f"""  <script type="application/ld+json">{business_schema()}</script>
   <script type="application/ld+json">{{"@context":"https://schema.org","@type":"WebSite","@id":"{SITE['url']}/#website","url":"{SITE['url']}/","name":"{SITE['brand']}","publisher":{{"@id":"{SITE['url']}/#business"}}}}</script>
   <script type="application/ld+json">{faq_page_schema(HOME_FAQS)}</script>"""
@@ -1034,7 +1303,7 @@ def write_index() -> None:
       <div class="container hero-inner">
         <div class="hero-copy">
           <p class="eyebrow" data-fw-enter="left" data-fw-enter-immediate="true">{SITE_POSITIONING}</p>
-          <h1 data-fw-enter="left" data-fw-enter-immediate="true" style="--fw-enter-delay: 80ms;">{SITE['city']} <span class="h1-accent">{SITE_POSITIONING}</span></h1>
+          <h1 data-fw-enter="left" data-fw-enter-immediate="true" style="--fw-enter-delay: 80ms;">Land Clearing &amp; Outdoor Property Services in <span class="h1-accent">{SITE['city']}, FL</span></h1>
           <p class="hero-sub" data-fw-enter="left" data-fw-enter-immediate="true" style="--fw-enter-delay: 160ms;">
             {SITE['brand']} helps homeowners and property owners with land clearing, trail clearing, brush cutting, forestry mulching, pond bank clearing, pond cleanup, ditch clearing, debris removal, acreage cleanup, and tractor services across {SITE['area']} — outdoor property work, not utility trenching or engineered drainage.
           </p>
@@ -1060,7 +1329,29 @@ def write_index() -> None:
       </div>
     </section>
 
-    {intent_router_section()}
+    <section id="about" class="about-section section-shell">
+      <div class="container about-grid">
+        <div class="about-copy" data-fw-enter="left">
+          <p class="eyebrow">About Faith Works</p>
+          <h2>Owner-operated.<br>Equipment-ready.<br>Clear communication.</h2>
+          <p>{SITE['owner']} runs {SITE['brand']} as a local {SITE['city']} business built on hard work, honest estimates, and faith-based service. When you reach out, you're talking directly to the person doing the work.</p>
+          <p>From land clearing and pond bank work to ditch cleanup and debris haul-off, we focus on outdoor property services that help homeowners and property owners reclaim usable land — not utility trenching or engineered drainage systems.</p>
+          <a class="btn btn-ghost" href="about.html">Learn more about us &rarr;</a>
+        </div>
+        <div class="about-card" data-fw-enter="right">
+          <h3>What to expect</h3>
+          <ul class="about-list">
+            <li>Direct contact with Tyler — no call center</li>
+            <li>Photo-based estimates for outdoor projects</li>
+            <li>Equipment-ready for clearing and cleanup jobs</li>
+            <li>Local {SITE['city']} business serving within {SERVICE_RADIUS_MILES} miles</li>
+            <li>Residential and property-owner friendly service</li>
+            <li>Colossians 3:23 work ethic on every job</li>
+          </ul>
+          <a class="btn btn-primary" href="contact.html">Request an Estimate</a>
+        </div>
+      </div>
+    </section>
 
     <section id="services" class="services-section section-shell">
       <div class="container">
@@ -1079,89 +1370,19 @@ def write_index() -> None:
       </div>
     </section>
 
+    {reviews_section()}
+
+    {process_section()}
+
+    {home_geo_section()}
+
+    {gallery_teaser_section()}
+
     {scope_section()}
 
-    <section class="service-directory-section section-shell">
-      <div class="container">
-        <div class="section-heading" data-fw-enter="left">
-          <p class="eyebrow">Full service list</p>
-          <h2>Every Outdoor Property Service We Offer</h2>
-          <p>From core clearing and cleanup to pond management, ditch maintenance, and equipment services.</p>
-        </div>
-        <div class="service-directory">{directory}
-        </div>
-      </div>
-    </section>
+    {home_services_hub_section()}
 
-    <section class="work-teaser section-shell">
-      <div class="container">
-        <div class="section-heading" data-fw-enter="left">
-          <p class="eyebrow">Proof of work</p>
-          <h2>Real Jobs, Real Equipment</h2>
-          <p>Every photo is from actual outdoor work — land clearing, brush cutting, pond bank work, and property cleanup across Central Florida.</p>
-        </div>
-        <div class="work-teaser-grid">{thumbs}
-        </div>
-        <div style="text-align:center;margin-top:2rem">
-          <a class="btn btn-ghost" href="gallery.html">See Full Gallery &rarr;</a>
-        </div>
-      </div>
-    </section>
-
-    <section id="about" class="about-section section-shell">
-      <div class="container about-grid">
-        <div class="about-copy" data-fw-enter="left">
-          <p class="eyebrow">Why choose us</p>
-          <h2>Owner-operated.<br>Equipment-ready.<br>Clear communication.</h2>
-          <p>{SITE['owner']} runs {SITE['brand']} as a local Auburndale business built on hard work, honest estimates, and faith-based service. When you reach out, you're talking directly to the person doing the work.</p>
-          <p>From land clearing and pond bank work to ditch cleanup and debris haul-off, we focus on outdoor property services that help homeowners and property owners reclaim usable land — not utility trenching or engineered drainage systems.</p>
-        </div>
-        <div class="about-card" data-fw-enter="right">
-          <h3>What to expect</h3>
-          <ul class="about-list">
-            <li>Direct contact with Tyler — no call center</li>
-            <li>Photo-based estimates for outdoor projects</li>
-            <li>Equipment-ready for clearing and cleanup jobs</li>
-            <li>Local {SITE['city']} business serving Polk County</li>
-            <li>Residential and property-owner friendly service</li>
-            <li>Colossians 3:23 work ethic on every job</li>
-          </ul>
-          <a class="btn btn-primary" href="contact.html">Request an Estimate</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="process-section section-shell">
-      <div class="container">
-        <div class="section-heading" data-fw-enter="left">
-          <p class="eyebrow">How it works</p>
-          <h2>Simple Project Process</h2>
-        </div>
-        <div class="process-grid">
-          <div class="process-step" data-fw-enter="bottom" style="--fw-enter-delay: 0ms;"><span>1</span><h3>Send photos or call</h3><p>Share your property location and upload photos of the area that needs work.</p></div>
-          <div class="process-step" data-fw-enter="bottom" style="--fw-enter-delay: 70ms;"><span>2</span><h3>Confirm scope</h3><p>We review access, vegetation, dirt volume, and the type of service needed.</p></div>
-          <div class="process-step" data-fw-enter="bottom" style="--fw-enter-delay: 140ms;"><span>3</span><h3>Receive estimate</h3><p>Get a clear estimate before work begins — no vague pricing.</p></div>
-          <div class="process-step" data-fw-enter="bottom" style="--fw-enter-delay: 210ms;"><span>4</span><h3>Schedule service</h3><p>We show up with the right equipment and get your property cleared or cleaned up.</p></div>
-        </div>
-      </div>
-    </section>
-
-    <section id="faq" class="faq-section section-shell">
-      <div class="container">
-        <div class="section-heading" data-fw-enter="left">
-          <p class="eyebrow">Common questions</p>
-          <h2>Frequently Asked Questions</h2>
-        </div>
-        <div class="faq-list">
-          <div class="faq-item"><button class="faq-question" aria-expanded="false" aria-controls="faq-a1">Do you offer free estimates?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer" id="faq-a1" aria-hidden="true" inert><div class="faq-answer-inner"><p>Yes. Send photos through our contact form or email {SITE['email']}. Photo-based estimates help us understand access, vegetation, and project scope before we schedule a visit.</p></div></div></div>
-          <div class="faq-item"><button class="faq-question" aria-expanded="false" aria-controls="faq-a2">What areas do you serve?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer" id="faq-a2" aria-hidden="true" inert><div class="faq-answer-inner"><p>We are based in {SITE['city']} and serve {SITE['area']}, including Winter Haven, Lakeland, Bartow, Haines City, Lake Wales, and nearby communities.</p></div></div></div>
-          <div class="faq-item"><button class="faq-question" aria-expanded="false" aria-controls="faq-a3">Do I need to call 811 before digging?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer" id="faq-a3" aria-hidden="true" inert><div class="faq-answer-inner"><p>For any digging or soil-moving work, Florida law requires contacting Sunshine 811 at least two full business days before work begins so underground utilities can be marked.</p></div></div></div>
-          <div class="faq-item"><button class="faq-question" aria-expanded="false" aria-controls="faq-a4">Do you install pools or do utility trenching?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer" id="faq-a4" aria-hidden="true" inert><div class="faq-answer-inner"><p>No. We do not install pools, hold pool contractor licensing, or perform utility trenching, stormwater system installation, sewer work, water mains, site development, or engineered drainage. We provide {SITE_POSITIONING.lower()} — including pool dig-out support under licensed pool contractors when needed.</p></div></div></div>
-          <div class="faq-item"><button class="faq-question" aria-expanded="false" aria-controls="faq-a5">What jobs do people usually call you for?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer" id="faq-a5" aria-hidden="true" inert><div class="faq-answer-inner"><p>Most inquiries are pond banks, trails, brush, overgrowth, and acreage cleanup — exactly the outdoor property work we built this site around. Pool dig-out support is available under licensed pool builders. Utility trenching and engineered drainage are not services we offer.</p></div></div></div>
-          <div class="faq-item"><button class="faq-question" aria-expanded="false" aria-controls="faq-a6">Can you help with pool dig-out dirt removal?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer" id="faq-a6" aria-hidden="true" inert><div class="faq-answer-inner"><p>Yes — as pool dig-out support under a licensed pool contractor. We handle dirt removal and site cleanup; we do not contract directly as a pool installer.</p></div></div></div>
-        </div>
-      </div>
-    </section>
+    {home_faq_section()}
 
     <section id="contact" class="contact-section section-shell">
       <div class="container contact-inner" data-fw-enter="top">
@@ -1172,15 +1393,6 @@ def write_index() -> None:
       </div>
     </section>"""
 
-    html = page_shell(
-        f"{SITE['city']} Land Clearing & Outdoor Services | Faith Works",
-        f"{SITE_POSITIONING} in {SITE['city']} and Polk County, FL — land clearing, brush cutting, forestry mulching, pond cleanup, debris removal, and tractor services. Free photo-based estimates.",
-        "index.html",
-        body,
-        schema,
-        "index.html",
-        preload_hero=True,
-    )
     html = page_shell(
         f"{SITE['city']} Land Clearing & Outdoor Services | Faith Works",
         f"{SITE['brand']} provides land clearing, pond bank clearing, ditch clearing, brush cutting, debris removal, and tractor work in Polk County, FL.",
@@ -1343,7 +1555,7 @@ def write_gallery() -> None:
     for i, (img, alt, label) in enumerate(GALLERY):
         items += f"""
           <figure class="gallery-item" data-fw-enter="bottom" style="--fw-enter-delay: {(i % 6) * 60}ms;">
-            <img src="Images/gallery/{img}" alt="{alt}" loading="lazy" width="800" height="600">
+            <img src="Gallery/{img}" alt="{alt}" loading="lazy" width="800" height="600">
             <figcaption>{label}</figcaption>
           </figure>"""
     body = f"""
@@ -1732,9 +1944,9 @@ def write_styles() -> None:
     src = src.replace("#7499b8", "#a89878")
     src = src.replace("#aac8df", "#d4c4a0")
     src = src.replace("--container:     1200px;", "--container:     1400px;")
-    src = src.replace('url("Images/ScreenTeamBanner.webp")', f'url("Images/gallery/{HERO_DESKTOP}")')
-    src = src.replace('url("Images/ScreenTeamBanner-mobile.webp")', f'url("Images/gallery/{HERO_MOBILE}")')
-    src = src.replace('url("Images/service-hero-bg.jpg")', f'url("Images/gallery/{HERO_DESKTOP}")')
+    src = src.replace('url("Images/ScreenTeamBanner.webp")', f'url("Gallery/{HERO_DESKTOP}")')
+    src = src.replace('url("Images/ScreenTeamBanner-mobile.webp")', f'url("Gallery/{HERO_MOBILE}")')
+    src = src.replace('url("Images/service-hero-bg.jpg")', f'url("Gallery/{HERO_DESKTOP}")')
     src = src.replace("filter: brightness(0) invert(1);\n  mix-blend-mode: screen;", "filter: none;")
     src = src.replace(
         "font-size: clamp(3.8rem, 8.5vw, 7rem);",
@@ -2382,6 +2594,26 @@ def write_styles() -> None:
   font-size: 0.74rem;
   letter-spacing: 0.06em;
   white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.header-actions .btn-header-estimate::after {
+  content: "";
+  position: absolute;
+  inset: -50% -80%;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    transparent 38%,
+    rgba(255, 232, 160, 0.2) 44%,
+    rgba(255, 255, 255, 0.55) 50%,
+    rgba(255, 232, 160, 0.2) 56%,
+    transparent 62%
+  );
+  transform: translateX(-130%) skewX(-14deg);
+  animation: fwGoldGlimmer 10s ease-in-out infinite;
 }
 .header-actions {
   display: flex;
@@ -2449,6 +2681,33 @@ def write_styles() -> None:
   letter-spacing: 0.02em;
   color: #fff;
   white-space: nowrap;
+  animation: fwPhoneGlow 10s ease-in-out infinite;
+  will-change: color, text-shadow;
+}
+@keyframes fwPhoneGlow {
+  0%, 72%, 100% {
+    color: #fff;
+    text-shadow: none;
+  }
+  76% {
+    color: #f5e6a8;
+    text-shadow:
+      0 0 8px rgba(201, 162, 39, 0.85),
+      0 0 16px rgba(201, 162, 39, 0.55);
+  }
+  80%, 84% {
+    color: var(--accent);
+    text-shadow:
+      0 0 10px rgba(201, 162, 39, 1),
+      0 0 22px rgba(201, 162, 39, 0.9),
+      0 0 38px rgba(201, 162, 39, 0.6);
+  }
+  88% {
+    color: #f5e6a8;
+    text-shadow:
+      0 0 6px rgba(201, 162, 39, 0.65),
+      0 0 14px rgba(201, 162, 39, 0.35);
+  }
 }
 .fw-header-call:hover .fw-header-call__icon,
 .fw-header-call:focus-visible .fw-header-call__icon {
@@ -2487,7 +2746,7 @@ def write_styles() -> None:
   position: absolute;
   inset: -22% 0;
   z-index: 0;
-  background: url("Images/gallery/photo-of-all-equipment.webp") center / cover no-repeat;
+  background: url("Gallery/photo-of-all-equipment.webp") center / cover no-repeat;
   transform: translate3d(0, var(--hero-shift, 0px), 0);
   will-change: transform;
 }
@@ -2497,9 +2756,93 @@ def write_styles() -> None:
 .hero-inner {
   position: relative;
   z-index: 2;
-  grid-template-columns: minmax(0, 1fr) minmax(360px, 440px);
   gap: clamp(32px, 4vw, 56px);
   max-width: none;
+}
+
+@media (min-width: 1061px) {
+  .hero-inner {
+    grid-template-columns: minmax(0, 1fr) minmax(360px, 440px);
+  }
+}
+
+@media (max-width: 1060px) {
+  .hero-inner {
+    grid-template-columns: 1fr;
+    max-width: min(960px, 100%);
+    padding: clamp(48px, 8vw, 64px) 0 clamp(56px, 10vw, 80px);
+  }
+  .hero-copy {
+    width: 100%;
+    min-width: 0;
+  }
+  .hero-card {
+    width: 100%;
+    max-width: 100%;
+  }
+  .hero-sub {
+    max-width: none;
+    font-size: clamp(0.98rem, 2.8vw, 1.08rem);
+    line-height: 1.65;
+  }
+  .hero-copy .eyebrow {
+    display: inline-flex;
+    white-space: normal;
+    text-wrap: balance;
+  }
+}
+
+@media (max-width: 720px) {
+  .hero {
+    min-height: auto;
+    align-items: flex-start;
+  }
+  .hero-inner {
+    padding: 36px 0 48px;
+    gap: 28px;
+  }
+  .hero-copy h1 {
+    font-size: clamp(1.55rem, 6.8vw, 2.1rem);
+    line-height: 1.12;
+    text-wrap: balance;
+  }
+  .hero-copy .eyebrow {
+    font-size: 0.58rem;
+    letter-spacing: 0.07em;
+    padding: 7px 12px;
+    line-height: 1.4;
+  }
+  .hero-sub {
+    margin-bottom: 24px;
+  }
+  .hero-actions {
+    margin-bottom: 28px;
+  }
+  .trust-row {
+    flex-wrap: wrap;
+    gap: 14px 20px;
+  }
+  .trust-divider {
+    display: none;
+  }
+  .trust-item {
+    min-width: calc(50% - 10px);
+  }
+  .hero-card {
+    padding: 24px 20px;
+  }
+}
+
+@media (max-width: 460px) {
+  .hero-inner {
+    padding: 28px 0 40px;
+  }
+  .hero-copy h1 {
+    font-size: clamp(1.42rem, 7.2vw, 1.85rem);
+  }
+  .trust-item {
+    min-width: 100%;
+  }
 }
 
 @media (min-width: 1061px) {
@@ -2566,7 +2909,7 @@ def write_styles() -> None:
     background-image: none;
   }
   .hero-bg {
-    background-image: url("Images/gallery/excavator-and-truck-photo.webp");
+    background-image: url("Gallery/excavator-and-truck-photo.webp");
     background-position: top center;
   }
 }
@@ -2859,6 +3202,42 @@ html, body {
 .fw-logo-coin--header .fw-logo-coin__scene {
   width: 68px;
   height: 68px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+}
+.fw-logo-coin--header .fw-logo-coin__scene::after {
+  content: "";
+  position: absolute;
+  inset: -25%;
+  z-index: 6;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    transparent 38%,
+    rgba(255, 232, 160, 0.12) 44%,
+    rgba(201, 162, 39, 0.78) 50%,
+    rgba(255, 232, 160, 0.12) 56%,
+    transparent 62%
+  );
+  transform: translateX(-130%) skewX(-14deg);
+  animation: fwGoldGlimmer 10s ease-in-out infinite;
+}
+@keyframes fwGoldGlimmer {
+  0%, 72%, 100% {
+    transform: translateX(-130%) skewX(-14deg);
+    opacity: 0;
+  }
+  76% { opacity: 0.55; }
+  80% {
+    transform: translateX(0%) skewX(-14deg);
+    opacity: 1;
+  }
+  84% {
+    transform: translateX(130%) skewX(-14deg);
+    opacity: 1;
+  }
+  88% { opacity: 0; }
 }
 .fw-logo-coin--menu .fw-logo-coin__scene {
   width: 36px;
@@ -2882,6 +3261,11 @@ html, body {
   .fw-logo-coin__spinner {
     animation: none;
     transform: rotateY(0deg);
+  }
+  .fw-logo-coin--header .fw-logo-coin__scene::after,
+  .header-actions .btn-header-estimate::after,
+  .fw-header-call__number {
+    animation: none;
   }
 }
 
@@ -2974,17 +3358,36 @@ html.fw-js [data-fw-enter].is-visible {
   margin-bottom: 0;
 }
 .services-mosaic-wrap {
-  width: min(95vw, var(--container));
+  width: 95vw;
+  max-width: 95vw;
   margin: 2rem auto 0;
 }
 .services-mosaic {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  grid-template-columns: 1fr;
   gap: 0;
+  width: 100%;
+  margin: 0 auto;
+}
+@media (min-width: 540px) {
+  .services-mosaic--phase1 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1024px) {
+  .services-mosaic--phase1 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 }
 @media (min-width: 900px) {
-  .services-mosaic {
+  .services-mosaic:not(.services-mosaic--phase1) {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 539px) {
+  .services-mosaic--phase1 .fw-service-card {
+    min-height: 220px;
+    aspect-ratio: 16 / 11;
   }
 }
 .fw-service-card {
@@ -3138,6 +3541,684 @@ html.fw-js [data-fw-enter].is-visible {
   }
 }
 @media (max-width: 560px) { .process-grid, .areas-grid, .gallery-grid, .intent-grid, .service-detail-grid { grid-template-columns: 1fr; } }
+
+/* ---- Reviews showcase (Knight Logics-style carousel) ---- */
+.reviews-section {
+  background: linear-gradient(180deg, #101510 0%, #0a0a0a 100%);
+  border-top: 1px solid var(--border);
+}
+.fw-reviews-showcase {
+  background: var(--bg-card);
+  border: 1px solid rgba(201, 162, 39, 0.22);
+  border-radius: var(--radius-lg);
+  padding: clamp(22px, 3vw, 32px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+}
+.fw-reviews-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+  margin-bottom: 22px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(201, 162, 39, 0.18);
+}
+.fw-google-g-logo {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+}
+.fw-reviews-header__label {
+  font-weight: 700;
+  color: #fff;
+  font-size: 0.95rem;
+}
+.fw-review-stars {
+  color: var(--accent);
+  letter-spacing: 0.08em;
+  font-size: 0.95rem;
+}
+.fw-review-stars--header {
+  font-size: 1rem;
+}
+.fw-reviews-summary {
+  width: 100%;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+.fw-review-carousel {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.fw-review-viewport {
+  overflow: hidden;
+  flex: 1;
+  min-width: 0;
+}
+.fw-review-track {
+  display: flex;
+  gap: 18px;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.fw-review-card {
+  position: relative;
+  min-width: calc(33.333% - 12px);
+  max-width: calc(33.333% - 12px);
+  background: rgba(8, 18, 34, 0.72);
+  border: 1px solid rgba(201, 162, 39, 0.16);
+  border-radius: var(--radius-md);
+  padding: 22px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+}
+.fw-review-placeholder-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(201, 162, 39, 0.14);
+  border: 1px solid rgba(201, 162, 39, 0.28);
+  color: var(--accent);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.fw-review-header {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding-right: 72px;
+}
+.fw-review-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+.fw-review-name {
+  margin: 0;
+  font-family: var(--font-head);
+  font-size: 1rem;
+  color: #fff;
+}
+.fw-review-sub {
+  color: var(--muted);
+  font-size: 0.84rem;
+}
+.fw-review-text {
+  color: rgba(245, 240, 232, 0.88);
+  line-height: 1.72;
+  font-size: 0.94rem;
+  flex: 1;
+  margin: 0;
+}
+.fw-review-date {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+.fw-review-btn {
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #0a0a0a;
+  font-size: 1.45rem;
+  line-height: 1;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+.fw-review-btn:hover:not(:disabled) {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+.fw-review-btn:disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+}
+.fw-review-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  margin-top: 14px;
+}
+.fw-review-dot {
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.fw-review-dot::after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(201, 162, 39, 0.24);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.fw-review-dot.is-active::after {
+  background: var(--accent);
+  transform: scale(1.12);
+}
+.fw-reviews-footnote {
+  margin: 18px 0 0;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.6;
+}
+@media (max-width: 1060px) {
+  .fw-review-card {
+    min-width: calc(50% - 9px);
+    max-width: calc(50% - 9px);
+  }
+}
+@media (max-width: 720px) {
+  .fw-review-carousel {
+    gap: 8px;
+  }
+  .fw-review-card {
+    min-width: 100%;
+    max-width: 100%;
+  }
+  .fw-review-btn {
+    width: 38px;
+    height: 38px;
+    font-size: 1.25rem;
+  }
+  .fw-review-header {
+    padding-right: 0;
+  }
+}
+
+/* ---- Homepage GEO + services hub (SEO/AEO) ---- */
+.home-geo-section {
+  background: linear-gradient(180deg, #0a0a0a 0%, #101510 100%);
+  border-top: 1px solid var(--border);
+}
+.home-geo-block {
+  margin-bottom: 28px;
+}
+.home-geo-block h3 {
+  font-family: var(--font-head);
+  font-size: 1.05rem;
+  color: #fff;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.home-geo-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.home-geo-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(201, 162, 39, 0.28);
+  background: rgba(201, 162, 39, 0.08);
+  color: #fff;
+  font-size: 0.86rem;
+  font-weight: 650;
+  text-decoration: none;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.home-geo-pill:hover {
+  background: rgba(201, 162, 39, 0.18);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.home-geo-pill--city {
+  font-size: 0.82rem;
+}
+.home-geo-note {
+  margin-top: 8px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.94rem;
+  line-height: 1.7;
+}
+.home-geo-note a {
+  color: var(--accent);
+}
+.home-services-hub {
+  border-top: 1px solid var(--border);
+}
+.home-services-hub-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+.home-services-hub-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 22px 20px;
+}
+.home-services-hub-card h3 {
+  font-family: var(--font-head);
+  color: #fff;
+  font-size: 1.05rem;
+  margin-bottom: 8px;
+}
+.home-services-hub-card p {
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+.home-services-hub-links {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.home-services-hub-links a {
+  color: var(--accent);
+  font-size: 0.86rem;
+  font-weight: 650;
+  text-decoration: none;
+}
+.home-services-hub-links a:hover {
+  text-decoration: underline;
+}
+.work-teaser-grid--6 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+@media (max-width: 900px) {
+  .home-services-hub-grid,
+  .work-teaser-grid--6 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 560px) {
+  .home-services-hub-grid,
+  .work-teaser-grid--6 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---- Knight Logics-style footer ---- */
+footer.fw-site-footer {
+  --fw-footer-link: var(--accent);
+  --fw-footer-link-hover: #fff;
+  background:
+    radial-gradient(circle at 12% 0, rgba(201, 162, 39, 0.14), transparent 28%),
+    radial-gradient(circle at 88% 12%, rgba(138, 109, 18, 0.1), transparent 24%),
+    linear-gradient(180deg, #101510 0%, #0a0a0a 100%);
+  color: #fff;
+  padding: clamp(56px, 7vw, 80px) 0 0;
+  margin-top: 0;
+  position: relative;
+  border-top: 1px solid rgba(201, 162, 39, 0.16);
+  box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.18);
+}
+footer.fw-site-footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201, 162, 39, 0.32), transparent);
+}
+footer.fw-site-footer .footer-content {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: clamp(32px, 5vw, 56px);
+  margin-bottom: clamp(32px, 4vw, 48px);
+}
+footer.fw-site-footer .footer-company {
+  text-align: left;
+}
+footer.fw-site-footer .footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 20px;
+}
+footer.fw-site-footer .footer-logo .fw-logo-coin--footer {
+  flex-shrink: 0;
+  opacity: 0.95;
+}
+footer.fw-site-footer .footer-brand-lockup h3 {
+  color: #fff;
+  font-size: 1.55rem;
+  font-family: var(--font-head);
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.1;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+footer.fw-site-footer .footer-brand-lockup p {
+  margin: 4px 0 0;
+  color: rgba(245, 240, 232, 0.82);
+  font-size: 0.92rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+footer.fw-site-footer .footer-company > p {
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.95rem;
+  line-height: 1.65;
+  margin: 8px 0;
+}
+footer.fw-site-footer .company-description {
+  font-style: italic;
+  margin-top: 14px;
+  padding-left: 16px;
+  border-left: 2px solid rgba(201, 162, 39, 0.55);
+  color: rgba(255, 255, 255, 0.72);
+}
+footer.fw-site-footer .footer-service-area {
+  margin-top: 14px;
+}
+footer.fw-site-footer .footer-area-intro {
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.78);
+  margin: 0 0 10px;
+}
+footer.fw-site-footer .footer-area-intro strong {
+  color: rgba(245, 240, 232, 0.95);
+  font-weight: 700;
+}
+footer.fw-site-footer .footer-area-counties {
+  font-size: 0.8rem;
+  line-height: 1.75;
+  margin: 0 0 10px;
+  color: rgba(255, 255, 255, 0.62);
+}
+footer.fw-site-footer .footer-area-counties a {
+  color: var(--fw-footer-link);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+footer.fw-site-footer .footer-area-counties a:hover,
+footer.fw-site-footer .footer-area-counties a:focus-visible {
+  color: var(--fw-footer-link-hover);
+  outline: none;
+}
+footer.fw-site-footer .footer-area-hub {
+  margin: 0;
+  font-size: 0.86rem;
+}
+footer.fw-site-footer .footer-area-hub a {
+  color: var(--fw-footer-link);
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+footer.fw-site-footer .footer-area-hub a:hover,
+footer.fw-site-footer .footer-area-hub a:focus-visible {
+  color: var(--fw-footer-link-hover);
+  text-decoration: underline;
+  outline: none;
+}
+footer.fw-site-footer .footer-center h4,
+footer.fw-site-footer .footer-right h4 {
+  color: #fff;
+  font-size: 1.15rem;
+  margin: 0 0 18px;
+  font-family: var(--font-head);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  position: relative;
+}
+footer.fw-site-footer .footer-center h4::after,
+footer.fw-site-footer .footer-right h4::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 36px;
+  height: 2px;
+  background: rgba(201, 162, 39, 0.75);
+}
+footer.fw-site-footer .footer-quick-links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px 14px;
+  margin-top: 8px;
+}
+footer.fw-site-footer .footer-quick-links a {
+  color: var(--fw-footer-link);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.94rem;
+  padding: 8px 0;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+footer.fw-site-footer .footer-quick-links a:hover,
+footer.fw-site-footer .footer-quick-links a:focus-visible {
+  color: var(--fw-footer-link-hover);
+  transform: translateX(4px);
+  outline: none;
+}
+footer.fw-site-footer .footer-contact {
+  margin-bottom: 22px;
+}
+footer.fw-site-footer .footer-contact__phone {
+  margin: 8px 0 16px;
+}
+footer.fw-site-footer .footer-contact p {
+  color: rgba(255, 255, 255, 0.86);
+  margin: 0 0 10px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+footer.fw-site-footer .footer-contact .contact-icon {
+  flex: 0 0 auto;
+  min-width: 48px;
+  font-size: 0.875rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--fw-footer-link);
+}
+footer.fw-site-footer .footer-email-link {
+  color: var(--fw-footer-link);
+  font-weight: 700;
+  text-decoration: none;
+  word-break: break-word;
+  transition: color 0.2s ease;
+}
+footer.fw-site-footer .footer-email-link:hover,
+footer.fw-site-footer .footer-email-link:focus-visible {
+  color: var(--fw-footer-link-hover);
+  text-decoration: underline;
+  outline: none;
+}
+footer.fw-site-footer .footer-owner {
+  font-size: 0.86rem !important;
+  color: rgba(255, 255, 255, 0.62) !important;
+}
+footer.fw-site-footer .footer-social {
+  margin-top: 4px;
+}
+footer.fw-site-footer .footer-social .social-icons {
+  gap: 10px;
+}
+footer.fw-site-footer .footer-social .social-icon {
+  width: 46px;
+  height: 46px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(201, 162, 39, 0.16);
+}
+footer.fw-site-footer .footer-social .social-icon:hover {
+  background: rgba(201, 162, 39, 0.22);
+  border-color: rgba(201, 162, 39, 0.32);
+}
+footer.fw-site-footer .footer-legal {
+  width: 100%;
+  padding: 16px 20px;
+  border-top: 1px solid rgba(201, 162, 39, 0.12);
+  background: rgba(0, 0, 0, 0.14);
+}
+footer.fw-site-footer .footer-legal nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px 10px;
+  max-width: var(--container);
+  margin: 0 auto;
+}
+footer.fw-site-footer .footer-legal a {
+  color: var(--fw-footer-link);
+  text-decoration: none;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  padding: 6px 4px;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+footer.fw-site-footer .footer-legal a:hover,
+footer.fw-site-footer .footer-legal a:focus-visible {
+  color: var(--fw-footer-link-hover);
+  outline: none;
+}
+footer.fw-site-footer .footer-legal span[aria-hidden="true"] {
+  color: rgba(255, 255, 255, 0.28);
+  font-size: 0.875rem;
+  user-select: none;
+}
+footer.fw-site-footer .footer-bottom {
+  width: 100%;
+  text-align: center;
+  padding: 18px 20px 22px;
+  border-top: 1px solid rgba(201, 162, 39, 0.1);
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 0.9rem;
+  background: rgba(0, 0, 0, 0.2);
+}
+footer.fw-site-footer .footer-bottom p {
+  margin: 0;
+}
+footer.fw-site-footer .footer-bottom a {
+  color: inherit;
+  text-decoration: none;
+  opacity: 0.85;
+}
+footer.fw-site-footer .footer-bottom a:hover,
+footer.fw-site-footer .footer-bottom a:focus-visible {
+  opacity: 1;
+  text-decoration: underline;
+}
+footer.fw-site-footer .footer-disclaimer {
+  max-width: 820px;
+  margin: 12px auto 0 !important;
+  font-size: 0.72rem !important;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.48) !important;
+  opacity: 1 !important;
+}
+@media (min-width: 767px) and (max-width: 997px) {
+  footer.fw-site-footer .footer-content {
+    grid-template-columns: 1fr 1fr;
+    text-align: center;
+  }
+  footer.fw-site-footer .footer-left {
+    grid-column: 1 / -1;
+  }
+  footer.fw-site-footer .footer-logo,
+  footer.fw-site-footer .footer-company {
+    text-align: center;
+    justify-content: center;
+  }
+  footer.fw-site-footer .footer-logo {
+    justify-content: center;
+  }
+  footer.fw-site-footer .footer-center h4::after,
+  footer.fw-site-footer .footer-right h4::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  footer.fw-site-footer .footer-contact p {
+    justify-content: center;
+  }
+  footer.fw-site-footer .footer-contact__phone {
+    display: flex;
+    justify-content: center;
+  }
+  footer.fw-site-footer .footer-social .social-icons {
+    justify-content: center;
+  }
+}
+@media (max-width: 768px) {
+  footer.fw-site-footer {
+    padding-top: 52px;
+  }
+  footer.fw-site-footer .footer-content {
+    grid-template-columns: 1fr;
+    gap: 36px;
+    text-align: center;
+  }
+  footer.fw-site-footer .footer-company,
+  footer.fw-site-footer .footer-logo {
+    text-align: center;
+    justify-content: center;
+  }
+  footer.fw-site-footer .company-description {
+    border-left: none;
+    border-top: 2px solid rgba(201, 162, 39, 0.45);
+    padding-left: 0;
+    padding-top: 14px;
+  }
+  footer.fw-site-footer .footer-quick-links {
+    grid-template-columns: 1fr;
+    max-width: 280px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  footer.fw-site-footer .footer-quick-links a {
+    justify-content: center;
+  }
+  footer.fw-site-footer .footer-center h4::after,
+  footer.fw-site-footer .footer-right h4::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  footer.fw-site-footer .footer-contact p {
+    justify-content: center;
+  }
+  footer.fw-site-footer .footer-contact__phone {
+    display: flex;
+    justify-content: center;
+  }
+  footer.fw-site-footer .footer-social .social-icons {
+    justify-content: center;
+  }
+}
 """
     write_site_file(ROOT / "styles.css", src + extra)
 

@@ -322,6 +322,76 @@ document.querySelectorAll(".mobile-services-toggle").forEach((toggle) => {
     toggle.setAttribute("aria-expanded", String(open));
   });
 });
+// ---- Reviews carousel (Knight Logics-style) ----
+(function initFaithWorksReviews() {
+  const track = document.getElementById("fw-review-track");
+  const dotsWrap = document.getElementById("fw-review-dots");
+  const prev = document.getElementById("fw-review-prev");
+  const next = document.getElementById("fw-review-next");
+  if (!track || !dotsWrap || !prev || !next) return;
+
+  const cards = Array.from(track.children);
+  if (!cards.length) return;
+
+  let index = 0;
+
+  function perView() {
+    if (window.innerWidth < 720) return 1;
+    if (window.innerWidth < 1060) return 2;
+    return 3;
+  }
+
+  function pageCount() {
+    return Math.max(1, Math.ceil(cards.length / perView()));
+  }
+
+  function renderDots() {
+    dotsWrap.innerHTML = "";
+    for (let i = 0; i < pageCount(); i += 1) {
+      const dot = document.createElement("button");
+      dot.type = "button";
+      dot.className = "fw-review-dot" + (i === index ? " is-active" : "");
+      dot.setAttribute("aria-label", "Go to review set " + (i + 1));
+      dot.addEventListener("click", () => {
+        index = i;
+        update();
+      });
+      dotsWrap.appendChild(dot);
+    }
+  }
+
+  function update() {
+    const pages = pageCount();
+    index = Math.max(0, Math.min(index, pages - 1));
+    const sample = cards[0];
+    const gap = 18;
+    const width = sample ? sample.getBoundingClientRect().width : 0;
+    const offset = index * (width + gap) * perView();
+    track.style.transform = "translateX(" + -offset + "px)";
+    Array.from(dotsWrap.children).forEach((dot, dotIndex) => {
+      dot.classList.toggle("is-active", dotIndex === index);
+    });
+    prev.disabled = index === 0;
+    next.disabled = index === pages - 1;
+  }
+
+  prev.addEventListener("click", () => {
+    index -= 1;
+    update();
+  });
+  next.addEventListener("click", () => {
+    index += 1;
+    update();
+  });
+  window.addEventListener("resize", () => {
+    renderDots();
+    update();
+  });
+
+  renderDots();
+  update();
+})();
+
 // ---- Hero parallax ----
 (function initHeroParallax() {
   const hero = document.querySelector(".hero");

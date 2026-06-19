@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Convert Gallery sources to WebP in Images/gallery."""
+"""Convert Gallery HEIC/JPG sources to WebP alongside originals in Gallery/."""
 
 from __future__ import annotations
 
@@ -13,8 +13,7 @@ from PIL import Image
 pillow_heif.register_heif_opener()
 
 ROOT = Path(__file__).resolve().parent.parent
-GALLERY_SRC = ROOT / "Gallery"
-GALLERY_OUT = ROOT / "Images" / "gallery"
+GALLERY_DIR = ROOT / "Gallery"
 
 # slug -> (alt text, gallery label)
 META = {
@@ -102,17 +101,15 @@ def save_webp(img: Image.Image, dest: Path, max_width: int = 1920, quality: int 
 
 
 def convert_all() -> list[tuple[str, str, str]]:
-    GALLERY_OUT.mkdir(parents=True, exist_ok=True)
+    GALLERY_DIR.mkdir(parents=True, exist_ok=True)
 
-    # clear old gallery outputs
-    for old in GALLERY_OUT.iterdir():
-        if old.is_file():
-            old.unlink()
+    for old in GALLERY_DIR.glob("*.webp"):
+        old.unlink()
 
     entries: list[tuple[str, str, str]] = []
     seen: dict[str, int] = {}
 
-    for src in sorted(GALLERY_SRC.iterdir()):
+    for src in sorted(GALLERY_DIR.iterdir()):
         if src.suffix.lower() not in {".heic", ".jpg", ".jpeg", ".png"}:
             continue
 
@@ -124,7 +121,7 @@ def convert_all() -> list[tuple[str, str, str]]:
             seen[slug] = 1
 
         webp_name = f"{slug}.webp"
-        dest = GALLERY_OUT / webp_name
+        dest = GALLERY_DIR / webp_name
 
         with Image.open(src) as img:
             save_webp(img, dest)
@@ -138,7 +135,7 @@ def convert_all() -> list[tuple[str, str, str]]:
         "hero_mobile": HERO_MOBILE,
         "gallery": [{"file": f, "alt": a, "label": l} for f, a, l in entries],
     }
-    (ROOT / "Images" / "gallery-manifest.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+    (GALLERY_DIR / "gallery-manifest.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
     return entries
 
 
