@@ -115,11 +115,13 @@ SITE = {
     "phone_tel": "8632721596",
     "city": "Auburndale",
     "region": "FL",
-    "area": f"Central Florida within {SERVICE_RADIUS_MILES} miles of {HOME_CITY}",
+    "area": "Polk County and nearby Central Florida communities",
+    "area_detail": "Based in Auburndale, FL, Faith Works primarily serves Polk County and nearby Central Florida communities. Larger acreage, land clearing, and equipment-assisted cleanup projects may be considered outside the immediate area.",
     "geo_lat": "28.0653",
     "geo_lng": "-81.7887",
     "facebook": "https://www.facebook.com/profile.php?id=PLACEHOLDER",
     "youtube": "https://www.youtube.com/@PLACEHOLDER",
+    "google_business": "PLACEHOLDER",
     "formspree": "https://formspree.io/f/PLACEHOLDER",
     "ga4": "G-PLACEHOLDER",
     "clarity": "PLACEHOLDER",
@@ -143,6 +145,9 @@ GALLERY = [
 
 HERO_DESKTOP = "photo-of-all-equipment.webp"
 HERO_MOBILE = "excavator-and-truck-photo.webp"
+CONTACT_BANNER = "Gallery/equipment-photos5.webp"
+CONTACT_CUTOUT = "Images/fw-banner-cutout.webp"
+PROCESS_BG = "Gallery/tractor-with-box-blade-leveling-ground.webp"
 
 GOOGLE_G_LOGO = """<svg class="fw-google-g-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
                                 <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
@@ -151,43 +156,7 @@ GOOGLE_G_LOGO = """<svg class="fw-google-g-logo" xmlns="http://www.w3.org/2000/s
                                 <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
                             </svg>"""
 
-REVIEW_PLACEHOLDERS = [
-    {
-        "name": "Property Owner",
-        "meta": "Winter Haven, FL",
-        "avatar": "#8a6d12",
-        "text": "Tyler cleared an overgrown pond bank and opened up access we had not been able to use in years. Clear communication and fair pricing.",
-        "date": "Placeholder review",
-    },
-    {
-        "name": "Homeowner",
-        "meta": "Lakeland, FL",
-        "avatar": "#1e6b2e",
-        "text": "Sent photos through the website and got a quick response. Land clearing and debris haul-off were handled professionally from start to finish.",
-        "date": "Placeholder review",
-    },
-    {
-        "name": "Acreage Owner",
-        "meta": "Bartow, FL",
-        "avatar": "#1a56c4",
-        "text": "Brush clearing and trail work on our property was done with the right equipment and left the area usable again. Would recommend for outdoor property work.",
-        "date": "Placeholder review",
-    },
-    {
-        "name": "Local Customer",
-        "meta": "Haines City, FL",
-        "avatar": "#c0392b",
-        "text": "Ditch clearing and cleanup after storm debris — Tyler showed up when he said he would and explained the scope before starting.",
-        "date": "Placeholder review",
-    },
-    {
-        "name": "Polk County Client",
-        "meta": "Auburndale area",
-        "avatar": "#7c3aed",
-        "text": "Owner-operated service with direct contact throughout the job. Good fit for pond bank and acreage cleanup projects.",
-        "date": "Placeholder review",
-    },
-]
+REVIEW_PLACEHOLDERS: list[dict] = []
 
 INTENT_ROUTES = [
     {
@@ -222,38 +191,72 @@ INTENT_ROUTES = [
     },
 ]
 
+
+HOME_BUYER_CATEGORIES = [
+    {
+        "title": "Land Clearing & Forestry Mulching",
+        "text": "Open up overgrown lots, small acreage, wooded edges, and brush-heavy areas with owner-operated equipment.",
+        "image": "excavator-photo.webp",
+        "links": ["land-clearing", "forestry-mulching", "brush-clearing", "overgrowth-removal"],
+    },
+    {
+        "title": "Pond Bank & Ditch Clearing",
+        "text": "Clear vegetation, debris, and access problems around private pond banks, swales, and outdoor ditch lines.",
+        "image": "tractor-with-box-blade-leveling-ground.webp",
+        "links": ["pond-bank-clearing", "pond-cleanup", "ditch-clearing", "ditch-maintenance"],
+    },
+    {
+        "title": "Trail, Fence Line & Access Clearing",
+        "text": "Reopen paths, fence rows, access routes, and hard-to-reach property edges across residential and rural land.",
+        "image": "tractor.webp",
+        "links": ["trail-clearing", "fence-line-clearing", "access-road-clearing", "tractor-services"],
+    },
+    {
+        "title": "Storm, Yard & Property Cleanup",
+        "text": "Clean up limbs, brush piles, yard debris, overgrown lots, and deferred-maintenance areas after weather or clearing.",
+        "image": "tractor-moving-item-with-grapple.webp",
+        "links": ["debris-removal", "storm-debris-cleanup", "yard-debris-removal", "property-cleanup"],
+    },
+    {
+        "title": "Tractor & Equipment Services",
+        "text": "Kubota tractor, excavator, trailers, and brush equipment for practical outdoor property jobs with direct owner communication.",
+        "image": "photo-of-all-equipment.webp",
+        "links": ["equipment-services", "tractor-services", "acreage-cleanup", "lot-cleanup"],
+    },
+]
+
 HOME_FAQS = [
     (
         "Do you offer free estimates?",
-        f"Yes. Send photos through the contact form or email {SITE['email']}. Photo-based estimates help us review access, vegetation, debris, and project scope before scheduling.",
+        f"Yes. Text photos to {SITE['phone_display']} or use the estimate form. Photo-based estimates help us review access, vegetation, debris, and project scope before scheduling.",
     ),
     (
         "What areas do you serve near Auburndale, FL?",
-        f"{SITE['brand']} is based in {SITE['city']} (33823) and serves property owners within approximately {SERVICE_RADIUS_MILES} miles — including Polk, Osceola, Orange, Lake, Hillsborough, Pasco, and nearby Central Florida counties. Winter Haven, Lakeland, Bartow, Haines City, Kissimmee, and Orlando are common service areas.",
+        f"{SITE['brand']} is based in {SITE['city']} (33823) and primarily serves Polk County communities including Auburndale, Winter Haven, Lakeland, Lake Alfred, Bartow, Haines City, Davenport, Lake Wales, and Polk City. Plant City and larger Central Florida projects may be reviewed by scope.",
     ),
     (
         "How far from Auburndale will Faith Works travel for a job?",
-        f"We regularly travel up to about {SERVICE_RADIUS_MILES} miles from {HOME_CITY} for land clearing, pond bank work, ditch clearing, brush cutting, and property cleanup. Send your city and photos — Tyler will confirm scheduling and travel for your property.",
+        "Most launch work is focused in Polk County and nearby communities so scheduling, estimates, and Google Business Profile relevance stay accurate. Larger acreage, land clearing, and equipment-assisted cleanup projects outside the immediate area can be reviewed case by case.",
     ),
     (
         "What outdoor property services do you offer in Polk County?",
-        f"Faith Works provides {SITE_POSITIONING.lower()} — including land clearing, trail clearing, brush cutting, forestry mulching, pond bank clearing, pond cleanup, ditch clearing, debris removal, acreage cleanup, pool dig-out support, and tractor services across Polk County and Central Florida.",
+        f"Faith Works provides {SITE_POSITIONING.lower()} - including land clearing, trail clearing, brush cutting, forestry mulching, pond bank clearing, pond cleanup, ditch clearing, debris removal, acreage cleanup, pool dig-out support, and tractor services.",
     ),
     (
         "Do you clear overgrown pond banks and ditches?",
-        "Yes. Pond bank clearing and ditch clearing are core services. We use mulching equipment, brush cutters, and tractors to open access, remove overgrowth, and clean vegetation from outdoor ditch and pond-edge areas — not engineered stormwater or utility systems.",
+        "Yes. Pond bank clearing and ditch clearing are core services. We use compact equipment, brush cutters, and tractors to open access, remove overgrowth, and clean vegetation from outdoor ditch and pond-edge areas.",
     ),
     (
         "Do I need to call 811 before digging?",
         "For digging or soil-moving work, contact Sunshine 811 at least two full business days before work begins so underground utilities can be marked.",
     ),
     (
-        "Do you install pools or do utility trenching?",
-        f"No. Faith Works does not install pools, hold pool contractor licensing, or perform utility trenching, stormwater system installation, sewer work, water mains, site development, or engineered drainage. The focus is {SITE_POSITIONING.lower()}.",
+        "What work is outside Faith Works' scope?",
+        f"Faith Works does not install pools, hold pool contractor licensing, or perform utility trenching, stormwater system installation, sewer work, water mains, site development, or engineered drainage. The focus is {SITE_POSITIONING.lower()}.",
     ),
     (
         "What jobs do people usually call you for?",
-        "Most calls are for pond banks, trails, brush, overgrowth, debris, and acreage cleanup. Pool dig-out support is available under licensed pool builders.",
+        "Most calls are for pond banks, trails, brush, overgrowth, debris, acreage cleanup, and owner-operated tractor or equipment help. Pool dig-out support is available under licensed pool builders.",
     ),
     (
         "Can you help with pool dig-out dirt removal?",
@@ -265,7 +268,7 @@ HOME_FAQS = [
     ),
 ]
 
-FACEBOOK_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>'
+FACEBOOK_SVG =FACEBOOK_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>'
 YOUTUBE_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>'
 
 
@@ -274,7 +277,7 @@ def live_url(url: str) -> bool:
 
 
 def same_as_links() -> list[str]:
-    return [url for url in (SITE["facebook"], SITE["youtube"]) if live_url(url)]
+    return [url for url in (SITE["facebook"], SITE["youtube"], SITE["google_business"]) if live_url(url)]
 
 
 def social_icon_links() -> str:
@@ -566,8 +569,8 @@ def scope_section() -> str:
       <div class="container">
         <div class="section-heading" data-fw-enter="left">
           <p class="eyebrow">Clear scope</p>
-          <h2>Outdoor Property Services — Not Utility Excavation</h2>
-          <p>Faith Works is positioned as <strong>{SITE_POSITIONING}</strong> — not an excavation contractor.</p>
+          <h2>Outdoor Property Services - Clear Project Fit</h2>
+          <p>Faith Works keeps estimates practical by matching each job to the right outdoor property service, equipment access, and cleanup outcome before work begins.</p>
         </div>
         <div class="scope-grid">
           <div class="scope-card scope-card--do" data-fw-enter="left">
@@ -582,7 +585,7 @@ def scope_section() -> str:
             <a class="btn btn-ghost" href="services.html">See all {SERVICE_COUNT} services</a>
           </div>
           <div class="scope-card scope-card--dont" data-fw-enter="right">
-            <h3>What we do not do</h3>
+            <h3>Work outside our scope</h3>
             <p>{NOT_OFFERED_NOTE}</p>
             <ul>{not_list}
             </ul>
@@ -645,48 +648,14 @@ def intent_router_section(context: str = "home") -> str:
 
 
 def reviews_section() -> str:
-    cards = ""
-    for i, review in enumerate(REVIEW_PLACEHOLDERS):
-        initial = review["name"][0]
-        cards += f"""
-            <article class="fw-review-card" data-fw-enter="bottom" style="--fw-enter-delay: {(i % 3) * 70}ms;">
-              <span class="fw-review-placeholder-badge">Sample layout</span>
-              <div class="fw-review-header">
-                <span class="fw-review-avatar" style="background:{review['avatar']};" aria-hidden="true">{initial}</span>
-                <div>
-                  <h3 class="fw-review-name">{review['name']}</h3>
-                  <div class="fw-review-sub">{review['meta']}</div>
-                </div>
-              </div>
-              <div class="fw-review-stars" role="img" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-              <p class="fw-review-text">{review['text']}</p>
-              <div class="fw-review-date">{review['date']}</div>
-            </article>"""
     return f"""
-    <section id="reviews" class="reviews-section section-shell">
+    <section id="reviews" class="reviews-section section-shell reviews-section--soon">
       <div class="container">
-        <div class="section-heading" data-fw-enter="left">
-          <p class="eyebrow">What people say</p>
-          <h2>Customer Reviews</h2>
-          <p>Google reviews from Polk County property owners will appear here once connected. The cards below show the layout — sample copy only until real reviews are added.</p>
-        </div>
-        <div class="fw-reviews-showcase" aria-label="Customer reviews">
-          <div class="fw-reviews-header">
-            {GOOGLE_G_LOGO}
-            <span class="fw-reviews-header__label">Google Reviews</span>
-            <div class="fw-review-stars fw-review-stars--header" role="img" aria-label="5 star rating">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            <div class="fw-reviews-summary" id="fw-review-summary">Reviews coming soon</div>
-          </div>
-          <div class="fw-review-carousel">
-            <button class="fw-review-btn" type="button" id="fw-review-prev" aria-label="Previous review">&#8249;</button>
-            <div class="fw-review-viewport">
-              <div class="fw-review-track" id="fw-review-track">{cards}
-              </div>
-            </div>
-            <button class="fw-review-btn" type="button" id="fw-review-next" aria-label="Next review">&#8250;</button>
-          </div>
-          <div class="fw-review-dots" id="fw-review-dots" role="group" aria-label="Review pages"></div>
-          <p class="fw-reviews-footnote">Placeholder reviews for layout preview. Connect Google Business Profile to display live ratings.</p>
+        <div class="reviews-coming-soon" data-fw-enter="bottom">
+          <p class="eyebrow">Reviews coming soon</p>
+          <h2>Faith Works Outdoor Services Is Newly Launched</h2>
+          <p>Google reviews will appear here once the Google Business Profile is verified and real customer reviews are available. Until then, this site will not publish unverified testimonials, review schema, or aggregate rating markup.</p>
+          <a class="btn btn-ghost" href="contact.html">Request an Estimate</a>
         </div>
       </div>
     </section>"""
@@ -694,48 +663,41 @@ def reviews_section() -> str:
 
 def process_section() -> str:
     return f"""
-    <section id="process" class="process-section section-shell">
+    <section id="process" class="process-section process-section--parallax section-shell" data-parallax-overscan="0.38" data-parallax-rate="0.78" aria-label="How it works">
+      <div class="process-bg fw-parallax-bg" aria-hidden="true">
+        <img src="{PROCESS_BG}" alt="" width="1920" height="1080" loading="lazy" decoding="async" class="process-bg__img" role="presentation">
+      </div>
+      <div class="process-overlay" aria-hidden="true"></div>
       <div class="container">
         <div class="section-heading" data-fw-enter="left">
           <p class="eyebrow">How it works</p>
           <h2>How to Get Land Clearing or Property Cleanup in {SITE['city']}</h2>
-          <p>A simple four-step process — from photos to scheduled outdoor property work across {SITE['area']}.</p>
+          <p>A simple four-step process from photos to scheduled outdoor property work across {SITE['area']}.</p>
         </div>
         <div class="process-grid">
-          <div class="process-step" data-fw-enter="bottom" style="--fw-enter-delay: 0ms;"><span>1</span><h3>Send photos or call</h3><p>Share your property city and upload photos of overgrowth, pond banks, ditches, brush, or debris through the form or by text.</p></div>
-          <div class="process-step" data-fw-enter="bottom" style="--fw-enter-delay: 70ms;"><span>2</span><h3>Confirm scope</h3><p>We review access, vegetation volume, equipment room, haul-off needs, and the outdoor service that fits the job.</p></div>
-          <div class="process-step" data-fw-enter="bottom" style="--fw-enter-delay: 140ms;"><span>3</span><h3>Receive estimate</h3><p>Get a clear estimate before work begins — scoped for outdoor property services, not utility excavation.</p></div>
-          <div class="process-step" data-fw-enter="bottom" style="--fw-enter-delay: 210ms;"><span>4</span><h3>Schedule service</h3><p>Tyler shows up with the right equipment for clearing, cleanup, or tractor work on your property.</p></div>
+          <div class="process-step" data-fw-enter="bottom" style="--fw-enter-delay: 0ms;"><span>1</span><h3>Text photos or use the form</h3><p>Share your property city, contact details, and photos of overgrowth, pond banks, ditches, brush, or debris.</p></div>
+          <div class="process-step" data-fw-enter="bottom" style="--fw-enter-delay: 70ms;"><span>2</span><h3>Confirm scope</h3><p>Tyler reviews access, vegetation volume, equipment room, haul-off needs, and the outdoor service that fits the job.</p></div>
+          <div class="process-step" data-fw-enter="bottom" style="--fw-enter-delay: 140ms;"><span>3</span><h3>Receive estimate</h3><p>Get a clear estimate before work begins, with scope matched to the property and equipment access.</p></div>
+          <div class="process-step" data-fw-enter="bottom" style="--fw-enter-delay: 210ms;"><span>4</span><h3>Schedule service</h3><p>Faith Works shows up with the right equipment for clearing, cleanup, or tractor work on your property.</p></div>
         </div>
       </div>
     </section>"""
 
 
 def home_geo_section() -> str:
-    county_links = "".join(
-        f'<a class="home-geo-pill" href="areas/{c["slug"]}.html">{c["name"]}</a>' for c in COUNTIES
-    )
-    city_links = "".join(
-        f'<a class="home-geo-pill home-geo-pill--city" href="{city_href(c["slug"])}">{c["name"]}, FL</a>'
-        for c in FEATURED_CITIES
-    )
+    city_sample = ", ".join(c["name"] for c in FEATURED_CITIES[:6])
+    county_names = " and ".join(c["name"] for c in COUNTIES)
     return f"""
-    <section id="service-areas" class="home-geo-section section-shell">
-      <div class="container">
-        <div class="section-heading" data-fw-enter="left">
-          <p class="eyebrow">Service areas</p>
-          <h2>Land Clearing &amp; Outdoor Services Within {SERVICE_RADIUS_MILES} Miles of {HOME_CITY}</h2>
-          <p>Based in {HOME_CITY}, FL ({HOME_ZIP}), {SITE['brand']} serves {len(COUNTIES)} counties and {len(AREA_CITIES)} cities across Central Florida — from Polk County to Orlando, Tampa, and The Villages.</p>
+    <section id="service-areas" class="home-geo-strip" aria-label="Service areas">
+      <div class="container home-geo-strip__inner">
+        <div class="home-geo-strip__copy" data-fw-enter="left">
+          <p class="home-geo-strip__eyebrow">Service areas</p>
+          <p class="home-geo-strip__text">Based in {SITE['city']}, FL — {SITE['brand']} serves {county_names} with land clearing, pond bank work, ditch clearing, and outdoor property cleanup. Common launch cities include {city_sample}, and nearby communities.</p>
         </div>
-        <div class="home-geo-block" data-fw-enter="bottom">
-          <h3>Counties we serve</h3>
-          <div class="home-geo-pills">{county_links}</div>
+        <div class="home-geo-strip__actions" data-fw-enter="right">
+          <a class="btn btn-ghost home-geo-strip__cta" href="service-areas.html">View all service areas</a>
+          <a class="btn btn-primary home-geo-strip__cta" href="contact.html">Request estimate</a>
         </div>
-        <div class="home-geo-block" data-fw-enter="bottom" style="--fw-enter-delay: 80ms;">
-          <h3>Popular cities &amp; communities</h3>
-          <div class="home-geo-pills">{city_links}</div>
-        </div>
-        <p class="home-geo-note">Looking for land clearing, pond bank clearing, or ditch clearing in your city? <a href="service-areas.html">View all service areas</a> or <a href="contact.html">request an estimate</a> with your property photos.</p>
       </div>
     </section>"""
 
@@ -765,26 +727,65 @@ def gallery_teaser_section() -> str:
     </section>"""
 
 
+def equipment_trust_section() -> str:
+    cards = [
+        ("Kubota Excavator", "excavator-photo.webp", "Compact excavator support for digging, dirt removal, bank cleanup, and property access work."),
+        ("Kubota Tractor", "tractor.webp", "Tractor and loader work for brush, soil, leveling, cleanup, and outdoor property maintenance."),
+        ("Trailers & Haul-Off", "excavator-and-truck-photo.webp", "Dump and flatbed trailer support for debris, equipment transport, and job-site cleanup."),
+        ("Brush & Grapple Work", "tractor-moving-item-with-grapple.webp", "Brush handling, piles, limbs, and cleanup support for overgrown property projects."),
+    ]
+    items = ""
+    for i, (title, img, desc) in enumerate(cards):
+        alt = next((alt for f, alt, _lbl in GALLERY if f == img), title)
+        items += f"""
+          <article class="equipment-card" data-fw-enter="bottom" style="--fw-enter-delay: {(i % 4) * 70}ms;">
+            <img src="Gallery/{img}" alt="{alt}" loading="lazy" width="640" height="480">
+            <div>
+              <h3>{title}</h3>
+              <p>{desc}</p>
+            </div>
+          </article>"""
+    return f"""
+    <section class="equipment-trust section-shell">
+      <div class="container">
+        <div class="section-heading" data-fw-enter="left">
+          <p class="eyebrow">Equipment-ready outdoor services</p>
+          <h2>Owner-Operated Equipment for Polk County Property Work</h2>
+          <p>Faith Works uses Kubota equipment, trailers, and brush-handling tools for land clearing, pond bank access, ditch cleanup, trails, fence lines, storm debris, and acreage projects. Exact scope is confirmed before scheduling.</p>
+        </div>
+        <div class="equipment-grid">{items}
+        </div>
+      </div>
+    </section>"""
+
+
 def home_services_hub_section() -> str:
-    groups = ""
-    for i, cat in enumerate(SERVICE_CATEGORIES):
-        services = services_for_category(cat["id"])[:4]
-        links = "".join(f'<a href="{s["slug"]}.html">{s["nav"]}</a>' for s in services)
-        groups += f"""
-          <article class="home-services-hub-card" data-fw-enter="bottom" style="--fw-enter-delay: {(i % 3) * 60}ms;">
-            <h3>{cat['label']}</h3>
-            <p>{cat['description']}</p>
-            <div class="home-services-hub-links">{links}</div>
+    cards = ""
+    for i, cat in enumerate(HOME_BUYER_CATEGORIES):
+        links = "".join(
+            f'<a href="{SERVICE_BY_SLUG[slug]["slug"]}.html">{SERVICE_BY_SLUG[slug]["nav"]}</a>'
+            for slug in cat["links"]
+            if slug in SERVICE_BY_SLUG
+        )
+        img_alt = next((alt for f, alt, _lbl in GALLERY if f == cat["image"]), cat["title"])
+        cards += f"""
+          <article class="home-services-hub-card home-services-hub-card--buyer" data-fw-enter="bottom" style="--fw-enter-delay: {(i % 3) * 60}ms;">
+            <img class="home-services-hub-card__image" src="Gallery/{cat['image']}" alt="{img_alt}" loading="lazy" width="640" height="420">
+            <div class="home-services-hub-card__body">
+              <h3>{cat['title']}</h3>
+              <p>{cat['text']}</p>
+              <div class="home-services-hub-links">{links}</div>
+            </div>
           </article>"""
     return f"""
     <section id="all-services" class="home-services-hub section-shell">
       <div class="container">
         <div class="section-heading" data-fw-enter="left">
-          <p class="eyebrow">Full service list</p>
-          <h2>All {SERVICE_COUNT} Outdoor Property Services by Category</h2>
-          <p>Browse every service Faith Works offers — from core land clearing and pond bank work to cleanup, maintenance, and tractor services across {SITE['area']}.</p>
+          <p class="eyebrow">Service categories</p>
+          <h2>Choose the Outdoor Property Problem You Need Solved</h2>
+          <p>The homepage focuses on the main buyer categories. The full services hub still covers every detailed service page for search, estimates, and scope clarity.</p>
         </div>
-        <div class="home-services-hub-grid">{groups}
+        <div class="home-services-hub-grid home-services-hub-grid--buyer">{cards}
         </div>
         <div style="text-align:center;margin-top:2.5rem">
           <a class="btn btn-ghost" href="services.html">Open full services hub &rarr;</a>
@@ -935,16 +936,32 @@ def estimate_form(
     form_class = "contact-form contact-form-hero" if compact else "contact-form"
     phone = SITE["phone_display"]
     action, method, enctype, mode_attr = form_action_attrs(subj)
+    upload_enabled = bool(formspree_endpoint())
 
-    if compact:
-        fields = f"""
+    photo_upload = ""
+    if upload_enabled:
+        photo_upload = f"""
               <div class="form-group">
-                <label for="{form_id}-name">Your Name</label>
-                <input type="text" id="{form_id}-name" name="name" placeholder="First and last name" required autocomplete="name">
-              </div>
+                <label for="{form_id}-photos">Upload Project Photos</label>
+                <input type="file" id="{form_id}-photos" name="photos" accept="image/*" multiple>
+                <p class="form-help">Wide photos, closeups, and access photos help Tyler quote faster.</p>
+              </div>"""
+
+    text_photos_select = f"""
               <div class="form-group">
-                <label for="{form_id}-phone">Phone Number</label>
-                <input type="tel" id="{form_id}-phone" name="phone" placeholder="{phone}" required autocomplete="tel">
+                <label for="{form_id}-can-text">Can you text photos?</label>
+                <select id="{form_id}-can-text" name="can_text_photos" required>
+                  <option value="" disabled selected>Select one...</option>
+                  <option>Yes - I can text photos</option>
+                  <option>No - please call me first</option>
+                  <option>I already included photos</option>
+                </select>
+              </div>"""
+
+    common_fields = f"""
+              <div class="form-group">
+                <label for="{form_id}-location">City / Job Location</label>
+                <input type="text" id="{form_id}-location" name="job_location" placeholder="Auburndale, Winter Haven, Lakeland..." required>
               </div>
               <div class="form-group">
                 <label for="{form_id}-service">Service Needed</label>
@@ -952,11 +969,34 @@ def estimate_form(
                 {service_options(selected)}
                 </select>
               </div>
+              {text_photos_select}
               <div class="form-group">
-                <label for="{form_id}-message">Project Details</label>
-                <textarea id="{form_id}-message" name="message" placeholder="City, property size, and what you need done..." rows="3"></textarea>
+                <label for="{form_id}-best-time">Best Time to Contact</label>
+                <input type="text" id="{form_id}-best-time" name="best_time" placeholder="Morning, afternoon, evening, or specific time">
+              </div>
+              <div class="form-group">
+                <label for="{form_id}-access">Property Access Notes</label>
+                <input type="text" id="{form_id}-access" name="access_notes" placeholder="Gate width, slopes, wet areas, utilities, pets, locks">
               </div>"""
-        replyto_field = ""
+
+    if compact:
+        service_hidden = (
+            f'<input type="hidden" name="service" value="{selected}">' if selected else ""
+        )
+        fields = f"""
+              <div class="form-group">
+                <label for="{form_id}-name">Your Name</label>
+                <input type="text" id="{form_id}-name" name="name" placeholder="Your name" required autocomplete="name">
+              </div>
+              <div class="form-group">
+                <label for="{form_id}-phone">Phone Number</label>
+                <input type="tel" id="{form_id}-phone" name="phone" placeholder="{phone}" required autocomplete="tel">
+              </div>
+              {service_hidden}
+              <div class="form-group">
+                <label for="{form_id}-message">What do you need?</label>
+                <textarea id="{form_id}-message" name="message" placeholder="City + quick description — e.g. brush clearing in Auburndale" rows="2"></textarea>
+              </div>"""
     else:
         fields = f"""
               <div class="form-group">
@@ -971,41 +1011,34 @@ def estimate_form(
                 <label for="{form_id}-email">Email</label>
                 <input type="email" id="{form_id}-email" name="email" placeholder="you@email.com" autocomplete="email">
               </div>
-              <div class="form-group">
-                <label for="{form_id}-location">Job Address / City</label>
-                <input type="text" id="{form_id}-location" name="job_location" placeholder="Street or city in Polk County" required>
-              </div>
-              <div class="form-group">
-                <label for="{form_id}-service">Service Needed</label>
-                <select id="{form_id}-service" name="service" required>
-                {service_options(selected)}
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="{form_id}-photos">Upload Project Photos</label>
-                <input type="file" id="{form_id}-photos" name="photos" accept="image/*" multiple>
-              </div>
-              <div class="form-group">
-                <label for="{form_id}-access">Equipment Access Notes</label>
-                <input type="text" id="{form_id}-access" name="access_notes" placeholder="Gate width, obstacles, utilities known">
-              </div>
+              {common_fields}
+              {photo_upload}
               <div class="form-group">
                 <label for="{form_id}-message">Project Details</label>
-                <textarea id="{form_id}-message" name="message" placeholder="Describe the property, size, timeline, and what you need cleared or removed..." rows="4"></textarea>
+                <textarea id="{form_id}-message" name="message" placeholder="Describe the property, size, timeline, equipment access, and what you need cleared or removed..." rows="4"></textarea>
               </div>"""
-        replyto_field = '<input type="hidden" name="_replyto" value="email">'
 
+    photo_note = (
+        "Upload photos here or text photos"
+        if upload_enabled
+        else "Text photos"
+    )
+    submit_label = "Get Free Estimate" if compact else "Send Estimate Request"
+    footer_note = (
+        f'Text photos to <a href="tel:{SITE["phone_tel"]}">{phone}</a> for the fastest quote.'
+        if compact
+        else f'{photo_note} to <a href="tel:{SITE["phone_tel"]}">{phone}</a> for the fastest estimate.'
+    )
     return f"""
             <form class="{form_class}" action="{action}" method="{method}" id="{form_id}" enctype="{enctype}"{mode_attr}>
               {page_field}
               {fields}
               <input type="hidden" name="_subject" value="{subj}">
-              {replyto_field}
               <input type="hidden" name="_format" value="plain">
               <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
               <div class="form-footer">
-                <button type="submit" class="btn btn-primary btn-full">Send Estimate Request</button>
-                <p class="form-note">Or call/text <a href="tel:{SITE['phone_tel']}">{phone}</a></p>
+                <button type="submit" class="btn btn-primary btn-full">{submit_label}</button>
+                <p class="form-note">{footer_note}</p>
               </div>
             </form>
             <div class="form-success" id="{form_id}-success" aria-live="polite" hidden>
@@ -1040,14 +1073,13 @@ def footer_service_links(root_prefix: str) -> str:
 
 
 def footer_service_area_summary(root_prefix: str) -> str:
-    county_links = " &nbsp;&middot;&nbsp; ".join(
-        f'<a href="{root_prefix}areas/{c["slug"]}.html">{c["name"].replace(" County", "")}</a>'
-        for c in COUNTIES
+    city_links = " &nbsp;&middot;&nbsp; ".join(
+        f'<a href="{root_prefix}{city_href(c["slug"])}">{c["name"]}</a>'
+        for c in FEATURED_CITIES
     )
-    city_count = len(AREA_CITIES)
-    return f"""<p class="footer-area-intro">Serving <strong>{len(COUNTIES)} counties</strong> and <strong>{city_count} cities</strong> across Central Florida within a {SERVICE_RADIUS_MILES}-mile radius of {HOME_CITY}.</p>
-            <p class="footer-area-counties">{county_links}</p>
-            <p class="footer-area-hub"><a href="{root_prefix}service-areas.html">View all service areas →</a></p>"""
+    return f"""<p class="footer-area-intro">Based in <strong>{HOME_CITY}, FL</strong>, primarily serving Polk County and nearby Central Florida communities.</p>
+            <p class="footer-area-counties">{city_links}</p>
+            <p class="footer-area-hub"><a href="{root_prefix}service-areas.html">View launch service areas &rarr;</a></p>"""
 
 
 def header(current: str = "", root_prefix: str = "") -> str:
@@ -1118,7 +1150,7 @@ def footer(root_prefix: str = "") -> str:
                 <p>Outdoor Services LLC</p>
               </div>
             </div>
-            <p>{SITE['city']}, FL &nbsp;&middot;&nbsp; {SERVICE_RADIUS_MILES}-mile radius from {HOME_CITY}</p>
+            <p>{SITE['city']}, FL &nbsp;&middot;&nbsp; Polk County &amp; nearby Central Florida</p>
             <p class="company-description">{SITE_POSITIONING}</p>
             <div class="footer-service-area">
               {area_summary}
@@ -1235,6 +1267,19 @@ def page_shell(
   <meta name="description" content="{description}">
   <link rel="canonical" href="{canonical_url}">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <script>
+    (function () {{
+      if (location.hostname === "nicholasjknight.github.io") {{
+        var robots = document.querySelector('meta[name="robots"]');
+        if (!robots) {{
+          robots = document.createElement("meta");
+          robots.setAttribute("name", "robots");
+          document.head.appendChild(robots);
+        }}
+        robots.setAttribute("content", "noindex, nofollow");
+      }}
+    }})();
+  </script>
   <meta name="author" content="{SITE['legal_name']}">
   <meta name="geo.region" content="US-FL">
   <meta name="geo.placename" content="{SITE['city']}, Florida">
@@ -1256,7 +1301,7 @@ def page_shell(
 {favicon_head(root_prefix)}
 {fonts_head()}
 {hero_preloads}
-  <link rel="stylesheet" href="{root_prefix}styles.css?v=20260616">
+  <link rel="stylesheet" href="{root_prefix}styles.css?v=20260624">
 {analytics_head()}
 </head>
 <body>
@@ -1272,14 +1317,16 @@ def page_shell(
 
 def business_schema() -> str:
     services = [{"@type": "Offer", "itemOffered": {"@type": "Service", "name": s["name"]}} for s in SERVICES]
-    areas = [f"{c}, FL" for c in CITY_NAMES]
+    areas = [{"@type": "City", "name": f"{c['name']}, FL"} for c in AREA_CITIES]
+    county_areas = [{"@type": "AdministrativeArea", "name": c["name"]} for c in COUNTIES]
     schema = {
         "@context": "https://schema.org",
-        "@type": "HomeAndConstructionBusiness",
+        "@type": ["Organization", "HomeAndConstructionBusiness"],
         "@id": f"{SITE['url']}/#business",
         "name": SITE["brand"],
         "legalName": SITE["legal_name"],
-        "description": f"{SITE['brand']} — {SITE_POSITIONING} in {SITE['area']}.",
+        "alternateName": SITE["short"],
+        "description": f"{SITE['brand']} - {SITE_POSITIONING} in {SITE['area']}.",
         "url": SITE["url"],
         "telephone": f"+1-{SITE['phone_tel'][:3]}-{SITE['phone_tel'][3:6]}-{SITE['phone_tel'][6:]}",
         "email": SITE["email"],
@@ -1293,7 +1340,17 @@ def business_schema() -> str:
         "logo": f"{SITE['url']}/{LOGO}",
         "priceRange": "$$",
         "openingHours": "Mo-Sa 07:00-18:00",
-        "areaServed": areas,
+        "areaServed": county_areas + areas,
+        "slogan": "Land clearing, pond bank clearing, ditch clearing, and outdoor property services in Polk County, FL.",
+        "knowsAbout": [
+            "land clearing",
+            "forestry mulching",
+            "pond bank clearing",
+            "ditch clearing",
+            "brush clearing",
+            "tractor services",
+            "storm debris cleanup",
+        ],
         "hasOfferCatalog": {
             "@type": "OfferCatalog",
             "name": "Outdoor Services",
@@ -1304,6 +1361,54 @@ def business_schema() -> str:
     if links:
         schema["sameAs"] = links
     return json.dumps(schema, indent=2)
+
+
+def website_schema() -> str:
+    return json.dumps({
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "@id": f"{SITE['url']}/#website",
+        "url": f"{SITE['url']}/",
+        "name": SITE["brand"],
+        "publisher": {"@id": f"{SITE['url']}/#business"},
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": f"{SITE['url']}/services.html?q={{search_term_string}}",
+            "query-input": "required name=search_term_string",
+        },
+    }, indent=2)
+
+
+def image_object_schema(image: str, caption: str, page: str) -> str:
+    page_url = f"{SITE['url']}/" if page == "index.html" else f"{SITE['url']}/{page}"
+    return json.dumps({
+        "@context": "https://schema.org",
+        "@type": "ImageObject",
+        "@id": f"{SITE['url']}/Gallery/{image}#image",
+        "contentUrl": f"{SITE['url']}/Gallery/{image}",
+        "url": f"{SITE['url']}/Gallery/{image}",
+        "caption": caption,
+        "representativeOfPage": page == "index.html",
+        "mainEntityOfPage": page_url,
+        "creator": {"@id": f"{SITE['url']}/#business"},
+    }, indent=2)
+
+
+def gallery_image_graph_schema() -> str:
+    return json.dumps({
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "ImageObject",
+                "@id": f"{SITE['url']}/Gallery/{img}#image",
+                "contentUrl": f"{SITE['url']}/Gallery/{img}",
+                "caption": alt,
+                "name": label,
+                "creator": {"@id": f"{SITE['url']}/#business"},
+            }
+            for img, alt, label in GALLERY
+        ],
+    }, indent=2)
 
 
 def hero_background_html(root_prefix: str = "") -> str:
@@ -1317,13 +1422,26 @@ def hero_background_html(root_prefix: str = "") -> str:
       </div>"""
 
 
+def contact_background_html(root_prefix: str = "") -> str:
+    banner = f"{root_prefix}{CONTACT_BANNER}"
+    cutout = f"{root_prefix}{CONTACT_CUTOUT}"
+    return f"""      <div class="contact-bg" aria-hidden="true">
+        <img src="{banner}" alt="" width="1920" height="1080" loading="lazy" decoding="async" class="contact-bg__img">
+      </div>
+      <div class="contact-overlay" aria-hidden="true"></div>
+      <div class="contact-cutout-wrap" aria-hidden="true">
+        <img class="contact-cutout" src="{cutout}" alt="" width="693" height="791" loading="lazy" decoding="async" role="presentation">
+      </div>"""
+
+
 def write_index() -> None:
     phase1_cards = ""
     for i, s in enumerate(PHASE1_SERVICES):
         phase1_cards += service_mosaic_card(s, i * 70, featured=True)
 
     schema = f"""  <script type="application/ld+json">{business_schema()}</script>
-  <script type="application/ld+json">{{"@context":"https://schema.org","@type":"WebSite","@id":"{SITE['url']}/#website","url":"{SITE['url']}/","name":"{SITE['brand']}","publisher":{{"@id":"{SITE['url']}/#business"}}}}</script>
+  <script type="application/ld+json">{website_schema()}</script>
+  <script type="application/ld+json">{image_object_schema(HERO_DESKTOP, "Faith Works Outdoor Services equipment in Polk County, Florida", "index.html")}</script>
   <script type="application/ld+json">{faq_page_schema(HOME_FAQS)}</script>"""
 
     body = f"""
@@ -1335,7 +1453,7 @@ def write_index() -> None:
           <p class="eyebrow" data-fw-enter="left" data-fw-enter-immediate="true">{SITE_POSITIONING}</p>
           <h1 data-fw-enter="left" data-fw-enter-immediate="true" style="--fw-enter-delay: 80ms;">Land Clearing &amp; Outdoor Property Services in <span class="h1-accent">{SITE['city']}, FL</span></h1>
           <p class="hero-sub" data-fw-enter="left" data-fw-enter-immediate="true" style="--fw-enter-delay: 160ms;">
-            {SITE['brand']} helps homeowners and property owners with land clearing, trail clearing, brush cutting, forestry mulching, pond bank clearing, pond cleanup, ditch clearing, debris removal, acreage cleanup, and tractor services across {SITE['area']} — outdoor property work, not utility trenching or engineered drainage.
+            {SITE['brand']} helps homeowners, landowners, and property managers with land clearing, forestry mulching, pond bank clearing, ditch clearing, trails, fence lines, debris removal, acreage cleanup, and tractor services across Polk County and nearby Central Florida communities.
           </p>
           <div class="hero-actions" data-fw-enter="left" data-fw-enter-immediate="true" style="--fw-enter-delay: 240ms;">
             <a class="btn btn-primary" href="contact.html">Request a Free Estimate</a>
@@ -1365,7 +1483,7 @@ def write_index() -> None:
           <p class="eyebrow">About Faith Works</p>
           <h2>Owner-operated.<br>Equipment-ready.<br>Clear communication.</h2>
           <p>{SITE['owner']} runs {SITE['brand']} as a local {SITE['city']} business built on hard work, honest estimates, and faith-based service. When you reach out, you're talking directly to the person doing the work.</p>
-          <p>From land clearing and pond bank work to ditch cleanup and debris haul-off, we focus on outdoor property services that help homeowners and property owners reclaim usable land — not utility trenching or engineered drainage systems.</p>
+          <p>From land clearing and pond bank work to ditch cleanup and debris haul-off, we focus on outdoor property services that help homeowners and property owners reclaim usable land with clear communication and practical equipment access.</p>
           <a class="btn btn-ghost" href="about.html">Learn more about us &rarr;</a>
         </div>
         <div class="about-card" data-fw-enter="right">
@@ -1374,7 +1492,7 @@ def write_index() -> None:
             <li>Direct contact with Tyler — no call center</li>
             <li>Photo-based estimates for outdoor projects</li>
             <li>Equipment-ready for clearing and cleanup jobs</li>
-            <li>Local {SITE['city']} business serving within {SERVICE_RADIUS_MILES} miles</li>
+            <li>Local {SITE['city']} business focused on Polk County and nearby communities</li>
             <li>Residential and property-owner friendly service</li>
             <li>Colossians 3:23 work ethic on every job</li>
           </ul>
@@ -1402,6 +1520,8 @@ def write_index() -> None:
 
     {reviews_section()}
 
+    {equipment_trust_section()}
+
     {process_section()}
 
     {home_geo_section()}
@@ -1415,6 +1535,7 @@ def write_index() -> None:
     {home_faq_section()}
 
     <section id="contact" class="contact-section section-shell">
+      {contact_background_html()}
       <div class="container contact-inner" data-fw-enter="top">
         <p class="eyebrow">Ready to get started?</p>
         <h2>Need land cleared, a ditch cleaned, or property debris removed?</h2>
@@ -1480,7 +1601,7 @@ def write_service_page(s: dict) -> None:
           <div class="hero-card" aria-label="Get a free estimate">
             <p class="card-eyebrow">Free photo-based estimate</p>
             <h2 class="card-name">Request {s['name']}</h2>
-            <p class="card-note">Upload photos and describe your property for a faster quote.</p>
+            <p class="card-note">Text photos to <a href="tel:{SITE['phone_tel']}">{SITE['phone_display']}</a> and describe your property for a faster quote.</p>
             {estimate_form(selected=s['form_label'], subject=f"{s['name']} estimate - {SITE['brand']}", page=f"{s['slug']}.html", compact=True)}
           </div>
         </aside>
@@ -1489,7 +1610,7 @@ def write_service_page(s: dict) -> None:
     <section class="areas-strip">
       <div class="container">
         <p class="eyebrow">Where we work</p>
-        <p>Serving <strong>{'</strong>, <strong>'.join(c["name"] for c in FEATURED_CITIES[:8])}</strong>, and communities within {SERVICE_RADIUS_MILES} miles of {HOME_CITY}. <a href="service-areas.html">See all service areas &rarr;</a></p>
+        <p>Serving <strong>{'</strong>, <strong>'.join(c["name"] for c in FEATURED_CITIES[:8])}</strong>, plus nearby communities when the scope fits. <a href="service-areas.html">See all service areas &rarr;</a></p>
       </div>
     </section>"""
 
@@ -1528,7 +1649,7 @@ def write_services() -> None:
       <div class="container">
         <p class="eyebrow"><a href="index.html">Home</a> &rsaquo; Services</p>
         <h1>{SITE_POSITIONING}</h1>
-        <p>Faith Works Outdoor Services in {SITE['city']} and {SITE['area']} — outdoor property clearing, mulching, cleanup, and maintenance. Not an excavation contractor.</p>
+        <p>Faith Works Outdoor Services in {SITE['city']} and {SITE['area']} - outdoor property clearing, mulching, cleanup, and maintenance with owner-operated equipment.</p>
       </div>
     </section>
 
@@ -1588,26 +1709,34 @@ def write_gallery() -> None:
             <img src="Gallery/{img}" alt="{alt}" loading="lazy" width="800" height="600">
             <figcaption>{label}</figcaption>
           </figure>"""
+    schema = f"""  <script type="application/ld+json">{business_schema()}</script>
+  <script type="application/ld+json">{breadcrumb_schema([('Home', 'index.html'), ('Gallery', 'gallery.html')])}</script>
+  <script type="application/ld+json">{gallery_image_graph_schema()}</script>"""
     body = f"""
     <section class="sp-hero">
       <div class="container">
         <p class="eyebrow"><a href="index.html">Home</a> &rsaquo; Gallery</p>
         <h1>Project Gallery</h1>
-        <p>Real outdoor work from {SITE['brand']} — land clearing, brush cutting, pond bank work, and property cleanup across Central Florida.</p>
+        <p>Real outdoor work from {SITE['brand']} - land clearing, brush cutting, pond bank work, tractor support, and property cleanup across Polk County and nearby Central Florida.</p>
       </div>
     </section>
     <section class="section-shell">
       <div class="container">
+        <div class="section-heading" data-fw-enter="left">
+          <p class="eyebrow">Equipment and job photos</p>
+          <h2>Real Faith Works Equipment on Real Outdoor Property Jobs</h2>
+          <p>These images support service pages, local SEO, image search, and customer trust by showing the actual equipment used for clearing, cleanup, and tractor work.</p>
+        </div>
         <div class="gallery-grid">{items}
         </div>
       </div>
     </section>"""
     html = page_shell(
         f"Outdoor Services Project Gallery | {SITE['brand']}",
-        f"View land clearing, brush cutting, and outdoor property cleanup projects by {SITE['brand']} in Polk County, FL.",
+        f"View land clearing, brush cutting, tractor work, and outdoor property cleanup projects by {SITE['brand']} in Polk County, FL.",
         "gallery.html",
         body,
-        "",
+        schema,
         "gallery.html",
     )
     write_site_file(ROOT / "gallery.html", html)
@@ -1627,7 +1756,7 @@ def write_about() -> None:
         <div class="about-copy" data-fw-enter="left">
           <h2>Meet {SITE['owner']}</h2>
           <p>{SITE['owner']} founded {SITE['legal_name']} in {SITE['city']}, Florida to serve homeowners and property owners who need reliable outdoor property work — {SITE_POSITIONING.lower()}.</p>
-          <p>{SITE['brand']} focuses on the work people actually call for: pond banks, trails, brush, overgrowth, acreage cleanup, ditch clearing, and debris haul-off. We are not a utility excavation contractor — we do not install underground utilities, stormwater systems, sewer systems, water mains, or engineered drainage.</p>
+          <p>{SITE['brand']} focuses on the work people actually call for: pond banks, trails, brush, overgrowth, acreage cleanup, ditch clearing, and debris haul-off. We keep project scope clear, confirm equipment access early, and explain what cleanup outcome makes sense before scheduling.</p>
           <p>Our work is guided by Colossians 3:23 — whatever we do, we work at it with all our heart. That means showing up prepared, communicating clearly, and leaving properties cleaner than we found them.</p>
         </div>
         <div class="about-card" data-fw-enter="right">
@@ -1662,7 +1791,7 @@ def write_contact() -> None:
       <div class="container">
         <p class="eyebrow"><a href="index.html">Home</a> &rsaquo; Contact</p>
         <h1>Request an Outdoor Property Services Estimate</h1>
-        <p>Send photos of your property and tell us what you need cleared, mulched, or cleaned up. We'll review the details and follow up with you.</p>
+        <p>Tell us the city or job location, whether you can text photos, your best contact time, and what you need cleared, mulched, or cleaned up. Tyler reviews the details and follows up directly.</p>
       </div>
     </section>
     <section class="section-shell">
@@ -1675,7 +1804,7 @@ def write_contact() -> None:
         <div class="contact-direct">
           <div class="contact-direct-card"><p class="eyebrow">Phone</p><p><a href="tel:{SITE['phone_tel']}">{SITE['phone_display']}</a></p></div>
           <div class="contact-direct-card"><p class="eyebrow">Email</p><p><a href="mailto:{SITE['email']}">{SITE['email']}</a></p></div>
-          <div class="contact-direct-card"><p class="eyebrow">Service Area</p><p>{SITE['city']}, FL<br>Serving {SITE['area']}</p></div>
+          <div class="contact-direct-card"><p class="eyebrow">Service Area</p><p>{SITE['city']}, FL<br>{SITE['area_detail']}</p></div>
         </div>
       </div>
     </section>
@@ -1933,16 +2062,16 @@ def write_service_areas() -> None:
     <section class="sp-hero">
       <div class="container">
         <p class="eyebrow"><a href="index.html">Home</a> &rsaquo; Service Areas</p>
-        <h1>Service Areas Within {SERVICE_RADIUS_MILES} Miles of {HOME_CITY}</h1>
-        <p>Based in {HOME_CITY}, FL ({HOME_ZIP}), {SITE['brand']} serves property owners across Polk County and nearby Central Florida counties.</p>
+        <h1>Polk County &amp; Nearby Central Florida Service Areas</h1>
+        <p>{SITE['area_detail']}</p>
       </div>
     </section>
     <section class="section-shell">
       <div class="container">
         <div class="section-heading" data-fw-enter="left">
           <p class="eyebrow">Counties we serve</p>
-          <h2>Central Florida Counties</h2>
-          <p>Outdoor property services across {len(COUNTIES)} counties within approximately {SERVICE_RADIUS_MILES} miles of {HOME_CITY}.</p>
+          <h2>Launch County Focus</h2>
+          <p>For launch, the site focuses on realistic service areas tied to Auburndale, Polk County, and nearby Plant City work.</p>
         </div>
         <div class="areas-grid areas-grid--counties">{county_cards}
         </div>
@@ -1961,14 +2090,32 @@ def write_service_areas() -> None:
       </div>
     </section>"""
     html = page_shell(
-        f"Service Areas Within {SERVICE_RADIUS_MILES} Miles of {HOME_CITY} | {SITE['brand']}",
-        f"{SITE['brand']} serves Polk, Osceola, Orange, Lake, Hillsborough, Pasco, and nearby Central Florida counties within {SERVICE_RADIUS_MILES} miles of Auburndale, FL.",
+        f"Polk County Service Areas | {SITE['brand']}",
+        f"{SITE['brand']} serves Auburndale, Winter Haven, Lakeland, Lake Alfred, Bartow, Haines City, Davenport, Lake Wales, Polk City, and Plant City, FL.",
         "service-areas.html",
         body,
         schema,
         "service-areas.html",
     )
     write_site_file(ROOT / "service-areas.html", html)
+
+
+def write_404() -> None:
+    body = f"""
+    <section class="sp-hero"><div class="container"><h1>Page Not Found</h1><p>The page may have moved as Faith Works narrowed the launch service-area strategy. Start with the main services hub or request an estimate.</p></div></section>
+    <section class="section-shell"><div class="container contact-inner">
+      <p class="eyebrow">Need outdoor property help?</p>
+      <h2>Land clearing, pond bank clearing, ditch clearing, and property cleanup in Polk County</h2>
+      <p>Use the services page to find the right fit or contact Tyler directly with your city, photos, and access notes.</p>
+      <div class="hero-actions" style="justify-content:center">
+        <a class="btn btn-primary" href="services.html">View Services</a>
+        <a class="btn btn-ghost" href="contact.html">Request Estimate</a>
+      </div>
+    </div></section>"""
+    write_site_file(
+        ROOT / "404.html",
+        page_shell("Page Not Found | Faith Works Outdoor Services", "Find Faith Works Outdoor Services pages for Polk County land clearing and outdoor property cleanup.", "404.html", body),
+    )
 
 
 def write_privacy() -> None:
@@ -2001,7 +2148,7 @@ def write_sitemap() -> None:
 
 
 def write_robots() -> None:
-    write_site_file(ROOT / "robots.txt", f"User-agent: *\nAllow: /\nSitemap: {SITE['url']}/sitemap.xml\n")
+    write_site_file(ROOT / "robots.txt", f"User-agent: *\nAllow: /\nDisallow: /faithworksods-website/\nSitemap: {SITE['url']}/sitemap.xml\n")
 
 
 def write_cname() -> None:
@@ -2028,6 +2175,10 @@ def write_styles() -> None:
     src = src.replace('url("Images/ScreenTeamBanner.webp")', f'url("Gallery/{HERO_DESKTOP}")')
     src = src.replace('url("Images/ScreenTeamBanner-mobile.webp")', f'url("Gallery/{HERO_MOBILE}")')
     src = src.replace('url("Images/service-hero-bg.jpg")', f'url("Gallery/{HERO_DESKTOP}")')
+    src = src.replace(
+        ".contact-section {\n  background: linear-gradient(135deg, #08152a 0%, #060f1c 100%);",
+        ".contact-section {\n  position: relative;\n  overflow: hidden;\n  background: #0a0a0a;",
+    )
     src = src.replace(
         ".hero {\n  position: relative;\n  min-height: 92vh;\n  display: flex;\n  align-items: center;\n  background:",
         ".hero {\n  position: relative;\n  min-height: 92vh;\n  display: block;\n  width: 100%;\n  max-width: none;\n  background:",
@@ -2085,7 +2236,61 @@ def write_styles() -> None:
   text-transform: uppercase;
 }
 .process-step p { font-size: 0.92rem; color: var(--muted); line-height: 1.6; }
-.process-section { background: linear-gradient(180deg, #0a0a0a 0%, #121812 100%); border-top: 1px solid var(--border); }
+.process-section {
+  border-top: 1px solid var(--border);
+}
+.process-section--parallax {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background: #0a0a0a;
+}
+.process-bg {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -32%;
+  height: 164%;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.process-bg__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center 58%;
+  transform: translate3d(0, var(--fw-band-shift, 0px), 0);
+  will-change: transform;
+}
+.process-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    135deg,
+    rgba(10, 10, 10, 0.84) 0%,
+    rgba(12, 18, 12, 0.76) 42%,
+    rgba(16, 22, 16, 0.62) 100%
+  );
+}
+.process-section--parallax .container {
+  position: relative;
+  z-index: 2;
+}
+.process-section--parallax .process-step {
+  background: rgba(12, 14, 12, 0.78);
+  border-color: rgba(201, 162, 39, 0.18);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .process-bg__img {
+    transform: none !important;
+  }
+}
 .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
 .gallery-item { margin: 0; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; }
 .gallery-item img { width: 100%; aspect-ratio: 4/3; object-fit: cover; }
@@ -2515,6 +2720,7 @@ def write_styles() -> None:
 .areas-grid--counties {
   margin-bottom: 0;
 }
+.scope-section {
   background: linear-gradient(180deg, #0a0a0a 0%, #101510 100%);
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
@@ -2870,11 +3076,29 @@ def write_styles() -> None:
 .hero-inner {
   position: relative;
   z-index: 2;
+  align-items: center;
   gap: clamp(32px, 4vw, 56px);
   max-width: none;
   margin: 0 auto;
   padding-top: clamp(64px, 10vh, 100px);
   padding-bottom: clamp(72px, 10vh, 100px);
+}
+.hero .hero-card {
+  background: rgba(10, 14, 12, 0.46);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 24px 54px rgba(0, 0, 0, 0.32);
+}
+.hero .hero-card .contact-form-hero .form-group input,
+.hero .hero-card .contact-form-hero .form-group textarea {
+  background: rgba(0, 0, 0, 0.34);
+  border-color: rgba(255, 255, 255, 0.14);
+}
+.hero .hero-card .contact-form-hero .form-group input:focus,
+.hero .hero-card .contact-form-hero .form-group textarea:focus {
+  background: rgba(0, 0, 0, 0.46);
+  border-color: rgba(201, 162, 39, 0.45);
 }
 
 @media (max-width: 1060px) {
@@ -2891,6 +3115,7 @@ def write_styles() -> None:
 @media (min-width: 1061px) {
   .hero-inner {
     grid-template-columns: minmax(0, 1fr) minmax(360px, 440px);
+    align-items: center;
   }
 }
 
@@ -2977,9 +3202,6 @@ def write_styles() -> None:
 }
 
 @media (min-width: 1061px) {
-  .hero-inner {
-    align-items: stretch;
-  }
   .hero-copy {
     display: flex;
     flex-direction: column;
@@ -2989,6 +3211,7 @@ def write_styles() -> None:
     display: flex;
     flex-direction: column;
     padding: 28px 24px;
+    align-self: center;
   }
   .hero-card .card-eyebrow {
     margin-bottom: 8px;
@@ -3002,11 +3225,9 @@ def write_styles() -> None:
     font-size: 0.84rem;
   }
   .hero-card .contact-form-hero {
-    flex: 1;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    min-height: 0;
   }
   .hero-card .contact-form-hero .form-group {
     gap: 4px;
@@ -3025,7 +3246,6 @@ def write_styles() -> None:
     resize: vertical;
   }
   .hero-card .form-footer {
-    margin-top: auto;
     padding-top: 4px;
   }
   .hero-card .form-footer .form-note {
@@ -3038,6 +3258,107 @@ def write_styles() -> None:
 @media (max-width: 720px) {
   .hero {
     background-image: none;
+  }
+}
+
+/* Homepage contact CTA — fw-banner background */
+.contact-section {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  width: 100%;
+  max-width: none;
+}
+.contact-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.contact-bg__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center;
+}
+.contact-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    90deg,
+    rgba(10, 10, 10, 0.92) 0%,
+    rgba(10, 10, 10, 0.78) 42%,
+    rgba(10, 10, 10, 0.38) 68%,
+    rgba(10, 10, 10, 0.12) 100%
+  );
+}
+.contact-cutout-wrap {
+  position: absolute;
+  right: clamp(0px, 2vw, 28px);
+  bottom: 0;
+  z-index: 2;
+  height: min(94%, 900px);
+  width: min(40vw, 440px);
+  pointer-events: none;
+}
+.contact-cutout {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: right bottom;
+  opacity: 0;
+  transform: translate3d(16%, 0, 0);
+}
+.contact-section.contact-ready .contact-cutout {
+  animation: contactCutoutEnter 0.95s ease-out 0.35s forwards;
+}
+@keyframes contactCutoutEnter {
+  from {
+    opacity: 0;
+    transform: translate3d(16%, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+.contact-inner {
+  position: relative;
+  z-index: 3;
+}
+@media (max-width: 900px) {
+  .contact-cutout-wrap {
+    width: min(46vw, 320px);
+    height: min(78%, 560px);
+    right: clamp(0px, 1vw, 12px);
+  }
+}
+@media (max-width: 640px) {
+  .contact-cutout-wrap {
+    width: min(52vw, 260px);
+    height: min(70%, 420px);
+    opacity: 0.92;
+  }
+  .contact-overlay {
+    background: linear-gradient(
+      90deg,
+      rgba(10, 10, 10, 0.94) 0%,
+      rgba(10, 10, 10, 0.82) 55%,
+      rgba(10, 10, 10, 0.45) 100%
+    );
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .contact-cutout {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
   }
 }
 
@@ -3876,57 +4197,60 @@ html.fw-js [data-fw-enter].is-visible {
   }
 }
 
-/* ---- Homepage GEO + services hub (SEO/AEO) ---- */
-.home-geo-section {
-  background: linear-gradient(180deg, #0a0a0a 0%, #101510 100%);
+/* ---- Homepage GEO strip + services hub (SEO/AEO) ---- */
+.home-geo-strip {
+  padding: 44px 0;
+  background: linear-gradient(90deg, #0a0a0a 0%, #101510 50%, #0a0a0a 100%);
   border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }
-.home-geo-block {
-  margin-bottom: 28px;
-}
-.home-geo-block h3 {
-  font-family: var(--font-head);
-  font-size: 1.05rem;
-  color: #fff;
-  margin-bottom: 14px;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-}
-.home-geo-pills {
+.home-geo-strip__inner {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(20px, 4vw, 40px);
+}
+.home-geo-strip__copy {
+  flex: 1 1 520px;
+  min-width: 0;
+}
+.home-geo-strip__eyebrow {
+  margin: 0 0 8px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.home-geo-strip__text {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.96rem;
+  line-height: 1.65;
+  max-width: 62ch;
+}
+.home-geo-strip__actions {
+  display: flex;
+  flex-shrink: 0;
   flex-wrap: wrap;
   gap: 10px;
+  justify-content: flex-end;
 }
-.home-geo-pill {
-  display: inline-flex;
-  align-items: center;
-  padding: 10px 16px;
-  border-radius: 999px;
-  border: 1px solid rgba(201, 162, 39, 0.28);
-  background: rgba(201, 162, 39, 0.08);
-  color: #fff;
-  font-size: 0.86rem;
-  font-weight: 650;
-  text-decoration: none;
-  transition: background 0.2s ease, border-color 0.2s ease;
+.home-geo-strip__cta {
+  white-space: nowrap;
 }
-.home-geo-pill:hover {
-  background: rgba(201, 162, 39, 0.18);
-  border-color: var(--accent);
-  color: var(--accent);
-}
-.home-geo-pill--city {
-  font-size: 0.82rem;
-}
-.home-geo-note {
-  margin-top: 8px;
-  text-align: center;
-  color: var(--muted);
-  font-size: 0.94rem;
-  line-height: 1.7;
-}
-.home-geo-note a {
-  color: var(--accent);
+@media (max-width: 860px) {
+  .home-geo-strip {
+    padding: 36px 0;
+  }
+  .home-geo-strip__inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .home-geo-strip__actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
 }
 .home-services-hub {
   border-top: 1px solid var(--border);
@@ -4471,6 +4795,98 @@ footer.fw-site-footer .footer-disclaimer {
     grid-template-columns: 1fr;
   }
 }
+
+
+.reviews-section--soon {
+  background: linear-gradient(180deg, #101510 0%, #0a0a0a 100%);
+}
+.reviews-coming-soon {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: clamp(28px, 5vw, 48px);
+  border: 1px solid rgba(201, 162, 39, 0.22);
+  border-radius: var(--radius-md);
+  background: rgba(201, 162, 39, 0.06);
+  text-align: center;
+}
+.reviews-coming-soon h2 {
+  font-family: var(--font-head);
+  color: #fff;
+  font-size: clamp(1.45rem, 3vw, 2.3rem);
+  margin-bottom: 12px;
+}
+.reviews-coming-soon p {
+  max-width: 64ch;
+  margin: 0 auto 22px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+.equipment-trust {
+  background: linear-gradient(180deg, #0a0a0a 0%, #101510 100%);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.equipment-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+.equipment-card {
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+}
+.equipment-card img,
+.home-services-hub-card__image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+.equipment-card div,
+.home-services-hub-card__body {
+  padding: 18px 16px;
+}
+.equipment-card h3 {
+  margin-bottom: 8px;
+  color: #fff;
+  font-family: var(--font-head);
+  font-size: 1rem;
+}
+.equipment-card p {
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+.home-services-hub-grid--buyer {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 16px;
+}
+.home-services-hub-card--buyer {
+  overflow: hidden;
+  padding: 0;
+}
+.form-help {
+  margin-top: 6px;
+  font-size: 0.76rem;
+  color: var(--muted);
+  line-height: 1.35;
+}
+@media (max-width: 1180px) {
+  .home-services-hub-grid--buyer,
+  .equipment-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 640px) {
+  .home-services-hub-grid--buyer,
+  .equipment-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 """
     write_site_file(ROOT / "styles.css", src + extra)
 
@@ -4580,6 +4996,7 @@ def cleanup_obsolete_pages() -> None:
             "gallery.html",
             "service-areas.html",
             "privacy-policy.html",
+            "404.html",
         }
     )
     area_keep = {c["slug"] for c in AREA_CITIES} | {c["slug"] for c in COUNTIES}
@@ -4607,6 +5024,7 @@ def main() -> None:
     write_service_areas()
     write_area_pages()
     write_privacy()
+    write_404()
     write_sitemap()
     write_robots()
     write_cname()

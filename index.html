@@ -7,6 +7,19 @@
   <meta name="description" content="Faith Works Outdoor Services provides land clearing, pond bank clearing, ditch clearing, brush cutting, debris removal, and tractor work in Polk County, FL.">
   <link rel="canonical" href="https://faithworksods.com/">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <script>
+    (function () {
+      if (location.hostname === "nicholasjknight.github.io") {
+        var robots = document.querySelector('meta[name="robots"]');
+        if (!robots) {
+          robots = document.createElement("meta");
+          robots.setAttribute("name", "robots");
+          document.head.appendChild(robots);
+        }
+        robots.setAttribute("content", "noindex, nofollow");
+      }
+    })();
+  </script>
   <meta name="author" content="Faith Works Outdoor Services LLC">
   <meta name="geo.region" content="US-FL">
   <meta name="geo.placename" content="Auburndale, Florida">
@@ -26,11 +39,15 @@
   <meta name="twitter:image" content="https://faithworksods.com/Gallery/photo-of-all-equipment.webp">
   <script type="application/ld+json">{
   "@context": "https://schema.org",
-  "@type": "HomeAndConstructionBusiness",
+  "@type": [
+    "Organization",
+    "HomeAndConstructionBusiness"
+  ],
   "@id": "https://faithworksods.com/#business",
   "name": "Faith Works Outdoor Services",
   "legalName": "Faith Works Outdoor Services LLC",
-  "description": "Faith Works Outdoor Services \u2014 Land Clearing, Pond Bank Clearing, Ditch Clearing & Outdoor Property Services in Central Florida within 70 miles of Auburndale.",
+  "alternateName": "Faith Works ODS",
+  "description": "Faith Works Outdoor Services - Land Clearing, Pond Bank Clearing, Ditch Clearing & Outdoor Property Services in Polk County and nearby Central Florida communities.",
   "url": "https://faithworksods.com",
   "telephone": "+1-863-272-1596",
   "email": "contact@faithworksods.com",
@@ -45,47 +62,64 @@
   "priceRange": "$$",
   "openingHours": "Mo-Sa 07:00-18:00",
   "areaServed": [
-    "Auburndale, FL",
-    "Winter Haven, FL",
-    "Lakeland, FL",
-    "Lake Alfred, FL",
-    "Bartow, FL",
-    "Haines City, FL",
-    "Davenport, FL",
-    "Lake Wales, FL",
-    "Polk City, FL",
-    "Mulberry, FL",
-    "Fort Meade, FL",
-    "Frostproof, FL",
-    "Dundee, FL",
-    "Eagle Lake, FL",
-    "Plant City, FL",
-    "Kissimmee, FL",
-    "St Cloud, FL",
-    "Poinciana, FL",
-    "Orlando, FL",
-    "Ocoee, FL",
-    "Winter Garden, FL",
-    "Apopka, FL",
-    "Clermont, FL",
-    "Leesburg, FL",
-    "Mount Dora, FL",
-    "Tavares, FL",
-    "Groveland, FL",
-    "Brandon, FL",
-    "Tampa, FL",
-    "Valrico, FL",
-    "Zephyrhills, FL",
-    "Wesley Chapel, FL",
-    "Dade City, FL",
-    "Wauchula, FL",
-    "Sebring, FL",
-    "Avon Park, FL",
-    "Arcadia, FL",
-    "The Villages, FL",
-    "Bushnell, FL",
-    "Bradenton, FL",
-    "Parrish, FL"
+    {
+      "@type": "AdministrativeArea",
+      "name": "Polk County"
+    },
+    {
+      "@type": "AdministrativeArea",
+      "name": "Hillsborough County"
+    },
+    {
+      "@type": "City",
+      "name": "Auburndale, FL"
+    },
+    {
+      "@type": "City",
+      "name": "Winter Haven, FL"
+    },
+    {
+      "@type": "City",
+      "name": "Lakeland, FL"
+    },
+    {
+      "@type": "City",
+      "name": "Lake Alfred, FL"
+    },
+    {
+      "@type": "City",
+      "name": "Bartow, FL"
+    },
+    {
+      "@type": "City",
+      "name": "Haines City, FL"
+    },
+    {
+      "@type": "City",
+      "name": "Davenport, FL"
+    },
+    {
+      "@type": "City",
+      "name": "Lake Wales, FL"
+    },
+    {
+      "@type": "City",
+      "name": "Polk City, FL"
+    },
+    {
+      "@type": "City",
+      "name": "Plant City, FL"
+    }
+  ],
+  "slogan": "Land clearing, pond bank clearing, ditch clearing, and outdoor property services in Polk County, FL.",
+  "knowsAbout": [
+    "land clearing",
+    "forestry mulching",
+    "pond bank clearing",
+    "ditch clearing",
+    "brush clearing",
+    "tractor services",
+    "storm debris cleanup"
   ],
   "hasOfferCatalog": {
     "@type": "OfferCatalog",
@@ -248,7 +282,34 @@
     ]
   }
 }</script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://faithworksods.com/#website","url":"https://faithworksods.com/","name":"Faith Works Outdoor Services","publisher":{"@id":"https://faithworksods.com/#business"}}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://faithworksods.com/#website",
+  "url": "https://faithworksods.com/",
+  "name": "Faith Works Outdoor Services",
+  "publisher": {
+    "@id": "https://faithworksods.com/#business"
+  },
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://faithworksods.com/services.html?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "ImageObject",
+  "@id": "https://faithworksods.com/Gallery/photo-of-all-equipment.webp#image",
+  "contentUrl": "https://faithworksods.com/Gallery/photo-of-all-equipment.webp",
+  "url": "https://faithworksods.com/Gallery/photo-of-all-equipment.webp",
+  "caption": "Faith Works Outdoor Services equipment in Polk County, Florida",
+  "representativeOfPage": true,
+  "mainEntityOfPage": "https://faithworksods.com/",
+  "creator": {
+    "@id": "https://faithworksods.com/#business"
+  }
+}</script>
   <script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -258,7 +319,7 @@
       "name": "Do you offer free estimates?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. Send photos through the contact form or email contact@faithworksods.com. Photo-based estimates help us review access, vegetation, debris, and project scope before scheduling."
+        "text": "Yes. Text photos to (863) 272-1596 or use the estimate form. Photo-based estimates help us review access, vegetation, debris, and project scope before scheduling."
       }
     },
     {
@@ -266,7 +327,7 @@
       "name": "What areas do you serve near Auburndale, FL?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Faith Works Outdoor Services is based in Auburndale (33823) and serves property owners within approximately 70 miles \u2014 including Polk, Osceola, Orange, Lake, Hillsborough, Pasco, and nearby Central Florida counties. Winter Haven, Lakeland, Bartow, Haines City, Kissimmee, and Orlando are common service areas."
+        "text": "Faith Works Outdoor Services is based in Auburndale (33823) and primarily serves Polk County communities including Auburndale, Winter Haven, Lakeland, Lake Alfred, Bartow, Haines City, Davenport, Lake Wales, and Polk City. Plant City and larger Central Florida projects may be reviewed by scope."
       }
     },
     {
@@ -274,7 +335,7 @@
       "name": "How far from Auburndale will Faith Works travel for a job?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "We regularly travel up to about 70 miles from Auburndale for land clearing, pond bank work, ditch clearing, brush cutting, and property cleanup. Send your city and photos \u2014 Tyler will confirm scheduling and travel for your property."
+        "text": "Most launch work is focused in Polk County and nearby communities so scheduling, estimates, and Google Business Profile relevance stay accurate. Larger acreage, land clearing, and equipment-assisted cleanup projects outside the immediate area can be reviewed case by case."
       }
     },
     {
@@ -282,7 +343,7 @@
       "name": "What outdoor property services do you offer in Polk County?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Faith Works provides land clearing, pond bank clearing, ditch clearing & outdoor property services \u2014 including land clearing, trail clearing, brush cutting, forestry mulching, pond bank clearing, pond cleanup, ditch clearing, debris removal, acreage cleanup, pool dig-out support, and tractor services across Polk County and Central Florida."
+        "text": "Faith Works provides land clearing, pond bank clearing, ditch clearing & outdoor property services - including land clearing, trail clearing, brush cutting, forestry mulching, pond bank clearing, pond cleanup, ditch clearing, debris removal, acreage cleanup, pool dig-out support, and tractor services."
       }
     },
     {
@@ -290,7 +351,7 @@
       "name": "Do you clear overgrown pond banks and ditches?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. Pond bank clearing and ditch clearing are core services. We use mulching equipment, brush cutters, and tractors to open access, remove overgrowth, and clean vegetation from outdoor ditch and pond-edge areas \u2014 not engineered stormwater or utility systems."
+        "text": "Yes. Pond bank clearing and ditch clearing are core services. We use compact equipment, brush cutters, and tractors to open access, remove overgrowth, and clean vegetation from outdoor ditch and pond-edge areas."
       }
     },
     {
@@ -303,10 +364,10 @@
     },
     {
       "@type": "Question",
-      "name": "Do you install pools or do utility trenching?",
+      "name": "What work is outside Faith Works' scope?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Faith Works does not install pools, hold pool contractor licensing, or perform utility trenching, stormwater system installation, sewer work, water mains, site development, or engineered drainage. The focus is land clearing, pond bank clearing, ditch clearing & outdoor property services."
+        "text": "Faith Works does not install pools, hold pool contractor licensing, or perform utility trenching, stormwater system installation, sewer work, water mains, site development, or engineered drainage. The focus is land clearing, pond bank clearing, ditch clearing & outdoor property services."
       }
     },
     {
@@ -314,7 +375,7 @@
       "name": "What jobs do people usually call you for?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Most calls are for pond banks, trails, brush, overgrowth, debris, and acreage cleanup. Pool dig-out support is available under licensed pool builders."
+        "text": "Most calls are for pond banks, trails, brush, overgrowth, debris, acreage cleanup, and owner-operated tractor or equipment help. Pool dig-out support is available under licensed pool builders."
       }
     },
     {
@@ -343,7 +404,7 @@
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"></noscript>
   <link rel="preload" as="image" href="Gallery/excavator-and-truck-photo.webp" fetchpriority="high" media="(max-width: 768px)">
   <link rel="preload" as="image" href="Gallery/photo-of-all-equipment.webp" fetchpriority="high" media="(min-width: 769px)">
-  <link rel="stylesheet" href="styles.css?v=20260616">
+  <link rel="stylesheet" href="styles.css?v=20260624">
 
 
 </head>
@@ -485,50 +546,6 @@
               <li class="fw-services-mega__flyout-item"><a href="areas/davenport-fl.html" role="menuitem">Davenport, FL</a></li>
               <li class="fw-services-mega__flyout-item"><a href="areas/lake-wales-fl.html" role="menuitem">Lake Wales, FL</a></li>
               <li class="fw-services-mega__flyout-item"><a href="areas/polk-city-fl.html" role="menuitem">Polk City, FL</a></li>
-              <li class="fw-services-mega__flyout-item"><a href="areas/mulberry-fl.html" role="menuitem">Mulberry, FL</a></li>
-              <li class="fw-services-mega__flyout-item"><a href="areas/fort-meade-fl.html" role="menuitem">Fort Meade, FL</a></li>
-              <li class="fw-services-mega__flyout-item"><a href="areas/frostproof-fl.html" role="menuitem">Frostproof, FL</a></li>
-              <li class="fw-services-mega__flyout-item"><a href="areas/dundee-fl.html" role="menuitem">Dundee, FL</a></li>
-              <li class="fw-services-mega__flyout-item"><a href="areas/eagle-lake-fl.html" role="menuitem">Eagle Lake, FL</a></li>
-          </ul>
-        </li>
-        <li class="fw-services-mega__item fw-services-mega__item--branch">
-          <button type="button" class="fw-services-mega__trigger subnav-toggle" aria-expanded="false" aria-haspopup="true" aria-controls="fw-area-osceola-county-fl">
-            <span class="fw-services-mega__label">Osceola</span>
-            <span class="fw-services-mega__chevron" aria-hidden="true"></span>
-          </button>
-          <ul class="fw-services-mega__flyout" id="fw-area-osceola-county-fl" role="menu">
-              <li class="fw-services-mega__flyout-item fw-services-mega__flyout-item--overview"><a href="areas/osceola-county-fl.html" role="menuitem">All Osceola County</a></li>
-              <li class="fw-services-mega__flyout-item"><a href="areas/kissimmee-fl.html" role="menuitem">Kissimmee, FL</a></li>
-              <li class="fw-services-mega__flyout-item"><a href="areas/st-cloud-fl.html" role="menuitem">St Cloud, FL</a></li>
-              <li class="fw-services-mega__flyout-item"><a href="areas/poinciana-fl.html" role="menuitem">Poinciana, FL</a></li>
-          </ul>
-        </li>
-        <li class="fw-services-mega__item fw-services-mega__item--branch">
-          <button type="button" class="fw-services-mega__trigger subnav-toggle" aria-expanded="false" aria-haspopup="true" aria-controls="fw-area-orange-county-fl">
-            <span class="fw-services-mega__label">Orange</span>
-            <span class="fw-services-mega__chevron" aria-hidden="true"></span>
-          </button>
-          <ul class="fw-services-mega__flyout" id="fw-area-orange-county-fl" role="menu">
-              <li class="fw-services-mega__flyout-item fw-services-mega__flyout-item--overview"><a href="areas/orange-county-fl.html" role="menuitem">All Orange County</a></li>
-              <li class="fw-services-mega__flyout-item"><a href="areas/orlando-fl.html" role="menuitem">Orlando, FL</a></li>
-              <li class="fw-services-mega__flyout-item"><a href="areas/ocoee-fl.html" role="menuitem">Ocoee, FL</a></li>
-              <li class="fw-services-mega__flyout-item"><a href="areas/winter-garden-fl.html" role="menuitem">Winter Garden, FL</a></li>
-              <li class="fw-services-mega__flyout-item"><a href="areas/apopka-fl.html" role="menuitem">Apopka, FL</a></li>
-          </ul>
-        </li>
-        <li class="fw-services-mega__item fw-services-mega__item--branch">
-          <button type="button" class="fw-services-mega__trigger subnav-toggle" aria-expanded="false" aria-haspopup="true" aria-controls="fw-area-lake-county-fl">
-            <span class="fw-services-mega__label">Lake</span>
-            <span class="fw-services-mega__chevron" aria-hidden="true"></span>
-          </button>
-          <ul class="fw-services-mega__flyout" id="fw-area-lake-county-fl" role="menu">
-              <li class="fw-services-mega__flyout-item fw-services-mega__flyout-item--overview"><a href="areas/lake-county-fl.html" role="menuitem">All Lake County</a></li>
-              <li class="fw-services-mega__flyout-item"><a href="areas/clermont-fl.html" role="menuitem">Clermont, FL</a></li>
-              <li class="fw-services-mega__flyout-item"><a href="areas/leesburg-fl.html" role="menuitem">Leesburg, FL</a></li>
-              <li class="fw-services-mega__flyout-item"><a href="areas/mount-dora-fl.html" role="menuitem">Mount Dora, FL</a></li>
-              <li class="fw-services-mega__flyout-item"><a href="areas/tavares-fl.html" role="menuitem">Tavares, FL</a></li>
-              <li class="fw-services-mega__flyout-item"><a href="areas/groveland-fl.html" role="menuitem">Groveland, FL</a></li>
           </ul>
         </li>
         <li class="fw-services-mega__item fw-services-mega__item--branch">
@@ -539,74 +556,6 @@
           <ul class="fw-services-mega__flyout" id="fw-area-hillsborough-county-fl" role="menu">
               <li class="fw-services-mega__flyout-item fw-services-mega__flyout-item--overview"><a href="areas/hillsborough-county-fl.html" role="menuitem">All Hillsborough County</a></li>
               <li class="fw-services-mega__flyout-item"><a href="areas/plant-city-fl.html" role="menuitem">Plant City, FL</a></li>
-              <li class="fw-services-mega__flyout-item"><a href="areas/brandon-fl.html" role="menuitem">Brandon, FL</a></li>
-              <li class="fw-services-mega__flyout-item"><a href="areas/tampa-fl.html" role="menuitem">Tampa, FL</a></li>
-              <li class="fw-services-mega__flyout-item"><a href="areas/valrico-fl.html" role="menuitem">Valrico, FL</a></li>
-          </ul>
-        </li>
-        <li class="fw-services-mega__item fw-services-mega__item--branch">
-          <button type="button" class="fw-services-mega__trigger subnav-toggle" aria-expanded="false" aria-haspopup="true" aria-controls="fw-area-pasco-county-fl">
-            <span class="fw-services-mega__label">Pasco</span>
-            <span class="fw-services-mega__chevron" aria-hidden="true"></span>
-          </button>
-          <ul class="fw-services-mega__flyout" id="fw-area-pasco-county-fl" role="menu">
-              <li class="fw-services-mega__flyout-item fw-services-mega__flyout-item--overview"><a href="areas/pasco-county-fl.html" role="menuitem">All Pasco County</a></li>
-              <li class="fw-services-mega__flyout-item"><a href="areas/zephyrhills-fl.html" role="menuitem">Zephyrhills, FL</a></li>
-              <li class="fw-services-mega__flyout-item"><a href="areas/wesley-chapel-fl.html" role="menuitem">Wesley Chapel, FL</a></li>
-              <li class="fw-services-mega__flyout-item"><a href="areas/dade-city-fl.html" role="menuitem">Dade City, FL</a></li>
-          </ul>
-        </li>
-        <li class="fw-services-mega__item fw-services-mega__item--branch">
-          <button type="button" class="fw-services-mega__trigger subnav-toggle" aria-expanded="false" aria-haspopup="true" aria-controls="fw-area-hardee-county-fl">
-            <span class="fw-services-mega__label">Hardee</span>
-            <span class="fw-services-mega__chevron" aria-hidden="true"></span>
-          </button>
-          <ul class="fw-services-mega__flyout" id="fw-area-hardee-county-fl" role="menu">
-              <li class="fw-services-mega__flyout-item fw-services-mega__flyout-item--overview"><a href="areas/hardee-county-fl.html" role="menuitem">All Hardee County</a></li>
-              <li class="fw-services-mega__flyout-item"><a href="areas/wauchula-fl.html" role="menuitem">Wauchula, FL</a></li>
-          </ul>
-        </li>
-        <li class="fw-services-mega__item fw-services-mega__item--branch">
-          <button type="button" class="fw-services-mega__trigger subnav-toggle" aria-expanded="false" aria-haspopup="true" aria-controls="fw-area-highlands-county-fl">
-            <span class="fw-services-mega__label">Highlands</span>
-            <span class="fw-services-mega__chevron" aria-hidden="true"></span>
-          </button>
-          <ul class="fw-services-mega__flyout" id="fw-area-highlands-county-fl" role="menu">
-              <li class="fw-services-mega__flyout-item fw-services-mega__flyout-item--overview"><a href="areas/highlands-county-fl.html" role="menuitem">All Highlands County</a></li>
-              <li class="fw-services-mega__flyout-item"><a href="areas/sebring-fl.html" role="menuitem">Sebring, FL</a></li>
-              <li class="fw-services-mega__flyout-item"><a href="areas/avon-park-fl.html" role="menuitem">Avon Park, FL</a></li>
-          </ul>
-        </li>
-        <li class="fw-services-mega__item fw-services-mega__item--branch">
-          <button type="button" class="fw-services-mega__trigger subnav-toggle" aria-expanded="false" aria-haspopup="true" aria-controls="fw-area-desoto-county-fl">
-            <span class="fw-services-mega__label">DeSoto</span>
-            <span class="fw-services-mega__chevron" aria-hidden="true"></span>
-          </button>
-          <ul class="fw-services-mega__flyout" id="fw-area-desoto-county-fl" role="menu">
-              <li class="fw-services-mega__flyout-item fw-services-mega__flyout-item--overview"><a href="areas/desoto-county-fl.html" role="menuitem">All DeSoto County</a></li>
-              <li class="fw-services-mega__flyout-item"><a href="areas/arcadia-fl.html" role="menuitem">Arcadia, FL</a></li>
-          </ul>
-        </li>
-        <li class="fw-services-mega__item fw-services-mega__item--branch">
-          <button type="button" class="fw-services-mega__trigger subnav-toggle" aria-expanded="false" aria-haspopup="true" aria-controls="fw-area-sumter-county-fl">
-            <span class="fw-services-mega__label">Sumter</span>
-            <span class="fw-services-mega__chevron" aria-hidden="true"></span>
-          </button>
-          <ul class="fw-services-mega__flyout" id="fw-area-sumter-county-fl" role="menu">
-              <li class="fw-services-mega__flyout-item fw-services-mega__flyout-item--overview"><a href="areas/sumter-county-fl.html" role="menuitem">All Sumter County</a></li>
-              <li class="fw-services-mega__flyout-item"><a href="areas/the-villages-fl.html" role="menuitem">The Villages, FL</a></li>
-              <li class="fw-services-mega__flyout-item"><a href="areas/bushnell-fl.html" role="menuitem">Bushnell, FL</a></li>
-          </ul>
-        </li>
-        <li class="fw-services-mega__item fw-services-mega__item--branch">
-          <button type="button" class="fw-services-mega__trigger subnav-toggle" aria-expanded="false" aria-haspopup="true" aria-controls="fw-area-manatee-county-fl">
-            <span class="fw-services-mega__label">Manatee</span>
-            <span class="fw-services-mega__chevron" aria-hidden="true"></span>
-          </button>
-          <ul class="fw-services-mega__flyout" id="fw-area-manatee-county-fl" role="menu">
-              <li class="fw-services-mega__flyout-item fw-services-mega__flyout-item--overview"><a href="areas/manatee-county-fl.html" role="menuitem">All Manatee County</a></li>
-              <li class="fw-services-mega__flyout-item"><a href="areas/bradenton-fl.html" role="menuitem">Bradenton, FL</a></li>
-              <li class="fw-services-mega__flyout-item"><a href="areas/parrish-fl.html" role="menuitem">Parrish, FL</a></li>
           </ul>
         </li>
         </ul>
@@ -642,7 +591,7 @@
           <p class="eyebrow" data-fw-enter="left" data-fw-enter-immediate="true">Land Clearing, Pond Bank Clearing, Ditch Clearing & Outdoor Property Services</p>
           <h1 data-fw-enter="left" data-fw-enter-immediate="true" style="--fw-enter-delay: 80ms;">Land Clearing &amp; Outdoor Property Services in <span class="h1-accent">Auburndale, FL</span></h1>
           <p class="hero-sub" data-fw-enter="left" data-fw-enter-immediate="true" style="--fw-enter-delay: 160ms;">
-            Faith Works Outdoor Services helps homeowners and property owners with land clearing, trail clearing, brush cutting, forestry mulching, pond bank clearing, pond cleanup, ditch clearing, debris removal, acreage cleanup, and tractor services across Central Florida within 70 miles of Auburndale — outdoor property work, not utility trenching or engineered drainage.
+            Faith Works Outdoor Services helps homeowners, landowners, and property managers with land clearing, forestry mulching, pond bank clearing, ditch clearing, trails, fence lines, debris removal, acreage cleanup, and tractor services across Polk County and nearby Central Florida communities.
           </p>
           <div class="hero-actions" data-fw-enter="left" data-fw-enter-immediate="true" style="--fw-enter-delay: 240ms;">
             <a class="btn btn-primary" href="contact.html">Request a Free Estimate</a>
@@ -667,64 +616,23 @@
 
               <div class="form-group">
                 <label for="hero-contact-form-name">Your Name</label>
-                <input type="text" id="hero-contact-form-name" name="name" placeholder="First and last name" required autocomplete="name">
+                <input type="text" id="hero-contact-form-name" name="name" placeholder="Your name" required autocomplete="name">
               </div>
               <div class="form-group">
                 <label for="hero-contact-form-phone">Phone Number</label>
                 <input type="tel" id="hero-contact-form-phone" name="phone" placeholder="(863) 272-1596" required autocomplete="tel">
               </div>
+
               <div class="form-group">
-                <label for="hero-contact-form-service">Service Needed</label>
-                <select id="hero-contact-form-service" name="service" required>
-                <option value="" disabled selected>Select a service...</option>
-                <optgroup label="Core Outdoor Services">
-                <option>Land Clearing</option>
-                <option>Trail Clearing</option>
-                <option>Brush Clearing / Brush Cutting</option>
-                <option>Pond Bank Clearing</option>
-                <option>Ditch Clearing</option>
-                <option>Debris Removal</option>
-                <option>Pool Dig-Out Support</option>
-                <option>Tractor Services</option>
-                </optgroup>
-                <optgroup label="Clearing & Mulching">
-                <option>Forestry Mulching</option>
-                <option>Access Road Clearing</option>
-                <option>Fence Line Clearing</option>
-                <option>Overgrowth Removal</option>
-                </optgroup>
-                <optgroup label="Pond & Ditch Work">
-                <option>Pond Cleanup</option>
-                </optgroup>
-                <optgroup label="Cleanup & Debris Removal">
-                <option>Yard Debris Removal</option>
-                <option>Storm Debris Cleanup</option>
-                <option>Property Cleanup</option>
-                <option>Lot Cleanup</option>
-                <option>Acreage Cleanup</option>
-                </optgroup>
-                <optgroup label="Property Maintenance">
-                <option>Property Maintenance</option>
-                <option>Pond Management</option>
-                <option>Ditch Maintenance</option>
-                </optgroup>
-                <optgroup label="Equipment & Tractor Services">
-                <option>Equipment Services</option>
-                </optgroup>
-                <option>Other / Not sure</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="hero-contact-form-message">Project Details</label>
-                <textarea id="hero-contact-form-message" name="message" placeholder="City, property size, and what you need done..." rows="3"></textarea>
+                <label for="hero-contact-form-message">What do you need?</label>
+                <textarea id="hero-contact-form-message" name="message" placeholder="City + quick description — e.g. brush clearing in Auburndale" rows="2"></textarea>
               </div>
               <input type="hidden" name="_subject" value="New estimate request - Faith Works Outdoor Services">
-
               <input type="hidden" name="_format" value="plain">
               <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
               <div class="form-footer">
-                <button type="submit" class="btn btn-primary btn-full">Send Estimate Request</button>
-                <p class="form-note">Or call/text <a href="tel:8632721596">(863) 272-1596</a></p>
+                <button type="submit" class="btn btn-primary btn-full">Get Free Estimate</button>
+                <p class="form-note">Text photos to <a href="tel:8632721596">(863) 272-1596</a> for the fastest quote.</p>
               </div>
             </form>
             <div class="form-success" id="hero-contact-form-success" aria-live="polite" hidden>
@@ -740,7 +648,7 @@
           <p class="eyebrow">About Faith Works</p>
           <h2>Owner-operated.<br>Equipment-ready.<br>Clear communication.</h2>
           <p>Tyler R. Edwards runs Faith Works Outdoor Services as a local Auburndale business built on hard work, honest estimates, and faith-based service. When you reach out, you're talking directly to the person doing the work.</p>
-          <p>From land clearing and pond bank work to ditch cleanup and debris haul-off, we focus on outdoor property services that help homeowners and property owners reclaim usable land — not utility trenching or engineered drainage systems.</p>
+          <p>From land clearing and pond bank work to ditch cleanup and debris haul-off, we focus on outdoor property services that help homeowners and property owners reclaim usable land with clear communication and practical equipment access.</p>
           <a class="btn btn-ghost" href="about.html">Learn more about us &rarr;</a>
         </div>
         <div class="about-card" data-fw-enter="right">
@@ -749,7 +657,7 @@
             <li>Direct contact with Tyler — no call center</li>
             <li>Photo-based estimates for outdoor projects</li>
             <li>Equipment-ready for clearing and cleanup jobs</li>
-            <li>Local Auburndale business serving within 70 miles</li>
+            <li>Local Auburndale business focused on Polk County and nearby communities</li>
             <li>Residential and property-owner friendly service</li>
             <li>Colossians 3:23 work ethic on every job</li>
           </ul>
@@ -880,138 +788,90 @@
     </section>
 
 
-    <section id="reviews" class="reviews-section section-shell">
+    <section id="reviews" class="reviews-section section-shell reviews-section--soon">
       <div class="container">
-        <div class="section-heading" data-fw-enter="left">
-          <p class="eyebrow">What people say</p>
-          <h2>Customer Reviews</h2>
-          <p>Google reviews from Polk County property owners will appear here once connected. The cards below show the layout — sample copy only until real reviews are added.</p>
-        </div>
-        <div class="fw-reviews-showcase" aria-label="Customer reviews">
-          <div class="fw-reviews-header">
-            <svg class="fw-google-g-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
-                                <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
-                                <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
-                                <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
-                                <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
-                            </svg>
-            <span class="fw-reviews-header__label">Google Reviews</span>
-            <div class="fw-review-stars fw-review-stars--header" role="img" aria-label="5 star rating">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            <div class="fw-reviews-summary" id="fw-review-summary">Reviews coming soon</div>
-          </div>
-          <div class="fw-review-carousel">
-            <button class="fw-review-btn" type="button" id="fw-review-prev" aria-label="Previous review">&#8249;</button>
-            <div class="fw-review-viewport">
-              <div class="fw-review-track" id="fw-review-track">
-            <article class="fw-review-card" data-fw-enter="bottom" style="--fw-enter-delay: 0ms;">
-              <span class="fw-review-placeholder-badge">Sample layout</span>
-              <div class="fw-review-header">
-                <span class="fw-review-avatar" style="background:#8a6d12;" aria-hidden="true">P</span>
-                <div>
-                  <h3 class="fw-review-name">Property Owner</h3>
-                  <div class="fw-review-sub">Winter Haven, FL</div>
-                </div>
-              </div>
-              <div class="fw-review-stars" role="img" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-              <p class="fw-review-text">Tyler cleared an overgrown pond bank and opened up access we had not been able to use in years. Clear communication and fair pricing.</p>
-              <div class="fw-review-date">Placeholder review</div>
-            </article>
-            <article class="fw-review-card" data-fw-enter="bottom" style="--fw-enter-delay: 70ms;">
-              <span class="fw-review-placeholder-badge">Sample layout</span>
-              <div class="fw-review-header">
-                <span class="fw-review-avatar" style="background:#1e6b2e;" aria-hidden="true">H</span>
-                <div>
-                  <h3 class="fw-review-name">Homeowner</h3>
-                  <div class="fw-review-sub">Lakeland, FL</div>
-                </div>
-              </div>
-              <div class="fw-review-stars" role="img" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-              <p class="fw-review-text">Sent photos through the website and got a quick response. Land clearing and debris haul-off were handled professionally from start to finish.</p>
-              <div class="fw-review-date">Placeholder review</div>
-            </article>
-            <article class="fw-review-card" data-fw-enter="bottom" style="--fw-enter-delay: 140ms;">
-              <span class="fw-review-placeholder-badge">Sample layout</span>
-              <div class="fw-review-header">
-                <span class="fw-review-avatar" style="background:#1a56c4;" aria-hidden="true">A</span>
-                <div>
-                  <h3 class="fw-review-name">Acreage Owner</h3>
-                  <div class="fw-review-sub">Bartow, FL</div>
-                </div>
-              </div>
-              <div class="fw-review-stars" role="img" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-              <p class="fw-review-text">Brush clearing and trail work on our property was done with the right equipment and left the area usable again. Would recommend for outdoor property work.</p>
-              <div class="fw-review-date">Placeholder review</div>
-            </article>
-            <article class="fw-review-card" data-fw-enter="bottom" style="--fw-enter-delay: 0ms;">
-              <span class="fw-review-placeholder-badge">Sample layout</span>
-              <div class="fw-review-header">
-                <span class="fw-review-avatar" style="background:#c0392b;" aria-hidden="true">L</span>
-                <div>
-                  <h3 class="fw-review-name">Local Customer</h3>
-                  <div class="fw-review-sub">Haines City, FL</div>
-                </div>
-              </div>
-              <div class="fw-review-stars" role="img" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-              <p class="fw-review-text">Ditch clearing and cleanup after storm debris — Tyler showed up when he said he would and explained the scope before starting.</p>
-              <div class="fw-review-date">Placeholder review</div>
-            </article>
-            <article class="fw-review-card" data-fw-enter="bottom" style="--fw-enter-delay: 70ms;">
-              <span class="fw-review-placeholder-badge">Sample layout</span>
-              <div class="fw-review-header">
-                <span class="fw-review-avatar" style="background:#7c3aed;" aria-hidden="true">P</span>
-                <div>
-                  <h3 class="fw-review-name">Polk County Client</h3>
-                  <div class="fw-review-sub">Auburndale area</div>
-                </div>
-              </div>
-              <div class="fw-review-stars" role="img" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-              <p class="fw-review-text">Owner-operated service with direct contact throughout the job. Good fit for pond bank and acreage cleanup projects.</p>
-              <div class="fw-review-date">Placeholder review</div>
-            </article>
-              </div>
-            </div>
-            <button class="fw-review-btn" type="button" id="fw-review-next" aria-label="Next review">&#8250;</button>
-          </div>
-          <div class="fw-review-dots" id="fw-review-dots" role="group" aria-label="Review pages"></div>
-          <p class="fw-reviews-footnote">Placeholder reviews for layout preview. Connect Google Business Profile to display live ratings.</p>
+        <div class="reviews-coming-soon" data-fw-enter="bottom">
+          <p class="eyebrow">Reviews coming soon</p>
+          <h2>Faith Works Outdoor Services Is Newly Launched</h2>
+          <p>Google reviews will appear here once the Google Business Profile is verified and real customer reviews are available. Until then, this site will not publish unverified testimonials, review schema, or aggregate rating markup.</p>
+          <a class="btn btn-ghost" href="contact.html">Request an Estimate</a>
         </div>
       </div>
     </section>
 
 
-    <section id="process" class="process-section section-shell">
+    <section class="equipment-trust section-shell">
+      <div class="container">
+        <div class="section-heading" data-fw-enter="left">
+          <p class="eyebrow">Equipment-ready outdoor services</p>
+          <h2>Owner-Operated Equipment for Polk County Property Work</h2>
+          <p>Faith Works uses Kubota equipment, trailers, and brush-handling tools for land clearing, pond bank access, ditch cleanup, trails, fence lines, storm debris, and acreage projects. Exact scope is confirmed before scheduling.</p>
+        </div>
+        <div class="equipment-grid">
+          <article class="equipment-card" data-fw-enter="bottom" style="--fw-enter-delay: 0ms;">
+            <img src="Gallery/excavator-photo.webp" alt="Kubota mini excavator on a land clearing job site in Polk County" loading="lazy" width="640" height="480">
+            <div>
+              <h3>Kubota Excavator</h3>
+              <p>Compact excavator support for digging, dirt removal, bank cleanup, and property access work.</p>
+            </div>
+          </article>
+          <article class="equipment-card" data-fw-enter="bottom" style="--fw-enter-delay: 70ms;">
+            <img src="Gallery/tractor.webp" alt="Kubota compact tractor with loader attachment on a Central Florida job site" loading="lazy" width="640" height="480">
+            <div>
+              <h3>Kubota Tractor</h3>
+              <p>Tractor and loader work for brush, soil, leveling, cleanup, and outdoor property maintenance.</p>
+            </div>
+          </article>
+          <article class="equipment-card" data-fw-enter="bottom" style="--fw-enter-delay: 140ms;">
+            <img src="Gallery/excavator-and-truck-photo.webp" alt="Kubota excavator and dump trailer on a residential pool dig-out support site in Polk County Florida" loading="lazy" width="640" height="480">
+            <div>
+              <h3>Trailers & Haul-Off</h3>
+              <p>Dump and flatbed trailer support for debris, equipment transport, and job-site cleanup.</p>
+            </div>
+          </article>
+          <article class="equipment-card" data-fw-enter="bottom" style="--fw-enter-delay: 210ms;">
+            <img src="Gallery/tractor-moving-item-with-grapple.webp" alt="Kubota tractor using a grapple attachment to move brush and debris during property cleanup" loading="lazy" width="640" height="480">
+            <div>
+              <h3>Brush & Grapple Work</h3>
+              <p>Brush handling, piles, limbs, and cleanup support for overgrown property projects.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="process" class="process-section process-section--parallax section-shell" data-parallax-overscan="0.38" data-parallax-rate="0.78" aria-label="How it works">
+      <div class="process-bg fw-parallax-bg" aria-hidden="true">
+        <img src="Gallery/tractor-with-box-blade-leveling-ground.webp" alt="" width="1920" height="1080" loading="lazy" decoding="async" class="process-bg__img" role="presentation">
+      </div>
+      <div class="process-overlay" aria-hidden="true"></div>
       <div class="container">
         <div class="section-heading" data-fw-enter="left">
           <p class="eyebrow">How it works</p>
           <h2>How to Get Land Clearing or Property Cleanup in Auburndale</h2>
-          <p>A simple four-step process — from photos to scheduled outdoor property work across Central Florida within 70 miles of Auburndale.</p>
+          <p>A simple four-step process from photos to scheduled outdoor property work across Polk County and nearby Central Florida communities.</p>
         </div>
         <div class="process-grid">
-          <div class="process-step" data-fw-enter="bottom" style="--fw-enter-delay: 0ms;"><span>1</span><h3>Send photos or call</h3><p>Share your property city and upload photos of overgrowth, pond banks, ditches, brush, or debris through the form or by text.</p></div>
-          <div class="process-step" data-fw-enter="bottom" style="--fw-enter-delay: 70ms;"><span>2</span><h3>Confirm scope</h3><p>We review access, vegetation volume, equipment room, haul-off needs, and the outdoor service that fits the job.</p></div>
-          <div class="process-step" data-fw-enter="bottom" style="--fw-enter-delay: 140ms;"><span>3</span><h3>Receive estimate</h3><p>Get a clear estimate before work begins — scoped for outdoor property services, not utility excavation.</p></div>
-          <div class="process-step" data-fw-enter="bottom" style="--fw-enter-delay: 210ms;"><span>4</span><h3>Schedule service</h3><p>Tyler shows up with the right equipment for clearing, cleanup, or tractor work on your property.</p></div>
+          <div class="process-step" data-fw-enter="bottom" style="--fw-enter-delay: 0ms;"><span>1</span><h3>Text photos or use the form</h3><p>Share your property city, contact details, and photos of overgrowth, pond banks, ditches, brush, or debris.</p></div>
+          <div class="process-step" data-fw-enter="bottom" style="--fw-enter-delay: 70ms;"><span>2</span><h3>Confirm scope</h3><p>Tyler reviews access, vegetation volume, equipment room, haul-off needs, and the outdoor service that fits the job.</p></div>
+          <div class="process-step" data-fw-enter="bottom" style="--fw-enter-delay: 140ms;"><span>3</span><h3>Receive estimate</h3><p>Get a clear estimate before work begins, with scope matched to the property and equipment access.</p></div>
+          <div class="process-step" data-fw-enter="bottom" style="--fw-enter-delay: 210ms;"><span>4</span><h3>Schedule service</h3><p>Faith Works shows up with the right equipment for clearing, cleanup, or tractor work on your property.</p></div>
         </div>
       </div>
     </section>
 
 
-    <section id="service-areas" class="home-geo-section section-shell">
-      <div class="container">
-        <div class="section-heading" data-fw-enter="left">
-          <p class="eyebrow">Service areas</p>
-          <h2>Land Clearing &amp; Outdoor Services Within 70 Miles of Auburndale</h2>
-          <p>Based in Auburndale, FL (33823), Faith Works Outdoor Services serves 11 counties and 41 cities across Central Florida — from Polk County to Orlando, Tampa, and The Villages.</p>
+    <section id="service-areas" class="home-geo-strip" aria-label="Service areas">
+      <div class="container home-geo-strip__inner">
+        <div class="home-geo-strip__copy" data-fw-enter="left">
+          <p class="home-geo-strip__eyebrow">Service areas</p>
+          <p class="home-geo-strip__text">Based in Auburndale, FL — Faith Works Outdoor Services serves Polk County and Hillsborough County with land clearing, pond bank work, ditch clearing, and outdoor property cleanup. Common launch cities include Auburndale, Winter Haven, Lakeland, Lake Alfred, Bartow, Haines City, and nearby communities.</p>
         </div>
-        <div class="home-geo-block" data-fw-enter="bottom">
-          <h3>Counties we serve</h3>
-          <div class="home-geo-pills"><a class="home-geo-pill" href="areas/polk-county-fl.html">Polk County</a><a class="home-geo-pill" href="areas/osceola-county-fl.html">Osceola County</a><a class="home-geo-pill" href="areas/orange-county-fl.html">Orange County</a><a class="home-geo-pill" href="areas/lake-county-fl.html">Lake County</a><a class="home-geo-pill" href="areas/hillsborough-county-fl.html">Hillsborough County</a><a class="home-geo-pill" href="areas/pasco-county-fl.html">Pasco County</a><a class="home-geo-pill" href="areas/hardee-county-fl.html">Hardee County</a><a class="home-geo-pill" href="areas/highlands-county-fl.html">Highlands County</a><a class="home-geo-pill" href="areas/desoto-county-fl.html">DeSoto County</a><a class="home-geo-pill" href="areas/sumter-county-fl.html">Sumter County</a><a class="home-geo-pill" href="areas/manatee-county-fl.html">Manatee County</a></div>
+        <div class="home-geo-strip__actions" data-fw-enter="right">
+          <a class="btn btn-ghost home-geo-strip__cta" href="service-areas.html">View all service areas</a>
+          <a class="btn btn-primary home-geo-strip__cta" href="contact.html">Request estimate</a>
         </div>
-        <div class="home-geo-block" data-fw-enter="bottom" style="--fw-enter-delay: 80ms;">
-          <h3>Popular cities &amp; communities</h3>
-          <div class="home-geo-pills"><a class="home-geo-pill home-geo-pill--city" href="areas/auburndale-fl.html">Auburndale, FL</a><a class="home-geo-pill home-geo-pill--city" href="areas/winter-haven-fl.html">Winter Haven, FL</a><a class="home-geo-pill home-geo-pill--city" href="areas/lakeland-fl.html">Lakeland, FL</a><a class="home-geo-pill home-geo-pill--city" href="areas/lake-alfred-fl.html">Lake Alfred, FL</a><a class="home-geo-pill home-geo-pill--city" href="areas/bartow-fl.html">Bartow, FL</a><a class="home-geo-pill home-geo-pill--city" href="areas/haines-city-fl.html">Haines City, FL</a><a class="home-geo-pill home-geo-pill--city" href="areas/davenport-fl.html">Davenport, FL</a><a class="home-geo-pill home-geo-pill--city" href="areas/lake-wales-fl.html">Lake Wales, FL</a><a class="home-geo-pill home-geo-pill--city" href="areas/polk-city-fl.html">Polk City, FL</a><a class="home-geo-pill home-geo-pill--city" href="areas/plant-city-fl.html">Plant City, FL</a><a class="home-geo-pill home-geo-pill--city" href="areas/kissimmee-fl.html">Kissimmee, FL</a><a class="home-geo-pill home-geo-pill--city" href="areas/orlando-fl.html">Orlando, FL</a><a class="home-geo-pill home-geo-pill--city" href="areas/clermont-fl.html">Clermont, FL</a></div>
-        </div>
-        <p class="home-geo-note">Looking for land clearing, pond bank clearing, or ditch clearing in your city? <a href="service-areas.html">View all service areas</a> or <a href="contact.html">request an estimate</a> with your property photos.</p>
       </div>
     </section>
 
@@ -1060,13 +920,13 @@
       <div class="container">
         <div class="section-heading" data-fw-enter="left">
           <p class="eyebrow">Clear scope</p>
-          <h2>Outdoor Property Services — Not Utility Excavation</h2>
-          <p>Faith Works is positioned as <strong>Land Clearing, Pond Bank Clearing, Ditch Clearing & Outdoor Property Services</strong> — not an excavation contractor.</p>
+          <h2>Outdoor Property Services - Clear Project Fit</h2>
+          <p>Faith Works keeps estimates practical by matching each job to the right outdoor property service, equipment access, and cleanup outcome before work begins.</p>
         </div>
         <div class="scope-grid">
           <div class="scope-card scope-card--do" data-fw-enter="left">
             <h3>What we do</h3>
-            <p>Land clearing, trail clearing, brush cutting, forestry mulching, pond bank clearing, pond cleanup, ditch clearing, debris removal, property cleanup, acreage cleanup, and owner-operated equipment services across Central Florida within 70 miles of Auburndale.</p>
+            <p>Land clearing, trail clearing, brush cutting, forestry mulching, pond bank clearing, pond cleanup, ditch clearing, debris removal, property cleanup, acreage cleanup, and owner-operated equipment services across Polk County and nearby Central Florida communities.</p>
             <ul>
               <li>Pond banks, trails, brush, and overgrowth</li>
               <li>Acreage cleanup and property maintenance</li>
@@ -1076,7 +936,7 @@
             <a class="btn btn-ghost" href="services.html">See all 22 services</a>
           </div>
           <div class="scope-card scope-card--dont" data-fw-enter="right">
-            <h3>What we do not do</h3>
+            <h3>Work outside our scope</h3>
             <p>Florida's Underground Utility & Excavation contractor license covers sanitary sewer, water distribution, storm sewer systems, utility line work, directional drilling, and similar infrastructure — not the outdoor property clearing, mulching, and cleanup services Faith Works focuses on.</p>
             <ul>            <li>Installing underground utilities</li>
             <li>Stormwater systems</li>
@@ -1097,40 +957,50 @@
     <section id="all-services" class="home-services-hub section-shell">
       <div class="container">
         <div class="section-heading" data-fw-enter="left">
-          <p class="eyebrow">Full service list</p>
-          <h2>All 22 Outdoor Property Services by Category</h2>
-          <p>Browse every service Faith Works offers — from core land clearing and pond bank work to cleanup, maintenance, and tractor services across Central Florida within 70 miles of Auburndale.</p>
+          <p class="eyebrow">Service categories</p>
+          <h2>Choose the Outdoor Property Problem You Need Solved</h2>
+          <p>The homepage focuses on the main buyer categories. The full services hub still covers every detailed service page for search, estimates, and scope clarity.</p>
         </div>
-        <div class="home-services-hub-grid">
-          <article class="home-services-hub-card" data-fw-enter="bottom" style="--fw-enter-delay: 0ms;">
-            <h3>Core Outdoor Services</h3>
-            <p>Land clearing, trail clearing, pond bank clearing, ditch clearing, brush cutting, debris removal, pool dig-out support, and tractor services.</p>
-            <div class="home-services-hub-links"><a href="land-clearing.html">Land Clearing</a><a href="trail-clearing.html">Trail Clearing</a><a href="brush-clearing.html">Brush Clearing</a><a href="pond-bank-clearing.html">Pond Bank Clearing</a></div>
+        <div class="home-services-hub-grid home-services-hub-grid--buyer">
+          <article class="home-services-hub-card home-services-hub-card--buyer" data-fw-enter="bottom" style="--fw-enter-delay: 0ms;">
+            <img class="home-services-hub-card__image" src="Gallery/excavator-photo.webp" alt="Kubota mini excavator on a land clearing job site in Polk County" loading="lazy" width="640" height="420">
+            <div class="home-services-hub-card__body">
+              <h3>Land Clearing & Forestry Mulching</h3>
+              <p>Open up overgrown lots, small acreage, wooded edges, and brush-heavy areas with owner-operated equipment.</p>
+              <div class="home-services-hub-links"><a href="land-clearing.html">Land Clearing</a><a href="forestry-mulching.html">Forestry Mulching</a><a href="brush-clearing.html">Brush Clearing</a><a href="overgrowth-removal.html">Overgrowth Removal</a></div>
+            </div>
           </article>
-          <article class="home-services-hub-card" data-fw-enter="bottom" style="--fw-enter-delay: 60ms;">
-            <h3>Clearing & Mulching</h3>
-            <p>Trail, brush, forestry mulching, overgrowth, fence line, and access work.</p>
-            <div class="home-services-hub-links"><a href="forestry-mulching.html">Forestry Mulching</a><a href="access-road-clearing.html">Access Road Clearing</a><a href="fence-line-clearing.html">Fence Line Clearing</a><a href="overgrowth-removal.html">Overgrowth Removal</a></div>
+          <article class="home-services-hub-card home-services-hub-card--buyer" data-fw-enter="bottom" style="--fw-enter-delay: 60ms;">
+            <img class="home-services-hub-card__image" src="Gallery/tractor-with-box-blade-leveling-ground.webp" alt="Kubota tractor with box blade leveling ground after brush clearing and cleanup" loading="lazy" width="640" height="420">
+            <div class="home-services-hub-card__body">
+              <h3>Pond Bank & Ditch Clearing</h3>
+              <p>Clear vegetation, debris, and access problems around private pond banks, swales, and outdoor ditch lines.</p>
+              <div class="home-services-hub-links"><a href="pond-bank-clearing.html">Pond Bank Clearing</a><a href="pond-cleanup.html">Pond Cleanup</a><a href="ditch-clearing.html">Ditch Clearing</a><a href="ditch-maintenance.html">Ditch Maintenance</a></div>
+            </div>
           </article>
-          <article class="home-services-hub-card" data-fw-enter="bottom" style="--fw-enter-delay: 120ms;">
-            <h3>Pond & Ditch Work</h3>
-            <p>Pond bank clearing, pond cleanup, ditch clearing, and ongoing maintenance.</p>
-            <div class="home-services-hub-links"><a href="pond-cleanup.html">Pond Cleanup</a></div>
+          <article class="home-services-hub-card home-services-hub-card--buyer" data-fw-enter="bottom" style="--fw-enter-delay: 120ms;">
+            <img class="home-services-hub-card__image" src="Gallery/tractor.webp" alt="Kubota compact tractor with loader attachment on a Central Florida job site" loading="lazy" width="640" height="420">
+            <div class="home-services-hub-card__body">
+              <h3>Trail, Fence Line & Access Clearing</h3>
+              <p>Reopen paths, fence rows, access routes, and hard-to-reach property edges across residential and rural land.</p>
+              <div class="home-services-hub-links"><a href="trail-clearing.html">Trail Clearing</a><a href="fence-line-clearing.html">Fence Line Clearing</a><a href="access-road-clearing.html">Access Road Clearing</a><a href="tractor-services.html">Tractor Services</a></div>
+            </div>
           </article>
-          <article class="home-services-hub-card" data-fw-enter="bottom" style="--fw-enter-delay: 0ms;">
-            <h3>Cleanup & Debris Removal</h3>
-            <p>Yard debris, storm cleanup, property and lot cleanup, and acreage restoration.</p>
-            <div class="home-services-hub-links"><a href="yard-debris-removal.html">Yard Debris Removal</a><a href="storm-debris-cleanup.html">Storm Debris Cleanup</a><a href="property-cleanup.html">Property Cleanup</a><a href="lot-cleanup.html">Lot Cleanup</a></div>
+          <article class="home-services-hub-card home-services-hub-card--buyer" data-fw-enter="bottom" style="--fw-enter-delay: 0ms;">
+            <img class="home-services-hub-card__image" src="Gallery/tractor-moving-item-with-grapple.webp" alt="Kubota tractor using a grapple attachment to move brush and debris during property cleanup" loading="lazy" width="640" height="420">
+            <div class="home-services-hub-card__body">
+              <h3>Storm, Yard & Property Cleanup</h3>
+              <p>Clean up limbs, brush piles, yard debris, overgrown lots, and deferred-maintenance areas after weather or clearing.</p>
+              <div class="home-services-hub-links"><a href="debris-removal.html">Debris Removal</a><a href="storm-debris-cleanup.html">Storm Debris Cleanup</a><a href="yard-debris-removal.html">Yard Debris Removal</a><a href="property-cleanup.html">Property Cleanup</a></div>
+            </div>
           </article>
-          <article class="home-services-hub-card" data-fw-enter="bottom" style="--fw-enter-delay: 60ms;">
-            <h3>Property Maintenance</h3>
-            <p>Ongoing outdoor property, pond, and ditch maintenance for long-term land care.</p>
-            <div class="home-services-hub-links"><a href="property-maintenance.html">Property Maintenance</a><a href="pond-management.html">Pond Management</a><a href="ditch-maintenance.html">Ditch Maintenance</a></div>
-          </article>
-          <article class="home-services-hub-card" data-fw-enter="bottom" style="--fw-enter-delay: 120ms;">
-            <h3>Equipment & Tractor Services</h3>
-            <p>Owner-operated Kubota equipment and tractor work for outdoor property jobs.</p>
-            <div class="home-services-hub-links"><a href="equipment-services.html">Equipment Services</a></div>
+          <article class="home-services-hub-card home-services-hub-card--buyer" data-fw-enter="bottom" style="--fw-enter-delay: 60ms;">
+            <img class="home-services-hub-card__image" src="Gallery/photo-of-all-equipment.webp" alt="Faith Works Outdoor Services fleet — Kubota excavator, tractor with loader, pickup, dump trailer, and flatbed trailer" loading="lazy" width="640" height="420">
+            <div class="home-services-hub-card__body">
+              <h3>Tractor & Equipment Services</h3>
+              <p>Kubota tractor, excavator, trailers, and brush equipment for practical outdoor property jobs with direct owner communication.</p>
+              <div class="home-services-hub-links"><a href="equipment-services.html">Equipment Services</a><a href="tractor-services.html">Tractor Services</a><a href="acreage-cleanup.html">Acreage Cleanup</a><a href="lot-cleanup.html">Lot Cleanup</a></div>
+            </div>
           </article>
         </div>
         <div style="text-align:center;margin-top:2.5rem">
@@ -1149,14 +1019,14 @@
         </div>
 
           <div class="faq-list service-faq-list">
-            <div class="faq-item"><button class="faq-question" aria-expanded="false" aria-controls="home-faq-1">Do you offer free estimates?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer" id="home-faq-1" aria-hidden="true" inert><div class="faq-answer-inner"><p>Yes. Send photos through the contact form or email contact@faithworksods.com. Photo-based estimates help us review access, vegetation, debris, and project scope before scheduling.</p></div></div></div>
-            <div class="faq-item"><button class="faq-question" aria-expanded="false" aria-controls="home-faq-2">What areas do you serve near Auburndale, FL?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer" id="home-faq-2" aria-hidden="true" inert><div class="faq-answer-inner"><p>Faith Works Outdoor Services is based in Auburndale (33823) and serves property owners within approximately 70 miles — including Polk, Osceola, Orange, Lake, Hillsborough, Pasco, and nearby Central Florida counties. Winter Haven, Lakeland, Bartow, Haines City, Kissimmee, and Orlando are common service areas.</p></div></div></div>
-            <div class="faq-item"><button class="faq-question" aria-expanded="false" aria-controls="home-faq-3">How far from Auburndale will Faith Works travel for a job?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer" id="home-faq-3" aria-hidden="true" inert><div class="faq-answer-inner"><p>We regularly travel up to about 70 miles from Auburndale for land clearing, pond bank work, ditch clearing, brush cutting, and property cleanup. Send your city and photos — Tyler will confirm scheduling and travel for your property.</p></div></div></div>
-            <div class="faq-item"><button class="faq-question" aria-expanded="false" aria-controls="home-faq-4">What outdoor property services do you offer in Polk County?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer" id="home-faq-4" aria-hidden="true" inert><div class="faq-answer-inner"><p>Faith Works provides land clearing, pond bank clearing, ditch clearing & outdoor property services — including land clearing, trail clearing, brush cutting, forestry mulching, pond bank clearing, pond cleanup, ditch clearing, debris removal, acreage cleanup, pool dig-out support, and tractor services across Polk County and Central Florida.</p></div></div></div>
-            <div class="faq-item"><button class="faq-question" aria-expanded="false" aria-controls="home-faq-5">Do you clear overgrown pond banks and ditches?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer" id="home-faq-5" aria-hidden="true" inert><div class="faq-answer-inner"><p>Yes. Pond bank clearing and ditch clearing are core services. We use mulching equipment, brush cutters, and tractors to open access, remove overgrowth, and clean vegetation from outdoor ditch and pond-edge areas — not engineered stormwater or utility systems.</p></div></div></div>
+            <div class="faq-item"><button class="faq-question" aria-expanded="false" aria-controls="home-faq-1">Do you offer free estimates?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer" id="home-faq-1" aria-hidden="true" inert><div class="faq-answer-inner"><p>Yes. Text photos to (863) 272-1596 or use the estimate form. Photo-based estimates help us review access, vegetation, debris, and project scope before scheduling.</p></div></div></div>
+            <div class="faq-item"><button class="faq-question" aria-expanded="false" aria-controls="home-faq-2">What areas do you serve near Auburndale, FL?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer" id="home-faq-2" aria-hidden="true" inert><div class="faq-answer-inner"><p>Faith Works Outdoor Services is based in Auburndale (33823) and primarily serves Polk County communities including Auburndale, Winter Haven, Lakeland, Lake Alfred, Bartow, Haines City, Davenport, Lake Wales, and Polk City. Plant City and larger Central Florida projects may be reviewed by scope.</p></div></div></div>
+            <div class="faq-item"><button class="faq-question" aria-expanded="false" aria-controls="home-faq-3">How far from Auburndale will Faith Works travel for a job?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer" id="home-faq-3" aria-hidden="true" inert><div class="faq-answer-inner"><p>Most launch work is focused in Polk County and nearby communities so scheduling, estimates, and Google Business Profile relevance stay accurate. Larger acreage, land clearing, and equipment-assisted cleanup projects outside the immediate area can be reviewed case by case.</p></div></div></div>
+            <div class="faq-item"><button class="faq-question" aria-expanded="false" aria-controls="home-faq-4">What outdoor property services do you offer in Polk County?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer" id="home-faq-4" aria-hidden="true" inert><div class="faq-answer-inner"><p>Faith Works provides land clearing, pond bank clearing, ditch clearing & outdoor property services - including land clearing, trail clearing, brush cutting, forestry mulching, pond bank clearing, pond cleanup, ditch clearing, debris removal, acreage cleanup, pool dig-out support, and tractor services.</p></div></div></div>
+            <div class="faq-item"><button class="faq-question" aria-expanded="false" aria-controls="home-faq-5">Do you clear overgrown pond banks and ditches?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer" id="home-faq-5" aria-hidden="true" inert><div class="faq-answer-inner"><p>Yes. Pond bank clearing and ditch clearing are core services. We use compact equipment, brush cutters, and tractors to open access, remove overgrowth, and clean vegetation from outdoor ditch and pond-edge areas.</p></div></div></div>
             <div class="faq-item"><button class="faq-question" aria-expanded="false" aria-controls="home-faq-6">Do I need to call 811 before digging?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer" id="home-faq-6" aria-hidden="true" inert><div class="faq-answer-inner"><p>For digging or soil-moving work, contact Sunshine 811 at least two full business days before work begins so underground utilities can be marked.</p></div></div></div>
-            <div class="faq-item"><button class="faq-question" aria-expanded="false" aria-controls="home-faq-7">Do you install pools or do utility trenching?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer" id="home-faq-7" aria-hidden="true" inert><div class="faq-answer-inner"><p>No. Faith Works does not install pools, hold pool contractor licensing, or perform utility trenching, stormwater system installation, sewer work, water mains, site development, or engineered drainage. The focus is land clearing, pond bank clearing, ditch clearing & outdoor property services.</p></div></div></div>
-            <div class="faq-item"><button class="faq-question" aria-expanded="false" aria-controls="home-faq-8">What jobs do people usually call you for?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer" id="home-faq-8" aria-hidden="true" inert><div class="faq-answer-inner"><p>Most calls are for pond banks, trails, brush, overgrowth, debris, and acreage cleanup. Pool dig-out support is available under licensed pool builders.</p></div></div></div>
+            <div class="faq-item"><button class="faq-question" aria-expanded="false" aria-controls="home-faq-7">What work is outside Faith Works' scope?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer" id="home-faq-7" aria-hidden="true" inert><div class="faq-answer-inner"><p>Faith Works does not install pools, hold pool contractor licensing, or perform utility trenching, stormwater system installation, sewer work, water mains, site development, or engineered drainage. The focus is land clearing, pond bank clearing, ditch clearing & outdoor property services.</p></div></div></div>
+            <div class="faq-item"><button class="faq-question" aria-expanded="false" aria-controls="home-faq-8">What jobs do people usually call you for?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer" id="home-faq-8" aria-hidden="true" inert><div class="faq-answer-inner"><p>Most calls are for pond banks, trails, brush, overgrowth, debris, acreage cleanup, and owner-operated tractor or equipment help. Pool dig-out support is available under licensed pool builders.</p></div></div></div>
             <div class="faq-item"><button class="faq-question" aria-expanded="false" aria-controls="home-faq-9">Can you help with pool dig-out dirt removal?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer" id="home-faq-9" aria-hidden="true" inert><div class="faq-answer-inner"><p>Yes, as support under a licensed pool contractor. Faith Works can help with dirt removal and site cleanup, but does not contract directly as a pool installer.</p></div></div></div>
             <div class="faq-item"><button class="faq-question" aria-expanded="false" aria-controls="home-faq-10">Do you handle storm debris cleanup in Central Florida?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer" id="home-faq-10" aria-hidden="true" inert><div class="faq-answer-inner"><p>Yes. Storm debris cleanup, yard debris removal, and property cleanup are available after wind and storm events when access and scope allow. Send photos of limbs, brush piles, and blocked areas for a faster estimate.</p></div></div></div>
           </div>
@@ -1164,6 +1034,13 @@
     </section>
 
     <section id="contact" class="contact-section section-shell">
+            <div class="contact-bg" aria-hidden="true">
+        <img src="Gallery/equipment-photos5.webp" alt="" width="1920" height="1080" loading="lazy" decoding="async" class="contact-bg__img">
+      </div>
+      <div class="contact-overlay" aria-hidden="true"></div>
+      <div class="contact-cutout-wrap" aria-hidden="true">
+        <img class="contact-cutout" src="Images/fw-banner-cutout.webp" alt="" width="693" height="791" loading="lazy" decoding="async" role="presentation">
+      </div>
       <div class="container contact-inner" data-fw-enter="top">
         <p class="eyebrow">Ready to get started?</p>
         <h2>Need land cleared, a ditch cleaned, or property debris removed?</h2>
@@ -1195,12 +1072,12 @@
                 <p>Outdoor Services LLC</p>
               </div>
             </div>
-            <p>Auburndale, FL &nbsp;&middot;&nbsp; 70-mile radius from Auburndale</p>
+            <p>Auburndale, FL &nbsp;&middot;&nbsp; Polk County &amp; nearby Central Florida</p>
             <p class="company-description">Land Clearing, Pond Bank Clearing, Ditch Clearing & Outdoor Property Services</p>
             <div class="footer-service-area">
-              <p class="footer-area-intro">Serving <strong>11 counties</strong> and <strong>41 cities</strong> across Central Florida within a 70-mile radius of Auburndale.</p>
-            <p class="footer-area-counties"><a href="areas/polk-county-fl.html">Polk</a> &nbsp;&middot;&nbsp; <a href="areas/osceola-county-fl.html">Osceola</a> &nbsp;&middot;&nbsp; <a href="areas/orange-county-fl.html">Orange</a> &nbsp;&middot;&nbsp; <a href="areas/lake-county-fl.html">Lake</a> &nbsp;&middot;&nbsp; <a href="areas/hillsborough-county-fl.html">Hillsborough</a> &nbsp;&middot;&nbsp; <a href="areas/pasco-county-fl.html">Pasco</a> &nbsp;&middot;&nbsp; <a href="areas/hardee-county-fl.html">Hardee</a> &nbsp;&middot;&nbsp; <a href="areas/highlands-county-fl.html">Highlands</a> &nbsp;&middot;&nbsp; <a href="areas/desoto-county-fl.html">DeSoto</a> &nbsp;&middot;&nbsp; <a href="areas/sumter-county-fl.html">Sumter</a> &nbsp;&middot;&nbsp; <a href="areas/manatee-county-fl.html">Manatee</a></p>
-            <p class="footer-area-hub"><a href="service-areas.html">View all service areas →</a></p>
+              <p class="footer-area-intro">Based in <strong>Auburndale, FL</strong>, primarily serving Polk County and nearby Central Florida communities.</p>
+            <p class="footer-area-counties"><a href="areas/auburndale-fl.html">Auburndale</a> &nbsp;&middot;&nbsp; <a href="areas/winter-haven-fl.html">Winter Haven</a> &nbsp;&middot;&nbsp; <a href="areas/lakeland-fl.html">Lakeland</a> &nbsp;&middot;&nbsp; <a href="areas/lake-alfred-fl.html">Lake Alfred</a> &nbsp;&middot;&nbsp; <a href="areas/bartow-fl.html">Bartow</a> &nbsp;&middot;&nbsp; <a href="areas/haines-city-fl.html">Haines City</a> &nbsp;&middot;&nbsp; <a href="areas/davenport-fl.html">Davenport</a> &nbsp;&middot;&nbsp; <a href="areas/lake-wales-fl.html">Lake Wales</a> &nbsp;&middot;&nbsp; <a href="areas/polk-city-fl.html">Polk City</a> &nbsp;&middot;&nbsp; <a href="areas/plant-city-fl.html">Plant City</a></p>
+            <p class="footer-area-hub"><a href="service-areas.html">View launch service areas &rarr;</a></p>
             </div>
           </div>
         </div>
@@ -1400,50 +1277,6 @@
           <li class="fw-mm-item"><a class="fw-mm-sublink" href="areas/davenport-fl.html">Davenport, FL</a></li>
           <li class="fw-mm-item"><a class="fw-mm-sublink" href="areas/lake-wales-fl.html">Lake Wales, FL</a></li>
           <li class="fw-mm-item"><a class="fw-mm-sublink" href="areas/polk-city-fl.html">Polk City, FL</a></li>
-          <li class="fw-mm-item"><a class="fw-mm-sublink" href="areas/mulberry-fl.html">Mulberry, FL</a></li>
-          <li class="fw-mm-item"><a class="fw-mm-sublink" href="areas/fort-meade-fl.html">Fort Meade, FL</a></li>
-          <li class="fw-mm-item"><a class="fw-mm-sublink" href="areas/frostproof-fl.html">Frostproof, FL</a></li>
-          <li class="fw-mm-item"><a class="fw-mm-sublink" href="areas/dundee-fl.html">Dundee, FL</a></li>
-          <li class="fw-mm-item"><a class="fw-mm-sublink" href="areas/eagle-lake-fl.html">Eagle Lake, FL</a></li>
-        </ul>
-      </li>
-      <li class="fw-mm-item fw-mm-item--branch">
-        <button type="button" class="fw-mm-trigger" aria-expanded="false" aria-controls="fw-mobile-area-osceola-county-fl">
-          <span class="fw-mm-label">Osceola</span>
-          <span class="fw-mm-chevron" aria-hidden="true"></span>
-        </button>
-        <ul class="fw-mm-submenu" id="fw-mobile-area-osceola-county-fl" hidden>
-          <li class="fw-mm-item"><a class="fw-mm-sublink fw-mm-sublink--overview" href="areas/osceola-county-fl.html">All Osceola County</a></li>
-          <li class="fw-mm-item"><a class="fw-mm-sublink" href="areas/kissimmee-fl.html">Kissimmee, FL</a></li>
-          <li class="fw-mm-item"><a class="fw-mm-sublink" href="areas/st-cloud-fl.html">St Cloud, FL</a></li>
-          <li class="fw-mm-item"><a class="fw-mm-sublink" href="areas/poinciana-fl.html">Poinciana, FL</a></li>
-        </ul>
-      </li>
-      <li class="fw-mm-item fw-mm-item--branch">
-        <button type="button" class="fw-mm-trigger" aria-expanded="false" aria-controls="fw-mobile-area-orange-county-fl">
-          <span class="fw-mm-label">Orange</span>
-          <span class="fw-mm-chevron" aria-hidden="true"></span>
-        </button>
-        <ul class="fw-mm-submenu" id="fw-mobile-area-orange-county-fl" hidden>
-          <li class="fw-mm-item"><a class="fw-mm-sublink fw-mm-sublink--overview" href="areas/orange-county-fl.html">All Orange County</a></li>
-          <li class="fw-mm-item"><a class="fw-mm-sublink" href="areas/orlando-fl.html">Orlando, FL</a></li>
-          <li class="fw-mm-item"><a class="fw-mm-sublink" href="areas/ocoee-fl.html">Ocoee, FL</a></li>
-          <li class="fw-mm-item"><a class="fw-mm-sublink" href="areas/winter-garden-fl.html">Winter Garden, FL</a></li>
-          <li class="fw-mm-item"><a class="fw-mm-sublink" href="areas/apopka-fl.html">Apopka, FL</a></li>
-        </ul>
-      </li>
-      <li class="fw-mm-item fw-mm-item--branch">
-        <button type="button" class="fw-mm-trigger" aria-expanded="false" aria-controls="fw-mobile-area-lake-county-fl">
-          <span class="fw-mm-label">Lake</span>
-          <span class="fw-mm-chevron" aria-hidden="true"></span>
-        </button>
-        <ul class="fw-mm-submenu" id="fw-mobile-area-lake-county-fl" hidden>
-          <li class="fw-mm-item"><a class="fw-mm-sublink fw-mm-sublink--overview" href="areas/lake-county-fl.html">All Lake County</a></li>
-          <li class="fw-mm-item"><a class="fw-mm-sublink" href="areas/clermont-fl.html">Clermont, FL</a></li>
-          <li class="fw-mm-item"><a class="fw-mm-sublink" href="areas/leesburg-fl.html">Leesburg, FL</a></li>
-          <li class="fw-mm-item"><a class="fw-mm-sublink" href="areas/mount-dora-fl.html">Mount Dora, FL</a></li>
-          <li class="fw-mm-item"><a class="fw-mm-sublink" href="areas/tavares-fl.html">Tavares, FL</a></li>
-          <li class="fw-mm-item"><a class="fw-mm-sublink" href="areas/groveland-fl.html">Groveland, FL</a></li>
         </ul>
       </li>
       <li class="fw-mm-item fw-mm-item--branch">
@@ -1454,74 +1287,6 @@
         <ul class="fw-mm-submenu" id="fw-mobile-area-hillsborough-county-fl" hidden>
           <li class="fw-mm-item"><a class="fw-mm-sublink fw-mm-sublink--overview" href="areas/hillsborough-county-fl.html">All Hillsborough County</a></li>
           <li class="fw-mm-item"><a class="fw-mm-sublink" href="areas/plant-city-fl.html">Plant City, FL</a></li>
-          <li class="fw-mm-item"><a class="fw-mm-sublink" href="areas/brandon-fl.html">Brandon, FL</a></li>
-          <li class="fw-mm-item"><a class="fw-mm-sublink" href="areas/tampa-fl.html">Tampa, FL</a></li>
-          <li class="fw-mm-item"><a class="fw-mm-sublink" href="areas/valrico-fl.html">Valrico, FL</a></li>
-        </ul>
-      </li>
-      <li class="fw-mm-item fw-mm-item--branch">
-        <button type="button" class="fw-mm-trigger" aria-expanded="false" aria-controls="fw-mobile-area-pasco-county-fl">
-          <span class="fw-mm-label">Pasco</span>
-          <span class="fw-mm-chevron" aria-hidden="true"></span>
-        </button>
-        <ul class="fw-mm-submenu" id="fw-mobile-area-pasco-county-fl" hidden>
-          <li class="fw-mm-item"><a class="fw-mm-sublink fw-mm-sublink--overview" href="areas/pasco-county-fl.html">All Pasco County</a></li>
-          <li class="fw-mm-item"><a class="fw-mm-sublink" href="areas/zephyrhills-fl.html">Zephyrhills, FL</a></li>
-          <li class="fw-mm-item"><a class="fw-mm-sublink" href="areas/wesley-chapel-fl.html">Wesley Chapel, FL</a></li>
-          <li class="fw-mm-item"><a class="fw-mm-sublink" href="areas/dade-city-fl.html">Dade City, FL</a></li>
-        </ul>
-      </li>
-      <li class="fw-mm-item fw-mm-item--branch">
-        <button type="button" class="fw-mm-trigger" aria-expanded="false" aria-controls="fw-mobile-area-hardee-county-fl">
-          <span class="fw-mm-label">Hardee</span>
-          <span class="fw-mm-chevron" aria-hidden="true"></span>
-        </button>
-        <ul class="fw-mm-submenu" id="fw-mobile-area-hardee-county-fl" hidden>
-          <li class="fw-mm-item"><a class="fw-mm-sublink fw-mm-sublink--overview" href="areas/hardee-county-fl.html">All Hardee County</a></li>
-          <li class="fw-mm-item"><a class="fw-mm-sublink" href="areas/wauchula-fl.html">Wauchula, FL</a></li>
-        </ul>
-      </li>
-      <li class="fw-mm-item fw-mm-item--branch">
-        <button type="button" class="fw-mm-trigger" aria-expanded="false" aria-controls="fw-mobile-area-highlands-county-fl">
-          <span class="fw-mm-label">Highlands</span>
-          <span class="fw-mm-chevron" aria-hidden="true"></span>
-        </button>
-        <ul class="fw-mm-submenu" id="fw-mobile-area-highlands-county-fl" hidden>
-          <li class="fw-mm-item"><a class="fw-mm-sublink fw-mm-sublink--overview" href="areas/highlands-county-fl.html">All Highlands County</a></li>
-          <li class="fw-mm-item"><a class="fw-mm-sublink" href="areas/sebring-fl.html">Sebring, FL</a></li>
-          <li class="fw-mm-item"><a class="fw-mm-sublink" href="areas/avon-park-fl.html">Avon Park, FL</a></li>
-        </ul>
-      </li>
-      <li class="fw-mm-item fw-mm-item--branch">
-        <button type="button" class="fw-mm-trigger" aria-expanded="false" aria-controls="fw-mobile-area-desoto-county-fl">
-          <span class="fw-mm-label">DeSoto</span>
-          <span class="fw-mm-chevron" aria-hidden="true"></span>
-        </button>
-        <ul class="fw-mm-submenu" id="fw-mobile-area-desoto-county-fl" hidden>
-          <li class="fw-mm-item"><a class="fw-mm-sublink fw-mm-sublink--overview" href="areas/desoto-county-fl.html">All DeSoto County</a></li>
-          <li class="fw-mm-item"><a class="fw-mm-sublink" href="areas/arcadia-fl.html">Arcadia, FL</a></li>
-        </ul>
-      </li>
-      <li class="fw-mm-item fw-mm-item--branch">
-        <button type="button" class="fw-mm-trigger" aria-expanded="false" aria-controls="fw-mobile-area-sumter-county-fl">
-          <span class="fw-mm-label">Sumter</span>
-          <span class="fw-mm-chevron" aria-hidden="true"></span>
-        </button>
-        <ul class="fw-mm-submenu" id="fw-mobile-area-sumter-county-fl" hidden>
-          <li class="fw-mm-item"><a class="fw-mm-sublink fw-mm-sublink--overview" href="areas/sumter-county-fl.html">All Sumter County</a></li>
-          <li class="fw-mm-item"><a class="fw-mm-sublink" href="areas/the-villages-fl.html">The Villages, FL</a></li>
-          <li class="fw-mm-item"><a class="fw-mm-sublink" href="areas/bushnell-fl.html">Bushnell, FL</a></li>
-        </ul>
-      </li>
-      <li class="fw-mm-item fw-mm-item--branch">
-        <button type="button" class="fw-mm-trigger" aria-expanded="false" aria-controls="fw-mobile-area-manatee-county-fl">
-          <span class="fw-mm-label">Manatee</span>
-          <span class="fw-mm-chevron" aria-hidden="true"></span>
-        </button>
-        <ul class="fw-mm-submenu" id="fw-mobile-area-manatee-county-fl" hidden>
-          <li class="fw-mm-item"><a class="fw-mm-sublink fw-mm-sublink--overview" href="areas/manatee-county-fl.html">All Manatee County</a></li>
-          <li class="fw-mm-item"><a class="fw-mm-sublink" href="areas/bradenton-fl.html">Bradenton, FL</a></li>
-          <li class="fw-mm-item"><a class="fw-mm-sublink" href="areas/parrish-fl.html">Parrish, FL</a></li>
         </ul>
       </li>
       </ul>

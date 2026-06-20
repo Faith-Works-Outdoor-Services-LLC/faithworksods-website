@@ -418,7 +418,7 @@ def city_intro_html(city: dict) -> str:
           <p>
             {BRAND} helps property owners in <strong>{name}, Florida</strong> reclaim usable outdoor space through
             {SITE_POSITIONING.lower()}. Based in {HOME_CITY} ({HOME_ZIP}), we travel throughout {county} and
-            Central Florida within approximately <strong>{SERVICE_RADIUS_MILES} miles</strong> of our Auburndale base.
+            Polk County and nearby Central Florida communities from our Auburndale base.
           </p>
           <p>
             {name} sits in {profile['region']} where {profile['terrain']}. {profile['local_note']}
@@ -426,9 +426,7 @@ def city_intro_html(city: dict) -> str:
             hauled away, {OWNER} reviews your photos and confirms scope before scheduling.
           </p>
           <p>
-            Faith Works is owner-operated outdoor property service — not a utility excavation contractor. We do not install
-            underground utilities, stormwater systems, sewer lines, water mains, engineered drainage, or pools. Pool
-            dig-out support is available under licensed pool contractors when your builder needs dirt removal and site cleanup.
+            Faith Works is an owner-operated outdoor property service with clear project scope, direct communication, and equipment matched to the job. Pool dig-out support is available under licensed pool contractors when your builder needs dirt removal and site cleanup.
           </p>"""
 
 
@@ -469,7 +467,7 @@ def city_process_section(city_name: str) -> str:
             <article class="process-step">
               <span>1</span>
               <h3>Send Photos</h3>
-              <p>Upload property photos, your {city_name} address or cross streets, and a short description of what you need cleared or cleaned up.</p>
+              <p>Text or send property photos, your {city_name} address or cross streets, and a short description of what you need cleared or cleaned up.</p>
             </article>
             <article class="process-step">
               <span>2</span>
@@ -515,7 +513,7 @@ def city_area_faqs(city_name: str, county_name: str) -> list[tuple[str, str]]:
         ),
         (
             f"How do I get a free estimate for outdoor property work in {city_name}?",
-            f"Use the contact form on this page or visit our contact page. Upload photos of the area you need cleared or cleaned in {city_name}, include your phone number, and describe access notes or deadlines. {OWNER} reviews the scope and follows up directly.",
+            f"Use the contact form on this page or visit our contact page. Send photos of the area you need cleared or cleaned in {city_name}, include your phone number, and describe access notes or deadlines. {OWNER} reviews the scope and follows up directly.",
         ),
         (
             f"Does Faith Works clear pond banks and ditches near {city_name}?",
@@ -523,7 +521,7 @@ def city_area_faqs(city_name: str, county_name: str) -> list[tuple[str, str]]:
         ),
         (
             f"How far does Faith Works travel from Auburndale to {city_name}?",
-            f"Faith Works is based in {HOME_CITY} and regularly travels up to about {SERVICE_RADIUS_MILES} miles for outdoor property jobs. {city_name} is within that Central Florida service area. Travel and scheduling are confirmed when {OWNER} reviews your estimate request.",
+            f"Faith Works is based in {HOME_CITY} and focuses launch service around Polk County and nearby communities. {city_name} is within that Central Florida service area. Travel and scheduling are confirmed when {OWNER} reviews your estimate request.",
         ),
         (
             f"Is Faith Works an excavation contractor in {city_name}?",
@@ -608,7 +606,7 @@ def county_area_faqs(county_name: str, cities: list[dict]) -> list[tuple[str, st
         ),
         (
             f"How far will Faith Works travel into {county_name}?",
-            f"Faith Works serves {county_name} within an approximately {SERVICE_RADIUS_MILES}-mile radius from {HOME_CITY} ({HOME_ZIP}). Send your address and photos — travel and scheduling are confirmed during estimate review.",
+            f"Faith Works serves {county_name} from its {HOME_CITY} ({HOME_ZIP}) base, with larger projects reviewed by scope. Send your address and photos — travel and scheduling are confirmed during estimate review.",
         ),
         (
             f"What equipment does Faith Works use in {county_name}?",

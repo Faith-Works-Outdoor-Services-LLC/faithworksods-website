@@ -10,6 +10,8 @@
         "service": { "type": "text", "required": true },
         "message": { "type": "text", "required": false },
         "access_notes": { "type": "text", "required": false },
+        "can_text_photos": { "type": "text", "required": true },
+        "best_time": { "type": "text", "required": false },
         "photos": { "type": "file", "required": false },
         "page": { "type": "text", "required": false }
       },

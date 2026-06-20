@@ -131,7 +131,7 @@ SERVICES = [
         intro=(
             f"Overgrown lots, thick brush, and unmanaged vegetation make property harder to use and harder to maintain. "
             f"Faith Works Outdoor Services clears land for homeowners and property owners across {AREA} using forestry mulching, "
-            "brush cutting, and equipment-ready cleanup — outdoor property services, not utility excavation or site development."
+            "brush cutting, and equipment-ready cleanup for homes, acreage, pond banks, trails, and fence lines."
         ),
         bullets=[
             "Overgrown lot and acreage clearing",
@@ -322,7 +322,7 @@ SERVICES = [
             "Ponds collect debris, overgrowth, and shoreline clutter that makes the water harder to enjoy and maintain. "
             "Faith Works Outdoor Services provides pond cleanup — clearing banks, removing reachable debris, and "
             "helping property owners restore a cleaner shoreline. This is outdoor pond cleanup and mulching work, "
-            "not utility or engineered drainage system installation."
+            "outdoor ditch-line vegetation and debris cleanup, with clear scope before work begins."
         ),
         bullets=[
             "Shoreline and pond edge cleanup",
@@ -881,7 +881,7 @@ SERVICES = [
         intro=(
             "Faith Works Outdoor Services runs Kubota compact equipment, dump trailers, and support machinery for "
             "outdoor property work across Central Florida. Equipment services cover operator time and machinery for "
-            "clearing, cleanup, and property maintenance — not utility trenching or engineered infrastructure installation."
+            "clearing, cleanup, and property maintenance for homeowners, landowners, and property managers."
         ),
         bullets=[
             "Kubota compact equipment for clearing and cleanup support",

@@ -63,6 +63,33 @@ function initEnterAnimations() {
 
 initEnterAnimations();
 
+(function initContactCutout() {
+  const section = document.querySelector(".contact-section");
+  if (!section || !section.querySelector(".contact-cutout")) return;
+
+  if (prefersReducedMotion()) {
+    section.classList.add("contact-ready");
+    return;
+  }
+
+  if (!("IntersectionObserver" in window)) {
+    section.classList.add("contact-ready");
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries, activeObserver) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        section.classList.add("contact-ready");
+        activeObserver.unobserve(section);
+      });
+    },
+    { rootMargin: "0px 0px -8% 0px", threshold: 0.12 },
+  );
+  observer.observe(section);
+})();
+
 // ---- Formspree AJAX submission ----
 function bindEstimateForm(form) {
   if (!form || form.dataset.bound === "true") return;
@@ -412,6 +439,41 @@ document.querySelectorAll(".mobile-services-toggle").forEach((toggle) => {
     }
     const shift = -(rect.top - restTop) * rate;
     bg.style.setProperty("--hero-shift", Math.round(shift) + "px");
+  }
+
+  function queue() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(update);
+  }
+
+  update();
+  window.addEventListener("scroll", queue, { passive: true });
+  window.addEventListener("resize", queue, { passive: true });
+})();
+
+(function initProcessParallax() {
+  const section = document.querySelector(".process-section--parallax");
+  const bgImg = section && section.querySelector(".process-bg__img");
+  if (!section || !bgImg) return;
+  if (prefersReducedMotion()) return;
+
+  let ticking = false;
+  const rate = Number(section.dataset.parallaxRate) || 0.78;
+  const overscanRatio = Number(section.dataset.parallaxOverscan) || 0.38;
+
+  function clampShift(shift, maxShift) {
+    return Math.round(Math.max(-maxShift, Math.min(maxShift, shift)));
+  }
+
+  function update() {
+    ticking = false;
+    const vh = Math.max(window.innerHeight, 1);
+    const rect = section.getBoundingClientRect();
+    const maxShift = section.offsetHeight * overscanRatio;
+    const anchor = vh * 0.5;
+    const shift = -(rect.top - anchor) * rate;
+    bgImg.style.setProperty("--fw-band-shift", clampShift(shift, maxShift) + "px");
   }
 
   function queue() {
