@@ -96,7 +96,7 @@ def main() -> int:
         errors.extend(check_page(ROOT / rel, set(spec["required"])))
 
     for path in sorted(ROOT.glob("*.html")):
-        if path.name in PAGE_EXPECTATIONS or path.name == "404.html":
+        if path.name in PAGE_EXPECTATIONS or path.name in {"404.html", "thank-you.html"}:
             continue
         errors.extend(check_page(path, set(SERVICE_EXPECTATIONS["required"])))
 

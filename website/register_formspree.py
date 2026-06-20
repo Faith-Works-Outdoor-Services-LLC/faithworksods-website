@@ -66,7 +66,7 @@ def trigger_verification_email(form_id: str) -> None:
         "message": (
             "This is the initial Formspree activation submission for "
             f"{BRAND}. Tyler — please confirm the Formspree verification email "
-            "so estimate requests from faithworksods.com can be delivered."
+            "so estimate requests from faithworksclearing.com can be delivered."
         ),
         "_subject": f"Activate {BRAND} contact forms",
         "_replyto": TARGET_EMAIL,

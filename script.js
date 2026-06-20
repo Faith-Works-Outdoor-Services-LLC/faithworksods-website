@@ -94,6 +94,8 @@ initEnterAnimations();
 function bindEstimateForm(form) {
   if (!form || form.dataset.bound === "true") return;
   if (form.dataset.formMode === "email" || form.action.startsWith("mailto:")) return;
+  // FormSubmit uses a normal browser POST so the first submission can trigger activation email delivery.
+  if (form.dataset.formMode === "formsubmit") return;
   const success =
     document.getElementById(`${form.id}-success`) ||
     form.parentElement.querySelector(".form-success");
@@ -477,6 +479,96 @@ document.querySelectorAll(".mobile-services-toggle").forEach((toggle) => {
   }, { passive: true });
 })();
 
+(function initProcessParallax() {
+  const section = document.querySelector(".process-section--parallax");
+  const bgImg = section && section.querySelector(".process-bg__img");
+  if (!section || !bgImg) return;
+  if (prefersReducedMotion()) return;
+
+  let ticking = false;
+  let maxShift = 0;
+  const rate = Number(section.dataset.parallaxRate) || 0.78;
+  const overscanRatio = Number(section.dataset.parallaxOverscan) || 0.38;
+
+  function measureSection() {
+    maxShift = section.offsetHeight * overscanRatio;
+  }
+
+  function clampShift(shift, limit) {
+    return Math.round(Math.max(-limit, Math.min(limit, shift)));
+  }
+
+  function update() {
+    ticking = false;
+    const rect = section.getBoundingClientRect();
+    const anchor = window.innerHeight * 0.5;
+    const shift = -(rect.top - anchor) * rate;
+    bgImg.style.setProperty("--fw-band-shift", clampShift(shift, maxShift) + "px");
+  }
+
+  function queue() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(update);
+  }
+
+  function init() {
+    measureSection();
+    requestAnimationFrame(queue);
+  }
+
+  window.addEventListener("load", init, { once: true });
+  window.addEventListener("scroll", queue, { passive: true });
+  window.addEventListener("resize", () => {
+    measureSection();
+    queue();
+  }, { passive: true });
+})();
+(function initProcessParallax() {
+  const section = document.querySelector(".process-section--parallax");
+  const bgImg = section && section.querySelector(".process-bg__img");
+  if (!section || !bgImg) return;
+  if (prefersReducedMotion()) return;
+
+  let ticking = false;
+  let maxShift = 0;
+  const rate = Number(section.dataset.parallaxRate) || 0.78;
+  const overscanRatio = Number(section.dataset.parallaxOverscan) || 0.38;
+
+  function measureSection() {
+    maxShift = section.offsetHeight * overscanRatio;
+  }
+
+  function clampShift(shift, limit) {
+    return Math.round(Math.max(-limit, Math.min(limit, shift)));
+  }
+
+  function update() {
+    ticking = false;
+    const rect = section.getBoundingClientRect();
+    const anchor = window.innerHeight * 0.5;
+    const shift = -(rect.top - anchor) * rate;
+    bgImg.style.setProperty("--fw-band-shift", clampShift(shift, maxShift) + "px");
+  }
+
+  function queue() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(update);
+  }
+
+  function init() {
+    measureSection();
+    requestAnimationFrame(queue);
+  }
+
+  window.addEventListener("load", init, { once: true });
+  window.addEventListener("scroll", queue, { passive: true });
+  window.addEventListener("resize", () => {
+    measureSection();
+    queue();
+  }, { passive: true });
+})();
 (function initProcessParallax() {
   const section = document.querySelector(".process-section--parallax");
   const bgImg = section && section.querySelector(".process-bg__img");

@@ -149,8 +149,13 @@ def formspree_endpoint() -> str:
     return f"https://formspree.io/f/{form_id}" if form_id else ""
 
 
-def formsubmit_endpoint() -> str:
-    return f"https://formsubmit.co/ajax/{SITE['email']}"
+def formsubmit_endpoint(*, ajax: bool = False) -> str:
+    base = f"https://formsubmit.co/{SITE['email']}"
+    return f"{base}/ajax" if ajax else base
+
+
+def form_thank_you_url(page: str = "thank-you.html") -> str:
+    return f"{SITE['url']}/{page}"
 
 
 def form_action_attrs(subject: str) -> tuple[str, str, str, str, str]:
@@ -1213,7 +1218,8 @@ def estimate_form(
     provider_fields = (
         '<input type="hidden" name="_format" value="plain">'
         if provider == "formspree"
-        else """
+        else f"""
+              <input type="hidden" name="_next" value="{form_thank_you_url()}">
               <input type="hidden" name="_captcha" value="false">
               <input type="hidden" name="_template" value="table">"""
     )
@@ -2411,6 +2417,37 @@ def write_service_areas() -> None:
     write_site_file(ROOT / "service-areas.html", html)
 
 
+def write_thank_you() -> None:
+    body = f"""
+    <section class="sp-hero">
+      <div class="container">
+        <h1>Estimate Request Received</h1>
+        <p>Thank you for contacting {SITE['brand']}.</p>
+      </div>
+    </section>
+    <section class="section-shell">
+      <div class="container sp-content">
+        <h2>What happens next</h2>
+        <p>Tyler reviews estimate requests personally and will follow up using the phone number or email you provided.</p>
+        <p>For the fastest quote, you can also text project photos to <a href="tel:{SITE['phone_tel']}">{SITE['phone_display']}</a>.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="services.html">View Services</a>
+          <a class="btn btn-ghost" href="contact.html">Back to Contact</a>
+        </div>
+      </div>
+    </section>"""
+    write_site_file(
+        ROOT / "thank-you.html",
+        page_shell(
+            f"Thank You | {SITE['brand']}",
+            f"Your estimate request was sent to {SITE['brand']}. Tyler will follow up shortly.",
+            "thank-you.html",
+            body,
+            robots="noindex, follow",
+        ),
+    )
+
+
 def write_404() -> None:
     body = f"""
     <section class="sp-hero"><div class="container"><h1>Page Not Found</h1><p>The page may have moved or the link is outdated. Start with the main services hub, browse service areas, or request an estimate.</p></div></section>
@@ -2433,7 +2470,7 @@ def write_privacy() -> None:
     body = f"""
     <section class="sp-hero"><div class="container"><h1>Privacy Policy</h1></div></section>
     <section class="section-shell"><div class="container sp-content">
-      <p>{SITE['legal_name']} ("we") respects your privacy. Information submitted through our contact forms is processed by <strong>Formspree</strong> (formspree.io) and delivered to us by email. We use that information only to respond to your estimate request and provide our services.</p>
+      <p>{SITE['legal_name']} ("we") respects your privacy. Information submitted through our contact forms is processed by <strong>FormSubmit</strong> or <strong>Formspree</strong> and delivered to us by email. We use that information only to respond to your estimate request and provide our services.</p>
       <p>We do not sell personal information. Analytics tools may collect anonymous usage data to improve the website.</p>
       <p>Questions? Contact <a href="mailto:{SITE['email']}">{SITE['email']}</a>.</p>
     </div></section>"""
@@ -5486,6 +5523,7 @@ def cleanup_obsolete_pages() -> None:
             "service-areas.html",
             "privacy-policy.html",
             "404.html",
+            "thank-you.html",
         }
     )
     area_keep = {c["slug"] for c in AREA_CITIES} | {c["slug"] for c in COUNTIES}
@@ -5514,6 +5552,7 @@ def main() -> None:
     write_gallery()
     write_about()
     write_contact()
+    write_thank_you()
     write_service_areas()
     write_area_pages()
     write_privacy()
