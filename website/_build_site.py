@@ -91,17 +91,12 @@ def configured_formspree_id() -> str:
     return "" if form_id == "PLACEHOLDER" else form_id
 
 
-def formspree_endpoint() -> str:
-    form_id = configured_formspree_id()
-    return f"https://formspree.io/f/{form_id}" if form_id else ""
-
-
-def form_action_attrs(subject: str) -> tuple[str, str, str, str]:
-    endpoint = formspree_endpoint()
-    if endpoint:
-        return endpoint, "POST", "multipart/form-data", ""
-    mail_subject = quote(subject)
-    return f"mailto:{SITE['email']}?subject={mail_subject}", "POST", "text/plain", ' data-form-mode="email"'
+def public_asset_url(relative_path: str) -> str:
+    base = os.environ.get(
+        "PUBLIC_ASSET_BASE",
+        "https://nicholasjknight.github.io/faithworksods-website",
+    ).strip().rstrip("/")
+    return f"{base}/{relative_path.lstrip('/')}"
 
 
 SITE = {
@@ -126,6 +121,27 @@ SITE = {
     "ga4": "G-PLACEHOLDER",
     "clarity": "PLACEHOLDER",
 }
+
+
+def formspree_endpoint() -> str:
+    form_id = configured_formspree_id()
+    if not form_id:
+        formspree_url = SITE.get("formspree", "")
+        if formspree_url and "PLACEHOLDER" not in formspree_url:
+            form_id = formspree_url.rstrip("/").rsplit("/", 1)[-1]
+    return f"https://formspree.io/f/{form_id}" if form_id else ""
+
+
+def formsubmit_endpoint() -> str:
+    return f"https://formsubmit.co/ajax/{SITE['email']}"
+
+
+def form_action_attrs(subject: str) -> tuple[str, str, str, str, str]:
+    endpoint = formspree_endpoint()
+    if endpoint:
+        return endpoint, "POST", "multipart/form-data", "", "formspree"
+    return formsubmit_endpoint(), "POST", "multipart/form-data", ' data-form-mode="formsubmit"', "formsubmit"
+
 
 GALLERY = [
     ("excavator-and-truck-photo.webp", "Kubota excavator and dump trailer on a residential pool dig-out support site in Polk County Florida", "Pool Dig-Out Support"),
@@ -268,7 +284,7 @@ HOME_FAQS = [
     ),
 ]
 
-FACEBOOK_SVG =FACEBOOK_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>'
+FACEBOOK_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>'
 YOUTUBE_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>'
 
 
@@ -918,7 +934,7 @@ def service_schema(s: dict) -> str:
         "description": s["desc"],
         "url": f"{SITE['url']}/{s['slug']}.html",
         "mainEntityOfPage": f"{SITE['url']}/{s['slug']}.html",
-        "image": f"{SITE['url']}/Gallery/{s['mosaic_image']}",
+        "image": public_asset_url(f"Gallery/{s['mosaic_image']}"),
         "provider": {"@id": f"{SITE['url']}/#business"},
         "areaServed": [{"@type": "City", "name": f"{city}, FL"} for city in CITY_NAMES],
     }, indent=2)
@@ -935,7 +951,7 @@ def estimate_form(
     page_field = f'<input type="hidden" name="page" value="{page}">' if page else ""
     form_class = "contact-form contact-form-hero" if compact else "contact-form"
     phone = SITE["phone_display"]
-    action, method, enctype, mode_attr = form_action_attrs(subj)
+    action, method, enctype, mode_attr, provider = form_action_attrs(subj)
     upload_enabled = bool(formspree_endpoint())
 
     photo_upload = ""
@@ -1029,12 +1045,19 @@ def estimate_form(
         if compact
         else f'{photo_note} to <a href="tel:{SITE["phone_tel"]}">{phone}</a> for the fastest estimate.'
     )
+    provider_fields = (
+        '<input type="hidden" name="_format" value="plain">'
+        if provider == "formspree"
+        else """
+              <input type="hidden" name="_captcha" value="false">
+              <input type="hidden" name="_template" value="table">"""
+    )
     return f"""
             <form class="{form_class}" action="{action}" method="{method}" id="{form_id}" enctype="{enctype}"{mode_attr}>
               {page_field}
               {fields}
               <input type="hidden" name="_subject" value="{subj}">
-              <input type="hidden" name="_format" value="plain">
+              {provider_fields}
               <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
               <div class="form-footer">
                 <button type="submit" class="btn btn-primary btn-full">{submit_label}</button>
@@ -1252,6 +1275,7 @@ def page_shell(
     current: str = "",
     preload_hero: bool = False,
     root_prefix: str = "",
+    robots: str = "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1",
 ) -> str:
     canonical_url = f"{SITE['url']}/" if canonical == "index.html" else f"{SITE['url']}/{canonical}"
     hero_preloads = ""
@@ -1266,20 +1290,8 @@ def page_shell(
   <title>{title}</title>
   <meta name="description" content="{description}">
   <link rel="canonical" href="{canonical_url}">
-  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-  <script>
-    (function () {{
-      if (location.hostname === "nicholasjknight.github.io") {{
-        var robots = document.querySelector('meta[name="robots"]');
-        if (!robots) {{
-          robots = document.createElement("meta");
-          robots.setAttribute("name", "robots");
-          document.head.appendChild(robots);
-        }}
-        robots.setAttribute("content", "noindex, nofollow");
-      }}
-    }})();
-  </script>
+  <meta name="robots" content="{robots}">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   <meta name="author" content="{SITE['legal_name']}">
   <meta name="geo.region" content="US-FL">
   <meta name="geo.placename" content="{SITE['city']}, Florida">
@@ -1290,18 +1302,18 @@ def page_shell(
   <meta property="og:url" content="{canonical_url}">
   <meta property="og:title" content="{title}">
   <meta property="og:description" content="{description}">
-  <meta property="og:image" content="{SITE['url']}/Gallery/{HERO_DESKTOP}">
+  <meta property="og:image" content="{public_asset_url(f'Gallery/{HERO_DESKTOP}')}">
   <meta property="og:site_name" content="{SITE['brand']}">
   <meta property="og:locale" content="en_US">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{title}">
   <meta name="twitter:description" content="{description}">
-  <meta name="twitter:image" content="{SITE['url']}/Gallery/{HERO_DESKTOP}">
+  <meta name="twitter:image" content="{public_asset_url(f'Gallery/{HERO_DESKTOP}')}">
 {extra_head}
 {favicon_head(root_prefix)}
 {fonts_head()}
 {hero_preloads}
-  <link rel="stylesheet" href="{root_prefix}styles.css?v=20260624">
+  <link rel="stylesheet" href="{root_prefix}styles.css?v=20260625">
 {analytics_head()}
 </head>
 <body>
@@ -1336,8 +1348,8 @@ def business_schema() -> str:
             "addressRegion": SITE["region"],
             "addressCountry": "US",
         },
-        "image": f"{SITE['url']}/Gallery/{HERO_DESKTOP}",
-        "logo": f"{SITE['url']}/{LOGO}",
+        "image": public_asset_url(f"Gallery/{HERO_DESKTOP}"),
+        "logo": public_asset_url(LOGO),
         "priceRange": "$$",
         "openingHours": "Mo-Sa 07:00-18:00",
         "areaServed": county_areas + areas,
@@ -1385,8 +1397,8 @@ def image_object_schema(image: str, caption: str, page: str) -> str:
         "@context": "https://schema.org",
         "@type": "ImageObject",
         "@id": f"{SITE['url']}/Gallery/{image}#image",
-        "contentUrl": f"{SITE['url']}/Gallery/{image}",
-        "url": f"{SITE['url']}/Gallery/{image}",
+        "contentUrl": public_asset_url(f"Gallery/{image}"),
+        "url": public_asset_url(f"Gallery/{image}"),
         "caption": caption,
         "representativeOfPage": page == "index.html",
         "mainEntityOfPage": page_url,
@@ -1401,7 +1413,7 @@ def gallery_image_graph_schema() -> str:
             {
                 "@type": "ImageObject",
                 "@id": f"{SITE['url']}/Gallery/{img}#image",
-                "contentUrl": f"{SITE['url']}/Gallery/{img}",
+                "contentUrl": public_asset_url(f"Gallery/{img}"),
                 "caption": alt,
                 "name": label,
                 "creator": {"@id": f"{SITE['url']}/#business"},
@@ -2114,7 +2126,7 @@ def write_404() -> None:
     </div></section>"""
     write_site_file(
         ROOT / "404.html",
-        page_shell("Page Not Found | Faith Works Outdoor Services", "Find Faith Works Outdoor Services pages for Polk County land clearing and outdoor property cleanup.", "404.html", body),
+        page_shell("Page Not Found | Faith Works Outdoor Services", "Find Faith Works Outdoor Services pages for Polk County land clearing and outdoor property cleanup.", "404.html", body, robots="noindex, follow"),
     )
 
 
