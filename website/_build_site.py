@@ -185,9 +185,18 @@ ASSET_VERSION = "20260627"
 HERO_DESKTOP = "photo-of-all-equipment.webp"
 HERO_MOBILE = "excavator-and-truck-photo.webp"
 HERO_MOBILE_LCP = f"heroes/{HERO_MOBILE}"
+HERO_BANNER = "Images/fw-banner.webp"
+HERO_BANNER_CUTOUT = "Images/fw-banner-cutout.webp"
+HERO_PANELS = (
+    ("left", "photo-of-all-equipment.webp", "Faith Works equipment lineup"),
+    ("top", "excavator-and-truck-photo.webp", "Excavator and service truck"),
+    ("bottom", "tractor-with-box-blade-leveling-ground.webp", "Tractor leveling ground on a job site"),
+    ("right", "excavator-photo.webp", "Excavator on a Central Florida property"),
+)
 CONTACT_BANNER = "Gallery/equipment-photos5.webp"
 CONTACT_CUTOUT = "Images/fw-banner-cutout.webp"
 PROCESS_BG = "Gallery/tractor-with-box-blade-leveling-ground.webp"
+SCOPE_BG = "Gallery/equipment-photos.webp"
 
 GOOGLE_G_LOGO = """<svg class="fw-google-g-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
                                 <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
@@ -613,11 +622,15 @@ def service_directory_group(cat: dict) -> str:
 def scope_section() -> str:
     not_list = "\n".join(f"            <li>{item}</li>" for item in NOT_OFFERED)
     return f"""
-    <section id="scope" class="scope-section section-shell">
+    <section id="scope" class="scope-section scope-section--parallax section-shell" data-parallax-overscan="0.38" data-parallax-rate="0.72" aria-label="Service scope">
+      <div class="scope-bg fw-parallax-bg" aria-hidden="true">
+        <img src="{SCOPE_BG}" alt="" width="1200" height="1600" loading="lazy" decoding="async" class="scope-bg__img" role="presentation">
+      </div>
+      <div class="scope-overlay" aria-hidden="true"></div>
       <div class="container">
         <div class="section-heading" data-fw-enter="left">
           <p class="eyebrow">Clear scope</p>
-          <h2>Outdoor Property Services - Clear Project Fit</h2>
+          <h2 class="scope-section__title">Outdoor Property Services - Clear Project Fit</h2>
           <p>Faith Works keeps estimates practical by matching each job to the right outdoor property service, equipment access, and cleanup outcome before work begins.</p>
         </div>
         <div class="scope-grid">
@@ -770,6 +783,29 @@ def gallery_teaser_section() -> str:
         </div>
         <div style="text-align:center;margin-top:2rem">
           <a class="btn btn-ghost" href="gallery.html">See Full Project Gallery &rarr;</a>
+        </div>
+      </div>
+    </section>"""
+
+
+def home_follow_banner_section() -> str:
+    items = [
+        ("Estimates", "Free Photo Quotes"),
+        ("Communication", "Talk to Tyler Direct"),
+        ("Capability", "Equipment-Ready"),
+        ("Coverage", f"Local to {SITE['city']}"),
+    ]
+    cards = ""
+    for label, title in items:
+        cards += f"""
+        <article class="hero-follow-card">
+          <span class="hero-follow-card__label">{label}</span>
+          <strong class="hero-follow-card__title">{title}</strong>
+        </article>"""
+    return f"""
+    <section class="hero-follow-banner trust-strip" aria-label="Why property owners choose Faith Works">
+      <div class="hero-follow-banner__shell strip-slide">
+        <div class="hero-follow-banner__grid trust-strip-grid">{cards}
         </div>
       </div>
     </section>"""
@@ -1450,12 +1486,18 @@ def page_shell(
     preload_hero: bool = False,
     root_prefix: str = "",
     robots: str = "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1",
+    body_class: str = "",
 ) -> str:
     canonical_url = f"{SITE['url']}/" if canonical == "index.html" else f"{SITE['url']}/{canonical}"
     hero_preloads = ""
     if preload_hero:
-        hero_preloads = f"""  <link rel="preload" as="image" href="{root_prefix}Gallery/{HERO_MOBILE_LCP}" fetchpriority="high" media="(max-width: 768px)">
-  <link rel="preload" as="image" href="{root_prefix}Gallery/{HERO_DESKTOP}" fetchpriority="high" media="(min-width: 769px)">"""
+        panel_preloads = "".join(
+            f'  <link rel="preload" as="image" href="{root_prefix}Gallery/{img}" fetchpriority="high" media="(min-width: 769px)">\n'
+            for _, img, _ in HERO_PANELS
+        )
+        hero_preloads = f"""  <link rel="preload" as="image" href="{root_prefix}{HERO_BANNER_CUTOUT}" fetchpriority="high">
+{panel_preloads}  <link rel="preload" as="image" href="{root_prefix}{HERO_BANNER}" fetchpriority="high" media="(max-width: 768px)">"""
+    body_attr = f' class="{body_class}"' if body_class else ""
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1494,7 +1536,7 @@ def page_shell(
 {analytics_head()}
   <script defer src="{root_prefix}script.js"></script>
 </head>
-<body>
+<body{body_attr}>
 {header(current, root_prefix)}
 <main>
 {body}
@@ -1625,6 +1667,21 @@ def gallery_image_graph_schema() -> str:
     }, indent=2)
 
 
+def index_hero_background_html(root_prefix: str = "") -> str:
+    panels = ""
+    for direction, img, _alt in HERO_PANELS:
+        panels += f"""
+        <div class="hero-panel hero-panel--{direction} hero-panel--photo">
+          <img src="{root_prefix}Gallery/{img}" alt="" width="960" height="1080" fetchpriority="high" decoding="async">
+        </div>"""
+    cutout = f"{root_prefix}{HERO_BANNER_CUTOUT}"
+    return f"""      <div class="hero-panels" aria-hidden="true">{panels}
+      </div>
+      <div class="hero-cutout-wrap" aria-hidden="true">
+        <img class="hero-cutout" src="{cutout}" alt="" width="693" height="791" fetchpriority="high" decoding="async" role="presentation">
+      </div>"""
+
+
 def hero_background_html(root_prefix: str = "") -> str:
     desktop = f"{root_prefix}Gallery/{HERO_DESKTOP}"
     mobile = f"{root_prefix}Gallery/{HERO_MOBILE_LCP}"
@@ -1671,7 +1728,7 @@ def write_index() -> None:
 
     body = f"""
     <section class="hero">
-      {hero_background_html()}
+      {index_hero_background_html()}
       <div class="hero-overlay" aria-hidden="true"></div>
       <div class="container hero-inner">
         <div class="hero-copy">
@@ -1701,6 +1758,8 @@ def write_index() -> None:
         </aside>
       </div>
     </section>
+
+    {home_follow_banner_section()}
 
     <section id="about" class="about-section section-shell">
       <div class="container about-grid">
@@ -1777,6 +1836,7 @@ def write_index() -> None:
         schema,
         "index.html",
         preload_hero=True,
+        body_class="home-landing",
     )
     write_site_file(ROOT / "index.html", html)
 
@@ -2133,6 +2193,25 @@ def area_service_links(root_prefix: str = "") -> str:
     return "".join(f'<a href="{root_prefix}{s["slug"]}.html">{s["nav"]}</a>' for s in SERVICES)
 
 
+def service_areas_city_index_html(root_prefix: str = "") -> str:
+    blocks = []
+    for county in COUNTIES:
+        cities = cities_in_county(county["name"])
+        city_links = "".join(
+            f'<li><a href="{root_prefix}{city_href(c["slug"])}">{c["name"]}</a></li>'
+            for c in cities
+        )
+        blocks.append(
+            f"""
+        <div class="areas-index__county">
+          <h3><a href="{root_prefix}areas/{county['slug']}.html">{county['name']}</a></h3>
+          <ul class="areas-index__cities">{city_links}
+          </ul>
+        </div>"""
+        )
+    return f'<div class="areas-index">{"".join(blocks)}\n        </div>'
+
+
 def write_city_area_page(city: dict, areas_dir: Path) -> None:
     root_prefix = "../"
     canonical = f"areas/{city['slug']}.html"
@@ -2344,18 +2423,10 @@ def write_service_areas() -> None:
             <a class="area-card-cta" href="areas/{county['slug']}.html">View {county['name']} &rarr;</a>
           </article>"""
 
-    city_cards = ""
-    core_links = area_service_links()
-    for i, city in enumerate(AREA_CITIES):
-        city_cards += f"""
-          <article class="area-card" data-fw-enter="bottom" style="--fw-enter-delay: {(i % 6) * 60}ms;">
-            <h3><a href="{city_href(city['slug'])}">{city['name']}, FL</a></h3>
-            <p class="area-card-county">{city['county']}</p>
-            <p>{SITE_POSITIONING} for {city['name']} property owners, including overgrown lots, pond banks, ditches, brush, trails, storm debris, and acreage cleanup.</p>
-            <div class="area-card-links" aria-label="Core services near {city['name']}">{core_links}</div>
-            <a class="area-card-cta" href="{city_href(city['slug'])}">View {city['name']} services &rarr;</a>
-          </article>"""
-
+    featured_links = ", ".join(
+        f'<a href="{city_href(c["slug"])}">{c["name"]}</a>' for c in FEATURED_CITIES[:8]
+    )
+    city_index = service_areas_city_index_html()
     areas_path = "service-areas.html"
     areas_title = f"Central Florida Service Areas | {SITE['brand']}"
     featured_names = ", ".join(c["name"] for c in FEATURED_CITIES[:8])
@@ -2388,7 +2459,7 @@ def write_service_areas() -> None:
         <div class="section-heading" data-fw-enter="left">
           <p class="eyebrow">Counties we serve</p>
           <h2>{len(COUNTIES)} Counties Within {SERVICE_RADIUS_MILES} Miles of Auburndale</h2>
-          <p>Faith Works is based in Auburndale (33823) and serves property owners across Polk County and surrounding Central Florida counties within a {SERVICE_RADIUS_MILES}-mile service radius.</p>
+          <p>Open a county page for local coverage details, FAQs, and city links.</p>
         </div>
         <div class="areas-grid areas-grid--counties">{county_cards}
         </div>
@@ -2398,12 +2469,12 @@ def write_service_areas() -> None:
       <div class="container">
         <div class="section-heading" data-fw-enter="left">
           <p class="eyebrow">City coverage</p>
-          <h2>Cities &amp; Communities We Serve</h2>
-          <p>Select your city for local service details, common job types, and a photo-based estimate form.</p>
+          <h2>{len(AREA_CITIES)} Cities &amp; Communities</h2>
+          <p>Pick your city for local service details and a photo-based estimate form.</p>
         </div>
-        <div class="areas-grid">{city_cards}
-        </div>
-        <p class="areas-note" data-fw-enter="top">Not sure if we serve your area? Send your city and project photos through our <a href="contact.html">contact form</a> and we'll confirm coverage.</p>
+        <p class="areas-featured" data-fw-enter="top">Popular areas: {featured_links}</p>
+        {city_index}
+        <p class="areas-note" data-fw-enter="top">Every listed city receives the same core outdoor services. <a href="services.html">View all services &rarr;</a> &nbsp;&middot;&nbsp; Not sure if we serve your area? <a href="contact.html">Send your city and project photos</a> and we'll confirm coverage.</p>
       </div>
     </section>"""
     html = page_shell(
@@ -2560,7 +2631,7 @@ def write_styles() -> None:
     src = src.replace("rgba(61, 168, 216,", "rgba(201, 162, 39,")
     src = src.replace("#7499b8", "#a89878")
     src = src.replace("#aac8df", "#d4c4a0")
-    src = src.replace("--container:     1200px;", "--container:     1400px;")
+    src = src.replace("--container:     1200px;", "--container:     1400px;\n  --ease-out:      cubic-bezier(0.22, 1, 0.36, 1);")
     src = src.replace('url("Images/ScreenTeamBanner.webp")', f'url("Gallery/{HERO_DESKTOP}")')
     src = src.replace('url("Images/ScreenTeamBanner-mobile.webp")', f'url("Gallery/{HERO_MOBILE_LCP}")')
     src = src.replace('url("Images/service-hero-bg.jpg")', f'url("Gallery/{HERO_DESKTOP}")')
@@ -2690,6 +2761,62 @@ def write_styles() -> None:
 .area-card p { color: var(--muted); font-size: 0.92rem; line-height: 1.6; }
 .areas-note { margin-top: 32px; text-align: center; color: var(--muted); }
 .areas-note a { color: var(--accent); }
+.areas-index {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.areas-index__county {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 18px 20px;
+}
+.areas-index__county h3 {
+  font-family: var(--font-head);
+  color: #fff;
+  margin-bottom: 12px;
+  font-size: 1rem;
+}
+.areas-index__county h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+.areas-index__county h3 a:hover,
+.areas-index__county h3 a:focus-visible {
+  color: var(--accent);
+}
+.areas-index__cities {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+}
+.areas-index__cities a {
+  color: var(--muted);
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+.areas-index__cities a:hover,
+.areas-index__cities a:focus-visible {
+  color: var(--accent);
+}
+.areas-featured {
+  margin: 0 0 24px;
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+.areas-featured a {
+  color: var(--accent);
+  text-decoration: none;
+}
+.areas-featured a:hover,
+.areas-featured a:focus-visible {
+  text-decoration: underline;
+}
 .intent-router {
   background: linear-gradient(180deg, #101510 0%, #0a0a0a 100%);
   border-top: 1px solid var(--border);
@@ -3110,9 +3237,80 @@ def write_styles() -> None:
   margin-bottom: 0;
 }
 .scope-section {
-  background: linear-gradient(180deg, #0a0a0a 0%, #101510 100%);
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
+}
+.scope-section--parallax {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background: #0a0a0a;
+}
+.scope-bg {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -30%;
+  height: 160%;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.scope-bg__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center 35%;
+  transform: translate3d(0, var(--fw-band-shift, 0px), 0);
+  will-change: transform;
+}
+.scope-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    135deg,
+    rgba(10, 10, 10, 0.88) 0%,
+    rgba(12, 18, 12, 0.8) 45%,
+    rgba(16, 22, 16, 0.68) 100%
+  );
+}
+.scope-section--parallax .container {
+  position: relative;
+  z-index: 2;
+}
+.scope-section__title {
+  font-size: clamp(1.05rem, 0.95vw + 0.72rem, 2.05rem);
+  line-height: 1.08;
+  letter-spacing: 0.015em;
+  white-space: nowrap;
+  max-width: 100%;
+}
+.scope-section--parallax .scope-card {
+  background: rgba(12, 14, 12, 0.8);
+  border-color: rgba(201, 162, 39, 0.18);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+@media (max-width: 900px) {
+  .scope-section__title {
+    font-size: clamp(0.98rem, 1.45vw + 0.58rem, 1.55rem);
+  }
+}
+@media (max-width: 640px) {
+  .scope-section__title {
+    white-space: normal;
+    text-wrap: balance;
+    font-size: clamp(1.28rem, 5.4vw, 1.82rem);
+    line-height: 1.12;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scope-bg__img {
+    transform: none !important;
+  }
 }
 .scope-grid {
   display: grid;
@@ -3138,8 +3336,36 @@ def write_styles() -> None:
   line-height: 1.65;
 }
 .scope-card ul {
+  list-style: none;
   margin: 14px 0 0;
-  padding-left: 1.1rem;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+.scope-card li {
+  position: relative;
+  padding-left: 1.75rem;
+}
+.scope-card--do li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 0.08em;
+  color: #6ecf8a;
+  font-weight: 800;
+  font-size: 0.92rem;
+  line-height: 1;
+  text-shadow: 0 0 10px rgba(110, 207, 138, 0.35);
+}
+.scope-card--dont li::before {
+  content: "×";
+  position: absolute;
+  left: 0;
+  top: 0.02em;
+  color: rgba(220, 130, 110, 0.95);
+  font-weight: 700;
+  font-size: 1.05rem;
+  line-height: 1;
 }
 .scope-card--dont {
   border-color: rgba(180, 80, 80, 0.25);
@@ -3428,7 +3654,120 @@ def write_styles() -> None:
   isolation: isolate;
   background: #0a0a0a;
   background-image: none;
-  min-height: 92vh;
+  min-height: min(72vh, 680px);
+}
+body.home-landing .hero {
+  min-height: min(78vh, 760px);
+  overflow: visible;
+  background: transparent;
+}
+body.home-landing .hero-panels {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 1fr;
+  gap: 0;
+  height: 100%;
+  min-height: 100%;
+  transform: translate3d(0, var(--st-hero-shift, 0px), 0);
+  will-change: transform;
+}
+body.home-landing .hero-panel {
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+  min-height: 100%;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+body.home-landing .hero-panel--photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+body.home-landing .hero-panel--left.hero-panel--photo {
+  transform: translateX(-105%);
+  animation: fwHeroFromLeft 0.95s cubic-bezier(0.22, 1, 0.36, 1) 0.08s forwards;
+}
+body.home-landing .hero-panel--top.hero-panel--photo {
+  transform: translateY(-105%);
+  animation: fwHeroFromTop 0.95s cubic-bezier(0.22, 1, 0.36, 1) 0.32s forwards;
+}
+body.home-landing .hero-panel--bottom.hero-panel--photo {
+  transform: translateY(105%);
+  animation: fwHeroFromBottom 0.95s cubic-bezier(0.22, 1, 0.36, 1) 0.2s forwards;
+}
+body.home-landing .hero-panel--right.hero-panel--photo {
+  transform: translateX(105%);
+  animation: fwHeroFromRight 0.95s cubic-bezier(0.22, 1, 0.36, 1) 0.44s forwards;
+}
+body.home-landing .hero-cutout-wrap {
+  position: absolute;
+  right: clamp(0px, 1.5vw, 20px);
+  bottom: 0;
+  z-index: 2;
+  height: min(92%, 680px);
+  width: min(38vw, 420px);
+  pointer-events: none;
+  transform: translate3d(0, var(--st-hero-shift, 0px), 0);
+  will-change: transform;
+}
+body.home-landing .hero-cutout {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: right bottom;
+  opacity: 0;
+  transform: translate3d(18%, 8%, 0);
+}
+body.home-landing .hero.hero-panels-ready .hero-cutout {
+  animation: fwHeroCutoutEnter 1s cubic-bezier(0.22, 1, 0.36, 1) 0.5s forwards;
+}
+@keyframes fwHeroFromLeft {
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes fwHeroFromBottom {
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fwHeroFromTop {
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fwHeroFromRight {
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes fwHeroCutoutEnter {
+  from {
+    opacity: 0;
+    transform: translate3d(18%, 8%, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+body.home-landing .hero-overlay {
+  background: linear-gradient(
+    90deg,
+    rgba(10, 10, 10, 0.72) 0%,
+    rgba(10, 10, 10, 0.42) 38%,
+    rgba(10, 10, 10, 0.18) 62%,
+    rgba(10, 10, 10, 0.08) 100%
+  );
+  transform: translate3d(0, var(--st-hero-shift, 0px), 0);
+  will-change: transform;
+}
+body.home-landing .hero-inner {
+  position: relative;
+  z-index: 3;
+  padding-top: clamp(56px, 8vh, 84px);
+  padding-bottom: clamp(112px, 14vh, 156px);
 }
 .hero-bg {
   position: absolute;
@@ -3491,6 +3830,35 @@ def write_styles() -> None:
 }
 
 @media (max-width: 1060px) {
+  body.home-landing .hero {
+    min-height: auto;
+  }
+  body.home-landing .hero-inner {
+    padding: clamp(48px, 8vw, 64px) 0 clamp(72px, 12vw, 96px);
+  }
+  body.home-landing .hero-panels {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  body.home-landing .hero-panel--top,
+  body.home-landing .hero-panel--bottom {
+    display: none !important;
+  }
+  body.home-landing .hero-panel--left,
+  body.home-landing .hero-panel--right {
+    display: block !important;
+  }
+  body.home-landing .hero-overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(10, 10, 10, 0.82) 0%,
+      rgba(10, 10, 10, 0.58) 45%,
+      rgba(10, 10, 10, 0.24) 100%
+    ) !important;
+  }
+  body.home-landing .hero-cutout-wrap {
+    height: min(58vh, 460px);
+    width: min(46vw, 320px);
+  }
   .hero-overlay {
     background: linear-gradient(
       180deg,
@@ -3531,6 +3899,133 @@ def write_styles() -> None:
     display: inline-flex;
     white-space: normal;
     text-wrap: balance;
+  }
+}
+
+@media (max-width: 768px) {
+  body.home-landing .hero-cutout-wrap {
+    height: min(52vh, 420px);
+    width: min(54vw, 280px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.home-landing .hero-panel {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+  body.home-landing .hero-cutout {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+  body.home-landing .hero-follow-banner__shell.strip-slide {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* Homepage follow-through banner (hero -> about) */
+body.home-landing .strip-slide {
+  opacity: 0;
+  transform: translate3d(0, calc(-1 * min(28vh, 140px)), 0);
+  transition:
+    opacity 0.95s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.95s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--strip-delay, 0ms);
+  will-change: opacity, transform;
+}
+body.home-landing .strip-slide.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+body.home-landing .hero-follow-banner__shell.strip-slide {
+  opacity: 0;
+  transform: translate3d(0, calc(-1 * min(34vh, 180px)), 0);
+  transition:
+    opacity 1s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+body.home-landing .hero-follow-banner__shell.strip-slide.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+body.home-landing .hero-follow-banner {
+  position: relative;
+  z-index: 4;
+  margin-top: clamp(-92px, -10vh, -68px);
+  margin-bottom: clamp(8px, 1.5vw, 16px);
+  padding: 0 clamp(16px, 2.5vw, 28px);
+  background: transparent;
+  border: none;
+  overflow: visible;
+  pointer-events: none;
+}
+body.home-landing .hero-follow-banner__shell {
+  pointer-events: auto;
+  width: min(100%, 1180px);
+  max-width: 100%;
+  margin-inline: auto;
+  padding: clamp(10px, 1.4vw, 16px) clamp(10px, 1.6vw, 18px);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, rgba(16, 21, 16, 0.92) 0%, rgba(10, 10, 10, 0.88) 100%);
+  border: 1px solid rgba(201, 162, 39, 0.28);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+body.home-landing .hero-follow-banner__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(4px, 0.8vw, 10px);
+  width: 100%;
+  padding: 0;
+}
+body.home-landing .hero-follow-card {
+  min-width: 0;
+  width: 100%;
+  text-align: center;
+  padding: clamp(8px, 1.1vw, 12px) clamp(6px, 0.9vw, 10px);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(201, 162, 39, 0.16);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+body.home-landing .hero-follow-card__label {
+  display: block;
+  font-size: clamp(0.54rem, 0.45vw + 0.38rem, 0.72rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-bottom: clamp(4px, 0.5vw, 6px);
+  line-height: 1.15;
+}
+body.home-landing .hero-follow-card__title {
+  display: block;
+  font-family: var(--font-head);
+  font-size: clamp(0.58rem, 0.52vw + 0.42rem, 0.95rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--accent);
+  line-height: 1.1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 1060px) {
+  body.home-landing .hero-follow-banner {
+    margin-top: clamp(-72px, -8vh, -52px);
+  }
+}
+
+@media (max-width: 560px) {
+  body.home-landing .hero-follow-card__title {
+    font-size: clamp(0.5rem, 2.6vw + 0.24rem, 0.72rem);
   }
 }
 
@@ -4188,7 +4683,7 @@ html.fw-js [data-fw-enter].is-visible {
   }
 }
 
-@media (max-width: 900px) { .process-grid, .areas-grid, .intent-grid, .service-detail-grid { grid-template-columns: repeat(2, 1fr); } .gallery-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 900px) { .process-grid, .areas-grid, .areas-index, .intent-grid, .service-detail-grid { grid-template-columns: repeat(2, 1fr); } .gallery-grid { grid-template-columns: repeat(2, 1fr); } }
 
 /* ---- Service mosaic (Knight Group / Clearwater Dentist v2 pattern) ---- */
 .services-section .container .section-heading {
@@ -4399,7 +4894,7 @@ html.fw-js [data-fw-enter].is-visible {
     z-index: 3;
   }
 }
-@media (max-width: 560px) { .process-grid, .areas-grid, .gallery-grid, .intent-grid, .service-detail-grid { grid-template-columns: 1fr; } }
+@media (max-width: 560px) { .process-grid, .areas-grid, .areas-index, .gallery-grid, .intent-grid, .service-detail-grid { grid-template-columns: 1fr; } }
 
 /* ---- Reviews showcase (Knight Logics-style carousel) ---- */
 .reviews-section {
@@ -4743,9 +5238,13 @@ footer.fw-site-footer::before {
   height: 1px;
   background: linear-gradient(90deg, transparent, rgba(201, 162, 39, 0.32), transparent);
 }
+footer.fw-site-footer > .container {
+  width: min(80vw, calc(100% - 48px));
+  max-width: none;
+}
 footer.fw-site-footer .footer-content {
   display: grid;
-  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr) minmax(0, 1.1fr);
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1.35fr) minmax(0, 1fr);
   gap: clamp(32px, 5vw, 56px);
   margin-bottom: clamp(32px, 4vw, 48px);
 }
@@ -4861,17 +5360,17 @@ footer.fw-site-footer .footer-right h4::after {
 }
 footer.fw-site-footer .footer-quick-links {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 6px 14px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4px 12px;
   margin-top: 8px;
 }
 footer.fw-site-footer .footer-quick-links a {
   color: var(--fw-footer-link);
   text-decoration: none;
   font-weight: 600;
-  font-size: 0.94rem;
-  padding: 8px 0;
-  min-height: 40px;
+  font-size: clamp(0.82rem, 0.35vw + 0.74rem, 0.92rem);
+  padding: 6px 0;
+  min-height: 36px;
   display: flex;
   align-items: center;
   transition: color 0.2s ease, transform 0.2s ease;
@@ -5005,40 +5504,48 @@ footer.fw-site-footer .footer-disclaimer {
   opacity: 1 !important;
 }
 @media (min-width: 767px) and (max-width: 997px) {
+  footer.fw-site-footer > .container {
+    width: min(80vw, calc(100% - 40px));
+  }
   footer.fw-site-footer .footer-content {
-    grid-template-columns: 1fr 1fr;
-    text-align: center;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.35fr) minmax(0, 0.95fr);
+    text-align: left;
   }
   footer.fw-site-footer .footer-left {
-    grid-column: 1 / -1;
+    grid-column: auto;
   }
   footer.fw-site-footer .footer-logo,
   footer.fw-site-footer .footer-company {
-    text-align: center;
-    justify-content: center;
+    text-align: left;
+    justify-content: flex-start;
   }
   footer.fw-site-footer .footer-logo {
-    justify-content: center;
+    justify-content: flex-start;
   }
   footer.fw-site-footer .footer-center h4::after,
   footer.fw-site-footer .footer-right h4::after {
-    left: 50%;
-    transform: translateX(-50%);
+    left: 0;
+    transform: none;
   }
   footer.fw-site-footer .footer-contact p {
-    justify-content: center;
+    justify-content: flex-start;
   }
   footer.fw-site-footer .footer-contact__phone {
-    display: flex;
-    justify-content: center;
+    display: block;
   }
   footer.fw-site-footer .footer-social .social-icons {
-    justify-content: center;
+    justify-content: flex-start;
+  }
+  footer.fw-site-footer .footer-quick-links {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 @media (max-width: 768px) {
   footer.fw-site-footer {
     padding-top: 52px;
+  }
+  footer.fw-site-footer > .container {
+    width: min(var(--container), calc(100% - 32px));
   }
   footer.fw-site-footer .footer-content {
     grid-template-columns: 1fr;
@@ -5406,7 +5913,67 @@ if (contactForm && contactSuccess && !heroForm) {
         text += contact_handler
 
     parallax_block = """
-// ---- Hero parallax ----
+// ---- Homepage hero panels + parallax ----
+function initHeroPanels() {
+  document.querySelectorAll(".hero-panels").forEach((panels) => {
+    const hero = panels.closest(".hero");
+    if (!hero || hero.dataset.panelsInit) return;
+    hero.dataset.panelsInit = "1";
+    requestAnimationFrame(() => hero.classList.add("hero-panels-ready"));
+  });
+}
+
+(function initHomeHeroParallax() {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  const hero = document.querySelector("body.home-landing .hero");
+  if (!hero) return;
+
+  const layers = hero.querySelectorAll(".hero-panels, .hero-cutout-wrap, .hero-overlay");
+  if (!layers.length) return;
+
+  let ticking = false;
+
+  function update() {
+    ticking = false;
+    const heroTop = hero.offsetTop;
+    const heroHeight = hero.offsetHeight;
+    const offset = Math.max(0, window.scrollY - heroTop);
+    const shift = Math.min(offset * 0.4, heroHeight);
+
+    layers.forEach((layer) => {
+      layer.style.setProperty("--st-hero-shift", `${Math.round(shift)}px`);
+    });
+  }
+
+  function queue() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(update);
+  }
+
+  initHeroPanels();
+  update();
+  window.addEventListener("scroll", queue, { passive: true });
+  window.addEventListener("resize", queue, { passive: true });
+
+  window.setTimeout(() => {
+    hero.querySelectorAll(".hero-panel").forEach((panel) => {
+      const opacity = window.getComputedStyle(panel).opacity;
+      if (opacity === "0") {
+        panel.style.opacity = "1";
+        panel.style.transform = "none";
+      }
+    });
+    const cutout = hero.querySelector(".hero-cutout");
+    if (cutout && window.getComputedStyle(cutout).opacity === "0") {
+      cutout.style.opacity = "1";
+      cutout.style.transform = "none";
+    }
+  }, 1600);
+})();
+
+// ---- Legacy single-image hero parallax ----
 (function initHeroParallax() {
   const hero = document.querySelector(".hero");
   const bg = hero && hero.querySelector(".hero-bg__img, .hero-bg img");
@@ -5452,19 +6019,22 @@ if (contactForm && contactSuccess && !heroForm) {
   }, { passive: true });
 })();
 
-(function initProcessParallax() {
-  const section = document.querySelector(".process-section--parallax");
-  const bgImg = section && section.querySelector(".process-bg__img");
-  if (!section || !bgImg) return;
+// ---- Band parallax (process + scope) ----
+(function initBandParallax() {
+  const sections = document.querySelectorAll(".process-section--parallax, .scope-section--parallax");
+  if (!sections.length) return;
   if (prefersReducedMotion()) return;
 
   let ticking = false;
-  let maxShift = 0;
-  const rate = Number(section.dataset.parallaxRate) || 0.78;
-  const overscanRatio = Number(section.dataset.parallaxOverscan) || 0.38;
+  const state = new Map();
 
-  function measureSection() {
-    maxShift = section.offsetHeight * overscanRatio;
+  function measureSection(section) {
+    const overscanRatio = Number(section.dataset.parallaxOverscan) || 0.38;
+    state.set(section, {
+      bgImg: section.querySelector(".process-bg__img, .scope-bg__img"),
+      rate: Number(section.dataset.parallaxRate) || 0.78,
+      maxShift: section.offsetHeight * overscanRatio,
+    });
   }
 
   function clampShift(shift, limit) {
@@ -5473,10 +6043,14 @@ if (contactForm && contactSuccess && !heroForm) {
 
   function update() {
     ticking = false;
-    const rect = section.getBoundingClientRect();
     const anchor = window.innerHeight * 0.5;
-    const shift = -(rect.top - anchor) * rate;
-    bgImg.style.setProperty("--fw-band-shift", clampShift(shift, maxShift) + "px");
+    sections.forEach((section) => {
+      const info = state.get(section);
+      if (!info || !info.bgImg) return;
+      const rect = section.getBoundingClientRect();
+      const shift = -(rect.top - anchor) * info.rate;
+      info.bgImg.style.setProperty("--fw-band-shift", clampShift(shift, info.maxShift) + "px");
+    });
   }
 
   function queue() {
@@ -5486,27 +6060,152 @@ if (contactForm && contactSuccess && !heroForm) {
   }
 
   function init() {
-    measureSection();
+    sections.forEach(measureSection);
     requestAnimationFrame(queue);
   }
 
   window.addEventListener("load", init, { once: true });
   window.addEventListener("scroll", queue, { passive: true });
   window.addEventListener("resize", () => {
-    measureSection();
+    sections.forEach(measureSection);
     queue();
   }, { passive: true });
 })();
 """
-    if "initHeroParallax" in text:
+    if "initHomeHeroParallax" in text:
         text = re.sub(
-            r"// ---- Hero parallax ----[\s\S]*?\}\)\(\);\s*(?=\(function initProcessParallax|\Z)",
+            r"// ---- Homepage hero panels \+ parallax ----[\s\S]*?// ---- Legacy single-image hero parallax ----[\s\S]*?\}\)\(\);\s*(?=\(function initBandParallax|\(function initProcessParallax|\Z)",
+            parallax_block.strip() + "\n",
+            text,
+            count=1,
+        )
+    elif "initHeroParallax" in text:
+        text = re.sub(
+            r"// ---- Hero parallax ----[\s\S]*?\}\)\(\);\s*(?=\(function initBandParallax|\(function initProcessParallax|\Z)",
             parallax_block.strip() + "\n",
             text,
             count=1,
         )
     else:
         text += parallax_block
+
+    strip_block = """
+// ---- Homepage follow banner entrance ----
+(function initHomeStripEntrance() {
+  if (!document.body.classList.contains("home-landing")) return;
+
+  const shell = document.querySelector(".hero-follow-banner__shell.strip-slide");
+  if (!shell) return;
+
+  const reveal = () => {
+    shell.classList.add("is-visible");
+  };
+
+  if (prefersReducedMotion()) {
+    reveal();
+    return;
+  }
+
+  const start = () => window.setTimeout(reveal, 1700);
+  const hero = document.querySelector(".hero");
+
+  if (hero?.classList.contains("hero-panels-ready")) {
+    start();
+    return;
+  }
+
+  if (!hero) {
+    start();
+    return;
+  }
+
+  const observer = new MutationObserver(() => {
+    if (!hero.classList.contains("hero-panels-ready")) return;
+    observer.disconnect();
+    start();
+  });
+
+  observer.observe(hero, { attributes: true, attributeFilter: ["class"] });
+})();
+"""
+    if "initHomeStripEntrance" not in text:
+        text = re.sub(
+            r"(// ---- Legacy single-image hero parallax ----)",
+            strip_block + r"\n\1",
+            text,
+            count=1,
+        )
+
+    text = re.sub(
+        r"(\(function initBandParallax\(\)[\s\S]*?\}\)\(\);\s*)+",
+        "",
+        text,
+    )
+    text = re.sub(
+        r"\(function initProcessParallax\(\)[\s\S]*?\}\)\(\);\s*",
+        "",
+        text,
+    )
+    band_parallax_once = """
+// ---- Band parallax (process + scope) ----
+(function initBandParallax() {
+  const sections = document.querySelectorAll(".process-section--parallax, .scope-section--parallax");
+  if (!sections.length) return;
+  if (prefersReducedMotion()) return;
+
+  let ticking = false;
+  const state = new Map();
+
+  function measureSection(section) {
+    const overscanRatio = Number(section.dataset.parallaxOverscan) || 0.38;
+    state.set(section, {
+      bgImg: section.querySelector(".process-bg__img, .scope-bg__img"),
+      rate: Number(section.dataset.parallaxRate) || 0.78,
+      maxShift: section.offsetHeight * overscanRatio,
+    });
+  }
+
+  function clampShift(shift, limit) {
+    return Math.round(Math.max(-limit, Math.min(limit, shift)));
+  }
+
+  function update() {
+    ticking = false;
+    const anchor = window.innerHeight * 0.5;
+    sections.forEach((section) => {
+      const info = state.get(section);
+      if (!info || !info.bgImg) return;
+      const rect = section.getBoundingClientRect();
+      const shift = -(rect.top - anchor) * info.rate;
+      info.bgImg.style.setProperty("--fw-band-shift", clampShift(shift, info.maxShift) + "px");
+    });
+  }
+
+  function queue() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(update);
+  }
+
+  function init() {
+    sections.forEach(measureSection);
+    requestAnimationFrame(queue);
+  }
+
+  window.addEventListener("load", init, { once: true });
+  window.addEventListener("scroll", queue, { passive: true });
+  window.addEventListener("resize", () => {
+    sections.forEach(measureSection);
+    queue();
+  }, { passive: true });
+})();
+"""
+    text = re.sub(
+        r"(// ---- Legacy single-image hero parallax ----[\s\S]*?\}\)\(\);\s*)",
+        r"\1" + band_parallax_once,
+        text,
+        count=1,
+    )
 
     write_site_file(ROOT / "script.js", text)
 

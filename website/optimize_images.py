@@ -3,10 +3,11 @@
 
 from __future__ import annotations
 
+import re
 import shutil
 from pathlib import Path
 
-from PIL import Image
+from PIL import Image, ImageOps
 
 ROOT = Path(__file__).resolve().parent.parent
 IMAGES = ROOT / "Images"
@@ -32,6 +33,17 @@ HERO_MOBILE_QUALITY = 68
 GALLERY_MASTER_MAX = 1600
 GALLERY_MASTER_QUALITY = 72
 LOGO_QUALITY = 78
+
+
+def apply_exif_orientation(img: Image.Image) -> Image.Image:
+    return ImageOps.exif_transpose(img)
+
+
+def jpg_to_webp_name(jpg_name: str) -> str:
+    stem = Path(jpg_name).stem.lower()
+    stem = re.sub(r"\((\d+)\)", r"\1", stem)
+    stem = re.sub(r"\s+", "-", stem.strip())
+    return f"{stem}.webp"
 
 
 def save_webp(img: Image.Image, dest: Path, quality: int) -> None:
@@ -81,8 +93,25 @@ def optimize_logo() -> None:
 
 def optimize_gallery_webp(path: Path, max_edge: int, quality: int) -> None:
     with Image.open(path) as img:
-        out = resize_max(img, max_edge)
+        out = resize_max(apply_exif_orientation(img), max_edge)
         save_webp(out, path, quality)
+
+
+def refresh_jpg_exports() -> None:
+    """Re-export gallery JPG masters to WebP with EXIF orientation applied."""
+    seen: set[Path] = set()
+    for jpg in sorted(GALLERY.glob("*.[Jj][Pp][Gg]")):
+        if jpg in seen:
+            continue
+        seen.add(jpg)
+        dest = GALLERY / jpg_to_webp_name(jpg.name)
+        if not dest.exists():
+            continue
+        with Image.open(jpg) as img:
+            oriented = apply_exif_orientation(img)
+            out = resize_max(oriented, GALLERY_MASTER_MAX)
+            save_webp(out, dest, GALLERY_MASTER_QUALITY)
+        print(f"JPG export -> {dest.name} ({dest.stat().st_size // 1024} KB)")
 
 
 def optimize_heroes() -> None:
@@ -132,6 +161,7 @@ def recompress_gallery_masters() -> None:
 
 def main() -> None:
     optimize_logo()
+    refresh_jpg_exports()
     recompress_gallery_masters()
     optimize_heroes()
     build_card_variants()

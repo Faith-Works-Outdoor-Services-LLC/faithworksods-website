@@ -618,8 +618,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"></noscript>
-  <link rel="preload" as="image" href="Gallery/heroes/excavator-and-truck-photo.webp" fetchpriority="high" media="(max-width: 768px)">
+  <link rel="preload" as="image" href="Images/fw-banner-cutout.webp" fetchpriority="high">
   <link rel="preload" as="image" href="Gallery/photo-of-all-equipment.webp" fetchpriority="high" media="(min-width: 769px)">
+  <link rel="preload" as="image" href="Gallery/excavator-and-truck-photo.webp" fetchpriority="high" media="(min-width: 769px)">
+  <link rel="preload" as="image" href="Gallery/tractor-with-box-blade-leveling-ground.webp" fetchpriority="high" media="(min-width: 769px)">
+  <link rel="preload" as="image" href="Gallery/excavator-photo.webp" fetchpriority="high" media="(min-width: 769px)">
+  <link rel="preload" as="image" href="Images/fw-banner.webp" fetchpriority="high" media="(max-width: 768px)">
   <link rel="preload" href="styles.css?v=20260627" as="style">
   <link rel="preload" href="script.js" as="script">
   <link rel="stylesheet" href="styles.css?v=20260627">
@@ -627,7 +631,7 @@
 
   <script defer src="script.js"></script>
 </head>
-<body>
+<body class="home-landing">
   <header class="site-header" id="top">
     <div class="container header-inner">
       <button class="hamburger-btn" id="hamburger-btn" aria-label="Open navigation menu" aria-expanded="false">
@@ -910,11 +914,22 @@
 <main>
 
     <section class="hero">
-            <div class="hero-bg" aria-hidden="true">
-        <picture>
-          <source media="(max-width: 768px)" srcset="Gallery/heroes/excavator-and-truck-photo.webp" type="image/webp">
-          <img src="Gallery/photo-of-all-equipment.webp" alt="" width="1920" height="1080" fetchpriority="high" decoding="async" class="hero-bg__img">
-        </picture>
+            <div class="hero-panels" aria-hidden="true">
+        <div class="hero-panel hero-panel--left hero-panel--photo">
+          <img src="Gallery/photo-of-all-equipment.webp" alt="" width="960" height="1080" fetchpriority="high" decoding="async">
+        </div>
+        <div class="hero-panel hero-panel--top hero-panel--photo">
+          <img src="Gallery/excavator-and-truck-photo.webp" alt="" width="960" height="1080" fetchpriority="high" decoding="async">
+        </div>
+        <div class="hero-panel hero-panel--bottom hero-panel--photo">
+          <img src="Gallery/tractor-with-box-blade-leveling-ground.webp" alt="" width="960" height="1080" fetchpriority="high" decoding="async">
+        </div>
+        <div class="hero-panel hero-panel--right hero-panel--photo">
+          <img src="Gallery/excavator-photo.webp" alt="" width="960" height="1080" fetchpriority="high" decoding="async">
+        </div>
+      </div>
+      <div class="hero-cutout-wrap" aria-hidden="true">
+        <img class="hero-cutout" src="Images/fw-banner-cutout.webp" alt="" width="693" height="791" fetchpriority="high" decoding="async" role="presentation">
       </div>
       <div class="hero-overlay" aria-hidden="true"></div>
       <div class="container hero-inner">
@@ -976,6 +991,30 @@
               <p class="form-success-msg">Thanks! Tyler will review your project and contact you shortly.</p>
             </div>
         </aside>
+      </div>
+    </section>
+
+
+    <section class="hero-follow-banner trust-strip" aria-label="Why property owners choose Faith Works">
+      <div class="hero-follow-banner__shell strip-slide">
+        <div class="hero-follow-banner__grid trust-strip-grid">
+        <article class="hero-follow-card">
+          <span class="hero-follow-card__label">Estimates</span>
+          <strong class="hero-follow-card__title">Free Photo Quotes</strong>
+        </article>
+        <article class="hero-follow-card">
+          <span class="hero-follow-card__label">Communication</span>
+          <strong class="hero-follow-card__title">Talk to Tyler Direct</strong>
+        </article>
+        <article class="hero-follow-card">
+          <span class="hero-follow-card__label">Capability</span>
+          <strong class="hero-follow-card__title">Equipment-Ready</strong>
+        </article>
+        <article class="hero-follow-card">
+          <span class="hero-follow-card__label">Coverage</span>
+          <strong class="hero-follow-card__title">Local to Auburndale</strong>
+        </article>
+        </div>
       </div>
     </section>
 
@@ -1253,11 +1292,15 @@
     </section>
 
 
-    <section id="scope" class="scope-section section-shell">
+    <section id="scope" class="scope-section scope-section--parallax section-shell" data-parallax-overscan="0.38" data-parallax-rate="0.72" aria-label="Service scope">
+      <div class="scope-bg fw-parallax-bg" aria-hidden="true">
+        <img src="Gallery/equipment-photos.webp" alt="" width="1200" height="1600" loading="lazy" decoding="async" class="scope-bg__img" role="presentation">
+      </div>
+      <div class="scope-overlay" aria-hidden="true"></div>
       <div class="container">
         <div class="section-heading" data-fw-enter="left">
           <p class="eyebrow">Clear scope</p>
-          <h2>Outdoor Property Services - Clear Project Fit</h2>
+          <h2 class="scope-section__title">Outdoor Property Services - Clear Project Fit</h2>
           <p>Faith Works keeps estimates practical by matching each job to the right outdoor property service, equipment access, and cleanup outcome before work begins.</p>
         </div>
         <div class="scope-grid">

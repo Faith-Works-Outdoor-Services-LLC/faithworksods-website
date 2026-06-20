@@ -433,7 +433,106 @@ document.querySelectorAll(".mobile-services-toggle").forEach((toggle) => {
   });
 })();
 
-// ---- Hero parallax ----
+// ---- Homepage hero panels + parallax ----
+function initHeroPanels() {
+  document.querySelectorAll(".hero-panels").forEach((panels) => {
+    const hero = panels.closest(".hero");
+    if (!hero || hero.dataset.panelsInit) return;
+    hero.dataset.panelsInit = "1";
+    requestAnimationFrame(() => hero.classList.add("hero-panels-ready"));
+  });
+}
+
+(function initHomeHeroParallax() {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  const hero = document.querySelector("body.home-landing .hero");
+  if (!hero) return;
+
+  const layers = hero.querySelectorAll(".hero-panels, .hero-cutout-wrap, .hero-overlay");
+  if (!layers.length) return;
+
+  let ticking = false;
+
+  function update() {
+    ticking = false;
+    const heroTop = hero.offsetTop;
+    const heroHeight = hero.offsetHeight;
+    const offset = Math.max(0, window.scrollY - heroTop);
+    const shift = Math.min(offset * 0.4, heroHeight);
+
+    layers.forEach((layer) => {
+      layer.style.setProperty("--st-hero-shift", `${Math.round(shift)}px`);
+    });
+  }
+
+  function queue() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(update);
+  }
+
+  initHeroPanels();
+  update();
+  window.addEventListener("scroll", queue, { passive: true });
+  window.addEventListener("resize", queue, { passive: true });
+
+  window.setTimeout(() => {
+    hero.querySelectorAll(".hero-panel").forEach((panel) => {
+      const opacity = window.getComputedStyle(panel).opacity;
+      if (opacity === "0") {
+        panel.style.opacity = "1";
+        panel.style.transform = "none";
+      }
+    });
+    const cutout = hero.querySelector(".hero-cutout");
+    if (cutout && window.getComputedStyle(cutout).opacity === "0") {
+      cutout.style.opacity = "1";
+      cutout.style.transform = "none";
+    }
+  }, 1600);
+})();
+
+
+// ---- Homepage follow banner entrance ----
+(function initHomeStripEntrance() {
+  if (!document.body.classList.contains("home-landing")) return;
+
+  const shell = document.querySelector(".hero-follow-banner__shell.strip-slide");
+  if (!shell) return;
+
+  const reveal = () => {
+    shell.classList.add("is-visible");
+  };
+
+  if (prefersReducedMotion()) {
+    reveal();
+    return;
+  }
+
+  const start = () => window.setTimeout(reveal, 1700);
+  const hero = document.querySelector(".hero");
+
+  if (hero?.classList.contains("hero-panels-ready")) {
+    start();
+    return;
+  }
+
+  if (!hero) {
+    start();
+    return;
+  }
+
+  const observer = new MutationObserver(() => {
+    if (!hero.classList.contains("hero-panels-ready")) return;
+    observer.disconnect();
+    start();
+  });
+
+  observer.observe(hero, { attributes: true, attributeFilter: ["class"] });
+})();
+
+// ---- Legacy single-image hero parallax ----
 (function initHeroParallax() {
   const hero = document.querySelector(".hero");
   const bg = hero && hero.querySelector(".hero-bg__img, .hero-bg img");
@@ -479,19 +578,28 @@ document.querySelectorAll(".mobile-services-toggle").forEach((toggle) => {
   }, { passive: true });
 })();
 
-(function initProcessParallax() {
-  const section = document.querySelector(".process-section--parallax");
-  const bgImg = section && section.querySelector(".process-bg__img");
-  if (!section || !bgImg) return;
+
+
+
+
+
+
+// ---- Band parallax (process + scope) ----
+(function initBandParallax() {
+  const sections = document.querySelectorAll(".process-section--parallax, .scope-section--parallax");
+  if (!sections.length) return;
   if (prefersReducedMotion()) return;
 
   let ticking = false;
-  let maxShift = 0;
-  const rate = Number(section.dataset.parallaxRate) || 0.78;
-  const overscanRatio = Number(section.dataset.parallaxOverscan) || 0.38;
+  const state = new Map();
 
-  function measureSection() {
-    maxShift = section.offsetHeight * overscanRatio;
+  function measureSection(section) {
+    const overscanRatio = Number(section.dataset.parallaxOverscan) || 0.38;
+    state.set(section, {
+      bgImg: section.querySelector(".process-bg__img, .scope-bg__img"),
+      rate: Number(section.dataset.parallaxRate) || 0.78,
+      maxShift: section.offsetHeight * overscanRatio,
+    });
   }
 
   function clampShift(shift, limit) {
@@ -500,10 +608,14 @@ document.querySelectorAll(".mobile-services-toggle").forEach((toggle) => {
 
   function update() {
     ticking = false;
-    const rect = section.getBoundingClientRect();
     const anchor = window.innerHeight * 0.5;
-    const shift = -(rect.top - anchor) * rate;
-    bgImg.style.setProperty("--fw-band-shift", clampShift(shift, maxShift) + "px");
+    sections.forEach((section) => {
+      const info = state.get(section);
+      if (!info || !info.bgImg) return;
+      const rect = section.getBoundingClientRect();
+      const shift = -(rect.top - anchor) * info.rate;
+      info.bgImg.style.setProperty("--fw-band-shift", clampShift(shift, info.maxShift) + "px");
+    });
   }
 
   function queue() {
@@ -513,689 +625,20 @@ document.querySelectorAll(".mobile-services-toggle").forEach((toggle) => {
   }
 
   function init() {
-    measureSection();
+    sections.forEach(measureSection);
     requestAnimationFrame(queue);
   }
 
   window.addEventListener("load", init, { once: true });
   window.addEventListener("scroll", queue, { passive: true });
   window.addEventListener("resize", () => {
-    measureSection();
+    sections.forEach(measureSection);
     queue();
   }, { passive: true });
 })();
-(function initProcessParallax() {
-  const section = document.querySelector(".process-section--parallax");
-  const bgImg = section && section.querySelector(".process-bg__img");
-  if (!section || !bgImg) return;
-  if (prefersReducedMotion()) return;
-
-  let ticking = false;
-  let maxShift = 0;
-  const rate = Number(section.dataset.parallaxRate) || 0.78;
-  const overscanRatio = Number(section.dataset.parallaxOverscan) || 0.38;
-
-  function measureSection() {
-    maxShift = section.offsetHeight * overscanRatio;
-  }
-
-  function clampShift(shift, limit) {
-    return Math.round(Math.max(-limit, Math.min(limit, shift)));
-  }
-
-  function update() {
-    ticking = false;
-    const rect = section.getBoundingClientRect();
-    const anchor = window.innerHeight * 0.5;
-    const shift = -(rect.top - anchor) * rate;
-    bgImg.style.setProperty("--fw-band-shift", clampShift(shift, maxShift) + "px");
-  }
-
-  function queue() {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(update);
-  }
-
-  function init() {
-    measureSection();
-    requestAnimationFrame(queue);
-  }
-
-  window.addEventListener("load", init, { once: true });
-  window.addEventListener("scroll", queue, { passive: true });
-  window.addEventListener("resize", () => {
-    measureSection();
-    queue();
-  }, { passive: true });
-})();
-(function initProcessParallax() {
-  const section = document.querySelector(".process-section--parallax");
-  const bgImg = section && section.querySelector(".process-bg__img");
-  if (!section || !bgImg) return;
-  if (prefersReducedMotion()) return;
-
-  let ticking = false;
-  let maxShift = 0;
-  const rate = Number(section.dataset.parallaxRate) || 0.78;
-  const overscanRatio = Number(section.dataset.parallaxOverscan) || 0.38;
-
-  function measureSection() {
-    maxShift = section.offsetHeight * overscanRatio;
-  }
-
-  function clampShift(shift, limit) {
-    return Math.round(Math.max(-limit, Math.min(limit, shift)));
-  }
-
-  function update() {
-    ticking = false;
-    const rect = section.getBoundingClientRect();
-    const anchor = window.innerHeight * 0.5;
-    const shift = -(rect.top - anchor) * rate;
-    bgImg.style.setProperty("--fw-band-shift", clampShift(shift, maxShift) + "px");
-  }
-
-  function queue() {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(update);
-  }
-
-  function init() {
-    measureSection();
-    requestAnimationFrame(queue);
-  }
-
-  window.addEventListener("load", init, { once: true });
-  window.addEventListener("scroll", queue, { passive: true });
-  window.addEventListener("resize", () => {
-    measureSection();
-    queue();
-  }, { passive: true });
-})();
-(function initProcessParallax() {
-  const section = document.querySelector(".process-section--parallax");
-  const bgImg = section && section.querySelector(".process-bg__img");
-  if (!section || !bgImg) return;
-  if (prefersReducedMotion()) return;
-
-  let ticking = false;
-  let maxShift = 0;
-  const rate = Number(section.dataset.parallaxRate) || 0.78;
-  const overscanRatio = Number(section.dataset.parallaxOverscan) || 0.38;
-
-  function measureSection() {
-    maxShift = section.offsetHeight * overscanRatio;
-  }
-
-  function clampShift(shift, limit) {
-    return Math.round(Math.max(-limit, Math.min(limit, shift)));
-  }
-
-  function update() {
-    ticking = false;
-    const rect = section.getBoundingClientRect();
-    const anchor = window.innerHeight * 0.5;
-    const shift = -(rect.top - anchor) * rate;
-    bgImg.style.setProperty("--fw-band-shift", clampShift(shift, maxShift) + "px");
-  }
-
-  function queue() {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(update);
-  }
-
-  function init() {
-    measureSection();
-    requestAnimationFrame(queue);
-  }
-
-  window.addEventListener("load", init, { once: true });
-  window.addEventListener("scroll", queue, { passive: true });
-  window.addEventListener("resize", () => {
-    measureSection();
-    queue();
-  }, { passive: true });
-})();
-(function initProcessParallax() {
-  const section = document.querySelector(".process-section--parallax");
-  const bgImg = section && section.querySelector(".process-bg__img");
-  if (!section || !bgImg) return;
-  if (prefersReducedMotion()) return;
-
-  let ticking = false;
-  let maxShift = 0;
-  const rate = Number(section.dataset.parallaxRate) || 0.78;
-  const overscanRatio = Number(section.dataset.parallaxOverscan) || 0.38;
-
-  function measureSection() {
-    maxShift = section.offsetHeight * overscanRatio;
-  }
-
-  function clampShift(shift, limit) {
-    return Math.round(Math.max(-limit, Math.min(limit, shift)));
-  }
-
-  function update() {
-    ticking = false;
-    const rect = section.getBoundingClientRect();
-    const anchor = window.innerHeight * 0.5;
-    const shift = -(rect.top - anchor) * rate;
-    bgImg.style.setProperty("--fw-band-shift", clampShift(shift, maxShift) + "px");
-  }
-
-  function queue() {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(update);
-  }
-
-  function init() {
-    measureSection();
-    requestAnimationFrame(queue);
-  }
-
-  window.addEventListener("load", init, { once: true });
-  window.addEventListener("scroll", queue, { passive: true });
-  window.addEventListener("resize", () => {
-    measureSection();
-    queue();
-  }, { passive: true });
-})();
-(function initProcessParallax() {
-  const section = document.querySelector(".process-section--parallax");
-  const bgImg = section && section.querySelector(".process-bg__img");
-  if (!section || !bgImg) return;
-  if (prefersReducedMotion()) return;
-
-  let ticking = false;
-  let maxShift = 0;
-  const rate = Number(section.dataset.parallaxRate) || 0.78;
-  const overscanRatio = Number(section.dataset.parallaxOverscan) || 0.38;
-
-  function measureSection() {
-    maxShift = section.offsetHeight * overscanRatio;
-  }
-
-  function clampShift(shift, limit) {
-    return Math.round(Math.max(-limit, Math.min(limit, shift)));
-  }
-
-  function update() {
-    ticking = false;
-    const rect = section.getBoundingClientRect();
-    const anchor = window.innerHeight * 0.5;
-    const shift = -(rect.top - anchor) * rate;
-    bgImg.style.setProperty("--fw-band-shift", clampShift(shift, maxShift) + "px");
-  }
-
-  function queue() {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(update);
-  }
-
-  function init() {
-    measureSection();
-    requestAnimationFrame(queue);
-  }
-
-  window.addEventListener("load", init, { once: true });
-  window.addEventListener("scroll", queue, { passive: true });
-  window.addEventListener("resize", () => {
-    measureSection();
-    queue();
-  }, { passive: true });
-})();
-(function initProcessParallax() {
-  const section = document.querySelector(".process-section--parallax");
-  const bgImg = section && section.querySelector(".process-bg__img");
-  if (!section || !bgImg) return;
-  if (prefersReducedMotion()) return;
-
-  let ticking = false;
-  let maxShift = 0;
-  const rate = Number(section.dataset.parallaxRate) || 0.78;
-  const overscanRatio = Number(section.dataset.parallaxOverscan) || 0.38;
-
-  function measureSection() {
-    maxShift = section.offsetHeight * overscanRatio;
-  }
-
-  function clampShift(shift, limit) {
-    return Math.round(Math.max(-limit, Math.min(limit, shift)));
-  }
-
-  function update() {
-    ticking = false;
-    const rect = section.getBoundingClientRect();
-    const anchor = window.innerHeight * 0.5;
-    const shift = -(rect.top - anchor) * rate;
-    bgImg.style.setProperty("--fw-band-shift", clampShift(shift, maxShift) + "px");
-  }
-
-  function queue() {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(update);
-  }
-
-  function init() {
-    measureSection();
-    requestAnimationFrame(queue);
-  }
-
-  window.addEventListener("load", init, { once: true });
-  window.addEventListener("scroll", queue, { passive: true });
-  window.addEventListener("resize", () => {
-    measureSection();
-    queue();
-  }, { passive: true });
-})();
-(function initProcessParallax() {
-  const section = document.querySelector(".process-section--parallax");
-  const bgImg = section && section.querySelector(".process-bg__img");
-  if (!section || !bgImg) return;
-  if (prefersReducedMotion()) return;
-
-  let ticking = false;
-  let maxShift = 0;
-  const rate = Number(section.dataset.parallaxRate) || 0.78;
-  const overscanRatio = Number(section.dataset.parallaxOverscan) || 0.38;
-
-  function measureSection() {
-    maxShift = section.offsetHeight * overscanRatio;
-  }
-
-  function clampShift(shift, limit) {
-    return Math.round(Math.max(-limit, Math.min(limit, shift)));
-  }
-
-  function update() {
-    ticking = false;
-    const rect = section.getBoundingClientRect();
-    const anchor = window.innerHeight * 0.5;
-    const shift = -(rect.top - anchor) * rate;
-    bgImg.style.setProperty("--fw-band-shift", clampShift(shift, maxShift) + "px");
-  }
-
-  function queue() {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(update);
-  }
-
-  function init() {
-    measureSection();
-    requestAnimationFrame(queue);
-  }
-
-  window.addEventListener("load", init, { once: true });
-  window.addEventListener("scroll", queue, { passive: true });
-  window.addEventListener("resize", () => {
-    measureSection();
-    queue();
-  }, { passive: true });
-})();
-(function initProcessParallax() {
-  const section = document.querySelector(".process-section--parallax");
-  const bgImg = section && section.querySelector(".process-bg__img");
-  if (!section || !bgImg) return;
-  if (prefersReducedMotion()) return;
-
-  let ticking = false;
-  let maxShift = 0;
-  const rate = Number(section.dataset.parallaxRate) || 0.78;
-  const overscanRatio = Number(section.dataset.parallaxOverscan) || 0.38;
-
-  function measureSection() {
-    maxShift = section.offsetHeight * overscanRatio;
-  }
-
-  function clampShift(shift, limit) {
-    return Math.round(Math.max(-limit, Math.min(limit, shift)));
-  }
-
-  function update() {
-    ticking = false;
-    const rect = section.getBoundingClientRect();
-    const anchor = window.innerHeight * 0.5;
-    const shift = -(rect.top - anchor) * rate;
-    bgImg.style.setProperty("--fw-band-shift", clampShift(shift, maxShift) + "px");
-  }
-
-  function queue() {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(update);
-  }
-
-  function init() {
-    measureSection();
-    requestAnimationFrame(queue);
-  }
-
-  window.addEventListener("load", init, { once: true });
-  window.addEventListener("scroll", queue, { passive: true });
-  window.addEventListener("resize", () => {
-    measureSection();
-    queue();
-  }, { passive: true });
-})();
-(function initProcessParallax() {
-  const section = document.querySelector(".process-section--parallax");
-  const bgImg = section && section.querySelector(".process-bg__img");
-  if (!section || !bgImg) return;
-  if (prefersReducedMotion()) return;
-
-  let ticking = false;
-  let maxShift = 0;
-  const rate = Number(section.dataset.parallaxRate) || 0.78;
-  const overscanRatio = Number(section.dataset.parallaxOverscan) || 0.38;
-
-  function measureSection() {
-    maxShift = section.offsetHeight * overscanRatio;
-  }
-
-  function clampShift(shift, limit) {
-    return Math.round(Math.max(-limit, Math.min(limit, shift)));
-  }
-
-  function update() {
-    ticking = false;
-    const rect = section.getBoundingClientRect();
-    const anchor = window.innerHeight * 0.5;
-    const shift = -(rect.top - anchor) * rate;
-    bgImg.style.setProperty("--fw-band-shift", clampShift(shift, maxShift) + "px");
-  }
-
-  function queue() {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(update);
-  }
-
-  function init() {
-    measureSection();
-    requestAnimationFrame(queue);
-  }
-
-  window.addEventListener("load", init, { once: true });
-  window.addEventListener("scroll", queue, { passive: true });
-  window.addEventListener("resize", () => {
-    measureSection();
-    queue();
-  }, { passive: true });
-})();
-(function initProcessParallax() {
-  const section = document.querySelector(".process-section--parallax");
-  const bgImg = section && section.querySelector(".process-bg__img");
-  if (!section || !bgImg) return;
-  if (prefersReducedMotion()) return;
-
-  let ticking = false;
-  let maxShift = 0;
-  const rate = Number(section.dataset.parallaxRate) || 0.78;
-  const overscanRatio = Number(section.dataset.parallaxOverscan) || 0.38;
-
-  function measureSection() {
-    maxShift = section.offsetHeight * overscanRatio;
-  }
-
-  function clampShift(shift, limit) {
-    return Math.round(Math.max(-limit, Math.min(limit, shift)));
-  }
-
-  function update() {
-    ticking = false;
-    const rect = section.getBoundingClientRect();
-    const anchor = window.innerHeight * 0.5;
-    const shift = -(rect.top - anchor) * rate;
-    bgImg.style.setProperty("--fw-band-shift", clampShift(shift, maxShift) + "px");
-  }
-
-  function queue() {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(update);
-  }
-
-  function init() {
-    measureSection();
-    requestAnimationFrame(queue);
-  }
-
-  window.addEventListener("load", init, { once: true });
-  window.addEventListener("scroll", queue, { passive: true });
-  window.addEventListener("resize", () => {
-    measureSection();
-    queue();
-  }, { passive: true });
-})();
-(function initProcessParallax() {
-  const section = document.querySelector(".process-section--parallax");
-  const bgImg = section && section.querySelector(".process-bg__img");
-  if (!section || !bgImg) return;
-  if (prefersReducedMotion()) return;
-
-  let ticking = false;
-  let maxShift = 0;
-  const rate = Number(section.dataset.parallaxRate) || 0.78;
-  const overscanRatio = Number(section.dataset.parallaxOverscan) || 0.38;
-
-  function measureSection() {
-    maxShift = section.offsetHeight * overscanRatio;
-  }
-
-  function clampShift(shift, limit) {
-    return Math.round(Math.max(-limit, Math.min(limit, shift)));
-  }
-
-  function update() {
-    ticking = false;
-    const rect = section.getBoundingClientRect();
-    const anchor = window.innerHeight * 0.5;
-    const shift = -(rect.top - anchor) * rate;
-    bgImg.style.setProperty("--fw-band-shift", clampShift(shift, maxShift) + "px");
-  }
-
-  function queue() {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(update);
-  }
-
-  function init() {
-    measureSection();
-    requestAnimationFrame(queue);
-  }
-
-  window.addEventListener("load", init, { once: true });
-  window.addEventListener("scroll", queue, { passive: true });
-  window.addEventListener("resize", () => {
-    measureSection();
-    queue();
-  }, { passive: true });
-})();
-(function initProcessParallax() {
-  const section = document.querySelector(".process-section--parallax");
-  const bgImg = section && section.querySelector(".process-bg__img");
-  if (!section || !bgImg) return;
-  if (prefersReducedMotion()) return;
-
-  let ticking = false;
-  let maxShift = 0;
-  const rate = Number(section.dataset.parallaxRate) || 0.78;
-  const overscanRatio = Number(section.dataset.parallaxOverscan) || 0.38;
-
-  function measureSection() {
-    maxShift = section.offsetHeight * overscanRatio;
-  }
-
-  function clampShift(shift, limit) {
-    return Math.round(Math.max(-limit, Math.min(limit, shift)));
-  }
-
-  function update() {
-    ticking = false;
-    const rect = section.getBoundingClientRect();
-    const anchor = window.innerHeight * 0.5;
-    const shift = -(rect.top - anchor) * rate;
-    bgImg.style.setProperty("--fw-band-shift", clampShift(shift, maxShift) + "px");
-  }
-
-  function queue() {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(update);
-  }
-
-  function init() {
-    measureSection();
-    requestAnimationFrame(queue);
-  }
-
-  window.addEventListener("load", init, { once: true });
-  window.addEventListener("scroll", queue, { passive: true });
-  window.addEventListener("resize", () => {
-    measureSection();
-    queue();
-  }, { passive: true });
-})();
-(function initProcessParallax() {
-  const section = document.querySelector(".process-section--parallax");
-  const bgImg = section && section.querySelector(".process-bg__img");
-  if (!section || !bgImg) return;
-  if (prefersReducedMotion()) return;
-
-  let ticking = false;
-  let maxShift = 0;
-  const rate = Number(section.dataset.parallaxRate) || 0.78;
-  const overscanRatio = Number(section.dataset.parallaxOverscan) || 0.38;
-
-  function measureSection() {
-    maxShift = section.offsetHeight * overscanRatio;
-  }
-
-  function clampShift(shift, limit) {
-    return Math.round(Math.max(-limit, Math.min(limit, shift)));
-  }
-
-  function update() {
-    ticking = false;
-    const rect = section.getBoundingClientRect();
-    const anchor = window.innerHeight * 0.5;
-    const shift = -(rect.top - anchor) * rate;
-    bgImg.style.setProperty("--fw-band-shift", clampShift(shift, maxShift) + "px");
-  }
-
-  function queue() {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(update);
-  }
-
-  function init() {
-    measureSection();
-    requestAnimationFrame(queue);
-  }
-
-  window.addEventListener("load", init, { once: true });
-  window.addEventListener("scroll", queue, { passive: true });
-  window.addEventListener("resize", () => {
-    measureSection();
-    queue();
-  }, { passive: true });
-})();
-(function initProcessParallax() {
-  const section = document.querySelector(".process-section--parallax");
-  const bgImg = section && section.querySelector(".process-bg__img");
-  if (!section || !bgImg) return;
-  if (prefersReducedMotion()) return;
-
-  let ticking = false;
-  let maxShift = 0;
-  const rate = Number(section.dataset.parallaxRate) || 0.78;
-  const overscanRatio = Number(section.dataset.parallaxOverscan) || 0.38;
-
-  function measureSection() {
-    maxShift = section.offsetHeight * overscanRatio;
-  }
-
-  function clampShift(shift, limit) {
-    return Math.round(Math.max(-limit, Math.min(limit, shift)));
-  }
-
-  function update() {
-    ticking = false;
-    const rect = section.getBoundingClientRect();
-    const anchor = window.innerHeight * 0.5;
-    const shift = -(rect.top - anchor) * rate;
-    bgImg.style.setProperty("--fw-band-shift", clampShift(shift, maxShift) + "px");
-  }
-
-  function queue() {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(update);
-  }
-
-  function init() {
-    measureSection();
-    requestAnimationFrame(queue);
-  }
-
-  window.addEventListener("load", init, { once: true });
-  window.addEventListener("scroll", queue, { passive: true });
-  window.addEventListener("resize", () => {
-    measureSection();
-    queue();
-  }, { passive: true });
-})();
-(function initProcessParallax() {
-  const section = document.querySelector(".process-section--parallax");
-  const bgImg = section && section.querySelector(".process-bg__img");
-  if (!section || !bgImg) return;
-  if (prefersReducedMotion()) return;
-
-  let ticking = false;
-  let maxShift = 0;
-  const rate = Number(section.dataset.parallaxRate) || 0.78;
-  const overscanRatio = Number(section.dataset.parallaxOverscan) || 0.38;
-
-  function measureSection() {
-    maxShift = section.offsetHeight * overscanRatio;
-  }
-
-  function clampShift(shift, limit) {
-    return Math.round(Math.max(-limit, Math.min(limit, shift)));
-  }
-
-  function update() {
-    ticking = false;
-    const rect = section.getBoundingClientRect();
-    const anchor = window.innerHeight * 0.5;
-    const shift = -(rect.top - anchor) * rate;
-    bgImg.style.setProperty("--fw-band-shift", clampShift(shift, maxShift) + "px");
-  }
-
-  function queue() {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(update);
-  }
-
-  function init() {
-    measureSection();
-    requestAnimationFrame(queue);
-  }
-
-  window.addEventListener("load", init, { once: true });
-  window.addEventListener("scroll", queue, { passive: true });
-  window.addEventListener("resize", () => {
-    measureSection();
-    queue();
-  }, { passive: true });
-})();
+// ---- Band parallax (process + scope) ----
+// ---- Band parallax (process + scope) ----
+// ---- Band parallax (process + scope) ----
+// ---- Band parallax (process + scope) ----
+// ---- Band parallax (process + scope) ----
+// ---- Band parallax (process + scope) ----
