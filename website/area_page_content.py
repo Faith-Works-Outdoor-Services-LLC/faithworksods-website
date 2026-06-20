@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from city_area_profiles import city_profile
 from service_areas_data import (
     COUNTIES,
     COUNTY_BY_NAME,
@@ -46,6 +47,24 @@ COUNTY_PROFILES: dict[str, dict] = {
             "which means brush, pond banks, and ditch lines need ongoing outdoor maintenance, not just one-time mowing."
         ),
         "nearby_counties": ["Osceola County", "Hillsborough County", "Lake County", "Hardee County", "Highlands County"],
+        "meta_lead": (
+            "Faith Works Outdoor Services clears land, pond banks, ditches, and overgrown acreage across Polk County "
+            "from its Auburndale home base — serving Auburndale, Lakeland, Winter Haven, Bartow, and 14 Polk communities."
+        ),
+        "coverage_snapshot": (
+            "From Chain of Lakes pond banks in Winter Haven to ridge scrub near Lake Wales and phosphate-country acreage "
+            "around Mulberry, Polk jobs vary widely — each estimate is scoped from property photos, not a flat county rate."
+        ),
+        "unique_faqs": [
+            (
+                "Why is Polk County the core service area for Faith Works?",
+                "Faith Works is headquartered in Auburndale (33823) in Polk County. Most equipment mobilization, scheduling, and estimate review starts here — making Polk the fastest-response county we serve.",
+            ),
+            (
+                "Does Faith Works handle both suburban Polk lots and large rural acreage?",
+                "Yes. Polk County includes Winter Haven lakefront lots, Lakeland rear acreage, and south Polk ranch parcels toward Fort Meade — scope and equipment are matched to each property after photo review.",
+            ),
+        ],
     },
     "Osceola County": {
         "region": "south Central Florida",
@@ -70,6 +89,24 @@ COUNTY_PROFILES: dict[str, dict] = {
             "property owners often need equipment that can work around ponds, tree lines, and long fence runs."
         ),
         "nearby_counties": ["Polk County", "Orange County", "Lake County", "Highlands County"],
+        "meta_lead": (
+            "Land clearing and pond bank work across Osceola County — Kissimmee, St Cloud, Poinciana, and rural acreage "
+            "south of Polk. Faith Works travels from Auburndale within a 70-mile radius."
+        ),
+        "coverage_snapshot": (
+            "Osceola blends fast-growing Poinciana subdivisions with ranch land south of Kissimmee — retention pond edges, "
+            "fence lines, and multi-acre access trails are common reasons owners call from this county."
+        ),
+        "unique_faqs": [
+            (
+                "Does Faith Works serve both Kissimmee and Poinciana?",
+                "Yes. Kissimmee, St Cloud, and Poinciana are listed Osceola communities — each has a dedicated city page with localized service details and estimate forms.",
+            ),
+            (
+                "Are Osceola retention pond edges a common Faith Works job?",
+                "Retention and pond edge cleanup around newer Osceola development is a frequent request — we handle private outdoor edges, not engineered stormwater system installation.",
+            ),
+        ],
     },
     "Orange County": {
         "region": "Greater Orlando",
@@ -94,6 +131,24 @@ COUNTY_PROFILES: dict[str, dict] = {
             "have grown beyond what a lawn service can handle — that is where outdoor property equipment makes the difference."
         ),
         "nearby_counties": ["Osceola County", "Lake County", "Polk County", "Seminole County"],
+        "meta_lead": (
+            "Outdoor property clearing in Orange County — Orlando, Ocoee, Winter Garden, and Apopka. "
+            "Rear acreage, pond edges, and brush removal from Faith Works in Auburndale."
+        ),
+        "coverage_snapshot": (
+            "Greater Orlando includes oversized suburban lots backing to woods and conservation — jobs often focus on "
+            "rear-acreage mulching and fence lines rather than small front-yard mowing."
+        ),
+        "unique_faqs": [
+            (
+                "Does Faith Works serve Orlando and western Orange County?",
+                "Yes. Orlando, Ocoee, Winter Garden, and Apopka are within our service radius — each city page covers localized property types and common outdoor projects.",
+            ),
+            (
+                "Can Faith Works clear rear acreage behind Orange County subdivisions?",
+                "Rear wooded sections and conservation borders on private property are common Orange County requests — send photos showing property lines and access gates.",
+            ),
+        ],
     },
     "Lake County": {
         "region": "Florida's lake and hill country",
@@ -118,6 +173,24 @@ COUNTY_PROFILES: dict[str, dict] = {
             "compact equipment and experienced operators matter when banks, slopes, and tree lines are involved."
         ),
         "nearby_counties": ["Orange County", "Polk County", "Sumter County", "Marion County"],
+        "meta_lead": (
+            "Lake County land clearing and pond bank work — Clermont, Leesburg, Mount Dora, Tavares, and Groveland. "
+            "Hill-country acreage and lakefront cleanup from Faith Works."
+        ),
+        "coverage_snapshot": (
+            "Lake County's rolling terrain and horse properties create slope and bank access challenges — compact equipment "
+            "and photo-based scope review matter before scheduling Clermont or Mount Dora jobs."
+        ),
+        "unique_faqs": [
+            (
+                "Does Faith Works handle sloped pond banks in Lake County?",
+                "Yes. Lake County lakefront and pond edges on rolling terrain are common — send slope and access photos so we confirm the right equipment approach.",
+            ),
+            (
+                "Can Faith Works clear horse property fence lines in Lake County?",
+                "Fence line and paddock edge clearing around equestrian properties in Clermont, Leesburg, and Mount Dora are regular Lake County requests.",
+            ),
+        ],
     },
     "Hillsborough County": {
         "region": "Tampa Bay's eastern corridor",
@@ -142,6 +215,24 @@ COUNTY_PROFILES: dict[str, dict] = {
             "often need the same core outdoor services: clear growth, open access, and haul debris — without utility excavation work."
         ),
         "nearby_counties": ["Polk County", "Pasco County", "Manatee County"],
+        "meta_lead": (
+            "Hillsborough County outdoor property services — Plant City, Brandon, Valrico, and Tampa. "
+            "Land clearing, brush cutting, and pond work from Faith Works near Polk County."
+        ),
+        "coverage_snapshot": (
+            "Eastern Hillsborough spans strawberry-country acreage around Plant City and oversized Brandon lots with wooded "
+            "rear sections — two different property profiles that both need equipment-based clearing."
+        ),
+        "unique_faqs": [
+            (
+                "Does Faith Works serve both Plant City and Brandon?",
+                "Yes. Plant City, Brandon, Valrico, and Tampa each have dedicated service area pages with city-specific property notes and estimate forms.",
+            ),
+            (
+                "Can Faith Works clear agricultural acreage near Plant City?",
+                "Plant City and eastern Hillsborough agricultural parcels are within our travel range — fence lines, ditches, and land clearing scope is confirmed from photos.",
+            ),
+        ],
     },
     "Pasco County": {
         "region": "north of Tampa Bay",
@@ -166,6 +257,24 @@ COUNTY_PROFILES: dict[str, dict] = {
             "property owners often need one contractor who can handle brush, trails, ponds, and debris on the same visit."
         ),
         "nearby_counties": ["Hillsborough County", "Polk County", "Sumter County", "Hernando County"],
+        "meta_lead": (
+            "Pasco County land clearing — Zephyrhills, Wesley Chapel, and Dade City acreage cleanup. "
+            "Rural Pasco and large-lot suburb brush removal from Faith Works."
+        ),
+        "coverage_snapshot": (
+            "Pasco still holds substantial ranch and equestrian land alongside Wesley Chapel growth — one county where "
+            "the same contractor may clear a five-acre homestead and a subdivision rear wooded buffer in the same week."
+        ),
+        "unique_faqs": [
+            (
+                "Does Faith Works serve Zephyrhills and Wesley Chapel?",
+                "Yes. Zephyrhills, Wesley Chapel, and Dade City are listed Pasco communities with unique city pages and localized outdoor service details.",
+            ),
+            (
+                "Can Faith Works handle Pasco equestrian property cleanup?",
+                "Pasture edges, paddock fence lines, and trail access on Pasco horse properties are common — send photos of boundaries and gate access.",
+            ),
+        ],
     },
     "Hardee County": {
         "region": "south Central Florida ranch country",
@@ -190,6 +299,24 @@ COUNTY_PROFILES: dict[str, dict] = {
             "that have grown shut after a season or two without equipment maintenance."
         ),
         "nearby_counties": ["Polk County", "DeSoto County", "Highlands County", "Manatee County"],
+        "meta_lead": (
+            "Hardee County ranch and acreage clearing — Wauchula and rural south Central Florida land. "
+            "Fence lines, pond banks, and pasture cleanup from Faith Works."
+        ),
+        "coverage_snapshot": (
+            "Hardee County jobs are often about reopening ranch infrastructure — overgrown roads, gate areas, and long fence "
+            "runs that cattle operations depend on for daily access."
+        ),
+        "unique_faqs": [
+            (
+                "Does Faith Works travel to Wauchula and Hardee County?",
+                "Yes. Wauchula and rural Hardee County acreage are within our approximately 70-mile service radius from Auburndale — larger ranch jobs are reviewed by scope.",
+            ),
+            (
+                "Can Faith Works work around active Hardee County cattle operations?",
+                "Ranch road and fence line clearing near working pasture is common — note livestock locations and gate access when submitting photos for Wauchula-area jobs.",
+            ),
+        ],
     },
     "Highlands County": {
         "region": "south Central Florida lake plateau",
@@ -214,6 +341,24 @@ COUNTY_PROFILES: dict[str, dict] = {
             "pond banks, ditches, and back-acreage brush are common reasons owners reach out."
         ),
         "nearby_counties": ["Polk County", "Hardee County", "Osceola County", "Okeechobee County"],
+        "meta_lead": (
+            "Highlands County property cleanup — Sebring, Avon Park, and lake-plateau acreage. "
+            "Land clearing, pond banks, and brush removal from Faith Works."
+        ),
+        "coverage_snapshot": (
+            "Highlands County's lake plateau mixes scattered lakefront homes with rural residential acreage — pond edges "
+            "and unmanaged ditch lines drive many Sebring and Avon Park estimate requests."
+        ),
+        "unique_faqs": [
+            (
+                "Does Faith Works serve both Sebring and Avon Park?",
+                "Yes. Sebring and Avon Park each have dedicated city pages covering localized Highlands County property types and common outdoor projects.",
+            ),
+            (
+                "Are Highlands County lakefront banks a common clearing request?",
+                "Private lake and pond bank trimming around Sebring and Avon Park is a core outdoor service — bank slope and access are reviewed from photos first.",
+            ),
+        ],
     },
     "DeSoto County": {
         "region": "southwest Central Florida ranch land",
@@ -238,6 +383,24 @@ COUNTY_PROFILES: dict[str, dict] = {
             "equipment mobility and clear scope planning matter before work begins."
         ),
         "nearby_counties": ["Hardee County", "Manatee County", "Sarasota County", "Charlotte County"],
+        "meta_lead": (
+            "DeSoto County ranch land clearing — Arcadia acreage, fence lines, and pond banks. "
+            "Large-parcel outdoor property work from Faith Works within travel range."
+        ),
+        "coverage_snapshot": (
+            "DeSoto County parcels tend to be wide-open ranch land with long boundaries — scope planning for fence runs, "
+            "pond edges, and equipment turnaround space starts with aerial or wide-angle property photos."
+        ),
+        "unique_faqs": [
+            (
+                "Does Faith Works serve Arcadia and rural DeSoto County?",
+                "Yes. Arcadia and rural DeSoto acreage are within our service radius — large ranch parcels are reviewed individually for travel, access, and equipment needs.",
+            ),
+            (
+                "Can Faith Works clear long fence lines on DeSoto County ranch land?",
+                "Long fence run clearing is one of the most common DeSoto requests — send photos showing total length, gate locations, and pasture access.",
+            ),
+        ],
     },
     "Sumter County": {
         "region": "Central Florida's growing retirement and acreage corridor",
@@ -262,6 +425,24 @@ COUNTY_PROFILES: dict[str, dict] = {
             "owners often want outdoor property work handled carefully around homes, ponds, and established landscaping."
         ),
         "nearby_counties": ["Lake County", "Marion County", "Pasco County", "Polk County"],
+        "meta_lead": (
+            "Sumter County acreage cleanup — The Villages, Bushnell, and rural land between Orlando and Ocala. "
+            "Pond banks, brush removal, and trail clearing from Faith Works."
+        ),
+        "coverage_snapshot": (
+            "Sumter County mixes active retirement-community acreage with rural Bushnell land — owners often want careful "
+            "clearing around established homes, ponds, and landscaping rather than aggressive whole-lot stripping."
+        ),
+        "unique_faqs": [
+            (
+                "Does Faith Works serve The Villages and Bushnell?",
+                "Yes. The Villages and Bushnell have dedicated city pages with Sumter County-specific property notes and outdoor service details.",
+            ),
+            (
+                "Can Faith Works work carefully around Sumter County homes and ponds?",
+                "Many Sumter jobs require selective clearing around homes and water features — detailed photos help us plan equipment paths and avoid unnecessary disturbance.",
+            ),
+        ],
     },
     "Manatee County": {
         "region": "Tampa Bay's southern reach",
@@ -286,47 +467,51 @@ COUNTY_PROFILES: dict[str, dict] = {
             "overgrown edges, pond banks, and acreage cleanup rather than utility or site-development excavation."
         ),
         "nearby_counties": ["Hillsborough County", "Polk County", "Sarasota County", "DeSoto County"],
+        "meta_lead": (
+            "Manatee County outdoor property services — Bradenton and Parrish land clearing within Faith Works travel range. "
+            "Brush cutting, pond edges, and acreage cleanup from Auburndale."
+        ),
+        "coverage_snapshot": (
+            "Northern Manatee within our radius often mirrors Hillsborough jobs — oversized suburban rear lots in Bradenton "
+            "and rural Parrish acreage both need mulching, pond edges, and debris haul-off rather than utility excavation."
+        ),
+        "unique_faqs": [
+            (
+                "Does Faith Works serve Bradenton and Parrish in Manatee County?",
+                "Yes. Bradenton and Parrish are listed Manatee communities — each has a city page with localized service details within our travel range.",
+            ),
+            (
+                "Is northern Manatee County within the 70-mile Faith Works radius?",
+                "Northern Manatee communities like Parrish and Bradenton fall within our approximately 70-mile service radius from Auburndale — confirm with your address and photos.",
+            ),
+        ],
     },
 }
 
-CITY_HOOKS: dict[str, str] = {
-    "auburndale-fl": (
-        f"As our home base in {HOME_ZIP}, Auburndale is where Faith Works Outdoor Services is rooted — "
-        "with quick response across Polk County lake country and nearby communities."
-    ),
-    "lakeland-fl": (
-        "Lakeland sits between Tampa and Orlando with in-town residential lots, lake-adjacent properties, "
-        "and rural land toward Mulberry and south Polk — a common mix of pond banks, acreage edges, and overgrown rear lots."
-    ),
-    "winter-haven-fl": (
-        "Winter Haven's Chain of Lakes area means many properties combine residential yards with pond edges, "
-        "ditch lines, and back-lot growth that standard lawn services cannot tackle."
-    ),
-    "orlando-fl": (
-        "Orlando homeowners and property owners often need rear-acreage clearing, pond edge cleanup, and brush removal "
-        "on larger lots — especially where properties back to woods, water, or conservation areas."
-    ),
-    "kissimmee-fl": (
-        "Kissimmee and nearby Osceola communities include both suburban lots with wet rear areas and larger rural parcels "
-        "where fence lines, ponds, and access trails need equipment-based clearing."
-    ),
-    "plant-city-fl": (
-        "Plant City and eastern Hillsborough combine agricultural acreage with suburban neighborhoods — "
-        "property owners call for brush clearing, ditch work, and land cleanup on a wide range of lot sizes."
-    ),
-    "clermont-fl": (
-        "Clermont's rolling lake-country terrain often means steeper pond banks, wooded acreage edges, "
-        "and trail access that benefits from compact equipment and experienced outdoor property operators."
-    ),
-    "the-villages-fl": (
-        "The Villages area includes many acreage-style homes with ponds, retention features, and rear property lines "
-        "that need periodic brush cutting and outdoor cleanup beyond routine yard maintenance."
-    ),
-    "tampa-fl": (
-        "Tampa properties within our travel range often involve larger suburban lots, rear wooded acreage, "
-        "or pond and ditch edges where forestry mulching and brush cutting open usable space again."
-    ),
-}
+
+def city_intent_routes(city: dict) -> list[dict]:
+    return city_profile(city["slug"])["intent_routes"]
+
+
+def city_strip_note(city: dict) -> str:
+    return city_profile(city["slug"])["strip_note"]
+
+
+def city_intro_html(city: dict) -> str:
+    name = city["name"]
+    county = city["county"]
+    profile = city_profile(city["slug"])
+    return f"""
+          <h2>Land Clearing &amp; Outdoor Property Services in {name}, {county}</h2>
+          <p>{profile["hook"]}</p>
+          <p>{profile["context"]}</p>
+          <p>{profile["local_detail"]}</p>
+          <p>
+            {OWNER} reviews photos from {name} property owners before confirming scope, equipment, and scheduling.
+            Faith Works focuses on outdoor property work — clearing, mulching, cleanup, and maintenance — not utility
+            trenching, engineered drainage, or pool installation. Pool dig-out support is available under licensed pool
+            contractors when your builder needs dirt removal and site cleanup.
+          </p>"""
 
 
 def county_profile(county_name: str) -> dict:
@@ -337,6 +522,9 @@ def county_profile(county_name: str) -> dict:
         "common_jobs": ["Land clearing", "Brush cutting", "Pond bank cleanup", "Debris removal", "Trail clearing"],
         "local_note": f"Property owners across {county_name} often need outdoor clearing, mulching, and cleanup — not utility excavation.",
         "nearby_counties": [],
+        "meta_lead": f"{BRAND} serves {county_name}, FL with outdoor property clearing and cleanup.",
+        "coverage_snapshot": f"Faith Works travels to {county_name} from {HOME_CITY} within approximately {SERVICE_RADIUS_MILES} miles.",
+        "unique_faqs": [],
     })
 
 
@@ -344,21 +532,18 @@ def city_page_title(city_name: str) -> str:
     return f"{SITE_POSITIONING} in {city_name}, FL"
 
 
-def city_meta_description(city_name: str, county_name: str) -> str:
-    return (
-        f"{BRAND} serves {city_name}, {county_name} with land clearing, pond bank clearing, ditch clearing, "
-        f"forestry mulching, brush cutting, debris removal, acreage cleanup, and outdoor property services. "
-        f"Owner-operated from {HOME_CITY}, FL ({HOME_ZIP}) — {SERVICE_RADIUS_MILES}-mile service radius. "
-        f"Free photo-based estimates. Call (863) 272-1596."
-    )
+def city_meta_description(city: dict) -> str:
+    profile = city_profile(city["slug"])
+    return profile["meta_description"]
 
 
-def county_meta_description(county_name: str, city_count: int) -> str:
-    return (
-        f"{BRAND} serves {county_name}, FL — {city_count} cities including land clearing, pond bank clearing, "
-        f"ditch clearing, brush cutting, forestry mulching, debris removal, and outdoor property cleanup. "
-        f"Based in {HOME_CITY} within {SERVICE_RADIUS_MILES} miles. Free estimates."
+def county_meta_description(county: dict, city_count: int) -> str:
+    profile = county_profile(county["name"])
+    lead = profile.get("meta_lead") or (
+        f"{BRAND} serves {county['name']}, FL with land clearing, pond bank clearing, ditch clearing, "
+        f"brush cutting, forestry mulching, and outdoor property cleanup."
     )
+    return f"{lead} {city_count} cities listed. Based in {HOME_CITY} ({HOME_ZIP}). Free photo estimates."
 
 
 def _list_html(items: list[str]) -> str:
@@ -406,63 +591,72 @@ def SERVICE_BY_SLUG_LABEL(slug: str) -> str:
     return slug.replace("-", " ").title()
 
 
-def city_intro_html(city: dict) -> str:
-    name = city["name"]
-    county = city["county"]
-    profile = county_profile(county)
-    hook = CITY_HOOKS.get(city["slug"], "")
-    hook_para = f"<p>{hook}</p>" if hook else ""
-    return f"""
-          <h2>Land Clearing &amp; Outdoor Property Services in {name}, {county}</h2>
-          {hook_para}
-          <p>
-            {BRAND} helps property owners in <strong>{name}, Florida</strong> reclaim usable outdoor space through
-            {SITE_POSITIONING.lower()}. Based in {HOME_CITY} ({HOME_ZIP}), we travel throughout {county} and
-            Polk County and nearby Central Florida communities from our Auburndale base.
-          </p>
-          <p>
-            {name} sits in {profile['region']} where {profile['terrain']}. {profile['local_note']}
-            Whether you need an overgrown lot opened up, a pond bank cleaned back, a ditch line cleared, or storm debris
-            hauled away, {OWNER} reviews your photos and confirms scope before scheduling.
-          </p>
-          <p>
-            Faith Works is an owner-operated outdoor property service with clear project scope, direct communication, and equipment matched to the job. Pool dig-out support is available under licensed pool contractors when your builder needs dirt removal and site cleanup.
-          </p>"""
-
-
 def city_property_section(city: dict) -> str:
     name = city["name"]
-    profile = county_profile(city["county"])
+    profile = city_profile(city["slug"])
     return f"""
           <h2>Property Types We Serve in {name}, FL</h2>
           <p>
-            {name} property owners call Faith Works for a wide range of outdoor projects. Common property types include:
+            {name} property owners call Faith Works for outdoor projects tied to local land use and terrain. Common {name} property types include:
           </p>
           {_list_html(profile["property_types"])}
           <p>
             If your {name} property has unmanaged growth, blocked access, pond or ditch edges that need attention, or debris
             piled after clearing or weather events, send photos through our estimate form — that is the fastest way to get an
-            accurate scope review.
+            accurate scope review for {name}, FL.
           </p>"""
 
 
 def city_common_jobs_section(city: dict) -> str:
     name = city["name"]
     county = city["county"]
-    profile = county_profile(county)
+    profile = city_profile(city["slug"])
     return f"""
           <h2>Common Outdoor Projects in {name}, {county}</h2>
-          <p>These are the jobs {name} and {county} property owners request most often:</p>
+          <p>These are the outdoor property jobs {name} owners request most often from Faith Works:</p>
           {_list_html(profile["common_jobs"])}
           <p>
-            Every property is different. Access, vegetation density, water edges, and debris volume all affect equipment choice
-            and scheduling. That is why Faith Works uses photo-based estimates before confirming {name} jobs.
+            Every {name} property is different. Access, vegetation density, water edges, and debris volume all affect equipment choice
+            and scheduling — photo-based estimates confirm scope before {name} work is scheduled.
           </p>"""
 
 
-def city_process_section(city_name: str) -> str:
+def city_services_teaser(city: dict, root_prefix: str) -> str:
+    """Compact, city-specific service links — avoids duplicating the full 22-service catalog on every city page."""
+    profile = city_profile(city["slug"])
+    seen: set[str] = set()
+    links: list[str] = []
+    for item in profile["intent_routes"]:
+        slug = item["slug"]
+        if slug in seen:
+            continue
+        seen.add(slug)
+        label = SERVICE_BY_SLUG_LABEL(slug)
+        links.append(
+            f'<a href="{root_prefix}{slug}.html">{label} in {city["name"]}</a>'
+        )
+    extra = ["land-clearing", "debris-removal", "tractor-services"]
+    for slug in extra:
+        if slug not in seen:
+            seen.add(slug)
+            label = SERVICE_BY_SLUG_LABEL(slug)
+            links.append(f'<a href="{root_prefix}{slug}.html">{label}</a>')
+    link_html = "\n            ".join(links)
+    return f"""
+          <h2>Popular Services in {city['name']}, FL</h2>
+          <p>Start with the outdoor property services {city['name']} owners request most — each links to a full service page with scope details.</p>
+          <div class="area-card-links area-card-links--wrap">
+            {link_html}
+          </div>
+          <p>Browse all <a href="{root_prefix}services.html">{len(SERVICES)} outdoor property services</a> or view the <a href="{root_prefix}service-areas.html">full service area map</a>.</p>"""
+
+
+def city_process_section(city: dict) -> str:
+    city_name = city["name"]
+    note = city_profile(city["slug"])["local_detail"]
     return f"""
           <h2>How to Get Service in {city_name}, FL</h2>
+          <p>{note}</p>
           <div class="process-grid area-process-grid">
             <article class="process-step">
               <span>1</span>
@@ -472,7 +666,7 @@ def city_process_section(city_name: str) -> str:
             <article class="process-step">
               <span>2</span>
               <h3>Scope Review</h3>
-              <p>{OWNER} reviews access, vegetation, pond or ditch edges, debris, and equipment needs — then follows up with next steps.</p>
+              <p>{OWNER} reviews access, vegetation, pond or ditch edges, debris, and equipment needs for your {city_name} property — then follows up with next steps.</p>
             </article>
             <article class="process-step">
               <span>3</span>
@@ -482,7 +676,7 @@ def city_process_section(city_name: str) -> str:
             <article class="process-step">
               <span>4</span>
               <h3>Outdoor Property Work</h3>
-              <p>Faith Works completes clearing, mulching, brush cutting, cleanup, or debris removal — outdoor property services only, not utility excavation.</p>
+              <p>Faith Works completes clearing, mulching, brush cutting, cleanup, or debris removal in {city_name} — outdoor property services only, not utility excavation.</p>
             </article>
           </div>"""
 
@@ -501,49 +695,33 @@ def city_scope_section() -> str:
           <p class="utility-note"><strong>Sunshine 811:</strong> For any digging or soil-moving work, contact Sunshine 811 at least two full business days before work begins so underground utilities can be marked.</p>"""
 
 
-def city_area_faqs(city_name: str, county_name: str) -> list[tuple[str, str]]:
-    return [
+def city_area_faqs(city: dict) -> list[tuple[str, str]]:
+    city_name = city["name"]
+    county_name = city["county"]
+    profile = city_profile(city["slug"])
+    core = [
         (
             f"Does Faith Works Outdoor Services serve {city_name}, FL?",
-            f"Yes. {BRAND} serves {city_name} in {county_name} from our base in {HOME_CITY}, Florida ({HOME_ZIP}). {city_name} is within our approximately {SERVICE_RADIUS_MILES}-mile service radius. Send photos and your project details for a free estimate.",
-        ),
-        (
-            f"What land clearing services are available in {city_name}, FL?",
-            f"Faith Works provides land clearing, forestry mulching, brush clearing, trail clearing, pond bank clearing, ditch clearing, debris removal, acreage cleanup, pool dig-out support, and tractor services in {city_name}. See our service pages for full details on each outdoor property service.",
+            f"Yes. {BRAND} serves {city_name} in {county_name} from our base in {HOME_CITY}, Florida ({HOME_ZIP}). Send photos and project details for a free estimate.",
         ),
         (
             f"How do I get a free estimate for outdoor property work in {city_name}?",
-            f"Use the contact form on this page or visit our contact page. Send photos of the area you need cleared or cleaned in {city_name}, include your phone number, and describe access notes or deadlines. {OWNER} reviews the scope and follows up directly.",
-        ),
-        (
-            f"Does Faith Works clear pond banks and ditches near {city_name}?",
-            f"Yes. Pond bank clearing and ditch clearing are core services in {city_name} and throughout {county_name}. We remove brush and vegetation from outdoor pond edges and ditch lines using mulching equipment, brush cutters, and tractors — not engineered stormwater or utility system installation.",
-        ),
-        (
-            f"How far does Faith Works travel from Auburndale to {city_name}?",
-            f"Faith Works is based in {HOME_CITY} and focuses launch service around Polk County and nearby communities. {city_name} is within that Central Florida service area. Travel and scheduling are confirmed when {OWNER} reviews your estimate request.",
+            f"Use the contact form on this page. Send photos of the area you need cleared in {city_name}, include your phone number, and describe access notes or deadlines. {OWNER} reviews scope and follows up directly.",
         ),
         (
             f"Is Faith Works an excavation contractor in {city_name}?",
-            f"No. Faith Works is not a utility excavation contractor. We focus on {SITE_POSITIONING.lower()} — outdoor clearing, mulching, cleanup, and maintenance. We do not install sewer systems, stormwater infrastructure, water mains, or pools.",
-        ),
-        (
-            f"Can Faith Works help with rural acreage near {city_name}?",
-            f"Yes. Many {city_name} and {county_name} jobs involve rural acreage, fence lines, access trails, and pond edges. Forestry mulching, brush cutting, and acreage cleanup are common requests for larger properties outside dense neighborhoods.",
+            f"No. Faith Works is not a utility excavation contractor. We focus on {SITE_POSITIONING.lower()} — outdoor clearing, mulching, cleanup, and maintenance in {city_name}.",
         ),
         (
             f"What should I include when requesting service in {city_name}?",
-            f"Include your {city_name} address or nearest cross streets, photos of the work area, vegetation or debris type, access notes (gates, slopes, water edges), and any deadline. The more detail you provide, the faster Faith Works can confirm scope and scheduling.",
-        ),
-        (
-            f"Does Faith Works offer storm debris cleanup in {city_name}, FL?",
-            f"Yes, when access and scope allow. After wind or storm events, {city_name} property owners often need limbs, brush piles, and blocked areas cleared. Send photos of storm debris and property access for the fastest response.",
+            f"Include your {city_name} address or nearest cross streets, photos of the work area, vegetation or debris type, access notes (gates, slopes, water edges), and any deadline.",
         ),
         (
             f"Who owns Faith Works Outdoor Services?",
-            f"{OWNER} owns and operates {BRAND}. {city_name} clients work directly with the owner from estimate through completion — not through a subcontractor chain.",
+            f"{OWNER} owns and operates {BRAND}. {city_name} clients work directly with the owner from estimate through completion.",
         ),
     ]
+    return list(profile["unique_faqs"]) + core
 
 
 def county_intro_html(county: dict, cities: list[dict]) -> str:
@@ -560,9 +738,10 @@ def county_intro_html(county: dict, cities: list[dict]) -> str:
           <p>
             {county['name']} is part of {profile['region']}, where {profile['terrain']}. {profile['local_note']}
           </p>
+          <p>{profile.get('coverage_snapshot', '')}</p>
           <p>
             Cities and communities we serve in {county['name']} include <strong>{city_names}</strong>{extra}.
-            Each city page includes localized service details, FAQs, and a photo-based estimate form.
+            Each city page includes localized service details, property types, common jobs, and a photo-based estimate form.
           </p>
           <p>
             Faith Works is owner-operated by {OWNER}. You get direct communication from estimate through job completion —
@@ -581,50 +760,28 @@ def county_property_section(county_name: str) -> str:
 
 
 def county_area_faqs(county_name: str, cities: list[dict]) -> list[tuple[str, str]]:
+    profile = county_profile(county_name)
     city_sample = ", ".join(c["name"] for c in cities[:5])
     extra = " and surrounding communities" if len(cities) > 5 else ""
-    return [
+    core = [
         (
             f"What cities does Faith Works serve in {county_name}?",
-            f"Faith Works serves {len(cities)} communities in {county_name}, including {city_sample}{extra}. See the city links on this page for localized service details and estimates.",
-        ),
-        (
-            f"Does Faith Works provide land clearing in {county_name}, FL?",
-            f"Yes. Land clearing, forestry mulching, brush cutting, and acreage cleanup are core services throughout {county_name}. Faith Works is based in {HOME_CITY} and travels within approximately {SERVICE_RADIUS_MILES} miles.",
+            f"Faith Works serves {len(cities)} communities in {county_name}, including {city_sample}{extra}. Each city has a dedicated page with localized outdoor property details.",
         ),
         (
             f"How do I request an outdoor property estimate in {county_name}?",
             f"Choose your city on this page or use our contact form. Upload property photos, describe the clearing or cleanup needed, and include access notes. {OWNER} reviews scope and follows up directly.",
         ),
         (
-            f"Does Faith Works clear pond banks and ditches in {county_name}?",
-            f"Yes. Pond bank clearing, pond cleanup, ditch clearing, and ditch maintenance are available across {county_name} for private outdoor property — not engineered stormwater or utility installation.",
-        ),
-        (
             f"Is Faith Works licensed for utility excavation in {county_name}?",
-            f"No. Faith Works does not perform utility trenching, storm sewer installation, water main work, site development excavation, or pool contracting. The focus is {SITE_POSITIONING.lower()}.",
-        ),
-        (
-            f"How far will Faith Works travel into {county_name}?",
-            f"Faith Works serves {county_name} from its {HOME_CITY} ({HOME_ZIP}) base, with larger projects reviewed by scope. Send your address and photos — travel and scheduling are confirmed during estimate review.",
-        ),
-        (
-            f"What equipment does Faith Works use in {county_name}?",
-            f"Faith Works uses owner-operated Kubota compact equipment — excavators, tractors with loaders and attachments, brush cutters, and forestry mulching equipment suited to {county_name} residential lots, pond edges, and rural acreage.",
-        ),
-        (
-            f"Can Faith Works handle multiple services on one {county_name} property?",
-            f"Often yes. Land clearing, debris removal, pond bank work, and trail clearing are frequently combined on the same property. Send photos of all areas you want addressed so scope can be planned together.",
-        ),
-        (
-            f"Does Faith Works offer pool dig-out support in {county_name}?",
-            f"Yes, as support under a licensed pool contractor — not as a pool installer. Dirt removal and site cleanup support is available when your pool builder needs outdoor property help.",
+            f"No. Faith Works does not perform utility trenching, storm sewer installation, water main work, site development excavation, or pool contracting in {county_name}.",
         ),
         (
             f"Who should I contact for Faith Works service in {county_name}?",
-            f"Contact {OWNER} through the estimate form on this site, email contact@faithworksods.com, or call (863) 272-1596. Include your {county_name} city and property photos for the fastest response.",
+            f"Contact {OWNER} through the estimate form, email contact@faithworksods.com, or call (863) 272-1596. Include your {county_name} city and property photos.",
         ),
     ]
+    return list(profile.get("unique_faqs", [])) + core
 
 
 def nearby_cities_html(city: dict, limit: int = 8) -> str:
@@ -654,11 +811,11 @@ def area_webpage_schema(name: str, description: str, canonical_path: str) -> str
     return json.dumps({
         "@context": "https://schema.org",
         "@type": "WebPage",
-        "@id": f"https://faithworksods.com/{canonical_path}#webpage",
+        "@id": f"https://faithworksclearing.com/{canonical_path}#webpage",
         "name": name,
         "description": description,
-        "url": f"https://faithworksods.com/{canonical_path}",
-        "isPartOf": {"@id": "https://faithworksods.com/#website"},
+        "url": f"https://faithworksclearing.com/{canonical_path}",
+        "isPartOf": {"@id": "https://faithworksclearing.com/#website"},
         "about": {"@type": "Place", "name": name},
         "speakable": {
             "@type": "SpeakableSpecification",

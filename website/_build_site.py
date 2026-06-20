@@ -17,11 +17,14 @@ from area_page_content import (
     city_area_faqs,
     city_common_jobs_section,
     city_intro_html,
+    city_intent_routes,
     city_meta_description,
     city_page_title,
     city_process_section,
     city_property_section,
     city_scope_section,
+    city_services_teaser,
+    city_strip_note,
     county_area_faqs,
     county_intro_html,
     county_meta_description,
@@ -108,13 +111,13 @@ def configured_formspree_id() -> str:
 def public_asset_url(relative_path: str) -> str:
     base = os.environ.get(
         "PUBLIC_ASSET_BASE",
-        "https://nicholasjknight.github.io/faithworksods-website",
+        "https://faithworksclearing.com",
     ).strip().rstrip("/")
     return f"{base}/{relative_path.lstrip('/')}"
 
 
 SITE = {
-    "url": "https://faithworksods.com",
+    "url": "https://faithworksclearing.com",
     "legal_name": "Faith Works Outdoor Services LLC",
     "brand": "Faith Works Outdoor Services",
     "short": "Faith Works ODS",
@@ -124,8 +127,8 @@ SITE = {
     "phone_tel": "8632721596",
     "city": "Auburndale",
     "region": "FL",
-    "area": "Polk County and nearby Central Florida communities",
-    "area_detail": "Based in Auburndale, FL, Faith Works primarily serves Polk County and nearby Central Florida communities. Larger acreage, land clearing, and equipment-assisted cleanup projects may be considered outside the immediate area.",
+    "area": "Central Florida communities within a 70-mile radius of Auburndale",
+    "area_detail": "Based in Auburndale, FL (33823), Faith Works serves communities within a 70-mile radius across Polk, Hillsborough, Orange, Osceola, Lake, Pasco, and nearby Central Florida counties for land clearing, pond bank work, ditch clearing, and outdoor property cleanup.",
     "geo_lat": "28.0653",
     "geo_lng": "-81.7887",
     "facebook": "https://www.facebook.com/profile.php?id=PLACEHOLDER",
@@ -264,11 +267,11 @@ HOME_FAQS = [
     ),
     (
         "What areas do you serve near Auburndale, FL?",
-        f"{SITE['brand']} is based in {SITE['city']} (33823) and primarily serves Polk County communities including Auburndale, Winter Haven, Lakeland, Lake Alfred, Bartow, Haines City, Davenport, Lake Wales, and Polk City. Plant City and larger Central Florida projects may be reviewed by scope.",
+        f"{SITE['brand']} is based in {SITE['city']} (33823) and serves communities within a {SERVICE_RADIUS_MILES}-mile radius across Central Florida — including Polk County (Auburndale, Winter Haven, Lakeland, Bartow, Haines City, Lake Wales), Plant City, Kissimmee, Orlando, Clermont, and surrounding cities listed on our service areas page.",
     ),
     (
         "How far from Auburndale will Faith Works travel for a job?",
-        "Most launch work is focused in Polk County and nearby communities so scheduling, estimates, and Google Business Profile relevance stay accurate. Larger acreage, land clearing, and equipment-assisted cleanup projects outside the immediate area can be reviewed case by case.",
+        f"Faith Works serves property owners within approximately {SERVICE_RADIUS_MILES} miles of Auburndale (33823). Polk County and nearby cities are common, and larger acreage or land clearing projects in surrounding counties are scheduled when scope, access, and equipment needs fit the job.",
     ),
     (
         "What outdoor property services do you offer in Polk County?",
@@ -488,46 +491,64 @@ def area_page_href(slug: str, root_prefix: str = "") -> str:
 
 
 def nav_area_links(root_prefix: str = "") -> str:
-    groups: list[str] = []
+    branches: list[str] = []
     for county in COUNTIES:
         cities = cities_in_county(county["name"])
         if not cities:
             continue
-        city_items = "\n".join(
-            f"""        <li class="fw-areas-mega__city">
-          <a href="{area_page_href(c["slug"], root_prefix)}" role="menuitem">{c["name"]}, FL</a>
-        </li>"""
+        sub_id = f"fw-area-{county['slug']}"
+        county_overview = (
+            f'              <li class="fw-services-mega__flyout-item fw-services-mega__flyout-item--overview">'
+            f'<a href="{area_page_href(county["slug"], root_prefix)}" role="menuitem">All {county["name"]}</a></li>'
+        )
+        flyout_items = county_overview + "\n" + "\n".join(
+            f'              <li class="fw-services-mega__flyout-item"><a href="{area_page_href(c["slug"], root_prefix)}" role="menuitem">{c["name"]}, FL</a></li>'
             for c in cities
         )
-        groups.append(
-            f"""      <li class="fw-areas-mega__group" role="none">
-        <span class="fw-areas-mega__group-label">{county["name"]}</span>
-        <ul class="fw-areas-mega__city-list" role="group" aria-label="{county["name"]} cities">
-{city_items}
-        </ul>
-        <a href="{area_page_href(county["slug"], root_prefix)}" class="fw-areas-mega__county-link" role="menuitem">All {county["name"]}</a>
-      </li>"""
+        label = county["name"].replace(" County", "")
+        branches.append(
+            f"""
+        <li class="fw-services-mega__item fw-services-mega__item--branch">
+          <button type="button" class="fw-services-mega__trigger subnav-toggle" aria-expanded="false" aria-haspopup="true" aria-controls="{sub_id}">
+            <span class="fw-services-mega__label">{label}</span>
+            <span class="fw-services-mega__chevron" aria-hidden="true"></span>
+          </button>
+          <ul class="fw-services-mega__flyout" id="{sub_id}" role="menu">
+{flyout_items}
+          </ul>
+        </li>"""
         )
-    return f"""<ul class="fw-services-mega__list fw-areas-mega__list">
-{"".join(groups)}
-    </ul>"""
+    return f"""<ul class="fw-services-mega__list">
+{"".join(branches)}
+        </ul>"""
 
 
 def mobile_area_links(root_prefix: str = "") -> str:
-    lines = ['      <ul class="fw-mm-nav fw-areas-mm-nav">']
+    lines = ['      <ul class="fw-mm-nav">']
     for county in COUNTIES:
         cities = cities_in_county(county["name"])
         if not cities:
             continue
-        lines.append(
-            f'        <li class="fw-mm-item fw-areas-mm-group"><span class="fw-areas-mm-label">{county["name"]}</span></li>'
+        sub_id = f"fw-mobile-area-{county['slug']}"
+        county_link = (
+            f'          <li class="fw-mm-item"><a class="fw-mm-sublink fw-mm-sublink--overview" '
+            f'href="{area_page_href(county["slug"], root_prefix)}">All {county["name"]}</a></li>'
         )
-        for city in cities:
-            lines.append(
-                f'        <li class="fw-mm-item"><a class="fw-mm-sublink" href="{area_page_href(city["slug"], root_prefix)}">{city["name"]}, FL</a></li>'
-            )
+        items = county_link + "\n" + "\n".join(
+            f'          <li class="fw-mm-item"><a class="fw-mm-sublink" href="{area_page_href(c["slug"], root_prefix)}">{c["name"]}, FL</a></li>'
+            for c in cities
+        )
+        label = county["name"].replace(" County", "")
         lines.append(
-            f'        <li class="fw-mm-item"><a class="fw-mm-sublink fw-mm-sublink--overview" href="{area_page_href(county["slug"], root_prefix)}">All {county["name"]}</a></li>'
+            f"""      <li class="fw-mm-item fw-mm-item--branch">
+        <button type="button" class="fw-mm-trigger" aria-expanded="false" aria-controls="{sub_id}">
+          <span class="fw-mm-label">{label}</span>
+          <span class="fw-mm-chevron" aria-hidden="true"></span>
+        </button>
+        <ul class="fw-mm-submenu" id="{sub_id}" hidden>
+{items}
+        </ul>
+      </li>"""
         )
     lines.append("      </ul>")
     return "\n".join(lines)
@@ -708,13 +729,13 @@ def process_section() -> str:
 
 def home_geo_section() -> str:
     city_sample = ", ".join(c["name"] for c in FEATURED_CITIES[:6])
-    county_names = " and ".join(c["name"] for c in COUNTIES)
+    county_sample = ", ".join(c["name"].replace(" County", "") for c in COUNTIES[:5])
     return f"""
     <section id="service-areas" class="home-geo-strip" aria-label="Service areas">
       <div class="container home-geo-strip__inner">
         <div class="home-geo-strip__copy" data-fw-enter="left">
           <p class="home-geo-strip__eyebrow">Service areas</p>
-          <p class="home-geo-strip__text">Based in {SITE['city']}, FL — {SITE['brand']} serves {county_names} with land clearing, pond bank work, ditch clearing, and outdoor property cleanup. Common launch cities include {city_sample}, and nearby communities.</p>
+          <p class="home-geo-strip__text">Based in {SITE['city']}, FL (33823) — {SITE['brand']} serves communities within a {SERVICE_RADIUS_MILES}-mile radius across {county_sample}, and {len(COUNTIES) - 5} more Central Florida counties. Common service cities include {city_sample}, and surrounding communities.</p>
         </div>
         <div class="home-geo-strip__actions" data-fw-enter="right">
           <a class="btn btn-ghost home-geo-strip__cta" href="service-areas.html">View all service areas</a>
@@ -1247,9 +1268,9 @@ def footer_service_area_summary(root_prefix: str) -> str:
         f'<a href="{root_prefix}{city_href(c["slug"])}">{c["name"]}</a>'
         for c in FEATURED_CITIES
     )
-    return f"""<p class="footer-area-intro">Based in <strong>{HOME_CITY}, FL</strong>, primarily serving Polk County and nearby Central Florida communities.</p>
+    return f"""<p class="footer-area-intro">Based in <strong>{HOME_CITY}, FL</strong> (33823), serving Central Florida communities within a {SERVICE_RADIUS_MILES}-mile radius.</p>
             <p class="footer-area-counties">{city_links}</p>
-            <p class="footer-area-hub"><a href="{root_prefix}service-areas.html">View launch service areas &rarr;</a></p>"""
+            <p class="footer-area-hub"><a href="{root_prefix}service-areas.html">View all service areas &rarr;</a></p>"""
 
 
 def header(current: str = "", root_prefix: str = "") -> str:
@@ -1437,6 +1458,7 @@ def page_shell(
   <title>{title}</title>
   <meta name="description" content="{description}">
   <link rel="canonical" href="{canonical_url}">
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="{SITE['url']}/sitemap.xml">
   <meta name="robots" content="{robots}">
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   <meta name="author" content="{SITE['legal_name']}">
@@ -2111,14 +2133,13 @@ def write_city_area_page(city: dict, areas_dir: Path) -> None:
     county = COUNTY_BY_NAME[city["county"]]
     county_href = f"{county['slug']}.html"
     name = city["name"]
-    faqs = city_area_faqs(name, city["county"])
+    faqs = city_area_faqs(city)
     faq_block = faq_accordion(faqs, city["slug"])
-    desc = city_meta_description(name, city["county"])
+    desc = city_meta_description(city)
     title = city_page_title(name)
     nearby_html = nearby_cities_html(city)
-    service_groups = area_services_by_category(root_prefix, name)
-    intent_cards = area_intent_cards(root_prefix, name, INTENT_ROUTES)
-    all_service_links = area_service_links(root_prefix)
+    intent_cards = area_intent_cards(root_prefix, name, city_intent_routes(city))
+    services_teaser = city_services_teaser(city, root_prefix)
     schema = page_schema_bundle(
         canonical,
         business_schema(),
@@ -2155,13 +2176,8 @@ def write_city_area_page(city: dict, areas_dir: Path) -> None:
           <h2>Start With Your Project Type in {name}</h2>
           <p>Select the outdoor property problem that best matches your {name} site — each links to a full service page with scope details and estimate options.</p>
           {intent_cards}
-          <h2>All Outdoor Services in {name}, FL</h2>
-          <p>Faith Works offers {len(SERVICES)} outdoor property services in {name}. Browse by category or view the full <a href="{root_prefix}services.html">services overview</a>.</p>
-          <div class="area-service-catalog">
-            {service_groups}
-          </div>
-          <div class="area-card-links area-card-links--wrap">{all_service_links}</div>
-          {city_process_section(name)}
+          {services_teaser}
+          {city_process_section(city)}
           {city_scope_section()}
           <h2>Also Serving Nearby in {city['county']}</h2>
           <p>Faith Works serves {name} and neighboring {city['county']} communities within our {SERVICE_RADIUS_MILES}-mile radius from {HOME_CITY}:</p>
@@ -2189,7 +2205,7 @@ def write_city_area_page(city: dict, areas_dir: Path) -> None:
     <section class="areas-strip">
       <div class="container">
         <p class="eyebrow">Ready for a {name} estimate?</p>
-        <p>Send photos of your overgrown lot, pond bank, ditch line, trails, or debris piles in <strong>{name}, FL</strong>. {SITE['owner']} will review scope and follow up with next steps. <a href="{root_prefix}contact.html">Contact Faith Works &rarr;</a></p>
+        <p>Send photos of your overgrown lot, pond bank, ditch line, trails, or debris piles in <strong>{name}, FL</strong>. {city_strip_note(city)} <a href="{root_prefix}contact.html">Contact Faith Works &rarr;</a></p>
       </div>
     </section>"""
     html = page_shell(
@@ -2210,7 +2226,7 @@ def write_county_area_page(county: dict, areas_dir: Path) -> None:
     cities = cities_in_county(county["name"])
     city_cards = ""
     for i, city in enumerate(cities):
-        city_desc = city_meta_description(city["name"], county["name"]).split(".")[0] + "."
+        city_desc = city_meta_description(city)
         city_cards += f"""
           <article class="area-card area-card--rich" data-fw-enter="bottom" style="--fw-enter-delay: {(i % 6) * 60}ms;">
             <h3><a href="{city['slug']}.html">{city['name']}, FL</a></h3>
@@ -2219,7 +2235,7 @@ def write_county_area_page(county: dict, areas_dir: Path) -> None:
           </article>"""
     faqs = county_area_faqs(county["name"], cities)
     faq_block = faq_accordion(faqs, county["slug"])
-    desc = county_meta_description(county["name"], len(cities))
+    desc = county_meta_description(county, len(cities))
     service_groups = area_services_by_category(root_prefix, county["name"])
     intent_cards = area_intent_cards(root_prefix, county["name"], INTENT_ROUTES)
     all_service_links = area_service_links(root_prefix)
@@ -2335,8 +2351,9 @@ def write_service_areas() -> None:
           </article>"""
 
     areas_path = "service-areas.html"
-    areas_title = f"Polk County Service Areas | {SITE['brand']}"
-    areas_desc = f"{SITE['brand']} serves Auburndale, Winter Haven, Lakeland, Lake Alfred, Bartow, Haines City, Davenport, Lake Wales, Polk City, and Plant City, FL."
+    areas_title = f"Central Florida Service Areas | {SITE['brand']}"
+    featured_names = ", ".join(c["name"] for c in FEATURED_CITIES[:8])
+    areas_desc = f"{SITE['brand']} serves {len(AREA_CITIES)} cities across {len(COUNTIES)} Central Florida counties within {SERVICE_RADIUS_MILES} miles of Auburndale — including {featured_names}, and more."
     area_items = [(county["name"], f"areas/{county['slug']}.html") for county in COUNTIES]
     area_items.extend((f"{city['name']}, FL", f"areas/{city['slug']}.html") for city in AREA_CITIES)
     schema = page_schema_bundle(
@@ -2356,7 +2373,7 @@ def write_service_areas() -> None:
     <section class="sp-hero">
       <div class="container">
         <p class="eyebrow"><a href="index.html">Home</a> &rsaquo; Service Areas</p>
-        <h1>Polk County &amp; Nearby Central Florida Service Areas</h1>
+        <h1>Central Florida Service Areas</h1>
         <p>{SITE['area_detail']}</p>
       </div>
     </section>
@@ -2364,8 +2381,8 @@ def write_service_areas() -> None:
       <div class="container">
         <div class="section-heading" data-fw-enter="left">
           <p class="eyebrow">Counties we serve</p>
-          <h2>Launch County Focus</h2>
-          <p>For launch, the site focuses on realistic service areas tied to Auburndale, Polk County, and nearby Plant City work.</p>
+          <h2>{len(COUNTIES)} Counties Within {SERVICE_RADIUS_MILES} Miles of Auburndale</h2>
+          <p>Faith Works is based in Auburndale (33823) and serves property owners across Polk County and surrounding Central Florida counties within a {SERVICE_RADIUS_MILES}-mile service radius.</p>
         </div>
         <div class="areas-grid areas-grid--counties">{county_cards}
         </div>
@@ -2384,8 +2401,8 @@ def write_service_areas() -> None:
       </div>
     </section>"""
     html = page_shell(
-        f"Polk County Service Areas | {SITE['brand']}",
-        f"{SITE['brand']} serves Auburndale, Winter Haven, Lakeland, Lake Alfred, Bartow, Haines City, Davenport, Lake Wales, Polk City, and Plant City, FL.",
+        areas_title,
+        areas_desc,
         "service-areas.html",
         body,
         schema,
@@ -2396,7 +2413,7 @@ def write_service_areas() -> None:
 
 def write_404() -> None:
     body = f"""
-    <section class="sp-hero"><div class="container"><h1>Page Not Found</h1><p>The page may have moved as Faith Works narrowed the launch service-area strategy. Start with the main services hub or request an estimate.</p></div></section>
+    <section class="sp-hero"><div class="container"><h1>Page Not Found</h1><p>The page may have moved or the link is outdated. Start with the main services hub, browse service areas, or request an estimate.</p></div></section>
     <section class="section-shell"><div class="container contact-inner">
       <p class="eyebrow">Need outdoor property help?</p>
       <h2>Land clearing, pond bank clearing, ditch clearing, and property cleanup in Polk County</h2>
@@ -2435,27 +2452,59 @@ def write_privacy() -> None:
     )
 
 
+def sitemap_priority(path: str) -> str:
+    if path == "index.html":
+        return "1.0"
+    if path in {"services.html", "contact.html"}:
+        return "0.9"
+    if path == "service-areas.html":
+        return "0.85"
+    if path.startswith("areas/") and path.endswith("-county-fl.html"):
+        return "0.75"
+    if path.startswith("areas/"):
+        slug = path.removeprefix("areas/").removesuffix(".html")
+        featured = {c["slug"] for c in FEATURED_CITIES}
+        return "0.72" if slug in featured else "0.68"
+    return "0.8"
+
+
 def write_sitemap() -> None:
     pages = ["index.html", "services.html", "about.html", "contact.html", "gallery.html", "service-areas.html", "privacy-policy.html"]
     pages += [f"{s['slug']}.html" for s in SERVICES]
     pages += [f"areas/{c['slug']}.html" for c in AREA_CITIES]
     pages += [f"areas/{c['slug']}.html" for c in COUNTIES]
     today = date.today().isoformat()
-    lines = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+    lines = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    ]
     for p in pages:
         loc = f"{SITE['url']}/" if p == "index.html" else f"{SITE['url']}/{p}"
-        priority = "1.0" if p == "index.html" else ("0.9" if p in {"services.html", "contact.html"} else "0.8")
-        lines.append(f"  <url><loc>{loc}</loc><lastmod>{today}</lastmod><changefreq>monthly</changefreq><priority>{priority}</priority></url>")
+        priority = sitemap_priority(p)
+        changefreq = "weekly" if p.startswith("areas/") or p == "service-areas.html" else "monthly"
+        lines.append(
+            f"  <url><loc>{loc}</loc><lastmod>{today}</lastmod><changefreq>{changefreq}</changefreq><priority>{priority}</priority></url>"
+        )
     lines.append("</urlset>")
     write_site_file(ROOT / "sitemap.xml", "\n".join(lines))
 
 
 def write_robots() -> None:
-    write_site_file(ROOT / "robots.txt", f"User-agent: *\nAllow: /\nDisallow: /faithworksods-website/\nSitemap: {SITE['url']}/sitemap.xml\n")
+    write_site_file(
+        ROOT / "robots.txt",
+        "\n".join([
+            "User-agent: *",
+            "Allow: /",
+            "Allow: /areas/",
+            "Disallow: /faithworksods-website/",
+            "",
+            f"Sitemap: {SITE['url']}/sitemap.xml",
+        ]) + "\n",
+    )
 
 
 def write_cname() -> None:
-    write_site_file(ROOT / "CNAME", "faithworksods.com\n")
+    write_site_file(ROOT / "CNAME", "faithworksclearing.com\n")
 
 
 def write_styles() -> None:
@@ -2868,88 +2917,8 @@ def write_styles() -> None:
   padding-left: 12px;
 }
 .fw-areas-mega {
-  min-width: 16rem;
-  max-width: 18rem;
-  max-height: min(72vh, 30rem);
-  overflow-x: hidden;
-  overflow-y: auto;
-  overscroll-behavior: contain;
-}
-.fw-areas-mega__list {
-  list-style: none;
-  margin: 0;
-  padding: 4px 0 8px;
-}
-.fw-areas-mega__group {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.fw-areas-mega__group + .fw-areas-mega__group {
-  margin-top: 6px;
-  padding-top: 6px;
-  border-top: 1px solid rgba(201, 162, 39, 0.14);
-}
-.fw-areas-mega__group-label {
-  display: block;
-  padding: 8px 16px 4px;
-  font-size: 0.68rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--accent);
-}
-.fw-areas-mega__city-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.fw-areas-mega__city {
-  margin: 0;
-}
-.fw-areas-mega__city a,
-.fw-areas-mega__county-link {
-  display: block;
-  padding: 9px 16px 9px 17px;
-  font-size: 0.84rem;
-  font-weight: 650;
-  line-height: 1.3;
-  color: var(--muted);
-  text-decoration: none;
-  border-left: 3px solid transparent;
-  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease, padding-left 0.2s ease;
-}
-.fw-areas-mega__city a:hover,
-.fw-areas-mega__city a:focus-visible,
-.fw-areas-mega__county-link:hover,
-.fw-areas-mega__county-link:focus-visible {
-  color: var(--ink);
-  background: rgba(201, 162, 39, 0.1);
-  border-left-color: var(--accent);
-  padding-left: 20px;
-  outline: none;
-}
-.fw-areas-mega__county-link {
-  margin-top: 2px;
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: var(--accent);
-  border-top: 1px solid rgba(201, 162, 39, 0.12);
-}
-.fw-areas-mm-nav {
-  gap: 2px;
-}
-.fw-areas-mm-group {
-  pointer-events: none;
-}
-.fw-areas-mm-label {
-  display: block;
-  padding: 10px 12px 4px;
-  font-size: 0.68rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--accent);
+  min-width: 15.5rem;
+  max-width: 17.5rem;
 }
 .fw-areas-mega .fw-services-mega__flyout {
   min-width: 16.75rem;

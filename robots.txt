@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Allow: /areas/
 Disallow: /faithworksods-website/
-Sitemap: https://faithworksods.com/sitemap.xml
+
+Sitemap: https://faithworksclearing.com/sitemap.xml
