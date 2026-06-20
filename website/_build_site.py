@@ -947,6 +947,32 @@ def schema_graph_block(*parts: str | dict) -> str:
     return f'  <script type="application/ld+json">{json.dumps(payload, indent=2)}</script>'
 
 
+def standalone_schema_script(node: dict) -> str:
+    payload = {"@context": "https://schema.org", **node}
+    return f'  <script type="application/ld+json">{json.dumps(payload, indent=2)}</script>'
+
+
+def page_schema_bundle(
+    path: str,
+    *graph_parts: str | dict,
+    faqs: list[tuple[str, str]] | None = None,
+    breadcrumbs: list[tuple[str, str]] | None = None,
+) -> str:
+    """Primary @graph block plus standalone FAQ/Breadcrumb scripts for rich-result parsers."""
+    scripts = [schema_graph_block(*graph_parts)]
+
+    if breadcrumbs:
+        scripts.append(standalone_schema_script(breadcrumb_node(breadcrumbs, path)))
+
+    if faqs:
+        faq = faq_node(faqs, path)
+        faq["mainEntityOfPage"] = {"@id": f"{page_url(path)}#webpage"}
+        faq["isPartOf"] = {"@id": f"{SITE['url']}/#website"}
+        scripts.append(standalone_schema_script(faq))
+
+    return "\n".join(scripts)
+
+
 def breadcrumb_node(items: list[tuple[str, str]], path: str) -> dict:
     return {
         "@type": "BreadcrumbList",
@@ -1617,7 +1643,8 @@ def write_index() -> None:
     for i, s in enumerate(PHASE1_SERVICES):
         phase1_cards += service_mosaic_card(s, i * 70, featured=True)
 
-    schema = schema_graph_block(
+    schema = page_schema_bundle(
+        "index.html",
         business_schema(),
         website_schema(),
         image_object_schema(HERO_DESKTOP, "Faith Works Outdoor Services equipment in Polk County, Florida", "index.html"),
@@ -1628,8 +1655,8 @@ def write_index() -> None:
             main_entity={"@id": f"{page_url('index.html')}#faq"},
             primary_image_id=f"{schema_asset_url(f'Gallery/{HERO_DESKTOP}')}#image",
         ),
-        breadcrumb_node([("Home", "index.html")], "index.html"),
-        faq_node(HOME_FAQS, "index.html"),
+        faqs=HOME_FAQS,
+        breadcrumbs=[("Home", "index.html")],
     )
 
     body = f"""
@@ -1753,7 +1780,8 @@ def write_service_page(s: dict) -> None:
     service_faq_block = faq_accordion(faqs, s["slug"])
     phase_badge = '<p class="phase-badge">Core Service</p>' if s.get("phase1") else ""
     path = f"{s['slug']}.html"
-    schema = schema_graph_block(
+    schema = page_schema_bundle(
+        path,
         business_schema(),
         service_schema(s),
         webpage_node(
@@ -1762,8 +1790,8 @@ def write_service_page(s: dict) -> None:
             path,
             main_entity={"@id": f"{page_url(path)}#service"},
         ),
-        breadcrumb_node([("Home", "index.html"), ("Services", "services.html"), (s["name"], path)], path),
-        faq_node(faqs, path),
+        faqs=faqs,
+        breadcrumbs=[("Home", "index.html"), ("Services", "services.html"), (s["name"], path)],
     )
 
     body = f"""
@@ -1827,7 +1855,8 @@ def write_services() -> None:
     services_title = "Outdoor Property Services in Polk County FL | Faith Works"
     services_desc = f"Full service list for {SITE['brand']} — {SITE_POSITIONING} in Polk County, FL."
     service_items = [(item["name"], f"{item['slug']}.html") for item in SERVICES]
-    schema = schema_graph_block(
+    schema = page_schema_bundle(
+        services_path,
         business_schema(),
         website_schema(),
         webpage_node(
@@ -1837,8 +1866,8 @@ def write_services() -> None:
             page_type=["WebPage", "CollectionPage"],
             main_entity={"@id": f"{page_url(services_path)}#services"},
         ),
-        breadcrumb_node([("Home", "index.html"), ("Services", services_path)], services_path),
         item_list_node(f"{SITE['brand']} services", services_path, service_items, "services"),
+        breadcrumbs=[("Home", "index.html"), ("Services", services_path)],
     )
 
     body = f"""
@@ -1909,7 +1938,8 @@ def write_gallery() -> None:
     gallery_path = "gallery.html"
     gallery_title = f"Outdoor Services Project Gallery | {SITE['brand']}"
     gallery_desc = f"View land clearing, brush cutting, tractor work, and outdoor property cleanup projects by {SITE['brand']} in Polk County, FL."
-    schema = schema_graph_block(
+    schema = page_schema_bundle(
+        gallery_path,
         business_schema(),
         gallery_image_graph_schema(),
         webpage_node(
@@ -1918,7 +1948,7 @@ def write_gallery() -> None:
             gallery_path,
             page_type=["WebPage", "CollectionPage"],
         ),
-        breadcrumb_node([("Home", "index.html"), ("Gallery", gallery_path)], gallery_path),
+        breadcrumbs=[("Home", "index.html"), ("Gallery", gallery_path)],
     )
     body = f"""
     <section class="sp-hero">
@@ -1983,7 +2013,8 @@ def write_about() -> None:
     about_path = "about.html"
     about_title = f"About {SITE['owner']} | {SITE['brand']}"
     about_desc = f"Meet {SITE['owner']}, owner of {SITE['brand']} — {SITE_POSITIONING} in Polk County, FL."
-    schema = schema_graph_block(
+    schema = page_schema_bundle(
+        about_path,
         business_schema(),
         webpage_node(
             about_title,
@@ -1992,7 +2023,7 @@ def write_about() -> None:
             page_type=["WebPage", "AboutPage"],
             about={"@id": f"{SITE['url']}/#business"},
         ),
-        breadcrumb_node([("Home", "index.html"), ("About", about_path)], about_path),
+        breadcrumbs=[("Home", "index.html"), ("About", about_path)],
     )
     html = page_shell(
         about_title,
@@ -2009,7 +2040,8 @@ def write_contact() -> None:
     contact_path = "contact.html"
     contact_title = f"Contact {SITE['brand']} | Free Outdoor Services Estimate"
     contact_desc = f"Request a free photo-based estimate for {SITE_POSITIONING.lower()} in Polk County, FL."
-    schema = schema_graph_block(
+    schema = page_schema_bundle(
+        contact_path,
         business_schema(),
         webpage_node(
             contact_title,
@@ -2017,7 +2049,7 @@ def write_contact() -> None:
             contact_path,
             page_type=["WebPage", "ContactPage"],
         ),
-        breadcrumb_node([("Home", "index.html"), ("Contact", contact_path)], contact_path),
+        breadcrumbs=[("Home", "index.html"), ("Contact", contact_path)],
     )
     body = f"""
     <section class="sp-hero">
@@ -2105,7 +2137,8 @@ def write_city_area_page(city: dict, areas_dir: Path) -> None:
     service_groups = area_services_by_category(root_prefix, name)
     intent_cards = area_intent_cards(root_prefix, name, INTENT_ROUTES)
     all_service_links = area_service_links(root_prefix)
-    schema = schema_graph_block(
+    schema = page_schema_bundle(
+        canonical,
         business_schema(),
         city_place_node(city),
         webpage_node(
@@ -2115,16 +2148,13 @@ def write_city_area_page(city: dict, areas_dir: Path) -> None:
             about={"@id": f"{page_url(canonical)}#place"},
             main_entity={"@id": f"{page_url(canonical)}#faq"},
         ),
-        breadcrumb_node(
-            [
-                ("Home", "index.html"),
-                ("Service Areas", "service-areas.html"),
-                (city["county"], f"areas/{county['slug']}.html"),
-                (f"{name}, FL", canonical),
-            ],
-            canonical,
-        ),
-        faq_node(faqs, canonical),
+        faqs=faqs,
+        breadcrumbs=[
+            ("Home", "index.html"),
+            ("Service Areas", "service-areas.html"),
+            (city["county"], f"areas/{county['slug']}.html"),
+            (f"{name}, FL", canonical),
+        ],
     )
     body = f"""
     <section class="sp-hero">
@@ -2213,7 +2243,8 @@ def write_county_area_page(county: dict, areas_dir: Path) -> None:
     all_service_links = area_service_links(root_prefix)
     nearby_counties = nearby_counties_html(county["name"], root_prefix)
     city_items = [(f"{c['name']}, FL", f"areas/{c['slug']}.html") for c in cities]
-    schema = schema_graph_block(
+    schema = page_schema_bundle(
+        canonical,
         business_schema(),
         county_place_node(county),
         webpage_node(
@@ -2223,12 +2254,13 @@ def write_county_area_page(county: dict, areas_dir: Path) -> None:
             about={"@id": f"{page_url(canonical)}#place"},
             main_entity={"@id": f"{page_url(canonical)}#faq"},
         ),
-        breadcrumb_node(
-            [("Home", "index.html"), ("Service Areas", "service-areas.html"), (county["name"], canonical)],
-            canonical,
-        ),
-        faq_node(faqs, canonical),
         item_list_node(f"Cities in {county['name']}", canonical, city_items, "cities"),
+        faqs=faqs,
+        breadcrumbs=[
+            ("Home", "index.html"),
+            ("Service Areas", "service-areas.html"),
+            (county["name"], canonical),
+        ],
     )
     body = f"""
     <section class="sp-hero">
@@ -2325,7 +2357,8 @@ def write_service_areas() -> None:
     areas_desc = f"{SITE['brand']} serves Auburndale, Winter Haven, Lakeland, Lake Alfred, Bartow, Haines City, Davenport, Lake Wales, Polk City, and Plant City, FL."
     area_items = [(county["name"], f"areas/{county['slug']}.html") for county in COUNTIES]
     area_items.extend((f"{city['name']}, FL", f"areas/{city['slug']}.html") for city in AREA_CITIES)
-    schema = schema_graph_block(
+    schema = page_schema_bundle(
+        areas_path,
         business_schema(),
         webpage_node(
             areas_title,
@@ -2334,8 +2367,8 @@ def write_service_areas() -> None:
             page_type=["WebPage", "CollectionPage"],
             main_entity={"@id": f"{page_url(areas_path)}#areas"},
         ),
-        breadcrumb_node([("Home", "index.html"), ("Service Areas", areas_path)], areas_path),
         item_list_node("Faith Works service areas", areas_path, area_items, "areas"),
+        breadcrumbs=[("Home", "index.html"), ("Service Areas", areas_path)],
     )
     body = f"""
     <section class="sp-hero">
@@ -2408,10 +2441,11 @@ def write_privacy() -> None:
     privacy_path = "privacy-policy.html"
     privacy_title = "Privacy Policy"
     privacy_desc = f"Privacy policy for {SITE['brand']}."
-    schema = schema_graph_block(
+    schema = page_schema_bundle(
+        privacy_path,
         business_schema(),
         webpage_node(privacy_title, privacy_desc, privacy_path),
-        breadcrumb_node([("Home", "index.html"), ("Privacy Policy", privacy_path)], privacy_path),
+        breadcrumbs=[("Home", "index.html"), ("Privacy Policy", privacy_path)],
     )
     write_site_file(
         ROOT / "privacy-policy.html",
