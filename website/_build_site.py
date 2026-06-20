@@ -4275,6 +4275,28 @@ html.fw-js [data-fw-enter].is-visible {
     z-index: 3;
   }
 }
+@media (hover: none) {
+  .fw-service-card__overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.45) 0%,
+      rgba(0, 0, 0, 0.62) 50%,
+      rgba(0, 0, 0, 0.76) 100%
+    );
+  }
+  .fw-service-card__panel--front {
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+  }
+  .fw-service-card__panel--hover,
+  .fw-service-card:focus-visible .fw-service-card__panel--hover {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    z-index: 3;
+  }
+}
 @media (max-width: 560px) { .process-grid, .areas-grid, .gallery-grid, .intent-grid, .service-detail-grid { grid-template-columns: 1fr; } }
 
 /* ---- Reviews showcase (Knight Logics-style carousel) ---- */
