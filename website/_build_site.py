@@ -5156,7 +5156,7 @@ html.fw-js [data-fw-enter].is-visible {
   }
 }
 
-/* Pill eyebrows */
+/* Pill eyebrows — transparent black chip, gold bold label */
 .eyebrow,
 .card-eyebrow,
 .section-heading .eyebrow,
@@ -5166,25 +5166,28 @@ html.fw-js [data-fw-enter].is-visible {
 .hero-copy .eyebrow,
 .hero-card .card-eyebrow,
 .contact-direct-card .eyebrow,
-.areas-strip .eyebrow {
+.areas-strip .eyebrow,
+.home-geo-strip__eyebrow {
   display: inline-flex;
   align-items: center;
   width: fit-content;
   max-width: 100%;
   padding: 8px 14px;
   border-radius: 999px;
-  background: rgba(201, 162, 39, 0.36);
-  border: 1px solid rgba(201, 162, 39, 0.48);
-  color: #000;
-  -webkit-text-fill-color: #000;
+  background: rgba(0, 0, 0, 0.62);
+  border: 1px solid rgba(201, 162, 39, 0.38);
+  color: var(--accent);
+  -webkit-text-fill-color: var(--accent);
+  font-weight: 800;
   line-height: 1.35;
 }
 .eyebrow a,
 .card-eyebrow a,
 .section-heading .eyebrow a,
 .sp-hero .eyebrow a {
-  color: #000;
-  -webkit-text-fill-color: #000;
+  color: var(--accent);
+  -webkit-text-fill-color: var(--accent);
+  font-weight: 800;
   text-decoration: none;
 }
 .eyebrow a:hover,
@@ -5193,8 +5196,8 @@ html.fw-js [data-fw-enter].is-visible {
 .card-eyebrow a:focus-visible,
 .section-heading .eyebrow a:hover,
 .sp-hero .eyebrow a:hover {
-  color: #000;
-  -webkit-text-fill-color: #000;
+  color: #e8c547;
+  -webkit-text-fill-color: #e8c547;
   text-decoration: underline;
 }
 .section-heading .eyebrow {
@@ -5812,11 +5815,6 @@ html.fw-js [data-fw-enter].is-visible {
 }
 .home-geo-strip__eyebrow {
   margin: 0 0 8px;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--accent);
 }
 .home-geo-strip__text {
   margin: 0;
