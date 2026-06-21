@@ -1,6 +1,11 @@
 User-agent: *
 Allow: /
 Allow: /areas/
+Allow: /llms.txt
+Allow: /llms-full.txt
+Allow: /a8f3c2e91b4d6075f8e2a1c9d0b746e.txt
 Disallow: /faithworksods-website/
 
 Sitemap: https://faithworksclearing.com/sitemap.xml
+# Summary: https://faithworksclearing.com/llms.txt
+# Full summary: https://faithworksclearing.com/llms-full.txt

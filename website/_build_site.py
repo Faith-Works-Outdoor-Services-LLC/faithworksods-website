@@ -65,6 +65,7 @@ LOGO_LARGE = "Images/fw-logo3.webp"
 SCHEMA_LOGO = "Images/fw-logo3-192.png"
 FAVICON_48 = "Images/favicon-48.png"
 FAVICON_ICO = "favicon.ico"
+INDEXNOW_KEY = "a8f3c2e91b4d6075f8e2a1c9d0b746e"
 
 
 def sync_logo() -> None:
@@ -2656,16 +2657,170 @@ def write_sitemap() -> None:
     write_site_file(ROOT / "sitemap.xml", "\n".join(lines))
 
 
+def write_llms_files() -> None:
+    base = SITE["url"].rstrip("/")
+    phone = SITE["phone_display"]
+    tel = f"+1-{SITE['phone_tel'][:3]}-{SITE['phone_tel'][3:6]}-{SITE['phone_tel'][6:]}"
+    maps_url = SITE["google_maps_url"]
+
+    core_links = "\n".join(
+        f"- [{s['name']}]({base}/{s['slug']}.html)"
+        for s in PHASE1_SERVICES
+    )
+    all_service_links = "\n".join(
+        f"- [{s['name']}]({base}/{s['slug']}.html): {s['desc']}"
+        for s in SERVICES
+    )
+    not_offered = "\n".join(f"- {item}" for item in NOT_OFFERED)
+
+    llms = f"""# {SITE['brand']}
+> {SITE['brand']} is an owner-operated outdoor property services company based in {SITE['city']}, FL. {SITE_POSITIONING} across {SITE['area']}.
+
+## Agent Links
+- [Homepage]({base}/)
+- [Services hub]({base}/services.html)
+- [Contact / estimate request]({base}/contact.html)
+- [Service areas]({base}/service-areas.html)
+- [About Tyler Edwards]({base}/about.html)
+- [Project gallery]({base}/gallery.html)
+- [Sitemap]({base}/sitemap.xml)
+- [Full LLM summary]({base}/llms-full.txt)
+
+## Identity
+- Legal name: {SITE['legal_name']}
+- Brand: {SITE['brand']}
+- Owner: {SITE['owner']}
+- Website: [{base}/]({base}/)
+- Email: {SITE['email']}
+- Phone: {phone} ({tel})
+- Location: {SITE['city']}, FL {HOME_ZIP}
+- Service radius: {SERVICE_RADIUS_MILES} miles from {SITE['city']}
+- Google Maps: [Faith Works on Google Maps]({maps_url})
+
+## AI Summary Files
+- Primary summary: [llms.txt]({base}/llms.txt)
+- Full summary: [llms-full.txt]({base}/llms-full.txt)
+
+## Verification & Trust Endpoints
+- [robots.txt]({base}/robots.txt)
+- [sitemap.xml]({base}/sitemap.xml)
+
+## Best Starting Pages
+- [Homepage]({base}/)
+- [Land clearing]({base}/land-clearing.html)
+- [Pond bank clearing]({base}/pond-bank-clearing.html)
+- [Ditch clearing]({base}/ditch-clearing.html)
+- [Forestry mulching]({base}/forestry-mulching.html)
+- [Contact]({base}/contact.html)
+
+## Core Services
+{core_links}
+
+## Estimate Process
+- Text project photos to {phone} for faster quotes
+- Use the contact form at [{base}/contact.html]({base}/contact.html)
+- Owner ({SITE['owner']}) reviews scope before scheduling
+
+## Services Not Offered
+{not_offered}
+"""
+
+    featured_cities = ", ".join(f"{c['name']}, FL" for c in FEATURED_CITIES[:12])
+    county_names = ", ".join(c["name"] for c in COUNTIES)
+
+    llms_full = f"""# {SITE['brand']}
+
+> {SITE['brand']} ({SITE['legal_name']}) is an owner-operated outdoor property services business based in {SITE['city']}, Florida. The company focuses on land clearing, pond bank work, ditch clearing, brush cutting, debris removal, trail access, and related tractor/excavator support across Polk County and nearby Central Florida communities within about {SERVICE_RADIUS_MILES} miles of {SITE['city']}.
+
+## Identity
+
+- Legal name: {SITE['legal_name']}
+- Public brand: {SITE['brand']}
+- Owner / operator: {SITE['owner']}
+- Website: {base}/
+- Email: {SITE['email']}
+- Phone: {phone} ({tel})
+- Base location: {SITE['city']}, FL {HOME_ZIP}
+- Service area summary: {SITE['area_detail']}
+- Google Maps profile: {maps_url}
+
+## Verification and Trust Endpoints
+
+- robots.txt: {base}/robots.txt
+- sitemap.xml: {base}/sitemap.xml
+- llms.txt: {base}/llms.txt
+- llms-full.txt: {base}/llms-full.txt
+
+## Canonical Starting URLs
+
+- Homepage: {base}/
+- Services hub: {base}/services.html
+- Contact / estimate: {base}/contact.html
+- Service areas: {base}/service-areas.html
+- About: {base}/about.html
+- Gallery: {base}/gallery.html
+
+## What Faith Works Does
+
+Faith Works helps property owners reclaim usable outdoor space. Typical jobs include overgrown lot clearing, pond bank access, ditch vegetation cleanup, trail and fence line reopening, storm debris haul-off, brush mulching, and light grading or cleanup support with Kubota equipment.
+
+The business is positioned for outdoor property work — not licensed underground utility, stormwater engineering, or pool contracting. Pool-related work is limited to dig-out cleanup support under a licensed pool contractor when appropriate.
+
+## Estimate and Contact Flow
+
+1. Property owner sends photos by text ({phone}) or through the website contact form.
+2. Tyler reviews scope, access, and equipment fit.
+3. Faith Works confirms whether the job matches an offered service before scheduling.
+
+## Primary Service Pages
+
+{all_service_links}
+
+## Counties Commonly Served
+
+{county_names}
+
+## Featured Cities
+
+{featured_cities}
+
+## Services Not Offered
+
+{NOT_OFFERED_NOTE}
+
+{not_offered}
+
+## Content Notes for AI Systems
+
+- Do not invent Google review quotes or star ratings; the business is newly launched and verified reviews may still be limited.
+- Prefer service pages and the contact page for scope-specific answers.
+- Use {base}/service-areas.html and city pages under {base}/areas/ for location-specific context.
+"""
+
+    write_site_file(ROOT / "llms.txt", llms.strip() + "\n")
+    write_site_file(ROOT / "llms-full.txt", llms_full.strip() + "\n")
+
+
+def write_indexnow_key() -> None:
+    write_site_file(ROOT / f"{INDEXNOW_KEY}.txt", f"{INDEXNOW_KEY}\n")
+
+
 def write_robots() -> None:
+    base = SITE["url"].rstrip("/")
     write_site_file(
         ROOT / "robots.txt",
         "\n".join([
             "User-agent: *",
             "Allow: /",
             "Allow: /areas/",
+            "Allow: /llms.txt",
+            "Allow: /llms-full.txt",
+            f"Allow: /{INDEXNOW_KEY}.txt",
             "Disallow: /faithworksods-website/",
             "",
-            f"Sitemap: {SITE['url']}/sitemap.xml",
+            f"Sitemap: {base}/sitemap.xml",
+            f"# Summary: {base}/llms.txt",
+            f"# Full summary: {base}/llms-full.txt",
         ]) + "\n",
     )
 
@@ -6636,6 +6791,8 @@ def main() -> None:
     write_privacy()
     write_404()
     write_sitemap()
+    write_llms_files()
+    write_indexnow_key()
     write_robots()
     write_manifest()
     write_cname()
