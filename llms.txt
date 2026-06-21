@@ -48,6 +48,43 @@
 - [Pool Dig-Out Support](https://faithworksclearing.com/pool-dig-out-support.html)
 - [Tractor Services](https://faithworksclearing.com/tractor-services.html)
 
+## Service Area Snapshot
+- Primary county: Polk County, FL
+- Featured cities: Auburndale, FL, Winter Haven, FL, Lakeland, FL, Lake Alfred, FL, Bartow, FL, Haines City, FL, Davenport, FL, Lake Wales, FL, Polk City, FL, Plant City, FL, Kissimmee, FL, Orlando, FL, Clermont, FL
+- Full county and city pages: [https://faithworksclearing.com/service-areas.html](https://faithworksclearing.com/service-areas.html)
+- Detailed geography, prompts, and answers: [https://faithworksclearing.com/llms-full.txt](https://faithworksclearing.com/llms-full.txt)
+
+## Common Prompts & Answers
+### Prompt: Do you offer free estimates?
+**Answer:** Yes. Text photos to (863) 272-1596 or use the estimate form. Photo-based estimates help us review access, vegetation, debris, and project scope before scheduling.
+
+### Prompt: What areas do you serve near Auburndale, FL?
+**Answer:** Faith Works Outdoor Services is based in Auburndale (33823) and serves communities within a 70-mile radius across Central Florida — including Polk County (Auburndale, Winter Haven, Lakeland, Bartow, Haines City, Lake Wales), Plant City, Kissimmee, Orlando, Clermont, and surrounding cities listed on our service areas page.
+
+### Prompt: How far from Auburndale will Faith Works travel for a job?
+**Answer:** Faith Works serves property owners within approximately 70 miles of Auburndale (33823). Polk County and nearby cities are common, and larger acreage or land clearing projects in surrounding counties are scheduled when scope, access, and equipment needs fit the job.
+
+### Prompt: What outdoor property services do you offer in Polk County?
+**Answer:** Faith Works provides land clearing, pond bank clearing, ditch clearing & outdoor property services - including land clearing, trail clearing, brush cutting, forestry mulching, pond bank clearing, pond cleanup, ditch clearing, debris removal, acreage cleanup, pool dig-out support, and tractor services.
+
+### Prompt: Do you clear overgrown pond banks and ditches?
+**Answer:** Yes. Pond bank clearing and ditch clearing are core services. We use compact equipment, brush cutters, and tractors to open access, remove overgrowth, and clean vegetation from outdoor ditch and pond-edge areas.
+
+### Prompt: Do I need to call 811 before digging?
+**Answer:** For digging or soil-moving work, contact Sunshine 811 at least two full business days before work begins so underground utilities can be marked.
+
+### Prompt: What work is outside Faith Works' scope?
+**Answer:** Faith Works does not install pools, hold pool contractor licensing, or perform utility trenching, stormwater system installation, sewer work, water mains, site development, or engineered drainage. The focus is land clearing, pond bank clearing, ditch clearing & outdoor property services.
+
+### Prompt: What jobs do people usually call you for?
+**Answer:** Most calls are for pond banks, trails, brush, overgrowth, debris, acreage cleanup, and owner-operated tractor or equipment help. Pool dig-out support is available under licensed pool builders.
+
+### Prompt: Can you help with pool dig-out dirt removal?
+**Answer:** Yes, as support under a licensed pool contractor. Faith Works can help with dirt removal and site cleanup, but does not contract directly as a pool installer.
+
+### Prompt: Do you handle storm debris cleanup in Central Florida?
+**Answer:** Yes. Storm debris cleanup, yard debris removal, and property cleanup are available after wind and storm events when access and scope allow. Send photos of limbs, brush piles, and blocked areas for a faster estimate.
+
 ## Estimate Process
 - Text project photos to (863) 272-1596 for faster quotes
 - Use the contact form at [https://faithworksclearing.com/contact.html](https://faithworksclearing.com/contact.html)
