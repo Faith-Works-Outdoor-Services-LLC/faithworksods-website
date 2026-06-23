@@ -155,7 +155,10 @@ SITE = {
     "area_detail": "Based in Auburndale, FL (33823), Faith Works serves communities within a 70-mile radius across Polk, Hillsborough, Orange, Osceola, Lake, Pasco, and nearby Central Florida counties for land clearing, pond bank work, ditch clearing, and outdoor property cleanup.",
     "geo_lat": "28.0653",
     "geo_lng": "-81.7887",
-    "facebook": "https://www.facebook.com/profile.php?id=PLACEHOLDER",
+    "facebook": "https://www.facebook.com/profile.php?id=61591239031616",
+    "linkedin": "https://www.linkedin.com/company/faithworks-outdoor-services-llc/",
+    "x": "https://x.com/FaithWorksODS",
+    "nextdoor": "https://nextdoor.com/page/faith-works-outdoor-services-llc-auburndale-fl",
     "youtube": "https://www.youtube.com/@PLACEHOLDER",
     "google_business": "PLACEHOLDER",
     "google_maps_embed": (
@@ -394,7 +397,26 @@ CONTACT_FAQS = [
 ]
 
 FACEBOOK_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>'
+LINKEDIN_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a-2.062 2.062 0 1 1 0-4.126 2.062 2.062 0 0 1 0 4.126zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>'
+X_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>'
+NEXTDOOR_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.4 2 9.6V22h7.2v-6h5.6v6H22V9.6L12 2.4zm0 2.77 6.8 5.1V20h-2.4v-5.6H7.6V20H5.2v-9.73L12 5.17z"/></svg>'
 YOUTUBE_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>'
+
+SOCIAL_PLATFORM_ORDER = ("facebook", "linkedin", "x", "nextdoor", "youtube")
+SOCIAL_PLATFORM_LABELS = {
+    "facebook": "Facebook",
+    "linkedin": "LinkedIn",
+    "x": "X",
+    "nextdoor": "Nextdoor",
+    "youtube": "YouTube",
+}
+SOCIAL_PLATFORM_SVGS = {
+    "facebook": FACEBOOK_SVG,
+    "linkedin": LINKEDIN_SVG,
+    "x": X_SVG,
+    "nextdoor": NEXTDOOR_SVG,
+    "youtube": YOUTUBE_SVG,
+}
 
 
 def live_url(url: str) -> bool:
@@ -402,36 +424,38 @@ def live_url(url: str) -> bool:
 
 
 def same_as_links() -> list[str]:
-    return [url for url in (SITE["facebook"], SITE["youtube"], SITE["google_business"]) if live_url(url)]
+    return [SITE[key] for key in SOCIAL_PLATFORM_ORDER if live_url(SITE.get(key, ""))]
 
 
 def social_icon_item(platform: str, url: str, *, placeholder: bool = False) -> str:
-    svg = FACEBOOK_SVG if platform == "facebook" else YOUTUBE_SVG
-    label = "Facebook" if platform == "facebook" else "YouTube"
+    svg = SOCIAL_PLATFORM_SVGS.get(platform, "")
+    label = SOCIAL_PLATFORM_LABELS.get(platform, platform.title())
+    if not svg:
+        return ""
     if live_url(url):
         return (
-            f'<a href="{url}" class="social-icon" target="_blank" rel="noopener noreferrer" '
-            f'aria-label="{label}">{svg}</a>'
+            f'<a href="{url}" class="social-icon social-icon--{platform}" target="_blank" '
+            f'rel="noopener noreferrer" aria-label="{label}">{svg}</a>'
         )
     if not placeholder:
         return ""
     return (
-        f'<span class="social-icon social-icon--placeholder" role="img" '
+        f'<span class="social-icon social-icon--{platform} social-icon--placeholder" role="img" '
         f'aria-label="{label} (coming soon)" title="{label} coming soon">{svg}</span>'
     )
 
 
 def social_icon_links(*, include_placeholders: bool = False) -> str:
     links = [
-        social_icon_item("facebook", SITE["facebook"], placeholder=include_placeholders),
-        social_icon_item("youtube", SITE["youtube"], placeholder=include_placeholders),
+        social_icon_item(platform, SITE.get(platform, ""), placeholder=include_placeholders)
+        for platform in SOCIAL_PLATFORM_ORDER
     ]
     return "\n              ".join(link for link in links if link)
 
 
 def mobile_menu_footer() -> str:
     year = date.today().year
-    icons = social_icon_links(include_placeholders=True)
+    icons = social_icon_links()
     return f"""
     <div class="mobile-menu-footer">
       <div class="mobile-menu-footer__social">
@@ -5102,6 +5126,38 @@ body.home-landing .hero-follow-card__title {
   opacity: 0.55;
   cursor: default;
   pointer-events: none;
+}
+.social-icons .social-icon {
+  color: var(--accent);
+  background: rgba(201, 162, 39, 0.08);
+  border: 1px solid rgba(201, 162, 39, 0.28);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+.social-icons .social-icon svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+.social-icons .social-icon:hover,
+.social-icons .social-icon:focus-visible {
+  color: #f5e6a8;
+  background: rgba(201, 162, 39, 0.2);
+  border-color: rgba(201, 162, 39, 0.55);
+  transform: translateY(-2px);
+  outline: none;
+}
+.mobile-menu-footer__social .social-icons .social-icon {
+  width: 42px;
+  height: 42px;
+}
+footer.fw-site-footer .footer-social .social-icons .social-icon {
+  width: 46px;
+  height: 46px;
+}
+.hero-social .social-icons .social-icon {
+  width: 48px;
+  height: 48px;
 }
 
 @media (max-width: 1320px) and (min-width: 1201px) {

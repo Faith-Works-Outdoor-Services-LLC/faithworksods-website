@@ -608,6 +608,7 @@ function initHeroPanels() {
 
 
 
+
 // ---- Band parallax (process + scope) ----
 (function initBandParallax() {
   const sections = document.querySelectorAll(".process-section--parallax, .scope-section--parallax");
@@ -660,6 +661,7 @@ function initHeroPanels() {
     queue();
   }, { passive: true });
 })();
+// ---- Band parallax (process + scope) ----
 // ---- Band parallax (process + scope) ----
 // ---- Band parallax (process + scope) ----
 // ---- Band parallax (process + scope) ----
