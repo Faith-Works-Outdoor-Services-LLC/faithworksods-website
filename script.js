@@ -91,6 +91,58 @@ initEnterAnimations();
 })();
 
 // ---- Formspree AJAX submission ----
+function validateEstimateForm(form) {
+  const gotcha = form.querySelector('input[name="_gotcha"]');
+  if (gotcha && gotcha.value.trim()) {
+    return "bot";
+  }
+
+  form.querySelectorAll("input:not([type='hidden']), textarea, select").forEach((field) => {
+    if (typeof field.value === "string") {
+      field.value = field.value.trim();
+    }
+    field.setCustomValidity("");
+  });
+
+  const name = form.querySelector('input[name="name"]');
+  if (name && name.value.length < 2) {
+    name.setCustomValidity("Please enter your name.");
+    name.reportValidity();
+    return false;
+  }
+
+  const phone = form.querySelector('input[name="phone"]');
+  if (phone) {
+    const digits = phone.value.replace(/\D/g, "");
+    if (digits.length < 10) {
+      phone.setCustomValidity("Please enter a valid 10-digit phone number.");
+      phone.reportValidity();
+      return false;
+    }
+  }
+
+  const service = form.querySelector('select[name="service"]');
+  if (service && !service.value.trim()) {
+    service.setCustomValidity("Please select a service.");
+    service.reportValidity();
+    return false;
+  }
+
+  const message = form.querySelector('textarea[name="message"]');
+  if (message && message.value.length < 5) {
+    message.setCustomValidity("Please describe what you need (at least a few words).");
+    message.reportValidity();
+    return false;
+  }
+
+  if (!form.checkValidity()) {
+    form.reportValidity();
+    return false;
+  }
+
+  return true;
+}
+
 function bindEstimateForm(form) {
   if (!form || form.dataset.bound === "true") return;
   if (form.dataset.formMode === "email" || form.action.startsWith("mailto:")) return;
@@ -104,6 +156,14 @@ function bindEstimateForm(form) {
   form.dataset.bound = "true";
   form.addEventListener("submit", async function (e) {
     e.preventDefault();
+
+    const validation = validateEstimateForm(form);
+    if (validation === "bot") {
+      form.hidden = true;
+      success.hidden = false;
+      return;
+    }
+    if (!validation) return;
 
     const submitBtn = form.querySelector("[type='submit']");
     const originalText = submitBtn.textContent;
@@ -609,6 +669,8 @@ function initHeroPanels() {
 
 
 
+
+
 // ---- Band parallax (process + scope) ----
 (function initBandParallax() {
   const sections = document.querySelectorAll(".process-section--parallax, .scope-section--parallax");
@@ -661,6 +723,8 @@ function initHeroPanels() {
     queue();
   }, { passive: true });
 })();
+// ---- Band parallax (process + scope) ----
+// ---- Band parallax (process + scope) ----
 // ---- Band parallax (process + scope) ----
 // ---- Band parallax (process + scope) ----
 // ---- Band parallax (process + scope) ----

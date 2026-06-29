@@ -155,7 +155,7 @@ SITE = {
     "area_detail": "Based in Auburndale, FL (33823), Faith Works serves communities within a 70-mile radius across Polk, Hillsborough, Orange, Osceola, Lake, Pasco, and nearby Central Florida counties for land clearing, pond bank work, ditch clearing, and outdoor property cleanup.",
     "geo_lat": "28.0653",
     "geo_lng": "-81.7887",
-    "facebook": "https://www.facebook.com/profile.php?id=61591239031616",
+    "facebook": "https://www.facebook.com/people/Faith-Works-Outdoor-Services-LLC/61591239031616/",
     "linkedin": "https://www.linkedin.com/company/faithworks-outdoor-services-llc/",
     "x": "https://x.com/FaithWorksODS",
     "nextdoor": "https://nextdoor.com/page/faith-works-outdoor-services-llc-auburndale-fl",
@@ -219,7 +219,7 @@ GALLERY = [
     ("tractor-with-box-blade-leveling-ground.webp", "Kubota tractor with box blade leveling ground after brush clearing and cleanup", "Ditch Clearing"),
 ]
 
-ASSET_VERSION = "20260627"
+ASSET_VERSION = "20260629"
 HERO_DESKTOP = "photo-of-all-equipment.webp"
 HERO_MOBILE = "excavator-and-truck-photo.webp"
 HERO_MOBILE_LCP = f"heroes/{HERO_MOBILE}"
@@ -1476,6 +1476,13 @@ def service_schema(s: dict) -> str:
     }, indent=2)
 
 
+FORM_REQUIRED_MARK = '<span class="form-required" aria-hidden="true">*</span>'
+
+
+def form_required_note() -> str:
+    return f'<p class="form-required-note">Fields marked with {FORM_REQUIRED_MARK} are required.</p>'
+
+
 def estimate_form(
     form_id: str = "hero-contact-form",
     selected: str | None = None,
@@ -1494,38 +1501,40 @@ def estimate_form(
             f'<input type="hidden" name="service" value="{selected}">' if selected else ""
         )
         fields = f"""
+              {form_required_note()}
               <div class="form-group">
-                <label for="{form_id}-name">Your Name</label>
-                <input type="text" id="{form_id}-name" name="name" placeholder="Your name" required autocomplete="name">
+                <label for="{form_id}-name">Your Name {FORM_REQUIRED_MARK}</label>
+                <input type="text" id="{form_id}-name" name="name" placeholder="Your name" required minlength="2" autocomplete="name">
               </div>
               <div class="form-group">
-                <label for="{form_id}-phone">Phone Number</label>
-                <input type="tel" id="{form_id}-phone" name="phone" placeholder="{phone}" required autocomplete="tel">
+                <label for="{form_id}-phone">Phone Number {FORM_REQUIRED_MARK}</label>
+                <input type="tel" id="{form_id}-phone" name="phone" placeholder="{phone}" required minlength="10" inputmode="tel" autocomplete="tel">
               </div>
               {service_hidden}
               <div class="form-group">
-                <label for="{form_id}-message">What do you need?</label>
-                <textarea id="{form_id}-message" name="message" placeholder="City + quick description — e.g. brush clearing in Auburndale" rows="2" required></textarea>
+                <label for="{form_id}-message">What do you need? {FORM_REQUIRED_MARK}</label>
+                <textarea id="{form_id}-message" name="message" placeholder="City + quick description — e.g. brush clearing in Auburndale" rows="2" required minlength="5"></textarea>
               </div>"""
     else:
         fields = f"""
+              {form_required_note()}
               <div class="form-group">
-                <label for="{form_id}-name">Your Name</label>
-                <input type="text" id="{form_id}-name" name="name" placeholder="First and last name" required autocomplete="name">
+                <label for="{form_id}-name">Your Name {FORM_REQUIRED_MARK}</label>
+                <input type="text" id="{form_id}-name" name="name" placeholder="First and last name" required minlength="2" autocomplete="name">
               </div>
               <div class="form-group">
-                <label for="{form_id}-phone">Phone Number</label>
-                <input type="tel" id="{form_id}-phone" name="phone" placeholder="{phone}" required autocomplete="tel">
+                <label for="{form_id}-phone">Phone Number {FORM_REQUIRED_MARK}</label>
+                <input type="tel" id="{form_id}-phone" name="phone" placeholder="{phone}" required minlength="10" inputmode="tel" autocomplete="tel">
               </div>
               <div class="form-group">
-                <label for="{form_id}-service">Service Needed</label>
+                <label for="{form_id}-service">Service Needed {FORM_REQUIRED_MARK}</label>
                 <select id="{form_id}-service" name="service" required>
                 {service_options(selected)}
                 </select>
               </div>
               <div class="form-group">
-                <label for="{form_id}-message">City &amp; Brief Description</label>
-                <textarea id="{form_id}-message" name="message" placeholder="Example: Winter Haven — overgrown pond bank and ditch line need clearing" rows="3" required></textarea>
+                <label for="{form_id}-message">City &amp; Brief Description {FORM_REQUIRED_MARK}</label>
+                <textarea id="{form_id}-message" name="message" placeholder="Example: Winter Haven — overgrown pond bank and ditch line need clearing" rows="3" required minlength="5"></textarea>
               </div>"""
 
     submit_label = "Get Free Estimate" if compact else "Send Estimate Request"
@@ -6833,6 +6842,17 @@ footer.fw-site-footer .footer-disclaimer {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+.form-required {
+  color: #e8b84a;
+  font-weight: 700;
+  margin-left: 0.12em;
+}
+.form-required-note {
+  margin: 0 0 14px;
+  font-size: 0.8rem;
+  color: var(--muted);
+  line-height: 1.35;
 }
 .form-help {
   margin-top: 6px;
