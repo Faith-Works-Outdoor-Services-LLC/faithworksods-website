@@ -1,9 +1,10 @@
 {
   "siteUrl": "sc-domain:faithworksclearing.com",
-  "inspectedAt": "2026-07-08T13:56:34.715Z",
+  "inspectedAt": "2026-07-08T14:14:14.493Z",
   "results": [
     {
       "url": "https://faithworksclearing.com/",
+      "inspectionResultLink": "https://search.google.com/search-console/inspect?resource_id=sc-domain:faithworksclearing.com&id=bMDH4mYMxZOa51qkr195yA&utm_medium=link&utm_source=api",
       "verdict": "PASS",
       "coverageState": "Submitted and indexed",
       "indexingState": "INDEXING_ALLOWED",
@@ -15,6 +16,7 @@
     },
     {
       "url": "https://faithworksclearing.com/about.html",
+      "inspectionResultLink": "https://search.google.com/search-console/inspect?resource_id=sc-domain:faithworksclearing.com&id=jgLbEa2NZkB26rk9Pvmz7Q&utm_medium=link&utm_source=api",
       "verdict": "PASS",
       "coverageState": "Submitted and indexed",
       "indexingState": "INDEXING_ALLOWED",
@@ -26,6 +28,7 @@
     },
     {
       "url": "https://faithworksclearing.com/services.html",
+      "inspectionResultLink": "https://search.google.com/search-console/inspect?resource_id=sc-domain:faithworksclearing.com&id=QzRV3DKcRu0C1sWOWff2fA&utm_medium=link&utm_source=api",
       "verdict": "PASS",
       "coverageState": "Submitted and indexed",
       "indexingState": "INDEXING_ALLOWED",
@@ -37,6 +40,7 @@
     },
     {
       "url": "https://faithworksclearing.com/contact.html",
+      "inspectionResultLink": "https://search.google.com/search-console/inspect?resource_id=sc-domain:faithworksclearing.com&id=AZl05cNwb6J-ZGoF2E5TwQ&utm_medium=link&utm_source=api",
       "verdict": "PASS",
       "coverageState": "Submitted and indexed",
       "indexingState": "INDEXING_ALLOWED",
@@ -48,6 +52,7 @@
     },
     {
       "url": "https://faithworksclearing.com/brush-clearing.html",
+      "inspectionResultLink": "https://search.google.com/search-console/inspect?resource_id=sc-domain:faithworksclearing.com&id=3dno4fxdipdbt03tud5yxA&utm_medium=link&utm_source=api",
       "verdict": "PASS",
       "coverageState": "Submitted and indexed",
       "indexingState": "INDEXING_ALLOWED",
@@ -59,6 +64,7 @@
     },
     {
       "url": "https://faithworksclearing.com/access-road-clearing.html",
+      "inspectionResultLink": "https://search.google.com/search-console/inspect?resource_id=sc-domain:faithworksclearing.com&id=ssDTJ5LPpAPKNmRUp2dOVQ&utm_medium=link&utm_source=api",
       "verdict": "PASS",
       "coverageState": "Submitted and indexed",
       "indexingState": "INDEXING_ALLOWED",
@@ -70,6 +76,7 @@
     },
     {
       "url": "https://faithworksclearing.com/pond-bank-clearing.html",
+      "inspectionResultLink": "https://search.google.com/search-console/inspect?resource_id=sc-domain:faithworksclearing.com&id=Pwidg6GaHaxRb5DLhce6sQ&utm_medium=link&utm_source=api",
       "verdict": "PASS",
       "coverageState": "Submitted and indexed",
       "indexingState": "INDEXING_ALLOWED",
@@ -81,6 +88,7 @@
     },
     {
       "url": "https://faithworksclearing.com/ditch-maintenance.html",
+      "inspectionResultLink": "https://search.google.com/search-console/inspect?resource_id=sc-domain:faithworksclearing.com&id=awUUUYOF3OiqHtunw_XZow&utm_medium=link&utm_source=api",
       "verdict": "PASS",
       "coverageState": "Submitted and indexed",
       "indexingState": "INDEXING_ALLOWED",
@@ -92,6 +100,7 @@
     },
     {
       "url": "https://faithworksclearing.com/storm-debris-cleanup.html",
+      "inspectionResultLink": "https://search.google.com/search-console/inspect?resource_id=sc-domain:faithworksclearing.com&id=KuF6ur_saMUJFTMpkdqXoA&utm_medium=link&utm_source=api",
       "verdict": "PASS",
       "coverageState": "Submitted and indexed",
       "indexingState": "INDEXING_ALLOWED",
@@ -103,6 +112,7 @@
     },
     {
       "url": "https://faithworksclearing.com/areas/auburndale-fl.html",
+      "inspectionResultLink": "https://search.google.com/search-console/inspect?resource_id=sc-domain:faithworksclearing.com&id=lAXCPhfVJsdASOmU0GmMCw&utm_medium=link&utm_source=api",
       "verdict": "PASS",
       "coverageState": "Submitted and indexed",
       "indexingState": "INDEXING_ALLOWED",
@@ -114,6 +124,7 @@
     },
     {
       "url": "https://faithworksclearing.com/areas/mulberry-fl.html",
+      "inspectionResultLink": "https://search.google.com/search-console/inspect?resource_id=sc-domain:faithworksclearing.com&id=i39XHofKa8ceDPWa5MLSqQ&utm_medium=link&utm_source=api",
       "verdict": "PASS",
       "coverageState": "Submitted and indexed",
       "indexingState": "INDEXING_ALLOWED",
@@ -125,6 +136,7 @@
     },
     {
       "url": "https://faithworksclearing.com/areas/eagle-lake-fl.html",
+      "inspectionResultLink": "https://search.google.com/search-console/inspect?resource_id=sc-domain:faithworksclearing.com&id=S53MJSGrJORgoB-xe2ijTQ&utm_medium=link&utm_source=api",
       "verdict": "PASS",
       "coverageState": "Submitted and indexed",
       "indexingState": "INDEXING_ALLOWED",

@@ -7376,59 +7376,6 @@ function initHeroPanels() {
     queue();
   }, { passive: true });
 })();
-
-// ---- Band parallax (process + scope) ----
-(function initBandParallax() {
-  const sections = document.querySelectorAll(".process-section--parallax, .scope-section--parallax");
-  if (!sections.length) return;
-  if (prefersReducedMotion()) return;
-
-  let ticking = false;
-  const state = new Map();
-
-  function measureSection(section) {
-    const overscanRatio = Number(section.dataset.parallaxOverscan) || 0.38;
-    state.set(section, {
-      bgImg: section.querySelector(".process-bg__img, .scope-bg__img"),
-      rate: Number(section.dataset.parallaxRate) || 0.78,
-      maxShift: section.offsetHeight * overscanRatio,
-    });
-  }
-
-  function clampShift(shift, limit) {
-    return Math.round(Math.max(-limit, Math.min(limit, shift)));
-  }
-
-  function update() {
-    ticking = false;
-    const anchor = window.innerHeight * 0.5;
-    sections.forEach((section) => {
-      const info = state.get(section);
-      if (!info || !info.bgImg) return;
-      const rect = section.getBoundingClientRect();
-      const shift = -(rect.top - anchor) * info.rate;
-      info.bgImg.style.setProperty("--fw-band-shift", clampShift(shift, info.maxShift) + "px");
-    });
-  }
-
-  function queue() {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(update);
-  }
-
-  function init() {
-    sections.forEach(measureSection);
-    requestAnimationFrame(queue);
-  }
-
-  window.addEventListener("load", init, { once: true });
-  window.addEventListener("scroll", queue, { passive: true });
-  window.addEventListener("resize", () => {
-    sections.forEach(measureSection);
-    queue();
-  }, { passive: true });
-})();
 """
     if "initHomeHeroParallax" in text:
         text = re.sub(
@@ -7495,7 +7442,12 @@ function initHeroPanels() {
         )
 
     text = re.sub(
-        r"(\(function initBandParallax\(\)[\s\S]*?\}\)\(\);\s*)+",
+        r"// ---- Band parallax \(process \+ scope\) ----\s*\(function initBandParallax\(\)[\s\S]*?\}\)\(\);\s*",
+        "",
+        text,
+    )
+    text = re.sub(
+        r"(// ---- Band parallax \(process \+ scope\) ----\s*)+",
         "",
         text,
     )
@@ -7558,12 +7510,15 @@ function initHeroPanels() {
   }, { passive: true });
 })();
 """
-    text = re.sub(
-        r"(// ---- Legacy single-image hero parallax ----[\s\S]*?\}\)\(\);\s*)",
-        r"\1" + band_parallax_once,
-        text,
-        count=1,
-    )
+    if "function initBandParallax" not in text:
+        text = re.sub(
+            r"(// ---- Legacy single-image hero parallax ----[\s\S]*?\}\)\(\);\s*)",
+            r"\1" + band_parallax_once,
+            text,
+            count=1,
+        )
+
+    text = re.sub(r"\n{3,}", "\n\n", text).rstrip() + "\n"
 
     write_site_file(ROOT / "script.js", text)
 

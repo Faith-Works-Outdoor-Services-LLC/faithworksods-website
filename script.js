@@ -598,7 +598,6 @@ function initHeroPanels() {
   }, 1600);
 })();
 
-
 // ---- Homepage follow banner entrance ----
 (function initHomeStripEntrance() {
   if (!document.body.classList.contains("home-landing")) return;
@@ -683,42 +682,6 @@ function initHeroPanels() {
   }, { passive: true });
 })();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // ---- Band parallax (process + scope) ----
 (function initBandParallax() {
   const sections = document.querySelectorAll(".process-section--parallax, .scope-section--parallax");
@@ -771,39 +734,3 @@ function initHeroPanels() {
     queue();
   }, { passive: true });
 })();
-// ---- Band parallax (process + scope) ----
-// ---- Band parallax (process + scope) ----
-// ---- Band parallax (process + scope) ----
-// ---- Band parallax (process + scope) ----
-// ---- Band parallax (process + scope) ----
-// ---- Band parallax (process + scope) ----
-// ---- Band parallax (process + scope) ----
-// ---- Band parallax (process + scope) ----
-// ---- Band parallax (process + scope) ----
-// ---- Band parallax (process + scope) ----
-// ---- Band parallax (process + scope) ----
-// ---- Band parallax (process + scope) ----
-// ---- Band parallax (process + scope) ----
-// ---- Band parallax (process + scope) ----
-// ---- Band parallax (process + scope) ----
-// ---- Band parallax (process + scope) ----
-// ---- Band parallax (process + scope) ----
-// ---- Band parallax (process + scope) ----
-// ---- Band parallax (process + scope) ----
-// ---- Band parallax (process + scope) ----
-// ---- Band parallax (process + scope) ----
-// ---- Band parallax (process + scope) ----
-// ---- Band parallax (process + scope) ----
-// ---- Band parallax (process + scope) ----
-// ---- Band parallax (process + scope) ----
-// ---- Band parallax (process + scope) ----
-// ---- Band parallax (process + scope) ----
-// ---- Band parallax (process + scope) ----
-// ---- Band parallax (process + scope) ----
-// ---- Band parallax (process + scope) ----
-// ---- Band parallax (process + scope) ----
-// ---- Band parallax (process + scope) ----
-// ---- Band parallax (process + scope) ----
-// ---- Band parallax (process + scope) ----
-// ---- Band parallax (process + scope) ----
-// ---- Band parallax (process + scope) ----

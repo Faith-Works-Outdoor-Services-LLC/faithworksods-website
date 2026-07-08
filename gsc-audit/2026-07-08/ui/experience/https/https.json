@@ -5,7 +5,7 @@
   "url": "https://search.google.com/search-console/https?resource_id=sc-domain%3Afaithworksclearing.com",
   "outputDir": "experience\\https",
   "title": "HTTPS",
-  "exportedAt": "2026-07-08T13:58:51.607Z",
+  "exportedAt": "2026-07-08T14:16:38.813Z",
   "download": {
     "file": "https.zip",
     "path": "E:\\GSC Auditer\\runs\\2026-07-08\\faithworksclearing.com\\ui\\experience\\https\\https.zip",
@@ -13,6 +13,8 @@
     "format": "zip"
   },
   "summaryLines": [
+    "Google AccountNicholas Knightnickknight488@gmail.com",
+    "nickknight488@gmail.com",
     "\n\t\n4",
     "\n4",
     "lightbulb_2\nInsights",
@@ -26,9 +28,7 @@
     "\nHTTPS URLs\n75\n",
     "\nHTTPS URLs\n75",
     "Good job!\nNo issues detected in the last 90 days",
-    "No issues detected in the last 90 days",
-    "Google AccountNicholas Knightnickknight488@gmail.com",
-    "nickknight488@gmail.com"
+    "No issues detected in the last 90 days"
   ],
   "tableRowCount": 0,
   "tables": []

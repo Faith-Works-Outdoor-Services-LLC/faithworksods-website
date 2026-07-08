@@ -2,7 +2,7 @@
 
 - **Domain:** faithworksclearing.com
 - **GSC property:** sc-domain:faithworksclearing.com
-- **Generated:** 2026-07-08T13:56:34.715Z
+- **Generated:** 2026-07-08T14:14:14.493Z
 - **Period:** 2026-04-09 to 2026-07-05
 
 ## Performance summary
@@ -37,14 +37,14 @@
 
 | Report | Method | Notes |
 | --- | --- | --- |
-| Pages indexing | download | Google AccountNicholas Knightnickknight488@gmail.com |
+| Pages indexing | download | 
+	
+4 |
 | Video pages | summary | Google AccountNicholas Knightnickknight488@gmail.com |
 | Sitemaps | scrape | Google AccountNicholas Knightnickknight488@gmail.com |
 | Removals | scrape | Google AccountNicholas Knightnickknight488@gmail.com |
 | Core Web Vitals | summary | Google AccountNicholas Knightnickknight488@gmail.com |
-| HTTPS | download | 
-	
-4 |
+| HTTPS | download | Google AccountNicholas Knightnickknight488@gmail.com |
 | Manual actions | summary | Google AccountNicholas Knightnickknight488@gmail.com |
 | Security issues | summary | Google AccountNicholas Knightnickknight488@gmail.com |
 | Links | summary | Google AccountNicholas Knightnickknight488@gmail.com |
@@ -54,9 +54,7 @@
 | image-licenses | download | 
 	
 4 |
-| achievements | summary | 
-	
-4 |
+| achievements | summary | Google AccountNicholas Knightnickknight488@gmail.com |
 
 ## Source of truth
 

@@ -5,7 +5,7 @@
   "url": "https://search.google.com/search-console/index?resource_id=sc-domain%3Afaithworksclearing.com",
   "outputDir": "indexing\\index-pages",
   "title": "Page indexing",
-  "exportedAt": "2026-07-08T13:58:10.216Z",
+  "exportedAt": "2026-07-08T14:16:12.984Z",
   "download": {
     "file": "index-pages.zip",
     "path": "E:\\GSC Auditer\\runs\\2026-07-08\\faithworksclearing.com\\ui\\indexing\\index-pages\\index-pages.zip",
@@ -13,8 +13,6 @@
     "format": "zip"
   },
   "summaryLines": [
-    "Google AccountNicholas Knightnickknight488@gmail.com",
-    "nickknight488@gmail.com",
     "\n\t\n4",
     "\n4",
     "lightbulb_2\nInsights",
@@ -33,7 +31,9 @@
     "250",
     "500",
     "1-3 of 3\n",
-    "1-3 of 3"
+    "1-3 of 3",
+    "Google AccountNicholas Knightnickknight488@gmail.com",
+    "nickknight488@gmail.com"
   ],
   "tableRowCount": 4,
   "tables": [
