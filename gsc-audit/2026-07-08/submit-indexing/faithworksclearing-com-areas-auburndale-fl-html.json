@@ -1,0 +1,20 @@
+{
+  "url": "https://faithworksclearing.com/areas/auburndale-fl.html",
+  "inspectionResultLink": "https://search.google.com/search-console/inspect?resource_id=sc-domain:faithworksclearing.com&id=oo0yMwcq3AfTqk6CTJntZQ&utm_medium=link&utm_source=api",
+  "priorVerdict": "PASS",
+  "priorCoverageState": "Submitted and indexed",
+  "openedWith": "inspection-link",
+  "inspectionStatus": "indexed",
+  "liveTest": {
+    "ran": true,
+    "success": true
+  },
+  "requestIndexing": {
+    "submitted": false,
+    "reason": "request_button_not_found"
+  },
+  "dryRun": false,
+  "error": null,
+  "screenshot": "faithworksclearing-com-areas-auburndale-fl-html.png",
+  "submittedAt": "2026-07-08T14:26:53.293Z"
+}

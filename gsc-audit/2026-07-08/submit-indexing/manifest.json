@@ -1,0 +1,222 @@
+{
+  "tool": "gsc-auditer-submit-indexing",
+  "generatedAt": "2026-07-08T14:27:16.734Z",
+  "site": "faithworksclearing.com",
+  "propertyUrl": "sc-domain:faithworksclearing.com",
+  "dryRun": false,
+  "liveTest": true,
+  "requestIndexing": true,
+  "urlCount": 10,
+  "submittedCount": 0,
+  "failedCount": 0,
+  "results": [
+    {
+      "url": "https://faithworksclearing.com/",
+      "inspectionResultLink": "https://search.google.com/search-console/inspect?resource_id=sc-domain:faithworksclearing.com&id=dXOsYt7JLnr88bUsXU0-7g&utm_medium=link&utm_source=api",
+      "priorVerdict": "PASS",
+      "priorCoverageState": "Submitted and indexed",
+      "openedWith": "inspection-link",
+      "inspectionStatus": "indexed",
+      "liveTest": {
+        "ran": true,
+        "success": true
+      },
+      "requestIndexing": {
+        "submitted": false,
+        "reason": "request_button_not_found"
+      },
+      "dryRun": false,
+      "error": null,
+      "screenshot": "faithworksclearing-com.png",
+      "submittedAt": "2026-07-08T14:22:36.796Z"
+    },
+    {
+      "url": "https://faithworksclearing.com/about.html",
+      "inspectionResultLink": "https://search.google.com/search-console/inspect?resource_id=sc-domain:faithworksclearing.com&id=ALxQzp3oXYq2H09td_qzHA&utm_medium=link&utm_source=api",
+      "priorVerdict": "PASS",
+      "priorCoverageState": "Submitted and indexed",
+      "openedWith": "inspection-link",
+      "inspectionStatus": "indexed",
+      "liveTest": {
+        "ran": true,
+        "success": true
+      },
+      "requestIndexing": {
+        "submitted": false,
+        "reason": "request_button_not_found"
+      },
+      "dryRun": false,
+      "error": null,
+      "screenshot": "faithworksclearing-com-about-html.png",
+      "submittedAt": "2026-07-08T14:23:14.764Z"
+    },
+    {
+      "url": "https://faithworksclearing.com/services.html",
+      "inspectionResultLink": "https://search.google.com/search-console/inspect?resource_id=sc-domain:faithworksclearing.com&id=tIs850KenpNf_2NOoIfS2A&utm_medium=link&utm_source=api",
+      "priorVerdict": "PASS",
+      "priorCoverageState": "Submitted and indexed",
+      "openedWith": "inspection-link",
+      "inspectionStatus": "indexed",
+      "liveTest": {
+        "ran": true,
+        "success": true
+      },
+      "requestIndexing": {
+        "submitted": false,
+        "reason": "request_button_not_found"
+      },
+      "dryRun": false,
+      "error": null,
+      "screenshot": "faithworksclearing-com-services-html.png",
+      "submittedAt": "2026-07-08T14:23:38.970Z"
+    },
+    {
+      "url": "https://faithworksclearing.com/contact.html",
+      "inspectionResultLink": "https://search.google.com/search-console/inspect?resource_id=sc-domain:faithworksclearing.com&id=jYsBdZON5guRyfYSqDIZyA&utm_medium=link&utm_source=api",
+      "priorVerdict": "PASS",
+      "priorCoverageState": "Submitted and indexed",
+      "openedWith": "inspection-link",
+      "inspectionStatus": "indexed",
+      "liveTest": {
+        "ran": true,
+        "success": true
+      },
+      "requestIndexing": {
+        "submitted": false,
+        "reason": "request_button_not_found"
+      },
+      "dryRun": false,
+      "error": null,
+      "screenshot": "faithworksclearing-com-contact-html.png",
+      "submittedAt": "2026-07-08T14:24:07.118Z"
+    },
+    {
+      "url": "https://faithworksclearing.com/brush-clearing.html",
+      "inspectionResultLink": "https://search.google.com/search-console/inspect?resource_id=sc-domain:faithworksclearing.com&id=faWI2PALcpcqi3SGBhPtgA&utm_medium=link&utm_source=api",
+      "priorVerdict": "PASS",
+      "priorCoverageState": "Submitted and indexed",
+      "openedWith": "inspection-link",
+      "inspectionStatus": "indexed",
+      "liveTest": {
+        "ran": true,
+        "success": true
+      },
+      "requestIndexing": {
+        "submitted": false,
+        "reason": "request_button_not_found"
+      },
+      "dryRun": false,
+      "error": null,
+      "screenshot": "faithworksclearing-com-brush-clearing-html.png",
+      "submittedAt": "2026-07-08T14:24:33.239Z"
+    },
+    {
+      "url": "https://faithworksclearing.com/access-road-clearing.html",
+      "inspectionResultLink": "https://search.google.com/search-console/inspect?resource_id=sc-domain:faithworksclearing.com&id=0bsOxG53Pqh8x6cLBIDLIg&utm_medium=link&utm_source=api",
+      "priorVerdict": "PASS",
+      "priorCoverageState": "Submitted and indexed",
+      "openedWith": "inspection-link",
+      "inspectionStatus": "indexed",
+      "liveTest": {
+        "ran": true,
+        "success": true
+      },
+      "requestIndexing": {
+        "submitted": false,
+        "reason": "request_button_not_found"
+      },
+      "dryRun": false,
+      "error": null,
+      "screenshot": "faithworksclearing-com-access-road-clearing-html.png",
+      "submittedAt": "2026-07-08T14:25:05.729Z"
+    },
+    {
+      "url": "https://faithworksclearing.com/pond-bank-clearing.html",
+      "inspectionResultLink": "https://search.google.com/search-console/inspect?resource_id=sc-domain:faithworksclearing.com&id=hmNt6XjaMOMHSI4wFMZMAg&utm_medium=link&utm_source=api",
+      "priorVerdict": "PASS",
+      "priorCoverageState": "Submitted and indexed",
+      "openedWith": "inspection-link",
+      "inspectionStatus": "indexed",
+      "liveTest": {
+        "ran": true,
+        "success": true
+      },
+      "requestIndexing": {
+        "submitted": false,
+        "reason": "request_button_not_found"
+      },
+      "dryRun": false,
+      "error": null,
+      "screenshot": "faithworksclearing-com-pond-bank-clearing-html.png",
+      "submittedAt": "2026-07-08T14:25:35.906Z"
+    },
+    {
+      "url": "https://faithworksclearing.com/ditch-maintenance.html",
+      "inspectionResultLink": "https://search.google.com/search-console/inspect?resource_id=sc-domain:faithworksclearing.com&id=xOmBHgYrHOvj7lT_SlUfWw&utm_medium=link&utm_source=api",
+      "priorVerdict": "PASS",
+      "priorCoverageState": "Submitted and indexed",
+      "openedWith": "inspection-link",
+      "inspectionStatus": "indexed",
+      "liveTest": {
+        "ran": true,
+        "success": true
+      },
+      "requestIndexing": {
+        "submitted": false,
+        "reason": "request_button_not_found"
+      },
+      "dryRun": false,
+      "error": null,
+      "screenshot": "faithworksclearing-com-ditch-maintenance-html.png",
+      "submittedAt": "2026-07-08T14:26:00.828Z"
+    },
+    {
+      "url": "https://faithworksclearing.com/storm-debris-cleanup.html",
+      "inspectionResultLink": "https://search.google.com/search-console/inspect?resource_id=sc-domain:faithworksclearing.com&id=F9iimBIGAUumJJEADdMMYQ&utm_medium=link&utm_source=api",
+      "priorVerdict": "PASS",
+      "priorCoverageState": "Submitted and indexed",
+      "openedWith": "inspection-link",
+      "inspectionStatus": "indexed",
+      "liveTest": {
+        "ran": true,
+        "success": true
+      },
+      "requestIndexing": {
+        "submitted": false,
+        "reason": "request_button_not_found"
+      },
+      "dryRun": false,
+      "error": null,
+      "screenshot": "faithworksclearing-com-storm-debris-cleanup-html.png",
+      "submittedAt": "2026-07-08T14:26:26.971Z"
+    },
+    {
+      "url": "https://faithworksclearing.com/areas/auburndale-fl.html",
+      "inspectionResultLink": "https://search.google.com/search-console/inspect?resource_id=sc-domain:faithworksclearing.com&id=oo0yMwcq3AfTqk6CTJntZQ&utm_medium=link&utm_source=api",
+      "priorVerdict": "PASS",
+      "priorCoverageState": "Submitted and indexed",
+      "openedWith": "inspection-link",
+      "inspectionStatus": "indexed",
+      "liveTest": {
+        "ran": true,
+        "success": true
+      },
+      "requestIndexing": {
+        "submitted": false,
+        "reason": "request_button_not_found"
+      },
+      "dryRun": false,
+      "error": null,
+      "screenshot": "faithworksclearing-com-areas-auburndale-fl-html.png",
+      "submittedAt": "2026-07-08T14:26:53.293Z"
+    }
+  ],
+  "sitemapResubmit": [
+    {
+      "path": "https://faithworksclearing.com/sitemap.xml",
+      "feedpath": "sitemap.xml",
+      "status": "error",
+      "error": "Insufficient Permission"
+    }
+  ]
+}

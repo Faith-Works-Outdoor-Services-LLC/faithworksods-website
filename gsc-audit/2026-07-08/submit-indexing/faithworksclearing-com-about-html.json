@@ -1,0 +1,20 @@
+{
+  "url": "https://faithworksclearing.com/about.html",
+  "inspectionResultLink": "https://search.google.com/search-console/inspect?resource_id=sc-domain:faithworksclearing.com&id=ALxQzp3oXYq2H09td_qzHA&utm_medium=link&utm_source=api",
+  "priorVerdict": "PASS",
+  "priorCoverageState": "Submitted and indexed",
+  "openedWith": "inspection-link",
+  "inspectionStatus": "indexed",
+  "liveTest": {
+    "ran": true,
+    "success": true
+  },
+  "requestIndexing": {
+    "submitted": false,
+    "reason": "request_button_not_found"
+  },
+  "dryRun": false,
+  "error": null,
+  "screenshot": "faithworksclearing-com-about-html.png",
+  "submittedAt": "2026-07-08T14:23:14.764Z"
+}

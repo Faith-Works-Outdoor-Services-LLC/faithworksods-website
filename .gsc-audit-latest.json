@@ -9,6 +9,16 @@
   "manifest": "gsc-audit/2026-07-08/manifest.json",
   "apiDir": "gsc-audit/2026-07-08/api",
   "uiDir": "gsc-audit/2026-07-08/ui",
-  "nextStep": "Read gsc-audit/<date>/report.md and analysis.json, then implement SEO fixes in this workspace. After fixes, run submit-indexing.mjs.",
-  "workspaceCopy": "E:\\All Client Websites\\Faith Works\\gsc-audit\\2026-07-08"
+  "nextStep": "Indexing requests submitted. Re-run audit in ~3–7 days to verify coverage changes.",
+  "workspaceCopy": "E:\\All Client Websites\\Faith Works\\gsc-audit\\2026-07-08",
+  "submitIndexing": {
+    "generatedAt": "2026-07-08T14:27:16.734Z",
+    "canonicalRunDir": "E:\\GSC Auditer\\runs\\2026-07-08\\faithworksclearing.com\\submit-indexing",
+    "workspaceCopy": "E:\\All Client Websites\\Faith Works\\gsc-audit\\2026-07-08\\submit-indexing",
+    "manifest": "gsc-audit/2026-07-08/submit-indexing/manifest.json",
+    "report": "gsc-audit/2026-07-08/submit-indexing/README.md",
+    "urlCount": 10,
+    "submittedCount": 0,
+    "dryRun": false
+  }
 }
