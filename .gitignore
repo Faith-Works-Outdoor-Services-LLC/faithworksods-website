@@ -11,4 +11,6 @@ Gallery/*.JPG
 Gallery/*.jpg
 Gallery/*.jpeg
 Gallery/*.JPEG
+# Branded social/GBP exports (Google Business Profile API needs public JPG URLs)
+!Gallery/*-social.jpg
 website/__pycache__/
