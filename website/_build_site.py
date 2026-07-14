@@ -8,6 +8,7 @@ import os
 import re
 import shutil
 from datetime import date
+from html import escape
 from pathlib import Path
 from urllib.parse import quote
 
@@ -220,6 +221,18 @@ GALLERY = [
     ("tractor-moving-item-with-grapple.webp", "Kubota tractor using a grapple attachment to move brush and debris during property cleanup", "Property Cleanup"),
     ("tractor-with-box-blade-leveling-ground.webp", "Kubota tractor with box blade leveling ground after brush clearing and cleanup", "Ditch Clearing"),
 ]
+
+
+def job_gallery_projects() -> list[dict]:
+    """Load app-published project composites without making the site build fragile."""
+    path = ROOT / "Gallery" / "job-gallery.json"
+    if not path.is_file():
+        return []
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8-sig"))
+    except (OSError, json.JSONDecodeError):
+        return []
+    return [item for item in payload.get("projects", []) if isinstance(item, dict) and item.get("image")]
 
 ASSET_VERSION = "20260703"
 HERO_DESKTOP = "photo-of-all-equipment.webp"
@@ -2464,6 +2477,15 @@ def write_services() -> None:
 
 def write_gallery() -> None:
     items = ""
+    for i, project in enumerate(job_gallery_projects()):
+        title = escape(str(project.get("title") or "Completed Faith Works Project"))
+        image = escape(str(project["image"]), quote=True)
+        detail = escape(str(project.get("detail_url") or "gallery.html"), quote=True)
+        items += f"""
+          <figure class="gallery-item gallery-item--field-app" data-fw-enter="bottom" style="--fw-enter-delay: {(i % 6) * 60}ms;">
+            <a href="{detail}" aria-label="View {title} project details"><img src="{image}" alt="{title} before process and after project by Faith Works Outdoor Services" loading="lazy" width="1600" height="900"></a>
+            <figcaption>{title} | Before, Process &amp; After</figcaption>
+          </figure>"""
     for i, (img, alt, label) in enumerate(GALLERY):
         items += f"""
           <figure class="gallery-item" data-fw-enter="bottom" style="--fw-enter-delay: {(i % 6) * 60}ms;">
@@ -3118,6 +3140,7 @@ def sitemap_priority(path: str) -> str:
 
 def write_sitemap() -> None:
     pages = ["index.html", "services.html", "about.html", "contact.html", "gallery.html", "service-areas.html", "privacy-policy.html", IMAGE_LICENSE_PAGE]
+    pages += [str(item.get("detail_url")) for item in job_gallery_projects() if item.get("detail_url")]
     pages += [f"{s['slug']}.html" for s in SERVICES]
     pages += [f"areas/{c['slug']}.html" for c in AREA_CITIES]
     pages += [f"areas/{c['slug']}.html" for c in COUNTIES]
@@ -3498,7 +3521,10 @@ def write_manifest() -> None:
 
 
 def write_styles() -> None:
-    src = Path(r"E:\ScreenTeamLLC\styles.css").read_text(encoding="utf-8")
+    screen_team_styles = Path(r"E:\All Client Websites\Screen-Team-LLC-screen-team-website\styles.css")
+    if not screen_team_styles.is_file():
+        raise FileNotFoundError(f"Faith Works style source is missing: {screen_team_styles}")
+    src = screen_team_styles.read_text(encoding="utf-8")
     src = src.replace("THE SCREEN TEAM LLC", "FAITH WORKS OUTDOOR SERVICES")
     src = src.replace("Dark navy professional theme", "Black & gold outdoor services theme")
     src = src.replace('"Oswald", sans-serif', '"Cinzel", serif')
