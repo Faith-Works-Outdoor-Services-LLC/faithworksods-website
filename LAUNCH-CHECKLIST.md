@@ -5,15 +5,15 @@
 |------|-------|
 | Legal name | Faith Works Outdoor Services LLC |
 | Brand name | Faith Works Outdoor Services |
-| Final domain in repo | faithworksods.com |
-| Email | contact@faithworksods.com |
+| Production domain | faithworksclearing.com |
+| Email | tyler@faithworksclearing.com |
 | Owner | Tyler R. Edwards |
 | Location | Based in Auburndale, FL |
 | Launch service focus | Polk County plus nearby Plant City / larger Central Florida jobs by scope |
 
 ## Implemented before indexing
 - GitHub Pages host guard injects `noindex, nofollow` when served from `nicholasjknight.github.io`.
-- Canonicals point to `https://faithworksods.com/`.
+- Canonicals point to `https://faithworksclearing.com/`.
 - Placeholder reviews were removed; no review or aggregate rating schema is emitted.
 - Service area output was narrowed from broad Central Florida coverage to focused launch areas.
 - Sitemap, robots.txt, favicon, OG/Twitter images, schema, and 404 page are generated.
@@ -28,9 +28,9 @@
 6. Microsoft Clarity ID - replace `PLACEHOLDER`.
 
 ## Before submitting to GSC/Bing
-- Confirm DNS/SSL for `faithworksods.com` and `www`.
+- Confirm DNS/SSL for `faithworksclearing.com` and `www`.
 - Verify phone rings/texts Tyler.
-- Verify `contact@faithworksods.com` receives mail.
+- Verify `tyler@faithworksclearing.com` receives mail.
 - Verify Formspree delivery after the form ID is added.
-- Submit only the final-domain sitemap: `https://faithworksods.com/sitemap.xml`.
+- Submit only the production sitemap: `https://faithworksclearing.com/sitemap.xml`.
 - Do not submit the GitHub Pages URL.
