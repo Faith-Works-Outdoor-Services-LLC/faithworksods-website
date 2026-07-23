@@ -16,9 +16,9 @@
   "area": "AUBURNDALE • POLK COUNTY • CENTRAL FLORIDA",
   "footer_area": "OWNER-OPERATED OUTDOOR PROPERTY SERVICES",
   "services": "Land Clearing | Forestry Mulching | Pond Banks | Property Cleanup",
-  "gallery_dir": "Gallery",
-  "gallery_public_path": "Gallery",
-  "job_manifest": "Gallery/job-gallery.json",
+  "gallery_dir": "gallery",
+  "gallery_public_path": "gallery",
+  "job_manifest": "gallery/job-gallery.json",
   "build_command": "website/_build_site.py",
   "serif_title": true
 }

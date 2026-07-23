@@ -160,7 +160,7 @@ SITE = {
     "linkedin": "https://www.linkedin.com/company/faithworks-outdoor-services-llc/",
     "x": "https://x.com/FaithWorksODS",
     "nextdoor": "https://nextdoor.com/page/faith-works-outdoor-services-llc-auburndale-fl",
-    "youtube": "https://www.youtube.com/@PLACEHOLDER",
+    "youtube": "https://www.youtube.com/@FaithWorksOutdoorServices",
     "google_business": "PLACEHOLDER",
     "google_maps_embed": (
         "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1801085.726307002!"
@@ -225,7 +225,7 @@ GALLERY = [
 
 def job_gallery_projects() -> list[dict]:
     """Load app-published project composites without making the site build fragile."""
-    path = ROOT / "Gallery" / "job-gallery.json"
+    path = ROOT / "gallery" / "job-gallery.json"
     if not path.is_file():
         return []
     try:
@@ -234,7 +234,7 @@ def job_gallery_projects() -> list[dict]:
         return []
     return [item for item in payload.get("projects", []) if isinstance(item, dict) and item.get("image")]
 
-ASSET_VERSION = "20260703"
+ASSET_VERSION = "20260723i"
 HERO_DESKTOP = "photo-of-all-equipment.webp"
 HERO_MOBILE = "excavator-and-truck-photo.webp"
 HERO_MOBILE_LCP = f"heroes/{HERO_MOBILE}"
@@ -3081,7 +3081,7 @@ def write_privacy() -> None:
       <p>Questions? Contact <a href="mailto:{SITE['email']}">{SITE['email']}</a>.</p>
     </div></section>"""
     privacy_path = "privacy-policy.html"
-    privacy_title = "Privacy Policy"
+    privacy_title = "Privacy Policy | Faith Works Outdoor Services"
     privacy_desc = f"Privacy policy for {SITE['brand']}."
     schema = page_schema_bundle(
         privacy_path,
@@ -3097,7 +3097,7 @@ def write_privacy() -> None:
 
 def write_image_use_policy() -> None:
     policy_path = IMAGE_LICENSE_PAGE
-    policy_title = "Image Use Policy"
+    policy_title = "Image Use Policy | Faith Works Outdoor Services"
     policy_desc = f"Image use and licensing information for photos owned by {SITE['legal_name']}."
     body = f"""
     <section class="sp-hero"><div class="container"><h1>Image Use Policy</h1><p>Photo ownership, credit, and licensing information for {SITE['brand']}.</p></div></section>
@@ -6059,6 +6059,8 @@ html.fw-js [data-fw-enter].is-visible {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
+  text-align: center;
   gap: 10px 14px;
   margin-bottom: 22px;
   padding-bottom: 18px;
@@ -6083,10 +6085,11 @@ html.fw-js [data-fw-enter].is-visible {
   font-size: 1rem;
 }
 .fw-reviews-summary {
-  width: 100%;
+  width: auto;
   font-size: 0.9rem;
   font-weight: 700;
   color: var(--muted);
+  text-align: center;
 }
 .fw-review-carousel {
   display: flex;
