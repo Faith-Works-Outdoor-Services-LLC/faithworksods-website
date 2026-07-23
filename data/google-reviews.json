@@ -1,0 +1,48 @@
+{
+  "ratingValue": 5.0,
+  "reviewCount": 6,
+  "syncedAt": "2026-07-23T12:45:12.528206+00:00",
+  "locationId": "11714542974358350290",
+  "reviews": [
+    {
+      "name": "RYKER B Mcdowell",
+      "meta": "Google review",
+      "date": "1 week ago",
+      "text": "Tyler was amazing he even stayed with us allot longer than he needed in order to help us take out some extra rooted trees that had died from this past freeze and was great to work with!! Thx Again Tyler!!",
+      "stars": 5,
+      "avatarColor": "#1e6b2e"
+    },
+    {
+      "name": "Ngan Phan",
+      "meta": "Google review",
+      "date": "1 week ago",
+      "text": "I couldn\u2019t be happier with the work they did clearing my land. They showed up when they said they would, worked hard from start to finish, and left the property looking better than I expected. They were easy to communicate with, answered all of my questions, and made the whole process stress-free.\n\nIf you\u2019re looking for someone reliable, honest, and who takes pride in their work, I highly recommend them. I\u2019ll definitely be calling them again for future projects. Thanks again for the great job!",
+      "stars": 5,
+      "avatarColor": "#c0392b"
+    },
+    {
+      "name": "Brandon DeRemer",
+      "meta": "Google review",
+      "date": "1 week ago",
+      "text": "Tyler was a huge help delivering materials to my job site. He was professional, punctual, and handled everything with care. Communication was excellent throughout the process, and he made sure everything arrived on time and exactly where it needed to be. I really appreciate his reliability and great attitude. I would definitely recommend Tyler to anyone looking for dependable, professional service.",
+      "stars": 5,
+      "avatarColor": "#1a56c4"
+    },
+    {
+      "name": "nathan guzman",
+      "meta": "Google review",
+      "date": "2 weeks ago",
+      "text": "Tyler was awesome, fast and efficient and very reasonable in pricing. Looking forward in having him do some more work for me you will not be disappointed in hiring him for your next job or project at home.",
+      "stars": 5,
+      "avatarColor": "#FBBC05"
+    },
+    {
+      "name": "Oramasuta_Shinji 4BR",
+      "meta": "Google review",
+      "date": "3 weeks ago",
+      "text": "I was very pleased and happy for the results and price that was given, stand up work and a great attention to detail, would happily recommend this service again, and in the near future.",
+      "stars": 5,
+      "avatarColor": "#c9a227"
+    }
+  ]
+}
