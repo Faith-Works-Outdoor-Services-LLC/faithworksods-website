@@ -57,22 +57,68 @@ def update_manifest(base: str, title: str) -> dict:
 def write_detail(entry: dict) -> Path:
     DETAIL_DIR.mkdir(parents=True, exist_ok=True)
     path = DETAIL_DIR / f"{entry['id']}.html"
-    title = escape(str(entry["title"]))
-    summary = escape(str(entry["summary"]))
-    company = escape(str(CONFIG["company_title"]))
-    image = escape(f"../{entry['image']}", quote=True)
-    canonical = escape(f"{CONFIG['website_url']}/{entry['detail_url']}", quote=True)
-    social_image = escape(f"{CONFIG['website_url']}/{entry['social_image']}", quote=True)
-    contact_url = escape(str(CONFIG["contact_url"]), quote=True)
+    title = str(entry["title"])
+    summary = str(entry["summary"])
+    company = str(CONFIG["company_title"])
+    brand = "Faith Works Outdoor Services"
+    image_rel = entry["image"]
+    detail_rel = entry["detail_url"]
+    image_url = f"{CONFIG['website_url']}/{image_rel}"
+    detail_url = f"{CONFIG['website_url']}/{detail_rel}"
+    social_image = f"{CONFIG['website_url']}/{entry['social_image']}"
+    contact_url = str(CONFIG["contact_url"])
+    license_url = f"{CONFIG['website_url']}/image-use-policy.html"
+    schema = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "ImageObject",
+                "@id": f"{image_url}#image",
+                "contentUrl": image_url,
+                "url": image_url,
+                "caption": title,
+                "name": title,
+                "creator": {"@id": f"{CONFIG['website_url']}/#business"},
+                "license": license_url,
+                "acquireLicensePage": contact_url,
+                "creditText": brand,
+                "copyrightNotice": f"Copyright {company}",
+            },
+            {
+                "@type": "WebPage",
+                "@id": f"{detail_url}#webpage",
+                "url": detail_url,
+                "name": f"{title} Project | {company}",
+                "description": summary,
+                "primaryImageOfPage": {"@id": f"{image_url}#image"},
+                "isPartOf": {"@id": f"{CONFIG['website_url']}/#website"},
+            },
+        ],
+    }
+    schema_json = json.dumps(schema, ensure_ascii=False, indent=2)
+    gtm_head = """<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5FRX6TK6');</script>
+<!-- End Google Tag Manager -->"""
+    gtm_body = """<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5FRX6TK6"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->"""
     html = f"""<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>{title} Project | {company}</title>
-<meta name="description" content="{summary}"><link rel="canonical" href="{canonical}">
-<meta property="og:image" content="{social_image}">
+<html lang="en"><head>
+{gtm_head}<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{escape(title)} Project | {escape(company)}</title>
+<meta name="description" content="{escape(summary)}"><link rel="canonical" href="{escape(detail_url, quote=True)}">
+<meta property="og:image" content="{escape(social_image, quote=True)}">
+<script type="application/ld+json">{schema_json}</script>
 <style>body{{margin:0;background:{CONFIG['background']};color:{CONFIG['text']};font-family:Arial,sans-serif}}main{{width:min(1120px,calc(100% - 32px));margin:auto;padding:36px 0 64px}}a{{color:{CONFIG['accent']};}}img{{display:block;width:100%;height:auto;border:2px solid {CONFIG['accent']};border-radius:14px}}h1{{font-size:clamp(2rem,6vw,4rem);margin:.35em 0}}.eyebrow{{color:{CONFIG['accent']};font-weight:800;letter-spacing:.12em}}.cta{{display:inline-block;padding:14px 20px;border-radius:8px;background:{CONFIG['accent']};color:{CONFIG['background']};font-weight:800;text-decoration:none}}</style></head>
-<body><main><p class="eyebrow">COMPLETED PROJECT</p><h1>{title}</h1><p>{summary}</p>
-<img src="{image}" alt="{title} before process and after project by {company}" width="1600" height="900">
-<p><a class="cta" href="{contact_url}">Request an estimate</a> &nbsp; <a href="../gallery.html">View all projects</a></p>
+<body>
+{gtm_body}<main><p class="eyebrow">COMPLETED PROJECT</p><h1>{escape(title)}</h1><p>{escape(summary)}</p>
+<img src="{escape('../' + image_rel, quote=True)}" alt="{escape(title)} before process and after project by {escape(company)}" width="1600" height="900">
+<p><a class="cta" href="{escape(contact_url, quote=True)}">Request an estimate</a> &nbsp; <a href="../gallery.html">View all projects</a></p>
 </main></body></html>"""
     path.write_text(html, encoding="utf-8")
     return path
