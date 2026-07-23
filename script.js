@@ -269,23 +269,84 @@ document.querySelectorAll('a[href^="tel:"]').forEach((link) => {
 
 // ---- Nav mega menus (desktop flyout + mobile accordion) ----
 (function initNavMegaMenus() {
+  const HOVER_CLOSE_DELAY = 220;
+  const MQ_DESKTOP = window.matchMedia("(min-width: 1201px)");
+
   function closeDesktopBranches(menu, except) {
     if (!menu) return;
     menu.querySelectorAll(".fw-services-mega__item--branch.subnav-open").forEach((item) => {
       if (item === except) return;
       item.classList.remove("subnav-open");
       const btn = item.querySelector(".subnav-toggle");
+      const flyout = item.querySelector(".fw-services-mega__flyout");
       if (btn) btn.setAttribute("aria-expanded", "false");
+      if (flyout) {
+        item.classList.remove("is-flyout-left");
+        flyout.classList.remove("is-open-left");
+      }
     });
+  }
+
+  function placeMenu(wrap) {
+    if (!MQ_DESKTOP.matches) return;
+    const btn = wrap.querySelector(".nav-dropdown-btn");
+    const menu = wrap.querySelector(".nav-dropdown-menu");
+    if (!btn || !menu) return;
+
+    const rect = btn.getBoundingClientRect();
+    const header = document.querySelector('.site-header');
+    const headerBottom = header ? header.getBoundingClientRect().bottom : rect.bottom;
+    const gap = 8;
+    const menuWidth = Math.max(menu.offsetWidth || 272, 272);
+    let left = rect.left + rect.width / 2 - menuWidth * 0.58;
+    left = Math.max(12, Math.min(left, window.innerWidth - menuWidth - 12));
+    // Sit just under the sticky header so the panel never overlaps nav text
+    const top = Math.min(Math.max(rect.bottom + gap, headerBottom + 4), window.innerHeight - 24);
+
+    menu.style.setProperty("--fw-menu-top", Math.round(top) + "px");
+    menu.style.setProperty("--fw-menu-left", Math.round(left) + "px");
+  }
+
+  function placeFlyout(item) {
+    if (!MQ_DESKTOP.matches) return;
+    const flyout = item.querySelector(".fw-services-mega__flyout");
+    if (!flyout) return;
+
+    const rect = item.getBoundingClientRect();
+    const approxWidth = Math.max(flyout.offsetWidth || 252, 252);
+    const openLeft = rect.right + 8 + approxWidth > window.innerWidth - 12;
+    item.classList.toggle("is-flyout-left", openLeft);
+    flyout.classList.toggle("is-open-left", openLeft);
+  }
+
+  function setDropdownOpen(wrap, open) {
+    const dropdownBtn = wrap.querySelector(".nav-dropdown-btn");
+    const dropdownMenu = wrap.querySelector(".nav-dropdown-menu");
+    if (!dropdownBtn || !dropdownMenu) return;
+    dropdownBtn.setAttribute("aria-expanded", String(open));
+    wrap.classList.toggle("is-open", open);
+    if (open) {
+      placeMenu(wrap);
+    } else {
+      closeDesktopBranches(dropdownMenu);
+      dropdownMenu.style.removeProperty("--fw-menu-top");
+      dropdownMenu.style.removeProperty("--fw-menu-left");
+    }
   }
 
   function closeAllDesktopDropdowns(exceptWrap) {
     document.querySelectorAll(".nav-dropdown-wrap").forEach((wrap) => {
       if (wrap === exceptWrap) return;
-      const dropdownBtn = wrap.querySelector(".nav-dropdown-btn");
-      const dropdownMenu = wrap.querySelector(".nav-dropdown-menu");
-      if (dropdownBtn) dropdownBtn.setAttribute("aria-expanded", "false");
-      closeDesktopBranches(dropdownMenu);
+      setDropdownOpen(wrap, false);
+    });
+  }
+
+  function repositionOpenMenus() {
+    document.querySelectorAll(".nav-dropdown-wrap.is-open").forEach((wrap) => {
+      placeMenu(wrap);
+      wrap.querySelectorAll(".fw-services-mega__item--branch.subnav-open").forEach((item) => {
+        placeFlyout(item);
+      });
     });
   }
 
@@ -294,35 +355,94 @@ document.querySelectorAll('a[href^="tel:"]').forEach((link) => {
     const dropdownMenu = wrap.querySelector(".nav-dropdown-menu");
     if (!dropdownBtn || !dropdownMenu) return;
 
-    dropdownMenu.querySelectorAll(".fw-services-mega__item--branch .subnav-toggle").forEach((btn) => {
+    let closeTimer = null;
+
+    const cancelClose = () => {
+      if (closeTimer) {
+        clearTimeout(closeTimer);
+        closeTimer = null;
+      }
+    };
+
+    const scheduleClose = () => {
+      cancelClose();
+      closeTimer = setTimeout(() => setDropdownOpen(wrap, false), HOVER_CLOSE_DELAY);
+    };
+
+    const openDropdown = () => {
+      if (!MQ_DESKTOP.matches) return;
+      cancelClose();
+      closeAllDesktopDropdowns(wrap);
+      setDropdownOpen(wrap, true);
+    };
+
+    wrap.addEventListener("mouseenter", openDropdown);
+    wrap.addEventListener("mouseleave", scheduleClose);
+    dropdownMenu.addEventListener("mouseenter", cancelClose);
+    dropdownMenu.addEventListener("mouseleave", scheduleClose);
+    wrap.addEventListener("focusin", openDropdown);
+    wrap.addEventListener("focusout", (e) => {
+      if (!wrap.contains(e.relatedTarget) && !dropdownMenu.contains(e.relatedTarget)) {
+        scheduleClose();
+      }
+    });
+
+    dropdownMenu.querySelectorAll(".fw-services-mega__item--branch").forEach((item) => {
+      const btn = item.querySelector(".subnav-toggle");
+      if (!btn) return;
+
+      let branchTimer = null;
+
+      const openBranch = () => {
+        if (branchTimer) clearTimeout(branchTimer);
+        closeDesktopBranches(dropdownMenu, item);
+        item.classList.add("subnav-open");
+        btn.setAttribute("aria-expanded", "true");
+        requestAnimationFrame(() => placeFlyout(item));
+      };
+
+      const scheduleBranchClose = () => {
+        if (branchTimer) clearTimeout(branchTimer);
+        branchTimer = setTimeout(() => {
+          if (!item.matches(":hover") && !item.contains(document.activeElement)) {
+            item.classList.remove("subnav-open");
+            btn.setAttribute("aria-expanded", "false");
+          }
+        }, HOVER_CLOSE_DELAY);
+      };
+
+      item.addEventListener("mouseenter", openBranch);
+      item.addEventListener("mouseleave", scheduleBranchClose);
       btn.addEventListener("click", (e) => {
         e.preventDefault();
         e.stopPropagation();
-        const item = btn.closest(".fw-services-mega__item--branch");
-        if (!item) return;
         const opening = !item.classList.contains("subnav-open");
         closeDesktopBranches(dropdownMenu, opening ? item : null);
         item.classList.toggle("subnav-open", opening);
         btn.setAttribute("aria-expanded", String(opening));
+        if (opening) requestAnimationFrame(() => placeFlyout(item));
       });
     });
 
     dropdownBtn.addEventListener("click", (e) => {
       e.stopPropagation();
+      if (!MQ_DESKTOP.matches) return;
       const expanded = dropdownBtn.getAttribute("aria-expanded") === "true";
-      closeAllDesktopDropdowns(expanded ? wrap : null);
-      dropdownBtn.setAttribute("aria-expanded", String(!expanded));
-      if (expanded) closeDesktopBranches(dropdownMenu);
+      if (expanded) setDropdownOpen(wrap, false);
+      else openDropdown();
     });
 
     dropdownMenu.addEventListener("click", (e) => e.stopPropagation());
   });
 
-  document.addEventListener("click", () => {
-    closeAllDesktopDropdowns();
-    document.querySelectorAll(".nav-dropdown-wrap .nav-dropdown-btn").forEach((btn) => {
-      btn.setAttribute("aria-expanded", "false");
-    });
+  document.addEventListener("click", () => closeAllDesktopDropdowns());
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeAllDesktopDropdowns();
+  });
+  window.addEventListener("scroll", repositionOpenMenus, { passive: true });
+  window.addEventListener("resize", () => {
+    if (!MQ_DESKTOP.matches) closeAllDesktopDropdowns();
+    else repositionOpenMenus();
   });
 
   function resetMobileBranches() {
