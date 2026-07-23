@@ -576,85 +576,222 @@ document.querySelectorAll(".mobile-services-toggle").forEach((toggle) => {
     toggle.setAttribute("aria-expanded", String(open));
   });
 });
-// ---- Reviews carousel (Knight Logics-style) ----
+// ---- Reviews carousel (GBP-backed via data/google-reviews.json) ----
 (function initFaithWorksReviews() {
-  const track = document.getElementById("fw-review-track");
-  const dotsWrap = document.getElementById("fw-review-dots");
-  const prev = document.getElementById("fw-review-prev");
-  const next = document.getElementById("fw-review-next");
-  if (!track || !dotsWrap || !prev || !next) return;
+  const carousels = document.querySelectorAll("[data-fw-review-carousel]");
+  if (!carousels.length) return;
 
-  const cards = Array.from(track.children);
-  if (!cards.length) return;
+  carousels.forEach((carousel) => {
+    const track = carousel.querySelector("#fw-review-track") || carousel.querySelector(".fw-review-track");
+    const prev = document.getElementById("fw-review-prev") || carousel.querySelector(".fw-review-btn:first-of-type");
+    const next = document.getElementById("fw-review-next") || carousel.querySelector(".fw-review-btn:last-of-type");
+    const showcase = carousel.closest(".fw-reviews-showcase");
+    const dotsWrap = document.getElementById("fw-review-dots") || (showcase && showcase.querySelector(".fw-review-dots"));
+    const summaryEl = document.getElementById("fw-review-summary");
+    const starsEl = document.getElementById("fw-review-stars");
+    const mapRatingEl = document.getElementById("fw-map-rating");
+    const seedEl = showcase ? showcase.querySelector("#google-reviews-seed") : null;
 
-  let index = 0;
-  let cardWidth = 0;
-  const gap = 18;
+    if (!track || !prev || !next || !dotsWrap || !showcase) return;
 
-  function perView() {
-    if (window.innerWidth < 720) return 1;
-    if (window.innerWidth < 1060) return 2;
-    return 3;
-  }
+    let cards = [];
+    let currentIndex = 0;
+    let reviews = [];
 
-  function pageCount() {
-    return Math.max(1, Math.ceil(cards.length / perView()));
-  }
-
-  function renderDots() {
-    dotsWrap.innerHTML = "";
-    for (let i = 0; i < pageCount(); i += 1) {
-      const dot = document.createElement("button");
-      dot.type = "button";
-      dot.className = "fw-review-dot" + (i === index ? " is-active" : "");
-      dot.setAttribute("aria-label", "Go to review set " + (i + 1));
-      dot.addEventListener("click", () => {
-        index = i;
-        update();
-      });
-      dotsWrap.appendChild(dot);
+    function escapeHtml(value) {
+      return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
     }
-  }
 
-  function measureCards() {
-    cardWidth = cards[0] ? cards[0].offsetWidth : 0;
-  }
+    function getInitial(name) {
+      const clean = String(name || "").trim();
+      return clean ? clean.charAt(0).toUpperCase() : "?";
+    }
 
-  function update() {
-    const pages = pageCount();
-    index = Math.max(0, Math.min(index, pages - 1));
-    const offset = index * (cardWidth + gap) * perView();
-    track.style.transform = "translateX(" + -offset + "px)";
-    Array.from(dotsWrap.children).forEach((dot, dotIndex) => {
-      dot.classList.toggle("is-active", dotIndex === index);
+    function formatStars(count) {
+      const stars = Math.max(1, Math.min(5, Number(count) || 5));
+      return "\u2605".repeat(stars);
+    }
+
+    function reviewCardMarkup(review) {
+      return (
+        '<article class="fw-review-card">' +
+        '<div class="fw-review-header">' +
+        '<span class="fw-review-avatar" style="background:' +
+        escapeHtml(review.avatarColor || "#c9a227") +
+        ';" aria-hidden="true">' +
+        escapeHtml(getInitial(review.name)) +
+        "</span>" +
+        "<div>" +
+        '<p class="fw-review-name">' +
+        escapeHtml(review.name) +
+        "</p>" +
+        '<div class="fw-review-sub">' +
+        escapeHtml(review.meta || "Google review") +
+        "</div>" +
+        "</div>" +
+        "</div>" +
+        '<div class="fw-review-stars" role="img" aria-label="' +
+        escapeHtml(String(Number(review.stars) || 5)) +
+        ' stars">' +
+        formatStars(review.stars) +
+        "</div>" +
+        '<p class="fw-review-text">' +
+        escapeHtml(review.text || "") +
+        "</p>" +
+        '<div class="fw-review-date">' +
+        escapeHtml(review.date || "") +
+        "</div>" +
+        "</article>"
+      );
+    }
+
+    function applySummary(payload) {
+      const ratingNum = Number(payload.ratingValue || 5);
+      const rating = ratingNum.toFixed(1);
+      const count = Number(payload.reviewCount || reviews.length || 0);
+      const roundedStars = Math.max(1, Math.min(5, Math.round(ratingNum)));
+      const label = count === 1 ? " review" : " reviews";
+      if (summaryEl) summaryEl.textContent = rating + " \u00b7 " + count + label;
+      if (starsEl) {
+        starsEl.textContent = formatStars(roundedStars);
+        starsEl.setAttribute("aria-label", rating + " out of 5 stars");
+      }
+      if (mapRatingEl) {
+        mapRatingEl.textContent =
+          formatStars(roundedStars) + " " + rating + " \u00b7 " + count + " Google review" + (count === 1 ? "" : "s");
+        mapRatingEl.setAttribute(
+          "aria-label",
+          rating + " out of 5 stars, " + count + " Google reviews",
+        );
+      }
+    }
+
+    function perView() {
+      if (window.innerWidth < 720) return 1;
+      if (window.innerWidth < 1060) return 2;
+      return 3;
+    }
+
+    function pageCount() {
+      return Math.max(1, Math.ceil(cards.length / perView()));
+    }
+
+    function maxIndex() {
+      return Math.max(0, cards.length - perView());
+    }
+
+    function cardSpan() {
+      if (!cards.length) return 0;
+      const styles = window.getComputedStyle(track);
+      const gap = parseFloat(styles.columnGap || styles.gap || "18");
+      return cards[0].getBoundingClientRect().width + gap;
+    }
+
+    function updateButtons() {
+      const singlePage = pageCount() <= 1 || cards.length === 0;
+      prev.disabled = singlePage || currentIndex <= 0;
+      next.disabled = singlePage || currentIndex >= maxIndex();
+    }
+
+    function update() {
+      currentIndex = Math.max(0, Math.min(currentIndex, maxIndex()));
+      track.style.transform = "translateX(" + -currentIndex * cardSpan() + "px)";
+      const activePage = Math.floor(currentIndex / perView());
+      Array.from(dotsWrap.children).forEach((dot, dotIndex) => {
+        const isActive = dotIndex === activePage;
+        dot.classList.toggle("is-active", isActive);
+        if (isActive) dot.setAttribute("aria-current", "true");
+        else dot.removeAttribute("aria-current");
+      });
+      updateButtons();
+    }
+
+    function renderDots() {
+      dotsWrap.innerHTML = "";
+      for (let i = 0; i < pageCount(); i += 1) {
+        const dot = document.createElement("button");
+        dot.type = "button";
+        dot.className = "fw-review-dot" + (i === 0 ? " is-active" : "");
+        dot.setAttribute("aria-label", "Go to review page " + (i + 1));
+        if (i === 0) dot.setAttribute("aria-current", "true");
+        dot.addEventListener("click", () => {
+          currentIndex = i * perView();
+          update();
+        });
+        dotsWrap.appendChild(dot);
+      }
+    }
+
+    function renderReviews(payload) {
+      reviews = Array.isArray(payload.reviews) ? payload.reviews.slice() : [];
+      applySummary(payload);
+
+      if (!reviews.length) {
+        track.innerHTML =
+          '<article class="fw-review-card"><p class="fw-review-text">Reviews will appear here once posted on Google.</p></article>';
+      } else {
+        track.innerHTML = reviews.map(reviewCardMarkup).join("");
+      }
+
+      cards = Array.from(track.querySelectorAll(".fw-review-card"));
+      currentIndex = 0;
+      renderDots();
+      update();
+    }
+
+    function parseSeedPayload() {
+      if (!seedEl) return null;
+      try {
+        return JSON.parse(seedEl.textContent || "{}");
+      } catch (error) {
+        console.warn("Google review seed parse failed:", error);
+        return null;
+      }
+    }
+
+    function reviewsFeedUrl() {
+      const script = document.querySelector('script[src*="script.js"]');
+      if (script && script.src) {
+        return new URL("data/google-reviews.json", script.src).href;
+      }
+      return new URL("data/google-reviews.json", window.location.href).href;
+    }
+
+    async function loadReviews() {
+      let payload = null;
+      try {
+        const response = await fetch(reviewsFeedUrl(), { cache: "no-store" });
+        if (response.ok) payload = await response.json();
+      } catch (error) {
+        console.warn("Google review feed fetch failed, using seed data:", error);
+      }
+
+      if (!payload) payload = parseSeedPayload();
+      if (!payload || !Array.isArray(payload.reviews)) {
+        payload = { ratingValue: 5, reviewCount: 0, reviews: [] };
+      }
+      renderReviews(payload);
+    }
+
+    prev.addEventListener("click", () => {
+      currentIndex -= perView();
+      update();
     });
-    prev.disabled = index === 0;
-    next.disabled = index === pages - 1;
-  }
+    next.addEventListener("click", () => {
+      currentIndex += perView();
+      update();
+    });
+    window.addEventListener("resize", () => {
+      renderDots();
+      update();
+    });
 
-  function onResize() {
-    measureCards();
-    renderDots();
-    update();
-  }
-
-  prev.addEventListener("click", () => {
-    index -= 1;
-    update();
-  });
-  next.addEventListener("click", () => {
-    index += 1;
-    update();
-  });
-  window.addEventListener("resize", onResize);
-  if (typeof ResizeObserver !== "undefined" && cards[0]) {
-    new ResizeObserver(onResize).observe(cards[0]);
-  }
-
-  requestAnimationFrame(() => {
-    measureCards();
-    renderDots();
-    update();
+    loadReviews();
   });
 })();
 
