@@ -1,11 +1,18 @@
 User-agent: *
 Allow: /
 Allow: /areas/
+Allow: /ai.txt
 Allow: /llms.txt
 Allow: /llms-full.txt
+Allow: /.well-known/ai.txt
+Allow: /.well-known/llms.txt
 Allow: /a8f3c2e91b4d6075f8e2a1c9d0b746e.txt
 Disallow: /faithworksods-website/
 
-Sitemap: https://faithworksclearing.com/sitemap.xml
+# AI / LLM discovery
+# AI entity facts: https://faithworksclearing.com/ai.txt
 # Summary: https://faithworksclearing.com/llms.txt
 # Full summary: https://faithworksclearing.com/llms-full.txt
+# Well-known mirrors: https://faithworksclearing.com/.well-known/ai.txt | https://faithworksclearing.com/.well-known/llms.txt
+
+Sitemap: https://faithworksclearing.com/sitemap.xml
