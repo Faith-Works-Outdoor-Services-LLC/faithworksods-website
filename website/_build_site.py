@@ -1312,10 +1312,27 @@ def service_scope_details(s: dict) -> str:
 
 def service_opportunity_section(s: dict) -> str:
     sections = {
+        "land-clearing": {
+            "heading": "Land Clearing Near Me — What This Page Covers",
+            "body": (
+                "This page targets land clearing near me and Polk County land clearing searches for overgrown lots, "
+                "acreage, brush, and vegetation that a lawn crew cannot handle. Best-fit jobs include reclaiming usable "
+                "yard space, opening fence lines, preparing trails or future outdoor projects, and clearing land around "
+                "Auburndale, Lakeland, Winter Haven, Tampa-area, and Orange County properties within our travel radius."
+            ),
+            "links": [
+                ("Forestry mulching", "forestry-mulching.html"),
+                ("Brush clearing", "brush-clearing.html"),
+                ("Overgrowth removal", "overgrowth-removal.html"),
+                ("Land clearing in Lakeland", "areas/lakeland-fl.html"),
+                ("Land clearing in Tampa", "areas/tampa-fl.html"),
+                ("Land clearing in Orlando", "areas/orlando-fl.html"),
+            ],
+        },
         "brush-clearing": {
             "heading": "Brush Removal Searches This Page Targets",
             "body": (
-                "This page is tuned for property owners looking for brush removal services near me, brush clearing "
+                "This page is tuned for property owners looking for brush clearing services near me, brush clearing "
                 "near Auburndale, and overgrowth cleanup on Polk County lots. The best-fit jobs usually include "
                 "fence rows, pond banks, trails, field edges, and areas too thick for routine mowing."
             ),
@@ -1373,11 +1390,12 @@ def service_opportunity_section(s: dict) -> str:
             ],
         },
         "storm-debris-cleanup": {
-            "heading": "Post-Storm Cleanup And Blocked Access",
+            "heading": "Storm Cleanup Near Me — Outdoor Debris Only",
             "body": (
-                "This page is built for storm debris cleanup searches where the property owner needs limbs, brush "
-                "piles, driveway obstructions, or access paths cleared fast. Calls and photo texts are emphasized "
-                "because storm cleanup intent is urgent."
+                "This page is built for storm cleanup near me and storm debris cleanup searches where the property "
+                "owner needs limbs, brush piles, driveway obstructions, or access paths cleared fast. Faith Works "
+                "handles outdoor storm debris and property access — not roof repair, tarp work, or insurance claim "
+                "management. Calls, texts, and photo estimates are emphasized because storm cleanup intent is urgent."
             ),
             "links": [
                 ("Yard debris removal", "yard-debris-removal.html"),
@@ -1415,8 +1433,46 @@ def service_opportunity_section(s: dict) -> str:
           </section>"""
 
 
+def service_timeline_section(s: dict) -> str:
+    """SERP consensus gap: competitors emphasize timeline / what to expect."""
+    timelines = {
+        "land-clearing": (
+            "Most residential land clearing jobs move from photos → scope confirmation → written estimate → "
+            "scheduled clearing day(s). Small lots and selective clearing often finish in a day; denser acreage, "
+            "wet ground, tight access, or haul-off can take longer. Tyler confirms the realistic window before you book."
+        ),
+        "brush-clearing": (
+            "Brush clearing typically starts with photos of fence lines, pond banks, or field edges so we size the "
+            "equipment. Many residential brush jobs complete in a day once access is clear; long fence rows and "
+            "thick saplings may need additional time. You get the timeline with the estimate — not after equipment shows up."
+        ),
+        "storm-debris-cleanup": (
+            "After a storm, send photos as soon as it is safe. Tyler prioritizes blocked driveways and access paths, "
+            "then yard and acreage debris. Many cleanup jobs are scheduled quickly when weather and access allow; "
+            "large piles or haul-off volume can add time. Outdoor debris only — we do not repair roofs or manage insurance claims."
+        ),
+        "forestry-mulching": (
+            "Forestry mulching jobs are scoped from photos of vegetation density and access. Compact residential "
+            "sections often finish in a day; larger acreage is scheduled by area. Mulching reduces haul-off volume "
+            "compared with cut-and-pile methods, which often shortens the overall project timeline."
+        ),
+    }
+    body = timelines.get(s["slug"])
+    if not body:
+        return ""
+    return f"""
+          <h2>What to Expect: Timeline</h2>
+          <p>{body}</p>
+          <ul>
+            <li>Text photos or use the estimate form with your city and a short description</li>
+            <li>Tyler confirms access, equipment, debris handling, and schedule window</li>
+            <li>You receive a clear estimate before work is booked</li>
+            <li>Faith Works arrives owner-operated with the equipment that fits the job</li>
+          </ul>"""
+
+
 def service_faqs(s: dict) -> list[tuple[str, str]]:
-    return [
+    faqs = [
         (
             f"How do I get a {s['name'].lower()} estimate?",
             f"Send photos, the city or job address, access notes, and a short description of the area. Tyler reviews the scope and follows up with the next step for {s['name'].lower()} in {SITE['area']}.",
@@ -1434,6 +1490,52 @@ def service_faqs(s: dict) -> list[tuple[str, str]]:
             "Faith Works does not install underground utilities, sewer systems, stormwater systems, water mains, engineered drainage, or pools. Digging work should be cleared through Sunshine 811 before it begins.",
         ),
     ]
+    extras: dict[str, list[tuple[str, str]]] = {
+        "land-clearing": [
+            (
+                "How long does land clearing usually take?",
+                "Many residential lots and selective clearing jobs finish in a day once access is confirmed. Denser acreage, wet ground, tight gates, or haul-off can take longer. Tyler sets the timeline with your estimate.",
+            ),
+            (
+                "Do you serve land clearing near me outside Polk County?",
+                f"Yes within about {SERVICE_RADIUS_MILES} miles of Auburndale — including parts of Hillsborough, Orange, Osceola, Lake, and nearby counties when the job fits. Include your city with the photos so we confirm travel and equipment.",
+            ),
+            (
+                "Is Faith Works owner-operated?",
+                "Yes. You work directly with Tyler from estimate through completion — not a call center or rotating subcontractor crew.",
+            ),
+        ],
+        "brush-clearing": [
+            (
+                "How quickly can brush clearing be scheduled?",
+                "After photos and a clear scope, many brush jobs are scheduled on the next available equipment day. Fence lines and pond banks that block access are often prioritized when weather allows.",
+            ),
+            (
+                "Can you clear brush without removing mature trees?",
+                "Yes. Selective brush clearing and mulching can open fence lines, trails, and edges while keeping trees you want to keep — note keepers in your photos or message.",
+            ),
+            (
+                "Is brush clearing different from land clearing?",
+                "Brush clearing focuses on thick vegetation, saplings, and edges. Land clearing is broader lot or acreage work. Tyler will recommend the better fit from your photos.",
+            ),
+        ],
+        "storm-debris-cleanup": [
+            (
+                "Do you handle storm cleanup near me after hurricanes or summer storms?",
+                f"Yes for outdoor debris within about {SERVICE_RADIUS_MILES} miles of Auburndale — fallen limbs, brush piles, blocked driveways, and access paths. Include your city and photos as soon as it is safe.",
+            ),
+            (
+                "Do you repair roofs or file insurance claims?",
+                "No. Faith Works clears outdoor storm debris and restores property access. We do not repair roofs, install tarps as a roofing contractor, or manage insurance claims.",
+            ),
+            (
+                "How fast can storm debris be cleared?",
+                "Blocked driveways and access paths are prioritized when weather allows. Send photos early — many cleanup jobs can be scheduled quickly once scope and access are clear.",
+            ),
+        ],
+    }
+    faqs.extend(extras.get(s["slug"], []))
+    return faqs
 
 
 def faq_accordion(faqs: list[tuple[str, str]], prefix: str) -> str:
@@ -2362,6 +2464,7 @@ def write_service_page(s: dict) -> None:
           <h2>Benefits</h2>
           <ul>{benefits}</ul>
           {service_opportunity_section(s)}
+          {service_timeline_section(s)}
           {service_scope_details(s)}
           {related}
           <h2>Owner-Operated Service</h2>

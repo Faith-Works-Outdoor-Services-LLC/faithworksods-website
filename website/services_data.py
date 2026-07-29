@@ -125,14 +125,18 @@ SERVICES = [
         "Land Clearing",
         category="phase1",
         phase1=True,
-        title=f"Land Clearing Services in {AREA}, FL",
+        title="Land Clearing Near Me in Polk County FL | Faith Works",
         h1=f"Land Clearing Services — {AREA}",
-        desc=f"Land clearing for overgrown lots, brush, and acreage in {CITY}, Lakeland, Winter Haven, and surrounding Polk County areas.",
-        keyword="land clearing Polk County FL",
+        desc=(
+            "Land clearing near Auburndale, Lakeland, Winter Haven, and Polk County — overgrown lots, brush, and acreage. "
+            "Owner-operated. Free photo estimates. Call or text Tyler."
+        ),
+        keyword="land clearing near me",
         intro=(
-            f"Overgrown lots, thick brush, and unmanaged vegetation make property harder to use and harder to maintain. "
-            f"Faith Works Outdoor Services clears land for homeowners and property owners across {AREA} using forestry mulching, "
-            "brush cutting, and equipment-ready cleanup for homes, acreage, pond banks, trails, and fence lines."
+            f"Searching for land clearing near me in Central Florida usually means overgrown lots, thick brush, and "
+            f"unmanaged vegetation that make property harder to use. Faith Works Outdoor Services clears land for "
+            f"homeowners and property owners across {AREA} using forestry mulching, brush cutting, and equipment-ready "
+            "cleanup for homes, acreage, pond banks, trails, and fence lines — with clear written estimates before work starts."
         ),
         bullets=[
             "Overgrown lot and acreage clearing",
@@ -203,10 +207,13 @@ SERVICES = [
         phase1=True,
         nav="Brush Clearing",
         form_label="Brush Clearing / Brush Cutting",
-        title="Brush Clearing in Auburndale & Polk County | Faith Works",
+        title="Brush Clearing Near Me in Polk County FL | Faith Works",
         h1="Brush Clearing & Brush Removal — Auburndale & Polk County",
-        desc="Brush clearing and brush removal for overgrown lots, fence lines, pond banks, trails, and acreage in Auburndale, Lakeland, Winter Haven, and Polk County.",
-        keyword="brush removal services near me",
+        desc=(
+            "Brush clearing services near me in Auburndale, Lakeland, Winter Haven, and Polk County — fence lines, "
+            "pond banks, trails, and acreage. Free photo estimates. Call or text Tyler."
+        ),
+        keyword="brush clearing services near me",
         intro=(
             "When you search for brush removal services near me, you usually need more than a lawn crew. Thick brush "
             "takes over fast around Auburndale and Polk County — along fence lines, pond banks, trails, ditches, "
@@ -469,14 +476,18 @@ SERVICES = [
         "storm-debris-cleanup",
         "Storm Debris Cleanup",
         category="cleanup",
-        title="Storm Debris Cleanup in Polk County | Call or Text Tyler",
+        title="Storm Cleanup Near Me in Polk County FL | Faith Works",
         h1="Storm Debris Cleanup — Auburndale, Polk County & Nearby Areas",
-        desc="Storm debris cleanup for fallen limbs, brush piles, blocked driveways, access paths, and outdoor property cleanup in Auburndale and Polk County.",
-        keyword="storm debris cleanup Polk County FL",
+        desc=(
+            "Storm cleanup near me in Auburndale and Polk County — fallen limbs, brush piles, blocked driveways, "
+            "and outdoor debris. Fast photo estimates. Call or text Tyler."
+        ),
+        keyword="storm cleanup near me",
         intro=(
-            "Storms leave behind fallen limbs, scattered debris, blocked driveways, brush piles, and access paths "
-            "that are hard to clear by hand. Faith Works Outdoor Services helps Polk County homeowners and landowners "
-            "clean up storm debris, restore usable access, and get outdoor areas under control after weather events."
+            "When you search storm cleanup near me after Florida weather, you usually need fallen limbs, scattered "
+            "debris, blocked driveways, brush piles, and access paths cleared fast — not roof repair or insurance "
+            "claim brokerage. Faith Works Outdoor Services helps Polk County homeowners and landowners clean up "
+            "outdoor storm debris, restore usable access, and get property under control after weather events."
         ),
         bullets=[
             "Fallen branch and limb cleanup",

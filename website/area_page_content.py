@@ -133,8 +133,8 @@ COUNTY_PROFILES: dict[str, dict] = {
         ),
         "nearby_counties": ["Osceola County", "Lake County", "Polk County", "Seminole County"],
         "meta_lead": (
-            "Outdoor property clearing in Orange County — Orlando, Ocoee, Winter Garden, and Apopka. "
-            "Rear acreage, pond edges, and brush removal from Faith Works in Auburndale."
+            "Land clearing services in Orange County — Orlando, Ocoee, Winter Garden, and Apopka. "
+            "Rear acreage, pond edges, and brush removal. Free photo estimates from Faith Works."
         ),
         "coverage_snapshot": (
             "Greater Orlando includes oversized suburban lots backing to woods and conservation — jobs often focus on "
@@ -530,7 +530,15 @@ def county_profile(county_name: str) -> dict:
 
 
 def city_page_title(city_name: str) -> str:
-    return f"{SITE_POSITIONING} in {city_name}, FL"
+    # CTR-focused titles for high-impression GSC city queries
+    overrides = {
+        "Tampa": "Land Clearing in Tampa FL | Faith Works Clearing",
+        "Orlando": "Land Clearing in Orlando & Orange County FL | Faith Works",
+        "Lakeland": "Land Clearing in Lakeland FL | Faith Works Clearing",
+        "Winter Haven": "Land Clearing in Winter Haven FL | Faith Works",
+        "Auburndale": "Land Clearing in Auburndale FL | Faith Works Clearing",
+    }
+    return overrides.get(city_name, f"{SITE_POSITIONING} in {city_name}, FL")
 
 
 def city_meta_description(city: dict) -> str:

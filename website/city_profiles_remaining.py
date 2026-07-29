@@ -769,8 +769,8 @@ REMAINING_CITY_PROFILES: dict[str, dict] = {
     },
     "orlando-fl": {
         "meta_description": (
-            "Land clearing and overgrowth removal in Orlando, FL — urban lots, lakes, and retention ponds. "
-            "Faith Works brush cutting from Auburndale. Photo-based estimates for Orange County."
+            "Land clearing services in Orlando & Orange County FL — rear lots, lakes, and retention ponds. "
+            "Owner-operated from Auburndale. Free photo estimates. Call or text Tyler."
         ),
         "hook": (
             "Orlando's mix of urban infill, lake-adjacent neighborhoods, and suburban oversized lots creates "
@@ -1279,8 +1279,8 @@ REMAINING_CITY_PROFILES: dict[str, dict] = {
     },
     "tampa-fl": {
         "meta_description": (
-            "Land clearing and property cleanup in Tampa, FL — urban lots, retention ponds, and vacant land. "
-            "Faith Works brush cutting from Auburndale. Photo-based estimates for Hillsborough."
+            "Land clearing in Tampa FL — urban lots, retention ponds, and vacant land. "
+            "Owner-operated Faith Works from Auburndale. Free photo estimates. Call or text Tyler."
         ),
         "hook": (
             "Tampa spans dense urban neighborhoods, bay-adjacent communities, and suburban oversized lots where "
