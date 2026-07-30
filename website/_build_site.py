@@ -101,10 +101,10 @@ def logo_path(display_size: int) -> str:
 
 
 def mosaic_image_src(filename: str) -> str:
-    card = f"Gallery/cards/{filename}"
+    card = f"gallery/cards/{filename}"
     if (ROOT / card).exists():
         return card
-    return f"Gallery/{filename}"
+    return f"gallery/{filename}"
 
 
 def logo_coin(modifier: str = "fw-logo-coin--header", size: int = 68, alt: str = "", logo_src: str | None = None) -> str:
@@ -246,10 +246,10 @@ HERO_PANELS = (
     ("bottom", "tractor-with-box-blade-leveling-ground.webp", "Tractor leveling ground on a job site"),
     ("right", "excavator-photo.webp", "Excavator on a Central Florida property"),
 )
-CONTACT_BANNER = "Gallery/equipment-photos5.webp"
+CONTACT_BANNER = "gallery/equipment-photos5.webp"
 CONTACT_CUTOUT = "Images/fw-banner-cutout.webp"
-PROCESS_BG = "Gallery/tractor-with-box-blade-leveling-ground.webp"
-SCOPE_BG = "Gallery/equipment-photos.webp"
+PROCESS_BG = "gallery/tractor-with-box-blade-leveling-ground.webp"
+SCOPE_BG = "gallery/equipment-photos.webp"
 IMAGE_LICENSE_PAGE = "image-use-policy.html"
 
 GOOGLE_G_LOGO = """<svg class="fw-google-g-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
@@ -1738,7 +1738,7 @@ def service_schema(s: dict) -> str:
         "description": s["desc"],
         "url": page_url(path),
         "mainEntityOfPage": {"@id": f"{page_url(path)}#webpage"},
-        "image": schema_asset_url(f"Gallery/{s['mosaic_image']}"),
+        "image": schema_asset_url(f"gallery/{s['mosaic_image']}"),
         "provider": {"@id": f"{SITE['url']}/#business"},
         "areaServed": [{"@type": "City", "name": f"{city}, FL"} for city in CITY_NAMES],
     }, indent=2)
@@ -2064,7 +2064,7 @@ def page_shell(
     hero_preloads = ""
     if preload_hero:
         panel_preloads = "".join(
-            f'  <link rel="preload" as="image" href="{root_prefix}Gallery/{img}" fetchpriority="high" media="(min-width: 769px)">\n'
+            f'  <link rel="preload" as="image" href="{root_prefix}gallery/{img}" fetchpriority="high" media="(min-width: 769px)">\n'
             for _, img, _ in HERO_PANELS
         )
         hero_preloads = f"""  <link rel="preload" as="image" href="{root_prefix}{HERO_BANNER_CUTOUT}" fetchpriority="high">
@@ -2171,7 +2171,7 @@ def business_schema() -> str:
             "@type": "Person",
             "name": SITE["owner"],
         },
-        "image": schema_asset_url(f"Gallery/{HERO_DESKTOP}"),
+        "image": schema_asset_url(f"gallery/{HERO_DESKTOP}"),
         "logo": {
             "@type": "ImageObject",
             "url": schema_asset_url(SCHEMA_LOGO),
@@ -2217,7 +2217,7 @@ def website_schema() -> str:
 
 
 def image_object_schema(image: str, caption: str, page: str) -> str:
-    image_url = schema_asset_url(f"Gallery/{image}")
+    image_url = schema_asset_url(f"gallery/{image}")
     return json.dumps({
         "@context": "https://schema.org",
         "@type": "ImageObject",
@@ -2238,9 +2238,9 @@ def gallery_image_graph_schema() -> str:
         "@graph": [
             {
                 "@type": "ImageObject",
-                "@id": f"{schema_asset_url(f'Gallery/{img}')}#image",
-                "contentUrl": schema_asset_url(f"Gallery/{img}"),
-                "url": schema_asset_url(f"Gallery/{img}"),
+                "@id": f"{schema_asset_url(f'gallery/{img}')}#image",
+                "contentUrl": schema_asset_url(f"gallery/{img}"),
+                "url": schema_asset_url(f"gallery/{img}"),
                 "caption": alt,
                 "name": label,
                 "creator": {"@id": f"{SITE['url']}/#business"},
@@ -2256,7 +2256,7 @@ def index_hero_background_html(root_prefix: str = "") -> str:
     for direction, img, _alt in HERO_PANELS:
         panels += f"""
         <div class="hero-panel hero-panel--{direction} hero-panel--photo">
-          <img src="{root_prefix}Gallery/{img}" alt="" width="960" height="1080" fetchpriority="high" decoding="async">
+          <img src="{root_prefix}gallery/{img}" alt="" width="960" height="1080" fetchpriority="high" decoding="async">
         </div>"""
     cutout = f"{root_prefix}{HERO_BANNER_CUTOUT}"
     return f"""      <div class="hero-panels" aria-hidden="true">{panels}
@@ -2267,8 +2267,8 @@ def index_hero_background_html(root_prefix: str = "") -> str:
 
 
 def hero_background_html(root_prefix: str = "") -> str:
-    desktop = f"{root_prefix}Gallery/{HERO_DESKTOP}"
-    mobile = f"{root_prefix}Gallery/{HERO_MOBILE_LCP}"
+    desktop = f"{root_prefix}gallery/{HERO_DESKTOP}"
+    mobile = f"{root_prefix}gallery/{HERO_MOBILE_LCP}"
     return f"""      <div class="hero-bg" aria-hidden="true">
         <picture>
           <source media="(max-width: 768px)" srcset="{mobile}" type="image/webp">
@@ -2304,7 +2304,7 @@ def write_index() -> None:
             f"{SITE['brand']} provides land clearing, pond bank clearing, ditch clearing, brush cutting, debris removal, and tractor work in Polk County, FL.",
             "index.html",
             main_entity={"@id": f"{page_url('index.html')}#faq"},
-            primary_image_id=f"{schema_asset_url(f'Gallery/{HERO_DESKTOP}')}#image",
+            primary_image_id=f"{schema_asset_url(f'gallery/{HERO_DESKTOP}')}#image",
         ),
         faqs=HOME_FAQS,
         breadcrumbs=[("Home", "index.html")],
@@ -2601,7 +2601,7 @@ def write_gallery() -> None:
     for i, (img, alt, label) in enumerate(GALLERY):
         items += f"""
           <figure class="gallery-item" data-fw-enter="bottom" style="--fw-enter-delay: {(i % 6) * 60}ms;">
-            <img src="Gallery/{img}" alt="{alt}" loading="lazy" width="800" height="600">
+            <img src="gallery/{img}" alt="{alt}" loading="lazy" width="800" height="600">
             <figcaption>{label}</figcaption>
           </figure>"""
     gallery_path = "gallery.html"
@@ -4020,9 +4020,9 @@ def write_styles() -> None:
     src = src.replace("#7499b8", "#a89878")
     src = src.replace("#aac8df", "#d4c4a0")
     src = src.replace("--container:     1200px;", "--container:     1400px;\n  --ease-out:      cubic-bezier(0.22, 1, 0.36, 1);")
-    src = src.replace('url("Images/ScreenTeamBanner.webp")', f'url("Gallery/{HERO_DESKTOP}")')
-    src = src.replace('url("Images/ScreenTeamBanner-mobile.webp")', f'url("Gallery/{HERO_MOBILE_LCP}")')
-    src = src.replace('url("Images/service-hero-bg.jpg")', f'url("Gallery/{HERO_DESKTOP}")')
+    src = src.replace('url("Images/ScreenTeamBanner.webp")', f'url("gallery/{HERO_DESKTOP}")')
+    src = src.replace('url("Images/ScreenTeamBanner-mobile.webp")', f'url("gallery/{HERO_MOBILE_LCP}")')
+    src = src.replace('url("Images/service-hero-bg.jpg")', f'url("gallery/{HERO_DESKTOP}")')
     src = src.replace(
         ".contact-section {\n  background: linear-gradient(135deg, #08152a 0%, #060f1c 100%);",
         ".contact-section {\n  position: relative;\n  overflow: hidden;\n  background: #0a0a0a;",

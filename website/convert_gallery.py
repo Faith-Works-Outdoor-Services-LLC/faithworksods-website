@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Convert Gallery HEIC/JPG sources to WebP alongside originals in Gallery/."""
+"""Convert Gallery HEIC/JPG sources to WebP alongside originals in gallery/."""
 
 from __future__ import annotations
 
@@ -13,7 +13,7 @@ from PIL import Image
 pillow_heif.register_heif_opener()
 
 ROOT = Path(__file__).resolve().parent.parent
-GALLERY_DIR = ROOT / "Gallery"
+GALLERY_DIR = ROOT / "gallery"
 
 # slug -> (alt text, gallery label)
 META = {

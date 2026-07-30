@@ -11,7 +11,7 @@ from PIL import Image, ImageOps
 
 ROOT = Path(__file__).resolve().parent.parent
 IMAGES = ROOT / "Images"
-GALLERY = ROOT / "Gallery"
+GALLERY = ROOT / "gallery"
 CARDS = GALLERY / "cards"
 
 LOGO_SRC = IMAGES / "fw-logo3.png"
