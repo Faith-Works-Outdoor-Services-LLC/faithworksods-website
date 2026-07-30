@@ -234,7 +234,7 @@ def job_gallery_projects() -> list[dict]:
         return []
     return [item for item in payload.get("projects", []) if isinstance(item, dict) and item.get("image")]
 
-ASSET_VERSION = "20260729a"
+ASSET_VERSION = "20260730a"
 HERO_DESKTOP = "photo-of-all-equipment.webp"
 HERO_MOBILE = "excavator-and-truck-photo.webp"
 HERO_MOBILE_LCP = f"heroes/{HERO_MOBILE}"
@@ -852,34 +852,79 @@ def intent_router_section(context: str = "home") -> str:
     </section>"""
 
 
+def load_google_reviews_payload() -> dict:
+    path = ROOT / "data" / "google-reviews.json"
+    if not path.is_file():
+        return {"ratingValue": 5.0, "reviewCount": 0, "reviews": []}
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {"ratingValue": 5.0, "reviewCount": 0, "reviews": []}
+    if not isinstance(payload, dict):
+        return {"ratingValue": 5.0, "reviewCount": 0, "reviews": []}
+    reviews = payload.get("reviews")
+    if not isinstance(reviews, list):
+        payload["reviews"] = []
+    return payload
+
+
 def reviews_section() -> str:
     review_url = SITE["google_review_url"]
     maps_embed = SITE["google_maps_embed"]
+    payload = load_google_reviews_payload()
+    reviews = [r for r in payload.get("reviews", []) if isinstance(r, dict)]
+    rating_num = float(payload.get("ratingValue") or 5)
+    rating = f"{rating_num:.1f}"
+    count = int(payload.get("reviewCount") or len(reviews) or 0)
+    stars = "&#9733;" * max(1, min(5, round(rating_num)))
+    review_word = "review" if count == 1 else "reviews"
+    seed_payload = {
+        "ratingValue": rating_num,
+        "reviewCount": count,
+        "reviews": reviews[:10],
+    }
+    seed_json = json.dumps(seed_payload, ensure_ascii=False, indent=2)
     return f"""
     <section id="reviews" class="reviews-section section-shell" aria-label="Google reviews and map">
       <div class="container">
         <div class="section-heading" data-fw-enter="left">
           <p class="eyebrow">Local trust</p>
           <h2>Google Reviews &amp; Service Area Map</h2>
-          <p>Confirm our location on the map below. Verified Google reviews will appear here once customers share feedback on our Business Profile.</p>
+          <p>Verified Google reviews from Polk County and nearby Central Florida customers — confirm our location on the map below.</p>
         </div>
         <div class="fw-map-review-shell" data-fw-enter="bottom">
-          <div class="fw-reviews-showcase fw-reviews-showcase--placeholder" aria-label="Google reviews">
-            <div class="fw-reviews-placeholder">
-              <div class="fw-reviews-header fw-reviews-header--compact">
-                {GOOGLE_G_LOGO}
-                <span class="fw-reviews-header__label">Google Reviews</span>
-                <div class="fw-reviews-summary">Reviews coming soon</div>
-              </div>
-              <a class="btn btn-primary fw-reviews-leave-btn" href="{review_url}" target="_blank" rel="noopener noreferrer">Leave a Review</a>
+          <div class="fw-reviews-showcase" aria-label="Google reviews">
+            <div class="fw-reviews-header">
+              {GOOGLE_G_LOGO}
+              <span class="fw-reviews-header__label">Google Reviews</span>
+              <div class="fw-review-stars fw-review-stars--header" id="fw-review-stars" role="img" aria-label="{rating} out of 5 stars">{stars}</div>
+              <div class="fw-reviews-summary" id="fw-review-summary">{rating} &middot; {count} {review_word}</div>
             </div>
+
+            <div class="fw-review-carousel" data-fw-review-carousel>
+              <button class="fw-review-btn" id="fw-review-prev" type="button" aria-label="Previous review" disabled>&#8249;</button>
+              <div class="fw-review-viewport">
+                <div class="fw-review-track" id="fw-review-track" aria-live="polite"></div>
+              </div>
+              <button class="fw-review-btn" id="fw-review-next" type="button" aria-label="Next review" disabled>&#8250;</button>
+            </div>
+
+            <div class="fw-review-dots" id="fw-review-dots" role="group" aria-label="Google review pages"></div>
+
+            <p class="fw-reviews-footnote">
+              <a href="{review_url}" target="_blank" rel="noopener noreferrer">Read all reviews or leave yours on Google</a>
+            </p>
+
+            <script id="google-reviews-seed" type="application/json">
+{seed_json}
+            </script>
           </div>
           <div class="fw-map-panel" id="fw-map-shell" aria-label="Faith Works Outdoor Services on Google Maps">
             <iframe class="fw-map-frame" src="{maps_embed}" title="Faith Works Outdoor Services LLC on Google Maps" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             <div class="fw-map-overlay">
               <strong>{SITE['brand']}</strong>
               <span>{SITE['city']}, FL &middot; Central Florida outdoor services</span>
-              <span class="fw-map-rating" aria-label="Reviews coming soon">Google reviews coming soon</span>
+              <span class="fw-map-rating" id="fw-map-rating" aria-label="{rating} out of 5 stars, {count} Google {review_word}">{stars} {rating} &middot; {count} Google {review_word}</span>
             </div>
           </div>
         </div>
@@ -1055,8 +1100,13 @@ def priority_visibility_cluster(root_prefix: str = "") -> str:
         ("Auburndale outdoor services", "areas/auburndale-fl.html"),
     ]
     items = "".join(f'<a href="{root_prefix}{href}">{label}</a>' for label, href in links)
+    bg = mosaic_image_src("stump-during-removal-1.webp")
     return f"""
-    <section class="section-shell priority-visibility-cluster">
+    <section class="section-shell priority-visibility-cluster priority-visibility-cluster--parallax" data-parallax-overscan="0.28" data-parallax-rate="0.55" aria-label="High-demand local services">
+      <div class="priority-cluster-bg fw-parallax-bg" aria-hidden="true">
+        <img src="{root_prefix}{bg}" alt="" width="1920" height="1080" loading="lazy" decoding="async" class="priority-cluster-bg__img" role="presentation">
+      </div>
+      <div class="priority-cluster-overlay" aria-hidden="true"></div>
       <div class="container">
         <div class="section-heading" data-fw-enter="left">
           <p class="eyebrow">High-demand local services</p>
@@ -6646,10 +6696,41 @@ html.fw-js [data-fw-enter].is-visible {
   font-size: 0.94rem;
   flex: 1;
   margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 .fw-review-date {
   color: var(--muted);
   font-size: 0.82rem;
+  font-weight: 700;
+}
+.fw-review-reply {
+  margin-top: 4px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: rgba(201, 162, 39, 0.08);
+  border-left: 3px solid var(--accent);
+}
+.fw-review-reply__label {
+  margin: 0 0 6px;
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.fw-review-reply__text {
+  margin: 0;
+  color: rgba(245, 240, 232, 0.86);
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+.fw-review-reply__date {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 0.76rem;
   font-weight: 700;
 }
 .fw-review-btn {
@@ -7679,6 +7760,137 @@ footer.fw-site-footer .footer-disclaimer {
   .home-services-hub-grid--buyer,
   .equipment-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+/* ---- 2026-07-30 layout fixes: hero density, h1 width, social row, priority cluster ---- */
+.priority-visibility-cluster--parallax {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  padding-block: clamp(36px, 5vw, 56px);
+  background: #0a0a0a;
+}
+.priority-cluster-bg {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -24%;
+  height: 148%;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.priority-cluster-bg__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center 45%;
+  transform: translate3d(0, var(--fw-band-shift, 0px), 0);
+  will-change: transform;
+}
+.priority-cluster-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    135deg,
+    rgba(10, 10, 10, 0.88) 0%,
+    rgba(12, 16, 12, 0.82) 45%,
+    rgba(10, 10, 10, 0.78) 100%
+  );
+}
+.priority-visibility-cluster--parallax > .container {
+  position: relative;
+  z-index: 2;
+}
+.priority-visibility-cluster--parallax .section-heading {
+  margin-bottom: clamp(14px, 2vw, 22px);
+}
+.priority-visibility-cluster--parallax .section-heading p {
+  max-width: 62ch;
+}
+.priority-visibility-cluster--parallax .area-card-links--wrap {
+  gap: 10px;
+}
+
+body.home-landing .hero-inner {
+  justify-content: center;
+  align-items: center;
+  max-width: min(1180px, 100%);
+  margin-inline: auto;
+  width: 100%;
+}
+body.home-landing .hero-copy {
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+}
+body.home-landing .hero-copy h1,
+.hero-copy h1 {
+  max-width: none !important;
+  width: 100%;
+}
+body.home-landing .hero-copy .hero-actions,
+.hero-copy .hero-actions {
+  margin-top: clamp(14px, 2vh, 24px) !important;
+}
+body.home-landing .hero-copy .hero-sub {
+  max-width: none;
+}
+body.home-landing .hero-social {
+  display: flex !important;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: clamp(8px, 1.2vw, 14px);
+  width: 100%;
+  min-width: 0;
+  margin-top: clamp(14px, 2vh, 22px);
+  padding-top: clamp(12px, 1.6vh, 18px);
+}
+body.home-landing .hero-social .social-icons {
+  display: flex;
+  flex-wrap: nowrap;
+  flex: 1 1 auto;
+  min-width: 0;
+  gap: clamp(6px, 1vw, 12px);
+  justify-content: flex-start;
+}
+body.home-landing .hero-social .social-icons .social-icon {
+  flex: 0 0 auto;
+  width: clamp(32px, 3.6vw, 44px);
+  height: clamp(32px, 3.6vw, 44px);
+}
+body.home-landing .hero-social-label {
+  flex: 0 0 auto;
+}
+
+@media (min-width: 1061px) {
+  body.home-landing .hero-inner {
+    grid-template-columns: minmax(0, 1.15fr) minmax(340px, 420px);
+    justify-content: center;
+    align-items: center;
+    gap: clamp(28px, 3.5vw, 48px);
+  }
+  body.home-landing .hero-copy,
+  body.home-landing .hero-card {
+    justify-self: stretch;
+  }
+}
+
+@media (max-width: 1060px) {
+  body.home-landing .hero-inner {
+    justify-items: center;
+  }
+  body.home-landing .hero-copy,
+  body.home-landing .hero-card {
+    max-width: min(560px, 100%);
+    width: 100%;
+  }
+  body.home-landing .hero-copy {
+    text-align: left;
   }
 }
 

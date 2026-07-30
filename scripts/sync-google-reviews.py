@@ -24,7 +24,7 @@ from poster.gbp_api import (  # noqa: E402
 # Faith Works Outdoor Services GBP (poster/accounts.py gbp_fw)
 FW_LOCATION_ID = "11714542974358350290"
 REVIEWS_OUT = ROOT / "data" / "google-reviews.json"
-MAX_CAROUSEL = 12
+MAX_CAROUSEL = 10
 
 STAR_MAP = {
     "ONE": 1,
@@ -81,6 +81,13 @@ def relative_date(iso: str) -> str:
     return f"{years} year{'s' if years != 1 else ''} ago"
 
 
+def clean_comment(value: object) -> str:
+    comment = str(value or "").strip()
+    if "(Translated by Google)" in comment:
+        comment = comment.split("(Translated by Google)")[0].strip()
+    return comment
+
+
 def fetch_reviews(access_token: str) -> tuple[float, int, list[dict]]:
     parent = f"accounts/-/locations/{FW_LOCATION_ID}"
     headers = {"Authorization": f"Bearer {access_token}", "Accept": "application/json"}
@@ -91,7 +98,7 @@ def fetch_reviews(access_token: str) -> tuple[float, int, list[dict]]:
     payload: dict | None = None
 
     while True:
-        params: dict[str, str | int] = {"pageSize": 50}
+        params: dict[str, str | int] = {"pageSize": 50, "orderBy": "updateTime desc"}
         if page_token:
             params["pageToken"] = page_token
         query = urllib.parse.urlencode(params)
@@ -130,8 +137,14 @@ def fetch_reviews(access_token: str) -> tuple[float, int, list[dict]]:
 
 
 def to_carousel(raw_reviews: list[dict]) -> list[dict]:
+    """Most recent reviews with comments (up to MAX_CAROUSEL), including owner replies."""
+    sorted_reviews = sorted(
+        raw_reviews,
+        key=lambda item: str(item.get("createTime") or ""),
+        reverse=True,
+    )
     candidates: list[dict] = []
-    for item in raw_reviews:
+    for item in sorted_reviews:
         stars = star_int(item.get("starRating"))
         if stars < 4:
             continue
@@ -139,21 +152,24 @@ def to_carousel(raw_reviews: list[dict]) -> list[dict]:
         name = str(reviewer.get("displayName") or "Google reviewer").strip()
         if reviewer.get("isAnonymous"):
             name = "Google reviewer"
-        comment = str(item.get("comment") or "").strip()
-        if "(Translated by Google)" in comment:
-            comment = comment.split("(Translated by Google)")[0].strip()
+        comment = clean_comment(item.get("comment"))
         if not comment:
             continue
-        candidates.append(
-            {
-                "name": name,
-                "meta": "Google review",
-                "date": relative_date(str(item.get("createTime") or "")),
-                "text": comment,
-                "stars": stars,
-                "avatarColor": AVATAR_COLORS[len(candidates) % len(AVATAR_COLORS)],
-            }
-        )
+        reply_payload = item.get("reviewReply") or {}
+        reply = clean_comment(reply_payload.get("comment")) if isinstance(reply_payload, dict) else ""
+        entry = {
+            "name": name,
+            "meta": "Google review",
+            "date": relative_date(str(item.get("createTime") or "")),
+            "text": comment,
+            "stars": stars,
+            "avatarColor": AVATAR_COLORS[len(candidates) % len(AVATAR_COLORS)],
+            "createTime": str(item.get("createTime") or ""),
+        }
+        if reply:
+            entry["reply"] = reply
+            entry["replyDate"] = relative_date(str(reply_payload.get("updateTime") or ""))
+        candidates.append(entry)
         if len(candidates) >= MAX_CAROUSEL:
             break
     return candidates
@@ -178,9 +194,10 @@ def main() -> int:
         "reviews": carousel,
     }
     REVIEWS_OUT.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    with_replies = sum(1 for item in carousel if item.get("reply"))
     print(
         f"Wrote {REVIEWS_OUT.relative_to(ROOT)} — {rating} · {count} reviews "
-        f"({len(carousel)} carousel)"
+        f"({len(carousel)} carousel, {with_replies} with owner reply)"
     )
     return 0
 

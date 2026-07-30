@@ -618,6 +618,18 @@ document.querySelectorAll(".mobile-services-toggle").forEach((toggle) => {
     }
 
     function reviewCardMarkup(review) {
+      const replyText = String(review.reply || "").trim();
+      const replyBlock = replyText
+        ? '<div class="fw-review-reply">' +
+          '<p class="fw-review-reply__label">Response from Faith Works</p>' +
+          '<p class="fw-review-reply__text">' +
+          escapeHtml(replyText) +
+          "</p>" +
+          (review.replyDate
+            ? '<div class="fw-review-reply__date">' + escapeHtml(review.replyDate) + "</div>"
+            : "") +
+          "</div>"
+        : "";
       return (
         '<article class="fw-review-card">' +
         '<div class="fw-review-header">' +
@@ -643,6 +655,7 @@ document.querySelectorAll(".mobile-services-toggle").forEach((toggle) => {
         '<p class="fw-review-text">' +
         escapeHtml(review.text || "") +
         "</p>" +
+        replyBlock +
         '<div class="fw-review-date">' +
         escapeHtml(review.date || "") +
         "</div>" +
@@ -941,7 +954,7 @@ function initHeroPanels() {
 
 // ---- Band parallax (process + scope) ----
 (function initBandParallax() {
-  const sections = document.querySelectorAll(".process-section--parallax, .scope-section--parallax");
+  const sections = document.querySelectorAll(".process-section--parallax, .scope-section--parallax, .priority-visibility-cluster--parallax");
   if (!sections.length) return;
   if (prefersReducedMotion()) return;
 
