@@ -234,7 +234,7 @@ def job_gallery_projects() -> list[dict]:
         return []
     return [item for item in payload.get("projects", []) if isinstance(item, dict) and item.get("image")]
 
-ASSET_VERSION = "20260730a"
+ASSET_VERSION = "20260730b"
 HERO_DESKTOP = "photo-of-all-equipment.webp"
 HERO_MOBILE = "excavator-and-truck-photo.webp"
 HERO_MOBILE_LCP = f"heroes/{HERO_MOBILE}"
@@ -4369,22 +4369,70 @@ def write_styles() -> None:
 .form-group input[type="file"] { padding: 8px; }
 
 /* Services mega menu — category column + right flyout panels */
+/* Nav dropdown stability: fixed positioning via --fw-menu-* from script.js */
 .site-header,
+.site-header .header-inner,
+.site-header .container,
+.site-nav,
 .nav-dropdown-wrap {
-  overflow: visible;
+  overflow: visible !important;
 }
-.nav-dropdown-menu.fw-services-mega {
-  left: 50%;
+.site-nav .nav-dropdown-wrap,
+.nav-dropdown-wrap {
+  position: relative;
+  display: inline-block;
+  flex: 0 0 auto;
+  align-self: center;
+  vertical-align: middle;
+}
+/*
+  IMPORTANT: no backdrop-filter/filter/transform on the main dropdown panel.
+  Those create a containing block that breaks position:fixed.
+  top/left are set via --fw-menu-* from script.js (desktop only).
+*/
+@media (min-width: 1201px) {
+.nav-dropdown-menu {
+  position: fixed !important;
+  top: var(--fw-menu-top, -9999px) !important;
+  left: var(--fw-menu-left, 0px) !important;
+  right: auto !important;
+  bottom: auto !important;
+  margin: 0 !important;
+  transform: none !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
   min-width: 17rem;
   max-width: 19rem;
+  padding: 8px 0 10px !important;
+  background: #0b1522 !important;
+  border: 1px solid rgba(201, 162, 39, 0.28) !important;
+  border-radius: var(--radius-md) !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(201, 162, 39, 0.06) !important;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: 5000 !important;
+}
+.nav-dropdown-menu::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -40px;
+  height: 40px;
+}
+.nav-dropdown-wrap.is-open > .nav-dropdown-menu,
+.nav-dropdown-wrap:focus-within > .nav-dropdown-menu,
+.nav-dropdown-btn[aria-expanded="true"] + .nav-dropdown-menu {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+}
+.nav-dropdown-menu.fw-services-mega {
   max-height: none;
   overflow: visible;
-  padding: 8px 0 10px;
-  transform: translateX(-58%) translateY(-8px);
-}
-.nav-dropdown-wrap:hover .nav-dropdown-menu.fw-services-mega,
-.nav-dropdown-btn[aria-expanded="true"] + .nav-dropdown-menu.fw-services-mega {
-  transform: translateX(-58%) translateY(0);
 }
 .fw-services-mega__overview {
   display: block;
@@ -4461,10 +4509,17 @@ def write_styles() -> None:
   background: rgba(201, 162, 39, 0.1);
   border-left-color: var(--accent);
 }
+/* Flyouts stay absolute to the row — reliable beside the hovered item */
 .fw-services-mega__flyout {
-  position: absolute;
-  top: -0.25rem;
-  left: calc(100% - 4px);
+  position: absolute !important;
+  top: 0 !important;
+  left: calc(100% - 2px) !important;
+  right: auto !important;
+  margin: 0 !important;
+  transform: none !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
   min-width: 15.75rem;
   max-width: 18rem;
   max-height: min(70vh, 28rem);
@@ -4472,28 +4527,43 @@ def write_styles() -> None:
   overflow-y: auto;
   overscroll-behavior: contain;
   list-style: none;
-  margin: 0;
   padding: 6px;
-  background: rgba(7, 16, 30, 0.98);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(201, 162, 39, 0.28);
-  border-radius: var(--radius-md);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+  background: #0b1522 !important;
+  border: 1px solid rgba(201, 162, 39, 0.28) !important;
+  border-radius: var(--radius-md) !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7) !important;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transform: translateX(10px);
-  transition: opacity 0.18s ease, transform 0.2s ease, visibility 0.18s ease;
-  z-index: 220;
+  z-index: 5001 !important;
+}
+.fw-services-mega__flyout::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -16px;
+  width: 16px;
 }
 .fw-services-mega__item--branch.subnav-open > .fw-services-mega__flyout,
 .fw-services-mega__item--branch:hover > .fw-services-mega__flyout,
 .fw-services-mega__item--branch:focus-within > .fw-services-mega__flyout {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-  transform: translateX(0);
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+.fw-services-mega__item--branch.is-flyout-left > .fw-services-mega__flyout,
+.fw-areas-mega .fw-services-mega__item--branch > .fw-services-mega__flyout {
+  left: auto !important;
+  right: calc(100% - 2px) !important;
+}
+.fw-services-mega__item--branch.is-flyout-left > .fw-services-mega__flyout::before,
+.fw-areas-mega .fw-services-mega__item--branch > .fw-services-mega__flyout::before {
+  left: auto;
+  right: -16px;
+}
+.fw-areas-mega .fw-services-mega__chevron {
+  transform: rotate(135deg) translateY(-1px);
 }
 .fw-services-mega__flyout-item {
   margin: 0;
