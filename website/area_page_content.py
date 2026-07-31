@@ -37,24 +37,26 @@ COUNTY_PROFILES: dict[str, dict] = {
         ],
         "common_jobs": [
             "Overgrown lot and acreage clearing before fencing or building",
-            "Pond bank brush removal and visibility cleanup",
+            "Forestry mulching and brush clearing on dense Florida growth",
+            "Pond bank brush removal and visibility cleanup (mechanical only)",
+            "Light outdoor demolition, stump removal, and driveway demo",
+            "Fence line and access path reopening across larger properties",
             "Ditch and swale vegetation clearing after rainy seasons",
-            "Trail and access path reopening across larger properties",
-            "Storm debris and yard cleanup after wind events",
-            "Pool dig-out dirt removal support under licensed pool builders",
         ],
         "local_note": (
-            "Polk County properties often combine open pasture, wooded edges, and water features — "
-            "which means brush, pond banks, and ditch lines need ongoing outdoor maintenance, not just one-time mowing."
+            "Polk County properties often combine open pasture, wooded edges, old structures, and water features — "
+            "so priority work starts with land clearing, mulching, light demo, fence lines, and stumps, with pond "
+            "and ditch bank clearing available as mechanical outdoor maintenance."
         ),
         "nearby_counties": ["Osceola County", "Hillsborough County", "Lake County", "Hardee County", "Highlands County"],
         "meta_lead": (
-            "Faith Works Outdoor Services clears land, pond banks, ditches, and overgrown acreage across Polk County "
-            "from its Auburndale home base — serving Auburndale, Lakeland, Winter Haven, Bartow, and 14 Polk communities."
+            "Faith Works Outdoor Services provides land clearing, forestry mulching, light demo, fence lines, stump "
+            "removal, and driveway demo across Polk County from its Auburndale home base — serving Auburndale, "
+            "Lakeland, Winter Haven, Bartow, and 14 Polk communities. Pond and ditch bank clearing available."
         ),
         "coverage_snapshot": (
-            "From Chain of Lakes pond banks in Winter Haven to ridge scrub near Lake Wales and phosphate-country acreage "
-            "around Mulberry, Polk jobs vary widely — each estimate is scoped from property photos, not a flat county rate."
+            "From ridge scrub near Lake Wales to phosphate-country acreage around Mulberry and Chain of Lakes edges "
+            "in Winter Haven, Polk jobs vary widely — each estimate is scoped from property photos, not a flat county rate."
         ),
         "unique_faqs": [
             (
@@ -78,12 +80,12 @@ COUNTY_PROFILES: dict[str, dict] = {
             "Vacant land being prepared for future use",
         ],
         "common_jobs": [
-            "Brush clearing along fence lines and property boundaries",
-            "Retention and pond edge cleanup where growth has taken over",
-            "Access road and trail clearing on multi-acre parcels",
             "Forestry mulching for overgrown sections of acreage",
-            "Debris haul-off after clearing or storm cleanup",
+            "Brush clearing along fence lines and property boundaries",
+            "Access road and trail clearing on multi-acre parcels",
+            "Retention and pond edge cleanup where growth has taken over",
             "Ongoing ditch and drainage path vegetation removal",
+            "Debris haul-off after clearing or storm cleanup",
         ],
         "local_note": (
             "Osceola County includes fast-growing communities and large rural parcels — "
@@ -120,12 +122,12 @@ COUNTY_PROFILES: dict[str, dict] = {
             "Post-storm yard and property debris cleanup",
         ],
         "common_jobs": [
-            "Back-lot and rear acreage brush clearing",
-            "Pond and wet-area edge cleanup where allowed on private property",
-            "Fence line and boundary clearing",
             "Forestry mulching for dense undergrowth",
-            "Property and lot cleanup before listing or building",
+            "Back-lot and rear acreage brush clearing",
             "Trail clearing for access to barns, sheds, or rear fields",
+            "Fence line and boundary clearing",
+            "Pond and wet-area edge cleanup where allowed on private property",
+            "Property and lot cleanup before listing or building",
         ],
         "local_note": (
             "Orange County homeowners often call when rear acreage, pond edges, or conservation borders "
@@ -162,12 +164,12 @@ COUNTY_PROFILES: dict[str, dict] = {
             "Vacant land needing selective clearing",
         ],
         "common_jobs": [
-            "Pond bank and lake edge brush removal",
-            "Trail and driveway access clearing on acreage",
             "Forestry mulching in wooded sections",
+            "Pond bank and lake edge brush removal",
             "Fence line and pasture edge maintenance",
-            "Property cleanup after years of deferred maintenance",
+            "Trail and driveway access clearing on acreage",
             "Ditch and runoff path vegetation clearing",
+            "Property cleanup after years of deferred maintenance",
         ],
         "local_note": (
             "Lake County's mix of hills, lakes, and larger lots creates unique access challenges — "
@@ -206,9 +208,9 @@ COUNTY_PROFILES: dict[str, dict] = {
         "common_jobs": [
             "Land and lot clearing on residential acreage",
             "Brush cutting and forestry mulching along overgrown edges",
-            "Ditch clearing where vegetation blocks runoff paths",
-            "Pond bank cleanup on private water features",
             "Access road and trail reopening",
+            "Pond bank cleanup on private water features",
+            "Ditch clearing where vegetation blocks runoff paths",
             "Pool dig-out support under licensed pool contractors",
         ],
         "local_note": (
@@ -247,9 +249,9 @@ COUNTY_PROFILES: dict[str, dict] = {
         ],
         "common_jobs": [
             "Acreage and overgrown lot clearing",
-            "Trail and access path cutting through wooded sections",
-            "Fence line and boundary brush removal",
             "Forestry mulching for dense undergrowth",
+            "Fence line and boundary brush removal",
+            "Trail and access path cutting through wooded sections",
             "Pond bank and ditch edge cleanup",
             "Storm and yard debris removal",
         ],
@@ -288,11 +290,11 @@ COUNTY_PROFILES: dict[str, dict] = {
             "Properties with pond or ditch edges needing cleanup",
         ],
         "common_jobs": [
+            "Forestry mulching for thick brush and saplings",
+            "Overgrowth removal in unused sections of ranch land",
+            "Pond bank brush removal",
             "Fence line and pasture edge clearing",
             "Access road and trail maintenance across acreage",
-            "Overgrowth removal in unused sections of ranch land",
-            "Forestry mulching for thick brush and saplings",
-            "Pond bank brush removal",
             "Debris haul-off after clearing projects",
         ],
         "local_note": (
@@ -331,11 +333,11 @@ COUNTY_PROFILES: dict[str, dict] = {
         ],
         "common_jobs": [
             "Land and lot clearing for usable space",
+            "Forestry mulching in wooded sections",
             "Pond bank and lake edge brush removal",
+            "Storm debris and yard cleanup",
             "Property cleanup after deferred maintenance",
             "Trail and access clearing on multi-acre parcels",
-            "Storm debris and yard cleanup",
-            "Forestry mulching in wooded sections",
         ],
         "local_note": (
             "Highlands County properties frequently combine water features with unmanaged edges — "
@@ -372,10 +374,10 @@ COUNTY_PROFILES: dict[str, dict] = {
             "Fence line and boundary maintenance projects",
         ],
         "common_jobs": [
-            "Acreage cleanup and overgrowth removal",
-            "Fence line and ranch road clearing",
             "Forestry mulching on overgrown sections",
+            "Acreage cleanup and overgrowth removal",
             "Pond bank brush cutting",
+            "Fence line and ranch road clearing",
             "Access trail reopening",
             "Debris removal after clearing or storms",
         ],
@@ -414,12 +416,12 @@ COUNTY_PROFILES: dict[str, dict] = {
             "Homes with ditch or swale vegetation buildup",
         ],
         "common_jobs": [
-            "Brush and overgrowth removal on acreage lots",
-            "Pond bank and water-edge cleanup",
-            "Property cleanup before move-in or sale",
-            "Trail and access path clearing",
             "Forestry mulching in wooded sections",
+            "Brush and overgrowth removal on acreage lots",
+            "Trail and access path clearing",
+            "Pond bank and water-edge cleanup",
             "Ditch line vegetation removal",
+            "Property cleanup before move-in or sale",
         ],
         "local_note": (
             "Sumter County includes both active retirement communities and rural acreage — "
@@ -458,8 +460,8 @@ COUNTY_PROFILES: dict[str, dict] = {
         "common_jobs": [
             "Land and lot clearing on residential acreage",
             "Brush cutting and forestry mulching",
-            "Pond bank edge cleanup",
             "Fence line and boundary clearing",
+            "Pond bank edge cleanup",
             "Debris removal after clearing or weather events",
             "Pool dig-out support under licensed pool contractors",
         ],

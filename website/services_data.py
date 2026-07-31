@@ -6,8 +6,8 @@ AREA = "Polk County & Central Florida"
 CITY = "Auburndale"
 SITE_EMAIL = "tyler@faithworksclearing.com"
 
-# Exact positioning from communication1.txt
-SITE_POSITIONING = "Land Clearing, Pond Bank Clearing, Ditch Clearing & Outdoor Property Services"
+# Brand pillar string — priority ladder: land clearing/mulching → demo → fence → stump → driveway → pond/ditch bank → pool dig support
+SITE_POSITIONING = "Land Clearing, Forestry Mulching & Outdoor Demo"
 
 NOT_OFFERED = [
     "Installing underground utilities",
@@ -19,12 +19,28 @@ NOT_OFFERED = [
     "Engineered drainage systems",
     "Pool installation or licensed pool contracting (we support dig-out cleanup under your pool builder)",
     "Excavation contractor / utility infrastructure work",
+    "Aquatic herbicide / algae treatments or chemical pond spraying (not licensed for aquatic pesticide application)",
+    "Structural commercial demolition requiring a general contractor license beyond light outdoor demo",
+]
+
+# Homepage / AEO core mosaic order (must match phase1=True slugs)
+PHASE1_PRIORITY = [
+    "land-clearing",
+    "forestry-mulching",
+    "brush-clearing",
+    "demolition",
+    "fence-line-clearing",
+    "stump-removal",
+    "driveway-demo",
+    "pond-bank-clearing",
 ]
 
 NOT_OFFERED_NOTE = (
     "Florida's Underground Utility & Excavation contractor license covers sanitary sewer, water distribution, "
     "storm sewer systems, utility line work, directional drilling, and similar infrastructure — not the outdoor "
-    "property clearing, mulching, and cleanup services Faith Works focuses on."
+    "property clearing, mulching, light demo, and cleanup services Faith Works focuses on. Commercial aquatic "
+    "herbicide or algae treatments require separate FDACS pesticide applicator licensing (Aquatic category), "
+    "which Faith Works does not currently hold — pond work here is mechanical bank and shoreline clearing only."
 )
 
 IMAGES = [
@@ -47,27 +63,27 @@ SERVICE_CATEGORIES = [
     {
         "id": "phase1",
         "label": "Core Outdoor Services",
-        "description": "Land clearing, trail clearing, pond bank clearing, ditch clearing, brush cutting, debris removal, pool dig-out support, and tractor services.",
+        "description": "Land clearing, forestry mulching, brush clearing, light demolition, fence lines, stump removal, driveway demo, and pond bank clearing.",
     },
     {
         "id": "clearing",
         "label": "Clearing & Mulching",
-        "description": "Trail, brush, forestry mulching, overgrowth, fence line, and access work.",
+        "description": "Trail, access road, overgrowth, and related vegetation clearing.",
     },
     {
         "id": "pond_ditch",
         "label": "Pond & Ditch Work",
-        "description": "Pond bank clearing, pond cleanup, ditch clearing, and ongoing maintenance.",
+        "description": "Mechanical pond bank and ditch clearing, shoreline cleanup, and vegetation maintenance — not chemical aquatic treatment.",
     },
     {
         "id": "cleanup",
         "label": "Cleanup & Debris Removal",
-        "description": "Yard debris, storm cleanup, property and lot cleanup, and acreage restoration.",
+        "description": "Yard debris, storm cleanup, property and lot cleanup, acreage restoration, and pool dig-out support.",
     },
     {
         "id": "maintenance",
         "label": "Property Maintenance",
-        "description": "Ongoing outdoor property, pond, and ditch maintenance for long-term land care.",
+        "description": "Ongoing outdoor property and ditch maintenance for long-term land care.",
     },
     {
         "id": "equipment",
@@ -165,8 +181,8 @@ SERVICES = [
     _svc(
         "trail-clearing",
         "Trail Clearing",
-        category="phase1",
-        phase1=True,
+        category="clearing",
+        phase1=False,
         title=f"Trail Clearing & Trail Maintenance in Central Florida",
         h1="Trail Clearing & Trail Maintenance — Central Florida",
         desc=f"Cut new trails or restore overgrown trails on private property in {CITY}, Polk County, and surrounding areas.",
@@ -247,7 +263,8 @@ SERVICES = [
     _svc(
         "forestry-mulching",
         "Forestry Mulching",
-        category="clearing",
+        category="phase1",
+        phase1=True,
         title="Forestry Mulching in Polk County, FL | Faith Works",
         h1="Forestry Mulching — Auburndale, Polk County & Nearby Areas",
         desc="Forestry mulching for overgrown acreage, brush, fence lines, access paths, and pond banks in Auburndale, Lakeland, Winter Haven, and Polk County.",
@@ -362,8 +379,8 @@ SERVICES = [
     _svc(
         "ditch-clearing",
         "Ditch Clearing",
-        category="phase1",
-        phase1=True,
+        category="pond_ditch",
+        phase1=False,
         title=f"Ditch Clearing & Runoff Cleanup in {CITY}, FL",
         h1=f"Ditch Clearing & Runoff Cleanup — {CITY} & Polk County",
         desc=f"Clean overgrown ditches and runoff paths in {CITY}, Lakeland, and Polk County using mulching equipment and brush cutters.",
@@ -400,8 +417,8 @@ SERVICES = [
     _svc(
         "debris-removal",
         "Debris Removal",
-        category="phase1",
-        phase1=True,
+        category="cleanup",
+        phase1=False,
         title=f"Debris Removal Services in {AREA}, FL",
         h1=f"Debris Removal — {AREA}",
         desc=f"Debris removal for yard cleanup, storm cleanup, property cleanup, and lot cleanup in {CITY} and Polk County.",
@@ -476,18 +493,19 @@ SERVICES = [
         "storm-debris-cleanup",
         "Storm Debris Cleanup",
         category="cleanup",
-        title="Storm Cleanup Near Me in Polk County FL | Faith Works",
-        h1="Storm Debris Cleanup — Auburndale, Polk County & Nearby Areas",
+        title="Outdoor Storm Debris Cleanup in Polk County FL | Faith Works",
+        h1="Outdoor Storm Debris Cleanup — Auburndale & Polk County",
         desc=(
-            "Storm cleanup near me in Auburndale and Polk County — fallen limbs, brush piles, blocked driveways, "
-            "and outdoor debris. Fast photo estimates. Call or text Tyler."
+            "Outdoor storm debris cleanup in Auburndale and Polk County — fallen limbs, brush piles, blocked driveways, "
+            "and yard access. Not roofing or insurance claims. Text photos to Tyler."
         ),
-        keyword="storm cleanup near me",
+        keyword="outdoor storm debris cleanup Polk County FL",
         intro=(
-            "When you search storm cleanup near me after Florida weather, you usually need fallen limbs, scattered "
-            "debris, blocked driveways, brush piles, and access paths cleared fast — not roof repair or insurance "
-            "claim brokerage. Faith Works Outdoor Services helps Polk County homeowners and landowners clean up "
-            "outdoor storm debris, restore usable access, and get property under control after weather events."
+            "After Florida storms, property owners usually need fallen limbs, scattered brush, blocked driveways, and "
+            "access paths cleared — not roof repair or insurance claim brokerage. Faith Works Outdoor Services handles "
+            "outdoor storm debris cleanup and property access restoration in Polk County and nearby Central Florida. "
+            "If your priority is land clearing, mulching, demo, or fence work instead, those core services are listed "
+            "separately and often pair with post-storm cleanup on the same visit."
         ),
         bullets=[
             "Fallen branch and limb cleanup",
@@ -665,7 +683,8 @@ SERVICES = [
     _svc(
         "fence-line-clearing",
         "Fence Line Clearing",
-        category="clearing",
+        category="phase1",
+        phase1=True,
         title=f"Fence Line Clearing in {AREA}, FL",
         h1=f"Fence Line Clearing — {AREA}",
         desc=f"Clear overgrown fence lines and property boundaries in {CITY} and Polk County with brush cutters and mulching equipment.",
@@ -694,10 +713,139 @@ SERVICES = [
             "Pasture and acreage fence maintenance",
             "Homes with privacy fences buried in brush",
         ],
-        related_slugs=["brush-clearing", "overgrowth-removal", "land-clearing", "forestry-mulching"],
+        related_slugs=["brush-clearing", "overgrowth-removal", "land-clearing", "stump-removal"],
         mosaic_headline="Fence line disappeared into the brush?",
         mosaic_image="stump-during-removal-2.webp",
         index=14,
+    ),
+    _svc(
+        "demolition",
+        "Light Demolition",
+        category="phase1",
+        phase1=True,
+        nav="Demolition",
+        form_label="Light Demolition / Tear-Down",
+        title="Light Demolition Near Me in Polk County FL | Faith Works",
+        h1="Light Demolition & Outdoor Tear-Down — Auburndale & Polk County",
+        desc=(
+            "Light outdoor demolition in Auburndale, Lakeland, Winter Haven, and Polk County — sheds, outbuildings, "
+            "old concrete pads, and small structures. Owner-operated. Free photo estimates."
+        ),
+        keyword="light demolition Polk County FL",
+        intro=(
+            "When a shed, old outbuilding, concrete pad, or small outdoor structure needs to come down, Faith Works "
+            "Outdoor Services provides light demolition and haul-off support with compact excavator and tractor "
+            "equipment. This is outdoor tear-down and debris removal — not structural commercial demolition, not "
+            "licensed general contracting for inhabited buildings, and not utility disconnects that require other trades."
+        ),
+        bullets=[
+            "Shed, lean-to, and small outbuilding tear-down",
+            "Old concrete pad and slab break-up where access allows",
+            "Debris sorting, loading, and haul-off support",
+            "Site cleanup after outdoor demo",
+            "Coordination with owners on what stays vs. what goes",
+        ],
+        benefits=[
+            "Clears unused structures so land is usable again",
+            "Pairs with land clearing or driveway demo on the same visit",
+            "Owner-operated equipment — direct communication with Tyler",
+            "Photo-based estimates before any tear-down starts",
+        ],
+        ideal_for=[
+            "Old sheds and outbuildings past their useful life",
+            "Concrete pads left after a prior structure",
+            "Property cleanup before fencing, clearing, or resale",
+            "Light outdoor demo that does not need a full GC crew",
+        ],
+        related_slugs=["driveway-demo", "debris-removal", "land-clearing", "stump-removal"],
+        mosaic_headline="Old shed or pad ready to come down?",
+        mosaic_image="excavator-and-truck-photo.webp",
+        index=22,
+    ),
+    _svc(
+        "stump-removal",
+        "Stump Removal",
+        category="phase1",
+        phase1=True,
+        title="Stump Removal Near Me in Polk County FL | Faith Works",
+        h1="Stump Removal & Root Ball Cleanup — Auburndale & Polk County",
+        desc=(
+            "Stump removal in Auburndale, Lakeland, Winter Haven, and Polk County — excavate or grind out leftover "
+            "stumps after clearing or tree work. Free photo estimates. Call or text Tyler."
+        ),
+        keyword="stump removal Polk County FL",
+        intro=(
+            "Stumps left after storm damage, tree work, or land clearing get in the way of mowing, fencing, and "
+            "future projects. Faith Works Outdoor Services removes stumps with compact excavator equipment — digging "
+            "out root balls where access allows, backfilling, and cleaning up the work area so the ground is usable again."
+        ),
+        bullets=[
+            "Stump excavation and root ball removal",
+            "Multiple stump cleanup after land clearing or storms",
+            "Backfill and rough leveling of stump holes",
+            "Haul-off or on-site stacking of stump material",
+            "Coordination with fence lines, driveways, and clearing plans",
+        ],
+        benefits=[
+            "Opens lawn, pasture, and lot space for mowing or fencing",
+            "Removes trip hazards and mower obstacles",
+            "Natural follow-up after land clearing or tree work",
+            "Photo estimates help size equipment before the visit",
+        ],
+        ideal_for=[
+            "Stumps left after trees were cut",
+            "Lots cleared but still dotted with stumps",
+            "Fence or driveway paths blocked by root balls",
+            "Storm-damaged properties with leftover stumps",
+        ],
+        related_slugs=["land-clearing", "demolition", "brush-clearing", "debris-removal"],
+        mosaic_headline="Stumps still in the way after tree work?",
+        mosaic_image="stump-prior-to-removal.webp",
+        index=23,
+    ),
+    _svc(
+        "driveway-demo",
+        "Driveway Demo",
+        category="phase1",
+        phase1=True,
+        nav="Driveway Demo",
+        form_label="Driveway Demo / Removal",
+        title="Driveway Demo & Removal in Polk County FL | Faith Works",
+        h1="Driveway Demo & Old Drive Removal — Auburndale & Polk County",
+        desc=(
+            "Driveway demo and old concrete or asphalt removal in Auburndale, Lakeland, Winter Haven, and Polk County. "
+            "Break up, load, and haul — not new paving. Free photo estimates."
+        ),
+        keyword="driveway demo Polk County FL",
+        intro=(
+            "Old cracked concrete, failed asphalt, or unused driveway sections often need to come out before a new "
+            "drive, landscaping, or land clearing plan can move forward. Faith Works Outdoor Services provides driveway "
+            "demo and removal — breaking up accessible slabs or asphalt, loading debris, and hauling it off. We do not "
+            "pour new concrete, pave asphalt, or install finished driveways."
+        ),
+        bullets=[
+            "Old concrete driveway break-up and removal",
+            "Failed asphalt section demo where access allows",
+            "Loading and haul-off of demo debris",
+            "Rough cleanup of the former driveway footprint",
+            "Coordination with land clearing or light demolition on the same site",
+        ],
+        benefits=[
+            "Clears failed pavement so the property is usable again",
+            "Pairs with shed demo, stump removal, or lot clearing",
+            "Compact equipment suited to residential and rural access",
+            "Clear scope — removal only, not paving or finish work",
+        ],
+        ideal_for=[
+            "Cracked or heaved concrete drives ready for removal",
+            "Unused driveway pads after a structure comes down",
+            "Properties preparing for a new contractor-installed drive",
+            "Rural lanes where old hardscape needs to be hauled out",
+        ],
+        related_slugs=["demolition", "access-road-clearing", "debris-removal", "land-clearing"],
+        mosaic_headline="Old driveway ready to come out?",
+        mosaic_image="excavator-photo.webp",
+        index=24,
     ),
     _svc(
         "overgrowth-removal",
@@ -739,17 +887,22 @@ SERVICES = [
     _svc(
         "pool-dig-out-support",
         "Pool Dig-Out Support",
-        category="phase1",
-        phase1=True,
-        title=f"Pool Dig-Out Support & Dirt Removal in {CITY}, FL",
-        h1="Pool Dig-Out Support & Dirt Removal — Polk County",
-        desc=f"Pool dig-out support and dirt removal for pool installation projects in {CITY}, Lakeland, Winter Haven, and Polk County.",
-        keyword="pool dig out support Polk County FL",
+        category="cleanup",
+        phase1=False,
+        title="Pool Dig-Out Dirt Haul-Off Support in Auburndale, FL",
+        h1="Pool Dig-Out Dirt Haul-Off Support — Not Pool Installation",
+        desc=(
+            "Dirt haul-off and spoil-pile cleanup during pool dig-outs in Auburndale, Lakeland, Winter Haven, and "
+            "Polk County — only under a licensed pool builder. Not pool install, renovation, or resurfacing."
+        ),
+        keyword="pool dig out dirt haul off Polk County FL",
         intro=(
             "Installing a pool often means moving a serious amount of dirt. Faith Works Outdoor Services provides "
-            "pool dig-out support and dirt removal so your licensed pool contractor can focus on the install while "
-            "your property gets cleaned up properly. We do not install pools or hold pool contractor licensing — "
-            "we support dig-out cleanup and haul-off under the pool builder's project."
+            "pool dig-out dirt haul-off and site cleanup so your licensed pool contractor can focus on the install while "
+            "your property gets cleaned up properly. We do not install pools, renovate pools, resurface pools, or hold "
+            "pool contractor licensing — and this page is not for homeowners searching for a pool company. If you need "
+            "a pool built or remodeled, hire a licensed pool contractor first; call us only when that builder needs "
+            "dirt removed or the yard cleaned during dig-out."
         ),
         bullets=[
             "Pool dig-out dirt removal and haul-off support",
@@ -814,38 +967,45 @@ SERVICES = [
     ),
     _svc(
         "pond-management",
-        "Pond Management",
-        category="maintenance",
-        title=f"Pond Management Services in {AREA}, FL",
-        h1=f"Pond Management — {AREA}",
-        desc=f"Pond management for shoreline maintenance, bank clearing, and ongoing pond cleanup in {CITY} and Polk County.",
-        keyword="pond management Polk County FL",
+        "Pond Shoreline Maintenance",
+        category="pond_ditch",
+        nav="Pond Shoreline Maintenance",
+        form_label="Pond Shoreline Maintenance",
+        title=f"Pond Shoreline Maintenance in {AREA}, FL",
+        h1=f"Pond Shoreline & Bank Maintenance — {AREA}",
+        desc=(
+            f"Mechanical pond shoreline and bank maintenance in {CITY} and Polk County — brush cutting, mulching, "
+            "and edge cleanup. Not aquatic herbicide or algae spraying."
+        ),
+        keyword="pond shoreline maintenance Polk County FL",
         intro=(
-            "Ponds need ongoing attention — not just a one-time cleanup. Faith Works Outdoor Services provides pond "
-            "management through bank clearing, shoreline cleanup, and seasonal maintenance so your pond stays accessible "
-            "and presentable. This is outdoor pond care and mulching — not engineered stormwater or utility work."
+            "Ponds need recurring attention on the banks and shoreline — not just a one-time cleanup. Faith Works "
+            "Outdoor Services provides mechanical pond shoreline maintenance: brush cutting, mulching, and reachable "
+            "debris cleanup so edges stay accessible and presentable. We do not apply aquatic herbicides, copper "
+            "algaecides, or chemical water treatments, and we do not hold an FDACS Aquatic pesticide applicator "
+            "license. If you need chemical pond treatment, ask Tyler for a referral path or plan mechanical bank work instead."
         ),
         bullets=[
-            "Seasonal pond bank and shoreline maintenance",
-            "Recurring overgrowth control along water edges",
+            "Seasonal pond bank and shoreline vegetation maintenance",
+            "Recurring overgrowth control along water edges (mechanical only)",
             "Reachable debris and shoreline cleanup",
             "Mulching and brush cutting on pond perimeters",
-            "Maintenance plans paired with initial pond cleanup",
+            "Maintenance plans paired with initial pond bank clearing",
         ],
         benefits=[
-            "Keeps ponds looking maintained year-round",
+            "Keeps pond edges accessible without chemical programs",
             "Reduces the cost of full bank re-clearing",
             "Pairs naturally with pond bank clearing services",
-            "Aligns with long-term outdoor services growth",
+            "Clear scope — outdoor mulching and brush work only",
         ],
         ideal_for=[
             "Property owners with ponds that regrow every season",
-            "Homes and acreage with retention ponds",
-            "Clients who want recurring outdoor property care",
-            "Landowners focused on pond banks and trails",
+            "Homes and acreage with retention pond edges",
+            "Clients who want recurring mechanical shoreline care",
+            "Landowners focused on pond banks and trails — not water chemistry",
         ],
-        related_slugs=["pond-bank-clearing", "pond-cleanup", "brush-clearing", "property-maintenance"],
-        mosaic_headline="Pond needs more than a one-time cleanup?",
+        related_slugs=["pond-bank-clearing", "pond-cleanup", "brush-clearing", "ditch-maintenance"],
+        mosaic_headline="Pond banks growing back every season?",
         mosaic_image="stump-during-removal-1.webp",
         index=18,
     ),
@@ -927,8 +1087,8 @@ SERVICES = [
     _svc(
         "tractor-services",
         "Tractor Services",
-        category="phase1",
-        phase1=True,
+        category="equipment",
+        phase1=False,
         title=f"Tractor Services in {AREA}, FL",
         h1=f"Tractor Services — {AREA}",
         desc=f"Tractor services for brush cutting, land clearing, ditch work, and property cleanup in {CITY} and Polk County.",
@@ -965,7 +1125,17 @@ SERVICES = [
 ]
 
 SERVICE_COUNT = len(SERVICES)
-PHASE1_SERVICES = [s for s in SERVICES if s["phase1"]]
+
+
+def _phase1_sort_key(service: dict) -> tuple[int, str]:
+    slug = service["slug"]
+    try:
+        return (PHASE1_PRIORITY.index(slug), slug)
+    except ValueError:
+        return (len(PHASE1_PRIORITY), slug)
+
+
+PHASE1_SERVICES = sorted([s for s in SERVICES if s["phase1"]], key=_phase1_sort_key)
 PHASE1_COUNT = len(PHASE1_SERVICES)
 
 SERVICE_BY_SLUG = {s["slug"]: s for s in SERVICES}

@@ -31,46 +31,51 @@ Paste-ready copy for Facebook, LinkedIn, X, Nextdoor, Google Business Profile, d
 
 ## Short bio (≈255 chars — Facebook intro, X, LinkedIn tagline)
 
-Faith Works Outdoor Services LLC provides land clearing, forestry mulching, pond bank clearing, ditch clearing, brush removal, debris cleanup, and tractor services for homeowners and landowners across Auburndale, Polk County, and Central Florida.
+Faith Works Outdoor Services LLC — land clearing, forestry mulching, light outdoor demo, fence lines, stump removal, driveway demo, and mechanical pond/ditch bank clearing across Auburndale, Polk County, and Central Florida.
 
 ## Medium bio (About / directory listings)
 
-Faith Works Outdoor Services LLC is an owner-operated outdoor property services company based in Auburndale, FL. Tyler R. Edwards and crew help homeowners, landowners, and property managers with land clearing, forestry mulching, pond bank work, ditch clearing, fence lines, trails, acreage cleanup, storm debris removal, and equipment-based site prep. We serve communities within about 70 miles across Polk County and nearby Central Florida counties.
+Faith Works Outdoor Services LLC is an owner-operated outdoor property services company based in Auburndale, FL. Tyler R. Edwards helps homeowners, landowners, and property managers with land clearing, forestry mulching, brush clearing, light demolition, fence-line clearing, stump removal, driveway demo, mechanical pond and ditch bank clearing, acreage cleanup, storm debris removal, and tractor services. We serve communities within about 70 miles across Polk County and nearby Central Florida. We do not spray aquatic herbicides or algae treatments.
 
 ## Long description (Facebook About, GBP description)
 
-Faith Works Outdoor Services LLC helps Central Florida property owners reclaim usable land and maintain outdoor spaces. Based in Auburndale (33823), we provide land clearing, brush and overgrowth removal, forestry mulching, pond bank clearing, ditch maintenance, fence-line clearing, trail clearing, debris haul-off, acreage cleanup, and tractor services for residential, agricultural, and light commercial sites.
+Faith Works Outdoor Services LLC helps Central Florida property owners reclaim usable land. Based in Auburndale (33823), we provide land clearing, forestry mulching, brush and overgrowth removal, light outdoor demolition, fence-line clearing, stump removal, driveway demo/haul-off, mechanical pond bank and ditch clearing, debris haul-off, acreage cleanup, and tractor services for residential, agricultural, and light commercial sites.
 
-We work with Kubota excavators, tractors, and support equipment suited for tight residential access and larger rural parcels. Every estimate request is reviewed personally by Tyler — call (863) 272-1596 or request a quote at https://faithworksclearing.com.
+We work with Kubota excavators, tractors, and support equipment suited for tight residential access and larger rural parcels. Pond work is mechanical bank and shoreline clearing only — we do not apply aquatic herbicides or algae killers. Every estimate request is reviewed personally by Tyler — call (863) 272-1596 or request a quote at https://faithworksclearing.com.
 
 **Service area:** Auburndale, Lakeland, Winter Haven, Bartow, Haines City, Plant City, and communities within ~70 miles across Polk, Hillsborough, Orange, Osceola, Lake, and Pasco counties.
 
-## Services (use as Facebook services / GBP categories / bullet lists)
+## Services (GBP / Facebook — priority order)
 
-- Land clearing
-- Forestry mulching
-- Brush clearing
-- Overgrowth removal
-- Pond bank clearing
-- Pond cleanup
-- Ditch clearing
-- Ditch maintenance
-- Fence line clearing
-- Trail clearing
-- Acreage cleanup
-- Lot cleanup
-- Property cleanup
-- Debris removal
-- Storm debris cleanup
-- Access road clearing
-- Equipment / tractor services
-- Pool dig-out support (site prep only — not pool construction)
+Add in this order (priority ladder):
+
+1. Land clearing
+2. Forestry mulching
+3. Brush clearing
+4. Light demolition / shed & outbuilding tear-down
+5. Fence line clearing
+6. Stump removal
+7. Driveway demo / removal (not paving)
+8. Pond bank clearing (mechanical)
+9. Ditch clearing
+10. Overgrowth removal
+11. Access road clearing
+12. Acreage cleanup
+13. Lot cleanup
+14. Property cleanup
+15. Debris removal
+16. Outdoor storm debris cleanup
+17. Tractor / equipment services
+18. Pool dig-out dirt haul-off support (under licensed pool builder only)
+
+Do **not** list algae treatment, aquatic herbicide spraying, pool installation, or new driveway paving.
 
 ## Suggested categories
 
 - **Facebook:** Local business → Excavating Company / Landscaper / Home Improvement
 - **LinkedIn:** Construction
-- **GBP primary:** Excavating contractor or Land clearing service
+- **GBP primary:** Land clearing service (preferred) or Excavating contractor
+- **GBP additional:** Landscape designer / Brush clearing service if available
 - **Nextdoor:** Already listed as outdoor property maintenance
 
 ## CTA buttons
@@ -88,62 +93,27 @@ Use this after each full GSC audit to support organic rankings with real local t
 
 ### Google Business Profile
 
-- Set the primary category to the closest available land clearing / excavating category.
-- Add service entries for Brush clearing, Land clearing, Forestry mulching, Pond bank clearing, Ditch maintenance, Access road clearing, Storm debris cleanup, Debris removal, Acreage cleanup, and Tractor services.
-- Use the website URL `https://faithworksclearing.com/` and quote/contact URL `https://faithworksclearing.com/contact.html`.
-- Add weekly photos with captions that include the real service and city when known, such as "brush clearing in Auburndale" or "pond bank clearing near Winter Haven."
-- Post weekly around one priority service cluster: brush removal, private road/access paths, pond bank clearing, ditch maintenance, storm debris cleanup, or acreage cleanup.
+- Set the primary category to land clearing service (or closest excavating / land clearing category).
+- Add services in the priority order above — land clearing, mulching, demo, fence, stump, driveway before pond.
+- Use website URL `https://faithworksclearing.com/` and quote URL `https://faithworksclearing.com/contact.html`.
+- Lead photo uploads with land clearing, mulching, demo, stump, and fence-line jobs; keep pond bank photos as secondary proof.
+- Caption photos with real service + city when known (example: "forestry mulching in Auburndale", "stump removal near Lakeland").
+- Post weekly around one priority cluster: land clearing, mulching, light demo, fence/stump/driveway, then mechanical pond bank clearing.
 
 ### Review acquisition
 
 - Ask only real customers for reviews after completed work.
 - Encourage customers to describe the actual service and city in their own words.
-- Strong review themes: communication with Tyler, photo-based estimate, brush clearing, pond bank work, access road clearing, ditch maintenance, storm cleanup, and property left usable.
-- Review link: https://g.page/r/Cby6QotwnhsYEAI/review
+- Prefer review language that matches priority services (clearing, mulching, demo, stump, driveway) when that was the real job.
 
-### Citations and directories
+### Directory / citation consistency
 
-- Keep NAP consistent: Faith Works Outdoor Services LLC, (863) 272-1596, Auburndale, FL 33823, `https://faithworksclearing.com`.
-- Prioritize local/business directories that allow service-area businesses, photos, and service descriptions.
-- Use Polk County / Auburndale language first before broad Central Florida language.
-- Link citations to the homepage or the most relevant service page when the directory supports deep links.
+- Keep NAP identical: Faith Works Outdoor Services LLC · Auburndale, FL 33823 · (863) 272-1596 · https://faithworksclearing.com
+- Match the short bio positioning: Land Clearing, Forestry Mulching & Outdoor Demo
 
-### Project proof
+### Do not claim on GBP
 
-- Save before/after photos by service and city when available.
-- Best first case-study categories: brush clearing, pond bank clearing, access road clearing, ditch maintenance, storm debris cleanup, and acreage cleanup.
-- For each project proof item, capture: city, service, problem, access constraints, equipment used, result, and whether debris was mulched, piled, or hauled off.
-- Add project proof to the website only when it reflects real completed work.
-
-## Pinned post (first Facebook post idea)
-
-**Headline:** Free estimates for land clearing & outdoor property work in Polk County
-
-**Body:**
-Faith Works Outdoor Services LLC is now serving Auburndale and communities within ~70 miles across Central Florida.
-
-We help with land clearing, brush removal, pond banks, ditches, fence lines, debris cleanup, and tractor work.
-
-📞 (863) 272-1596
-🌐 https://faithworksclearing.com
-
-Message or call Tyler for a free estimate.
-
-## Agent prompt template (Browser MCP — one section at a time)
-
-```
-Use Browser MCP. Open the Faith Works Facebook page.
-Work ONLY on the About / Profile details section.
-Do not click Save until I approve.
-
-Fields to enter:
-- Website: https://faithworksclearing.com
-- Phone: (863) 272-1596
-- Email: tyler@faithworksclearing.com
-- Address: 3925 Roberts Ave, Auburndale, FL 33823
-- Bio: [paste Short bio from business-profile-kit.md]
-
-First: snapshot the page and list every field you see.
-If multiple Settings buttons exist, describe them before clicking.
-After filling, screenshot and summarize changes — wait for approval.
-```
+- Aquatic pesticide applicator / algae spraying
+- Pool contractor / pool renovation
+- New concrete or asphalt driveway installation
+- Utility excavation / stormwater engineering

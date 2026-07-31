@@ -91,11 +91,57 @@ initEnterAnimations();
 })();
 
 // ---- Formspree AJAX submission ----
+const FW_ATTRIBUTION_KEY = "fw_attribution_v1";
+const FW_UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"];
+
+function readStoredAttribution() {
+  try {
+    const raw = sessionStorage.getItem(FW_ATTRIBUTION_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    return parsed && typeof parsed === "object" ? parsed : null;
+  } catch (_) {
+    return null;
+  }
+}
+
+function writeStoredAttribution(payload) {
+  try {
+    sessionStorage.setItem(FW_ATTRIBUTION_KEY, JSON.stringify(payload));
+  } catch (_) {
+    /* private mode / quota — ignore */
+  }
+}
+
+function captureFirstTouchAttribution() {
+  const params = new URLSearchParams(window.location.search);
+  const fromUrl = {};
+  let hasUtm = false;
+  FW_UTM_KEYS.forEach((key) => {
+    const value = (params.get(key) || "").trim();
+    fromUrl[key] = value;
+    if (value) hasUtm = true;
+  });
+  const existing = readStoredAttribution();
+  if (existing && !hasUtm) return existing;
+
+  const payload = {
+    ...fromUrl,
+    referrer: (document.referrer || (existing && existing.referrer) || "").trim(),
+    landing_url: window.location.href,
+    captured_at: new Date().toISOString(),
+  };
+  if (hasUtm || payload.referrer) {
+    writeStoredAttribution(payload);
+  }
+  return payload;
+}
+
 function currentUtmParams() {
   const params = new URLSearchParams(window.location.search);
-  const keys = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"];
-  return keys.reduce((acc, key) => {
-    acc[key] = params.get(key) || "";
+  const stored = readStoredAttribution() || {};
+  return FW_UTM_KEYS.reduce((acc, key) => {
+    acc[key] = (params.get(key) || "").trim() || stored[key] || "";
     return acc;
   }, {});
 }
@@ -106,12 +152,19 @@ function setHiddenValue(form, name, value) {
 }
 
 function populateLeadAttribution(form) {
+  const stored = captureFirstTouchAttribution() || {};
   const utms = currentUtmParams();
   setHiddenValue(form, "page_url", window.location.href);
   setHiddenValue(form, "page_title", document.title);
-  setHiddenValue(form, "referrer", document.referrer);
+  setHiddenValue(
+    form,
+    "referrer",
+    (document.referrer || "").trim() || stored.referrer || "",
+  );
   Object.entries(utms).forEach(([key, value]) => setHiddenValue(form, key, value));
 }
+
+captureFirstTouchAttribution();
 
 function trackConversionEvent(eventName, params = {}) {
   if (typeof gtag !== "function") return;
@@ -954,7 +1007,7 @@ function initHeroPanels() {
 
 // ---- Band parallax (process + scope) ----
 (function initBandParallax() {
-  const sections = document.querySelectorAll(".process-section--parallax, .scope-section--parallax, .priority-visibility-cluster--parallax");
+  const sections = document.querySelectorAll(".process-section--parallax, .scope-section--parallax");
   if (!sections.length) return;
   if (prefersReducedMotion()) return;
 

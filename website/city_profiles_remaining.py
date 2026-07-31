@@ -28,18 +28,18 @@ REMAINING_CITY_PROFILES: dict[str, dict] = {
             "Vacant lots near downtown Lake Alfred redevelopment",
         ],
         "common_jobs": [
+            "Forestry mulching on sapling-choked acreage",
             "Grove-edge and fence line clearing on former citrus parcels",
             "Pond bank brush cutback on Lake Haines properties",
-            "Overgrown rental lot cleanup before turnover",
             "Ditch vegetation removal along US-92 frontage",
-            "Forestry mulching on sapling-choked acreage",
+            "Overgrown rental lot cleanup before turnover",
             "Trail access reopening on multi-lot parcels",
         ],
         "intent_routes": [
+            {"label": "Acreage mulching", "slug": "forestry-mulching", "text": "Mulch thick undergrowth on small Lake Alfred acreage."},
             {"label": "Grove-edge clearing", "slug": "fence-line-clearing", "text": "Reopen fence lines on Lake Alfred grove and acreage parcels."},
             {"label": "Lake Haines pond banks", "slug": "pond-bank-clearing", "text": "Trim brush on private banks along Lake Haines."},
             {"label": "Rental lot cleanup", "slug": "lot-cleanup", "text": "Clear overgrown yards on Lake Alfred rental properties."},
-            {"label": "Acreage mulching", "slug": "forestry-mulching", "text": "Mulch thick undergrowth on small Lake Alfred acreage."},
         ],
         "unique_faqs": [
             (
@@ -79,17 +79,17 @@ REMAINING_CITY_PROFILES: dict[str, dict] = {
         ],
         "common_jobs": [
             "Acreage clearing on south Polk parcels",
-            "Pond bank cleanup on rural Bartow water features",
-            "Commercial perimeter brush removal near downtown",
-            "Ditch clearing on county-road frontage",
-            "Property cleanup before sale or probate",
             "Forestry mulching on wooded homestead sections",
+            "Pond bank cleanup on rural Bartow water features",
+            "Ditch clearing on county-road frontage",
+            "Commercial perimeter brush removal near downtown",
+            "Property cleanup before sale or probate",
         ],
         "intent_routes": [
-            {"label": "South Polk acreage", "slug": "acreage-cleanup", "text": "Clear overgrown acreage on Bartow and south Polk parcels."},
-            {"label": "Pond and ditch work", "slug": "pond-bank-clearing", "text": "Clean private pond banks and outdoor ditch lines near Bartow."},
-            {"label": "Commercial edges", "slug": "property-cleanup", "text": "Restore visibility on brush-choked commercial perimeters."},
             {"label": "Ranch road access", "slug": "access-road-clearing", "text": "Reopen access paths on Bartow rural properties."},
+            {"label": "Pond and ditch work", "slug": "pond-bank-clearing", "text": "Clean private pond banks and outdoor ditch lines near Bartow."},
+            {"label": "South Polk acreage", "slug": "acreage-cleanup", "text": "Clear overgrown acreage on Bartow and south Polk parcels."},
+            {"label": "Commercial edges", "slug": "property-cleanup", "text": "Restore visibility on brush-choked commercial perimeters."},
         ],
         "unique_faqs": [
             (
@@ -129,17 +129,17 @@ REMAINING_CITY_PROFILES: dict[str, dict] = {
         ],
         "common_jobs": [
             "Rear lot clearing on new Haines City subdivisions",
-            "Ditch and swale cleanup along US-27 frontage",
+            "Forestry mulching on sapling-choked acreage",
             "Fence line reopening on grove-transition parcels",
             "Pond bank brush removal on private retention areas",
-            "Forestry mulching on sapling-choked acreage",
+            "Ditch and swale cleanup along US-27 frontage",
             "Lot cleanup before builder handoff or resale",
         ],
         "intent_routes": [
-            {"label": "US-27 ditch lines", "slug": "ditch-clearing", "text": "Clear vegetation from drainage paths along Haines City road frontage."},
             {"label": "New subdivision edges", "slug": "land-clearing", "text": "Open overgrown rear sections on Haines City build sites."},
             {"label": "Conservation borders", "slug": "fence-line-clearing", "text": "Reopen fence lines where growth meets subdivision boundaries."},
             {"label": "Retention pond banks", "slug": "pond-bank-clearing", "text": "Cut back brush on private pond and retention edges in Haines City."},
+            {"label": "US-27 ditch lines", "slug": "ditch-clearing", "text": "Clear vegetation from drainage paths along Haines City road frontage."},
         ],
         "unique_faqs": [
             (
@@ -180,17 +180,17 @@ REMAINING_CITY_PROFILES: dict[str, dict] = {
         ],
         "common_jobs": [
             "Lot clearing before vacation rental improvements",
-            "Retention pond bank brush cutback",
-            "Fence line reopening on I-4 corridor parcels",
             "Forestry mulching on former grove sections",
+            "Fence line reopening on I-4 corridor parcels",
             "Access road clearing on multi-acre Davenport land",
+            "Retention pond bank brush cutback",
             "Debris removal after storm events along I-4",
         ],
         "intent_routes": [
-            {"label": "I-4 corridor lots", "slug": "lot-cleanup", "text": "Clear overgrown Davenport lots before sale, build, or rental turnover."},
             {"label": "ChampionsGate acreage", "slug": "land-clearing", "text": "Open wooded buffers and rear sections on Davenport corridor properties."},
-            {"label": "Retention pond edges", "slug": "pond-cleanup", "text": "Clean brush on private retention and pond banks in Davenport subdivisions."},
             {"label": "Grove-transition mulching", "slug": "forestry-mulching", "text": "Mulch saplings on former citrus land around Davenport."},
+            {"label": "Retention pond edges", "slug": "pond-cleanup", "text": "Clean brush on private retention and pond banks in Davenport subdivisions."},
+            {"label": "I-4 corridor lots", "slug": "lot-cleanup", "text": "Clear overgrown Davenport lots before sale, build, or rental turnover."},
         ],
         "unique_faqs": [
             (
@@ -231,17 +231,17 @@ REMAINING_CITY_PROFILES: dict[str, dict] = {
         ],
         "common_jobs": [
             "Forestry mulching on Ridge scrub and sapling regrowth",
-            "Pond bank clearing on Lake Wales lake edges",
             "Fence line reopening on citrus and ranch parcels",
-            "Trail clearing across multi-acre Ridge land",
-            "Acreage cleanup before listing or estate sale",
+            "Pond bank clearing on Lake Wales lake edges",
             "Ditch maintenance on rural Lake Wales frontage",
+            "Acreage cleanup before listing or estate sale",
+            "Trail clearing across multi-acre Ridge land",
         ],
         "intent_routes": [
             {"label": "Ridge acreage mulching", "slug": "forestry-mulching", "text": "Mulch scrub and saplings on Lake Wales Ridge parcels."},
-            {"label": "Lake edge banks", "slug": "pond-bank-clearing", "text": "Trim brush on private lake and pond banks around Lake Wales."},
-            {"label": "Ranch access paths", "slug": "trail-clearing", "text": "Reopen trails and access routes across Lake Wales acreage."},
             {"label": "Grove fence lines", "slug": "fence-line-clearing", "text": "Clear overgrown fence runs on former citrus land near Lake Wales."},
+            {"label": "Ranch access paths", "slug": "trail-clearing", "text": "Reopen trails and access routes across Lake Wales acreage."},
+            {"label": "Lake edge banks", "slug": "pond-bank-clearing", "text": "Trim brush on private lake and pond banks around Lake Wales."},
         ],
         "unique_faqs": [
             (
@@ -281,18 +281,18 @@ REMAINING_CITY_PROFILES: dict[str, dict] = {
             "Vacant parcels along Old Polk City Road",
         ],
         "common_jobs": [
+            "Rear lot clearing on oversized Polk City parcels",
+            "Forestry mulching on wooded homestead sections",
+            "Fence line reopening on rural acreage",
             "Lake Florence pond bank brush removal",
             "Ditch clearing on north Polk county roads",
-            "Rear lot clearing on oversized Polk City parcels",
-            "Fence line reopening on rural acreage",
-            "Forestry mulching on wooded homestead sections",
             "Property cleanup before sale on I-4 corridor land",
         ],
         "intent_routes": [
+            {"label": "Homestead fence lines", "slug": "fence-line-clearing", "text": "Reopen fence runs on rural Polk City properties."},
             {"label": "Lake Florence banks", "slug": "pond-bank-clearing", "text": "Clean private banks along Lake Florence in Polk City."},
             {"label": "North Polk ditches", "slug": "ditch-clearing", "text": "Clear vegetation from drainage ditches on Polk City frontage."},
             {"label": "I-4 corridor acreage", "slug": "acreage-cleanup", "text": "Cleanup overgrown acreage on Polk City and Gibsonia parcels."},
-            {"label": "Homestead fence lines", "slug": "fence-line-clearing", "text": "Reopen fence runs on rural Polk City properties."},
         ],
         "unique_faqs": [
             (
@@ -333,16 +333,16 @@ REMAINING_CITY_PROFILES: dict[str, dict] = {
             "Estate parcels needing cleanup before transfer",
         ],
         "common_jobs": [
-            "Private road and access road clearing on Mulberry ranch properties",
-            "Driveway edge clearing where brush narrows equipment access",
-            "Pond bank brush removal on rural water features",
             "Forestry mulching on multi-acre south Polk land",
             "Fence line reopening on long ranch boundaries",
+            "Driveway edge clearing where brush narrows equipment access",
+            "Private road and access road clearing on Mulberry ranch properties",
+            "Pond bank brush removal on rural water features",
             "Ditch clearing on CR-640 and rural frontage",
         ],
         "intent_routes": [
-            {"label": "Private roads and ranch access", "slug": "access-road-clearing", "text": "Reopen overgrown private roads, driveway edges, and access paths on Mulberry acreage."},
             {"label": "South Polk mulching", "slug": "forestry-mulching", "text": "Mulch saplings and thick brush on Mulberry multi-acre land."},
+            {"label": "Private roads and ranch access", "slug": "access-road-clearing", "text": "Reopen overgrown private roads, driveway edges, and access paths on Mulberry acreage."},
             {"label": "Rural pond banks", "slug": "pond-bank-clearing", "text": "Cut back brush on private pond edges near Mulberry."},
             {"label": "Estate acreage cleanup", "slug": "acreage-cleanup", "text": "Restore usable acreage on overgrown Mulberry properties."},
         ],
@@ -384,18 +384,18 @@ REMAINING_CITY_PROFILES: dict[str, dict] = {
             "Vacant south Polk land awaiting build or sale prep",
         ],
         "common_jobs": [
+            "Forestry mulching on wooded acreage sections",
             "Fence line clearing on Fort Meade ranch boundaries",
             "Access road reopening on rural homesteads",
             "Pond bank brush removal on private water features",
-            "Forestry mulching on wooded acreage sections",
-            "Property cleanup for estate and probate parcels",
             "Ditch clearing on south Polk county roads",
+            "Property cleanup for estate and probate parcels",
         ],
         "intent_routes": [
+            {"label": "Wooded acreage", "slug": "forestry-mulching", "text": "Mulch dense undergrowth on Fort Meade homestead sections."},
             {"label": "Ranch fence lines", "slug": "fence-line-clearing", "text": "Reopen overgrown fence runs on Fort Meade ranch and acreage land."},
             {"label": "Homestead access", "slug": "access-road-clearing", "text": "Clear brush blocking access roads on Fort Meade rural properties."},
             {"label": "South Polk ponds", "slug": "pond-bank-clearing", "text": "Trim banks on private ponds and ditches near Fort Meade."},
-            {"label": "Wooded acreage", "slug": "forestry-mulching", "text": "Mulch dense undergrowth on Fort Meade homestead sections."},
         ],
         "unique_faqs": [
             (
@@ -435,18 +435,18 @@ REMAINING_CITY_PROFILES: dict[str, dict] = {
             "Vacant citrus land being prepared for new use",
         ],
         "common_jobs": [
-            "Grove-edge and fence line clearing on citrus parcels",
-            "Lake bank brush cutback on Frostproof water frontage",
             "Forestry mulching on Ridge scrub sections",
+            "Grove-edge and fence line clearing on citrus parcels",
             "Trail reopening across multi-acre Frostproof land",
             "Ditch clearing on rural south Polk frontage",
+            "Lake bank brush cutback on Frostproof water frontage",
             "Acreage cleanup before sale or grove transition",
         ],
         "intent_routes": [
-            {"label": "Citrus grove edges", "slug": "fence-line-clearing", "text": "Clear overgrown fence and tree lines on Frostproof citrus acreage."},
-            {"label": "Ridge lake banks", "slug": "pond-bank-clearing", "text": "Trim brush on private banks along Frostproof Ridge lakes."},
             {"label": "Scrub mulching", "slug": "forestry-mulching", "text": "Mulch saplings and scrub on south Polk Ridge parcels near Frostproof."},
+            {"label": "Citrus grove edges", "slug": "fence-line-clearing", "text": "Clear overgrown fence and tree lines on Frostproof citrus acreage."},
             {"label": "Acreage trails", "slug": "trail-clearing", "text": "Reopen access trails across Frostproof multi-acre properties."},
+            {"label": "Ridge lake banks", "slug": "pond-bank-clearing", "text": "Trim brush on private banks along Frostproof Ridge lakes."},
         ],
         "unique_faqs": [
             (
@@ -486,18 +486,18 @@ REMAINING_CITY_PROFILES: dict[str, dict] = {
             "Vacant land near SR-544 development corridors",
         ],
         "common_jobs": [
-            "Pond bank brush removal on Dundee lake edges",
             "Rear lot clearing on oversized Dundee parcels",
-            "Ditch vegetation removal along county frontage",
-            "Fence line reopening on citrus-transition land",
             "Forestry mulching on sapling-choked sections",
+            "Fence line reopening on citrus-transition land",
+            "Pond bank brush removal on Dundee lake edges",
+            "Ditch vegetation removal along county frontage",
             "Lot cleanup before sale or new construction",
         ],
         "intent_routes": [
-            {"label": "Lake Hamilton banks", "slug": "pond-bank-clearing", "text": "Clean private banks along Lake Hamilton and nearby Dundee water edges."},
             {"label": "Dundee rear lots", "slug": "land-clearing", "text": "Clear dense growth on overgrown Dundee residential parcels."},
-            {"label": "County ditch lines", "slug": "ditch-clearing", "text": "Open drainage ditches and swales on Dundee road frontage."},
             {"label": "Small-acreage mulching", "slug": "forestry-mulching", "text": "Mulch undergrowth on Dundee citrus and acreage parcels."},
+            {"label": "Lake Hamilton banks", "slug": "pond-bank-clearing", "text": "Clean private banks along Lake Hamilton and nearby Dundee water edges."},
+            {"label": "County ditch lines", "slug": "ditch-clearing", "text": "Open drainage ditches and swales on Dundee road frontage."},
         ],
         "unique_faqs": [
             (
@@ -538,17 +538,17 @@ REMAINING_CITY_PROFILES: dict[str, dict] = {
             "Vacant lake-country land awaiting build prep",
         ],
         "common_jobs": [
-            "Lake Eloise pond bank brush removal",
-            "Canal edge clearing on Eagle Lake waterfront lots",
-            "Access path and driveway edge clearing on lake-country parcels",
             "Fence line reopening on small-acreage parcels",
+            "Access path and driveway edge clearing on lake-country parcels",
+            "Canal edge clearing on Eagle Lake waterfront lots",
+            "Lake Eloise pond bank brush removal",
             "Ditch clearing on Eagle Lake road frontage",
             "Storm debris cleanup on lake-canopy properties",
         ],
         "intent_routes": [
-            {"label": "Lake Eloise banks", "slug": "pond-bank-clearing", "text": "Trim brush on private banks along Lake Eloise in Eagle Lake."},
-            {"label": "Access paths and drive edges", "slug": "access-road-clearing", "text": "Clear overgrown drive edges and private paths on Eagle Lake properties."},
             {"label": "Lake-country lots", "slug": "land-clearing", "text": "Clear overgrown sections on Eagle Lake residential parcels."},
+            {"label": "Access paths and drive edges", "slug": "access-road-clearing", "text": "Clear overgrown drive edges and private paths on Eagle Lake properties."},
+            {"label": "Lake Eloise banks", "slug": "pond-bank-clearing", "text": "Trim brush on private banks along Lake Eloise in Eagle Lake."},
             {"label": "Storm debris haul-off", "slug": "storm-debris-cleanup", "text": "Remove limbs and brush after storms on Eagle Lake properties."},
         ],
         "unique_faqs": [
@@ -589,18 +589,18 @@ REMAINING_CITY_PROFILES: dict[str, dict] = {
             "Vacant parcels near SR-60 and I-4 interchange",
         ],
         "common_jobs": [
-            "Fence line clearing on Plant City farm and acreage parcels",
-            "Ditch and swale cleanup along rural Plant City frontage",
-            "Retention pond bank brush removal on subdivision edges",
             "Lot clearing before construction near I-4",
             "Forestry mulching on sapling-choked acreage",
+            "Fence line clearing on Plant City farm and acreage parcels",
+            "Retention pond bank brush removal on subdivision edges",
+            "Ditch and swale cleanup along rural Plant City frontage",
             "Property cleanup for agricultural land transition",
         ],
         "intent_routes": [
-            {"label": "Farm fence lines", "slug": "fence-line-clearing", "text": "Reopen overgrown fence runs on Plant City agricultural acreage."},
-            {"label": "I-4 corridor lots", "slug": "lot-cleanup", "text": "Clear overgrown Plant City lots before build or sale."},
-            {"label": "Rural ditch lines", "slug": "ditch-clearing", "text": "Open drainage ditches on Plant City road and farm frontage."},
             {"label": "Acreage overgrowth", "slug": "overgrowth-removal", "text": "Remove dense brush on Plant City acreage and field edges."},
+            {"label": "Farm fence lines", "slug": "fence-line-clearing", "text": "Reopen overgrown fence runs on Plant City agricultural acreage."},
+            {"label": "Rural ditch lines", "slug": "ditch-clearing", "text": "Open drainage ditches on Plant City road and farm frontage."},
+            {"label": "I-4 corridor lots", "slug": "lot-cleanup", "text": "Clear overgrown Plant City lots before build or sale."},
         ],
         "unique_faqs": [
             (
@@ -640,16 +640,16 @@ REMAINING_CITY_PROFILES: dict[str, dict] = {
             "Vacant Osceola acreage toward Poinciana",
         ],
         "common_jobs": [
-            "Lake and pond bank brush removal on Kissimmee waterfront lots",
             "Rear lot clearing on Narcoossee corridor properties",
-            "Retention area cleanup on subdivision edges",
-            "Fence line reopening on Osceola acreage",
             "Forestry mulching on conservation-border overgrowth",
+            "Fence line reopening on Osceola acreage",
+            "Lake and pond bank brush removal on Kissimmee waterfront lots",
+            "Retention area cleanup on subdivision edges",
             "Storm debris haul-off after Osceola wind events",
         ],
         "intent_routes": [
-            {"label": "Lake Toho banks", "slug": "pond-bank-clearing", "text": "Clean private banks along Kissimmee lake and pond frontage."},
             {"label": "Narcoossee corridor", "slug": "land-clearing", "text": "Clear overgrown rear sections on Kissimmee growth-corridor lots."},
+            {"label": "Lake Toho banks", "slug": "pond-bank-clearing", "text": "Clean private banks along Kissimmee lake and pond frontage."},
             {"label": "Retention cleanup", "slug": "pond-cleanup", "text": "Trim brush on retention ponds and swales in Kissimmee subdivisions."},
             {"label": "Osceola storm debris", "slug": "storm-debris-cleanup", "text": "Haul storm limbs and brush from Kissimmee properties."},
         ],
@@ -691,18 +691,18 @@ REMAINING_CITY_PROFILES: dict[str, dict] = {
             "Vacant Osceola land awaiting development prep",
         ],
         "common_jobs": [
-            "Lake bank brush removal on St. Cloud waterfront properties",
             "Rear lot clearing on Harmony and Narcoossee plats",
+            "Forestry mulching on wooded homestead sections",
             "Access road reopening on rural St. Cloud acreage",
             "Ditch clearing on Osceola county frontage",
-            "Forestry mulching on wooded homestead sections",
+            "Lake bank brush removal on St. Cloud waterfront properties",
             "Lot cleanup before St. Cloud construction or sale",
         ],
         "intent_routes": [
+            {"label": "Wooded rear sections", "slug": "forestry-mulching", "text": "Mulch dense growth on St. Cloud multi-acre parcels."},
+            {"label": "Rural access paths", "slug": "access-road-clearing", "text": "Reopen overgrown access roads on St. Cloud acreage."},
             {"label": "East Lake Toho edges", "slug": "pond-bank-clearing", "text": "Trim banks on St. Cloud lake and pond frontage properties."},
             {"label": "Harmony lot prep", "slug": "lot-cleanup", "text": "Clear overgrown St. Cloud lots in Harmony and growth areas."},
-            {"label": "Rural access paths", "slug": "access-road-clearing", "text": "Reopen overgrown access roads on St. Cloud acreage."},
-            {"label": "Wooded rear sections", "slug": "forestry-mulching", "text": "Mulch dense growth on St. Cloud multi-acre parcels."},
         ],
         "unique_faqs": [
             (
@@ -742,17 +742,17 @@ REMAINING_CITY_PROFILES: dict[str, dict] = {
             "Polk-side acreage toward Haines City borders",
         ],
         "common_jobs": [
+            "Rear lot clearing on oversized Poinciana parcels",
+            "Forestry mulching on wooded rear sections",
             "Conservation-border fence line clearing on Poinciana lots",
             "Retention pond bank brush cutback",
-            "Rear lot clearing on oversized Poinciana parcels",
             "Overgrowth removal before fencing or pool projects",
-            "Forestry mulching on wooded rear sections",
             "Property cleanup for Poinciana listing prep",
         ],
         "intent_routes": [
+            {"label": "Rear lot reclaim", "slug": "overgrowth-removal", "text": "Remove dense rear growth on Poinciana residential parcels."},
             {"label": "Greenbelt edges", "slug": "fence-line-clearing", "text": "Reopen fence lines where Poinciana lots meet conservation buffers."},
             {"label": "Community pond banks", "slug": "pond-bank-clearing", "text": "Clean brush on private retention and pond edges in Poinciana."},
-            {"label": "Rear lot reclaim", "slug": "overgrowth-removal", "text": "Remove dense rear growth on Poinciana residential parcels."},
             {"label": "Build-ready cleanup", "slug": "property-cleanup", "text": "Restore usable outdoor space on overgrown Poinciana properties."},
         ],
         "unique_faqs": [
@@ -794,11 +794,11 @@ REMAINING_CITY_PROFILES: dict[str, dict] = {
         ],
         "common_jobs": [
             "Rear lot clearing on oversized Orlando residential parcels",
-            "Retention and lake bank brush removal",
-            "Vacant lot cleanup before Orlando construction",
-            "Commercial perimeter overgrowth removal",
             "Forestry mulching on sapling-choked sections",
+            "Retention and lake bank brush removal",
+            "Commercial perimeter overgrowth removal",
             "Storm debris haul-off after Orange County storms",
+            "Vacant lot cleanup before Orlando construction",
         ],
         "intent_routes": [
             {"label": "Urban rear lots", "slug": "land-clearing", "text": "Clear dense rear growth on oversized Orlando city lots."},
@@ -844,18 +844,18 @@ REMAINING_CITY_PROFILES: dict[str, dict] = {
             "Vacant West Orange parcels awaiting build prep",
         ],
         "common_jobs": [
-            "Lake bank brush removal on Ocoee waterfront lots",
             "Rear lot clearing on oversized Ocoee parcels",
-            "Retention pond edge cleanup on subdivision properties",
             "Fence line reopening on West Orange acreage edges",
-            "Lot cleanup before Ocoee construction projects",
+            "Retention pond edge cleanup on subdivision properties",
+            "Lake bank brush removal on Ocoee waterfront lots",
             "Overgrowth removal on brush-choked side yards",
+            "Lot cleanup before Ocoee construction projects",
         ],
         "intent_routes": [
-            {"label": "Star Lake banks", "slug": "pond-bank-clearing", "text": "Clean private banks on Ocoee lake and pond frontage."},
             {"label": "West Orange rear lots", "slug": "land-clearing", "text": "Clear wooded rear sections on Ocoee residential properties."},
-            {"label": "Subdivision retention", "slug": "pond-cleanup", "text": "Trim brush on retention edges in Ocoee neighborhoods."},
             {"label": "Side yard overgrowth", "slug": "overgrowth-removal", "text": "Remove dense brush on narrow Ocoee side and rear yards."},
+            {"label": "Star Lake banks", "slug": "pond-bank-clearing", "text": "Clean private banks on Ocoee lake and pond frontage."},
+            {"label": "Subdivision retention", "slug": "pond-cleanup", "text": "Trim brush on retention edges in Ocoee neighborhoods."},
         ],
         "unique_faqs": [
             (
@@ -895,18 +895,18 @@ REMAINING_CITY_PROFILES: dict[str, dict] = {
             "Rural edges toward Oakland with acreage overgrowth",
         ],
         "common_jobs": [
-            "Retention pond bank brush removal in Horizon West",
             "Rear lot clearing on Winter Garden lake-country parcels",
-            "Fence line reopening on West Orange acreage edges",
-            "Lot cleanup before Winter Garden construction",
-            "Trail-adjacent overgrowth removal near West Orange Trail",
             "Forestry mulching on wooded rear homestead sections",
+            "Fence line reopening on West Orange acreage edges",
+            "Retention pond bank brush removal in Horizon West",
+            "Trail-adjacent overgrowth removal near West Orange Trail",
+            "Lot cleanup before Winter Garden construction",
         ],
         "intent_routes": [
-            {"label": "Horizon West retention", "slug": "pond-bank-clearing", "text": "Clean retention and pond banks in Winter Garden growth areas."},
             {"label": "Lake-country lots", "slug": "land-clearing", "text": "Clear overgrown rear sections on Winter Garden lake properties."},
-            {"label": "Build prep cleanup", "slug": "lot-cleanup", "text": "Open Winter Garden lots before construction or sale."},
             {"label": "Acreage edge mulching", "slug": "forestry-mulching", "text": "Mulch saplings on wooded buffers toward Oakland and Hamlin."},
+            {"label": "Horizon West retention", "slug": "pond-bank-clearing", "text": "Clean retention and pond banks in Winter Garden growth areas."},
+            {"label": "Build prep cleanup", "slug": "lot-cleanup", "text": "Open Winter Garden lots before construction or sale."},
         ],
         "unique_faqs": [
             (
@@ -946,12 +946,12 @@ REMAINING_CITY_PROFILES: dict[str, dict] = {
             "Vacant Apopka parcels awaiting development prep",
         ],
         "common_jobs": [
-            "Pond bank brush removal on Apopka golf-community lots",
-            "Rear hammock clearing on Wekiwa-area properties",
-            "Fence line reopening on north Orange acreage",
             "Forestry mulching on oak hammock undergrowth",
-            "Lot cleanup before Apopka construction",
+            "Fence line reopening on north Orange acreage",
+            "Pond bank brush removal on Apopka golf-community lots",
             "Retention pond edge cleanup on new Apopka plats",
+            "Lot cleanup before Apopka construction",
+            "Rear hammock clearing on Wekiwa-area properties",
         ],
         "intent_routes": [
             {"label": "Wekiwa-area hammocks", "slug": "forestry-mulching", "text": "Mulch dense hammock growth on Apopka north Orange parcels."},
@@ -997,18 +997,18 @@ REMAINING_CITY_PROFILES: dict[str, dict] = {
             "Vacant hilltop land awaiting build prep",
         ],
         "common_jobs": [
-            "Lake Minneola bank brush removal on waterfront lots",
-            "Retention pond edge cleanup on Clermont subdivisions",
-            "Fence line reopening on south Lake acreage",
             "Forestry mulching on sloped wooded sections",
-            "Acreage cleanup before Clermont listing or build",
+            "Fence line reopening on south Lake acreage",
+            "Retention pond edge cleanup on Clermont subdivisions",
             "Ditch clearing on rural south Lake frontage",
+            "Lake Minneola bank brush removal on waterfront lots",
+            "Acreage cleanup before Clermont listing or build",
         ],
         "intent_routes": [
-            {"label": "Lake Minneola banks", "slug": "pond-bank-clearing", "text": "Trim brush on private banks along Clermont lake frontage."},
-            {"label": "South Lake acreage", "slug": "acreage-cleanup", "text": "Clear overgrown acreage on rolling Clermont hill country."},
             {"label": "Hillside overgrowth", "slug": "overgrowth-removal", "text": "Remove dense brush on sloped Clermont residential sections."},
             {"label": "Rural fence lines", "slug": "fence-line-clearing", "text": "Reopen fence runs on Clermont south Lake parcels."},
+            {"label": "Lake Minneola banks", "slug": "pond-bank-clearing", "text": "Trim brush on private banks along Clermont lake frontage."},
+            {"label": "South Lake acreage", "slug": "acreage-cleanup", "text": "Clear overgrown acreage on rolling Clermont hill country."},
         ],
         "unique_faqs": [
             (
@@ -1048,16 +1048,16 @@ REMAINING_CITY_PROFILES: dict[str, dict] = {
             "Vacant lake-country parcels awaiting development",
         ],
         "common_jobs": [
-            "Harris Chain pond bank brush removal",
             "Rear lot clearing on oversized Leesburg properties",
-            "Ditch clearing on Lake County road frontage",
             "Forestry mulching on wooded homestead sections",
-            "Property cleanup before Leesburg sale or probate",
             "Fence line reopening on rural Lake County acreage",
+            "Harris Chain pond bank brush removal",
+            "Ditch clearing on Lake County road frontage",
+            "Property cleanup before Leesburg sale or probate",
         ],
         "intent_routes": [
-            {"label": "Harris Chain banks", "slug": "pond-bank-clearing", "text": "Clean private banks along Leesburg Harris Chain lake frontage."},
             {"label": "In-town rear lots", "slug": "land-clearing", "text": "Clear dense rear growth on oversized Leesburg city lots."},
+            {"label": "Harris Chain banks", "slug": "pond-bank-clearing", "text": "Clean private banks along Leesburg Harris Chain lake frontage."},
             {"label": "Lake County ditches", "slug": "ditch-clearing", "text": "Open drainage ditches on Leesburg road and lake frontage."},
             {"label": "Rural acreage prep", "slug": "acreage-cleanup", "text": "Restore usable acreage on overgrown Leesburg properties."},
         ],
@@ -1099,18 +1099,18 @@ REMAINING_CITY_PROFILES: dict[str, dict] = {
             "Vacant lake-country parcels awaiting build prep",
         ],
         "common_jobs": [
-            "Lake Dora pond bank brush removal",
-            "Rear hammock clearing on Mount Dora hillside lots",
-            "Fence line reopening on Lake County acreage",
             "Forestry mulching on wooded rolling sections",
-            "Property cleanup for Mount Dora listing prep",
+            "Fence line reopening on Lake County acreage",
             "Trail reopening on multi-acre lake-country land",
+            "Lake Dora pond bank brush removal",
+            "Property cleanup for Mount Dora listing prep",
+            "Rear hammock clearing on Mount Dora hillside lots",
         ],
         "intent_routes": [
-            {"label": "Lake Dora banks", "slug": "pond-bank-clearing", "text": "Trim brush on private Lake Dora and Gertrude banks in Mount Dora."},
             {"label": "Hillside rear lots", "slug": "land-clearing", "text": "Clear wooded rear sections on Mount Dora rolling-lot properties."},
-            {"label": "Lake Country trails", "slug": "trail-clearing", "text": "Reopen access trails on Mount Dora multi-acre parcels."},
             {"label": "Hammock mulching", "slug": "forestry-mulching", "text": "Mulch dense undergrowth on Mount Dora hammock sections."},
+            {"label": "Lake Country trails", "slug": "trail-clearing", "text": "Reopen access trails on Mount Dora multi-acre parcels."},
+            {"label": "Lake Dora banks", "slug": "pond-bank-clearing", "text": "Trim brush on private Lake Dora and Gertrude banks in Mount Dora."},
         ],
         "unique_faqs": [
             (
@@ -1150,18 +1150,18 @@ REMAINING_CITY_PROFILES: dict[str, dict] = {
             "Vacant waterfront parcels awaiting development",
         ],
         "common_jobs": [
-            "Harris Chain bank brush removal on Tavares waterfront",
             "Rear lot clearing on downtown-adjacent Tavares properties",
-            "Ditch clearing on Lake County road frontage",
-            "Acreage cleanup on rural Tavares parcels",
             "Forestry mulching on wooded homestead sections",
+            "Ditch clearing on Lake County road frontage",
+            "Harris Chain bank brush removal on Tavares waterfront",
+            "Acreage cleanup on rural Tavares parcels",
             "Property cleanup before Tavares sale or build",
         ],
         "intent_routes": [
             {"label": "Chain lake banks", "slug": "pond-bank-clearing", "text": "Clean private banks along Tavares Harris Chain frontage."},
-            {"label": "County seat lots", "slug": "lot-cleanup", "text": "Clear overgrown Tavares lots before construction or sale."},
             {"label": "Rural Lake ditches", "slug": "ditch-clearing", "text": "Open drainage ditches on Tavares county-road properties."},
             {"label": "Homestead acreage", "slug": "acreage-cleanup", "text": "Restore usable acreage on overgrown Tavares land."},
+            {"label": "County seat lots", "slug": "lot-cleanup", "text": "Clear overgrown Tavares lots before construction or sale."},
         ],
         "unique_faqs": [
             (
@@ -1201,10 +1201,10 @@ REMAINING_CITY_PROFILES: dict[str, dict] = {
             "Vacant south Lake parcels awaiting build prep",
         ],
         "common_jobs": [
-            "Access road clearing on Groveland acreage",
-            "Pond bank brush removal on south Lake water features",
             "Forestry mulching on hammock and pasture edges",
             "Fence line reopening on multi-acre Groveland land",
+            "Access road clearing on Groveland acreage",
+            "Pond bank brush removal on south Lake water features",
             "Ditch clearing on rural south Lake frontage",
             "Acreage cleanup before Groveland sale or transition",
         ],
@@ -1252,17 +1252,17 @@ REMAINING_CITY_PROFILES: dict[str, dict] = {
             "Vacant Hillsborough parcels awaiting build prep",
         ],
         "common_jobs": [
-            "Rear hammock clearing on oversized Brandon lots",
-            "Retention pond bank brush removal",
-            "Fence line reopening on Lithia-edge acreage",
             "Forestry mulching on sapling-choked sections",
-            "Lot cleanup before Brandon construction or sale",
+            "Fence line reopening on Lithia-edge acreage",
+            "Retention pond bank brush removal",
             "Storm debris haul-off after Hillsborough storms",
+            "Lot cleanup before Brandon construction or sale",
+            "Rear hammock clearing on oversized Brandon lots",
         ],
         "intent_routes": [
             {"label": "Suburban rear lots", "slug": "land-clearing", "text": "Clear dense rear growth on oversized Brandon residential parcels."},
-            {"label": "Retention pond edges", "slug": "pond-bank-clearing", "text": "Trim brush on retention banks in Brandon subdivisions."},
             {"label": "Oak hammock mulching", "slug": "forestry-mulching", "text": "Mulch saplings and undergrowth on Brandon hammock sections."},
+            {"label": "Retention pond edges", "slug": "pond-bank-clearing", "text": "Trim brush on retention banks in Brandon subdivisions."},
             {"label": "Storm debris removal", "slug": "storm-debris-cleanup", "text": "Haul limbs and brush after storms on Brandon properties."},
         ],
         "unique_faqs": [
@@ -1304,17 +1304,17 @@ REMAINING_CITY_PROFILES: dict[str, dict] = {
         ],
         "common_jobs": [
             "Vacant lot clearing before Tampa construction",
-            "Rear lot brush removal on oversized city parcels",
-            "Commercial perimeter overgrowth removal",
-            "Retention pond bank brush cutback",
-            "Debris removal and property cleanup for listings",
             "Forestry mulching on sapling-choked rear sections",
+            "Retention pond bank brush cutback",
+            "Commercial perimeter overgrowth removal",
+            "Rear lot brush removal on oversized city parcels",
+            "Debris removal and property cleanup for listings",
         ],
         "intent_routes": [
-            {"label": "Vacant urban lots", "slug": "lot-cleanup", "text": "Open overgrown Tampa vacant parcels before build or sale."},
             {"label": "Rear city acreage", "slug": "land-clearing", "text": "Clear dense rear growth on oversized Tampa residential lots."},
-            {"label": "Commercial perimeters", "slug": "property-cleanup", "text": "Restore visibility on brush-choked Tampa commercial edges."},
             {"label": "Retention and ditches", "slug": "pond-cleanup", "text": "Clean retention ponds and drainage edges on Tampa properties."},
+            {"label": "Vacant urban lots", "slug": "lot-cleanup", "text": "Open overgrown Tampa vacant parcels before build or sale."},
+            {"label": "Commercial perimeters", "slug": "property-cleanup", "text": "Restore visibility on brush-choked Tampa commercial edges."},
         ],
         "unique_faqs": [
             (
@@ -1354,11 +1354,11 @@ REMAINING_CITY_PROFILES: dict[str, dict] = {
             "Vacant east Hillsborough land awaiting build prep",
         ],
         "common_jobs": [
+            "Rear lot clearing before Valrico construction",
             "Oak hammock mulching on Valrico rear sections",
             "Fence line reopening on Lithia-edge acreage",
-            "Retention pond bank brush removal",
-            "Rear lot clearing before Valrico construction",
             "Access path reopening on multi-acre parcels",
+            "Retention pond bank brush removal",
             "Property cleanup for Valrico listing prep",
         ],
         "intent_routes": [
@@ -1406,17 +1406,17 @@ REMAINING_CITY_PROFILES: dict[str, dict] = {
         ],
         "common_jobs": [
             "Forestry mulching on Zephyrhills rolling acreage",
-            "Pond bank brush removal on rural water features",
-            "Ditch clearing on Pasco county-road frontage",
             "Fence line reopening on multi-acre homesteads",
             "Access road clearing on Zephyrhills ranch land",
+            "Pond bank brush removal on rural water features",
+            "Ditch clearing on Pasco county-road frontage",
             "Acreage cleanup before Pasco sale or transition",
         ],
         "intent_routes": [
             {"label": "Pasco hill acreage", "slug": "forestry-mulching", "text": "Mulch saplings and brush on rolling Zephyrhills parcels."},
+            {"label": "Homestead access", "slug": "access-road-clearing", "text": "Reopen overgrown access paths on Zephyrhills acreage."},
             {"label": "Rural pond banks", "slug": "pond-bank-clearing", "text": "Trim banks on private ponds and ditches near Zephyrhills."},
             {"label": "County ditch lines", "slug": "ditch-clearing", "text": "Open drainage ditches on Zephyrhills road frontage."},
-            {"label": "Homestead access", "slug": "access-road-clearing", "text": "Reopen overgrown access paths on Zephyrhills acreage."},
         ],
         "unique_faqs": [
             (
@@ -1456,18 +1456,18 @@ REMAINING_CITY_PROFILES: dict[str, dict] = {
             "Vacant growth-corridor land awaiting development prep",
         ],
         "common_jobs": [
-            "Conservation-buffer clearing on new Wesley Chapel lots",
-            "Retention pond bank brush cutback on Pasco plats",
             "Rear lot clearing before fencing and pool projects",
-            "Fence line reopening on rural Wesley Chapel acreage",
-            "Lot cleanup on builder leftover wooded sections",
             "Forestry mulching on sapling-choked rear buffers",
+            "Fence line reopening on rural Wesley Chapel acreage",
+            "Retention pond bank brush cutback on Pasco plats",
+            "Conservation-buffer clearing on new Wesley Chapel lots",
+            "Lot cleanup on builder leftover wooded sections",
         ],
         "intent_routes": [
             {"label": "New plat rear buffers", "slug": "overgrowth-removal", "text": "Remove dense rear growth on Wesley Chapel subdivision lots."},
+            {"label": "Pasco fence lines", "slug": "fence-line-clearing", "text": "Reopen fence runs on Wesley Chapel rural-edge acreage."},
             {"label": "Retention pond edges", "slug": "pond-bank-clearing", "text": "Clean retention banks on Wesley Chapel neighborhood properties."},
             {"label": "Build leftover clearing", "slug": "lot-cleanup", "text": "Clear unmanaged wooded sections on new Wesley Chapel homes."},
-            {"label": "Pasco fence lines", "slug": "fence-line-clearing", "text": "Reopen fence runs on Wesley Chapel rural-edge acreage."},
         ],
         "unique_faqs": [
             (
@@ -1507,18 +1507,18 @@ REMAINING_CITY_PROFILES: dict[str, dict] = {
             "Vacant Pasco hill-country land awaiting build prep",
         ],
         "common_jobs": [
-            "Ranch access road clearing on Dade City acreage",
-            "Fence line reopening on multi-acre Pasco homesteads",
-            "Pond bank brush removal on rural water features",
             "Forestry mulching on pasture-edge sapling regrowth",
+            "Fence line reopening on multi-acre Pasco homesteads",
+            "Ranch access road clearing on Dade City acreage",
+            "Pond bank brush removal on rural water features",
             "Ditch clearing on Pasco county-road frontage",
             "Acreage cleanup before Dade City sale or transition",
         ],
         "intent_routes": [
-            {"label": "Ranch access roads", "slug": "access-road-clearing", "text": "Reopen overgrown ranch paths on Dade City acreage."},
-            {"label": "Cattle fence lines", "slug": "fence-line-clearing", "text": "Clear overgrown fence runs on Dade City ranch boundaries."},
-            {"label": "Pasco pond banks", "slug": "pond-bank-clearing", "text": "Trim banks on private ponds and ditches near Dade City."},
             {"label": "Pasture-edge mulching", "slug": "forestry-mulching", "text": "Mulch saplings on former agricultural Dade City parcels."},
+            {"label": "Cattle fence lines", "slug": "fence-line-clearing", "text": "Clear overgrown fence runs on Dade City ranch boundaries."},
+            {"label": "Ranch access roads", "slug": "access-road-clearing", "text": "Reopen overgrown ranch paths on Dade City acreage."},
+            {"label": "Pasco pond banks", "slug": "pond-bank-clearing", "text": "Trim banks on private ponds and ditches near Dade City."},
         ],
         "unique_faqs": [
             (
@@ -1558,18 +1558,18 @@ REMAINING_CITY_PROFILES: dict[str, dict] = {
             "Vacant Hardee land awaiting agricultural or build transition",
         ],
         "common_jobs": [
+            "Forestry mulching on citrus and pasture edges",
             "Fence line clearing on Wauchula ranch boundaries",
             "Access road reopening on Hardee County acreage",
             "Pond bank brush removal on rural water features",
-            "Forestry mulching on citrus and pasture edges",
             "Ditch clearing on Hardee county-road frontage",
             "Acreage cleanup before Wauchula sale or estate transfer",
         ],
         "intent_routes": [
+            {"label": "Citrus-edge mulching", "slug": "forestry-mulching", "text": "Mulch saplings on agricultural transition parcels in Wauchula."},
             {"label": "Hardee ranch fences", "slug": "fence-line-clearing", "text": "Reopen overgrown fence runs on Wauchula ranch acreage."},
             {"label": "Rural access paths", "slug": "access-road-clearing", "text": "Clear brush blocking access roads on Wauchula properties."},
             {"label": "Pasture pond banks", "slug": "pond-bank-clearing", "text": "Trim banks on private ponds and ditches near Wauchula."},
-            {"label": "Citrus-edge mulching", "slug": "forestry-mulching", "text": "Mulch saplings on agricultural transition parcels in Wauchula."},
         ],
         "unique_faqs": [
             (
@@ -1609,18 +1609,18 @@ REMAINING_CITY_PROFILES: dict[str, dict] = {
             "Vacant lake-country parcels awaiting build prep",
         ],
         "common_jobs": [
-            "Lake bank brush removal on Sebring waterfront properties",
             "Rear lot clearing on oversized Circle district lots",
             "Forestry mulching on Ridge sapling regrowth",
             "Fence line reopening on rural Highlands acreage",
             "Ditch clearing on Sebring county-road frontage",
+            "Lake bank brush removal on Sebring waterfront properties",
             "Property cleanup before Highlands sale or probate",
         ],
         "intent_routes": [
-            {"label": "Sebring lake banks", "slug": "pond-bank-clearing", "text": "Clean private banks on Sebring lake and pond frontage."},
             {"label": "Circle district lots", "slug": "land-clearing", "text": "Clear overgrown rear sections on Sebring in-town properties."},
-            {"label": "Highlands acreage", "slug": "acreage-cleanup", "text": "Restore usable acreage on overgrown Sebring rural parcels."},
             {"label": "Ridge sapling mulching", "slug": "forestry-mulching", "text": "Mulch saplings on sandy Highlands sections near Sebring."},
+            {"label": "Sebring lake banks", "slug": "pond-bank-clearing", "text": "Clean private banks on Sebring lake and pond frontage."},
+            {"label": "Highlands acreage", "slug": "acreage-cleanup", "text": "Restore usable acreage on overgrown Sebring rural parcels."},
         ],
         "unique_faqs": [
             (
@@ -1660,18 +1660,18 @@ REMAINING_CITY_PROFILES: dict[str, dict] = {
             "Vacant Highlands parcels awaiting build or sale prep",
         ],
         "common_jobs": [
-            "Lake bank brush removal on Avon Park waterfront lots",
+            "Rear lot clearing on Avon Park residential parcels",
             "Forestry mulching on Ridge scrub sections",
             "Fence line reopening on rural Highlands acreage",
-            "Rear lot clearing on Avon Park residential parcels",
             "Ditch clearing on county-road frontage",
+            "Lake bank brush removal on Avon Park waterfront lots",
             "Acreage cleanup before Avon Park listing or transition",
         ],
         "intent_routes": [
-            {"label": "Highlands lake edges", "slug": "pond-bank-clearing", "text": "Trim banks on private lake frontage in Avon Park."},
             {"label": "Ridge scrub mulching", "slug": "forestry-mulching", "text": "Mulch saplings and scrub on Avon Park Ridge acreage."},
-            {"label": "Rural fence lines", "slug": "fence-line-clearing", "text": "Reopen overgrown fence runs on Avon Park homesteads."},
             {"label": "Rear lot reclaim", "slug": "overgrowth-removal", "text": "Remove dense rear growth on Avon Park residential properties."},
+            {"label": "Rural fence lines", "slug": "fence-line-clearing", "text": "Reopen overgrown fence runs on Avon Park homesteads."},
+            {"label": "Highlands lake edges", "slug": "pond-bank-clearing", "text": "Trim banks on private lake frontage in Avon Park."},
         ],
         "unique_faqs": [
             (
@@ -1711,18 +1711,18 @@ REMAINING_CITY_PROFILES: dict[str, dict] = {
             "Vacant DeSoto land awaiting agricultural transition",
         ],
         "common_jobs": [
-            "Ranch access road clearing on Arcadia acreage",
-            "Fence line reopening on DeSoto County boundaries",
-            "Pond bank brush removal on rural water features",
             "Forestry mulching on pasture and citrus edges",
+            "Fence line reopening on DeSoto County boundaries",
+            "Ranch access road clearing on Arcadia acreage",
+            "Pond bank brush removal on rural water features",
             "Ditch clearing on US-17 and county-road frontage",
             "Acreage cleanup before Arcadia sale or estate transfer",
         ],
         "intent_routes": [
-            {"label": "DeSoto ranch access", "slug": "access-road-clearing", "text": "Reopen overgrown ranch paths on Arcadia acreage."},
-            {"label": "Cattle fence lines", "slug": "fence-line-clearing", "text": "Clear overgrown fence runs on Arcadia ranch boundaries."},
-            {"label": "Rural pond banks", "slug": "pond-bank-clearing", "text": "Trim banks on private ponds and ditches near Arcadia."},
             {"label": "Pasture-edge mulching", "slug": "forestry-mulching", "text": "Mulch saplings on DeSoto agricultural transition parcels."},
+            {"label": "Cattle fence lines", "slug": "fence-line-clearing", "text": "Clear overgrown fence runs on Arcadia ranch boundaries."},
+            {"label": "DeSoto ranch access", "slug": "access-road-clearing", "text": "Reopen overgrown ranch paths on Arcadia acreage."},
+            {"label": "Rural pond banks", "slug": "pond-bank-clearing", "text": "Trim banks on private ponds and ditches near Arcadia."},
         ],
         "unique_faqs": [
             (
@@ -1762,18 +1762,18 @@ REMAINING_CITY_PROFILES: dict[str, dict] = {
             "Lake County Villages parcels toward Fenney and Brownwood",
         ],
         "common_jobs": [
-            "Conservation-border overgrowth removal on Villages lots",
-            "Retention pond bank brush cutback",
             "Rear lot clearing on oversized Villages parcels",
             "Fence line reopening where lots meet greenbelts",
-            "Property cleanup for Villages listing prep",
+            "Retention pond bank brush cutback",
+            "Conservation-border overgrowth removal on Villages lots",
             "Storm debris haul-off after central Florida wind events",
+            "Property cleanup for Villages listing prep",
         ],
         "intent_routes": [
             {"label": "Greenbelt edges", "slug": "overgrowth-removal", "text": "Remove dense growth where Villages lots meet conservation buffers."},
+            {"label": "Buffer fence lines", "slug": "fence-line-clearing", "text": "Reopen fence runs on Villages lots adjacent to greenbelts."},
             {"label": "Community pond banks", "slug": "pond-bank-clearing", "text": "Trim brush on private retention edges in The Villages."},
             {"label": "Rear lot reclaim", "slug": "property-cleanup", "text": "Restore usable outdoor space on overgrown Villages properties."},
-            {"label": "Buffer fence lines", "slug": "fence-line-clearing", "text": "Reopen fence runs on Villages lots adjacent to greenbelts."},
         ],
         "unique_faqs": [
             (
@@ -1813,18 +1813,18 @@ REMAINING_CITY_PROFILES: dict[str, dict] = {
             "Vacant Sumter parcels awaiting build or sale prep",
         ],
         "common_jobs": [
-            "Fence line clearing on Bushnell multi-acre homesteads",
-            "Pond bank brush removal on Lake Panasoffkee edges",
-            "Access road reopening on rural Sumter acreage",
             "Forestry mulching on pasture-edge sapling regrowth",
+            "Fence line clearing on Bushnell multi-acre homesteads",
+            "Access road reopening on rural Sumter acreage",
+            "Pond bank brush removal on Lake Panasoffkee edges",
             "Ditch clearing on Bushnell county-road frontage",
             "Acreage cleanup before Sumter sale or transition",
         ],
         "intent_routes": [
-            {"label": "Sumter acreage fences", "slug": "fence-line-clearing", "text": "Reopen overgrown fence runs on Bushnell rural parcels."},
-            {"label": "Panasoffkee banks", "slug": "pond-bank-clearing", "text": "Trim banks on private water edges near Bushnell and Lake Panasoffkee."},
-            {"label": "Rural access roads", "slug": "access-road-clearing", "text": "Clear brush blocking access paths on Bushnell acreage."},
             {"label": "Pasture-edge mulching", "slug": "forestry-mulching", "text": "Mulch saplings on former pasture land around Bushnell."},
+            {"label": "Sumter acreage fences", "slug": "fence-line-clearing", "text": "Reopen overgrown fence runs on Bushnell rural parcels."},
+            {"label": "Rural access roads", "slug": "access-road-clearing", "text": "Clear brush blocking access paths on Bushnell acreage."},
+            {"label": "Panasoffkee banks", "slug": "pond-bank-clearing", "text": "Trim banks on private water edges near Bushnell and Lake Panasoffkee."},
         ],
         "unique_faqs": [
             (
@@ -1864,12 +1864,12 @@ REMAINING_CITY_PROFILES: dict[str, dict] = {
             "Vacant Manatee parcels awaiting build or sale prep",
         ],
         "common_jobs": [
-            "Rear hammock clearing on oversized Bradenton lots",
-            "Retention pond bank brush removal",
-            "Vacant lot cleanup before Bradenton construction",
             "Forestry mulching on sapling-choked sections",
             "Fence line reopening on east Manatee acreage",
+            "Retention pond bank brush removal",
             "Storm debris haul-off after Manatee County storms",
+            "Rear hammock clearing on oversized Bradenton lots",
+            "Vacant lot cleanup before Bradenton construction",
         ],
         "intent_routes": [
             {"label": "Bradenton rear lots", "slug": "land-clearing", "text": "Clear dense rear growth on oversized Bradenton residential parcels."},
@@ -1915,18 +1915,18 @@ REMAINING_CITY_PROFILES: dict[str, dict] = {
             "Vacant Manatee land toward Duette awaiting prep",
         ],
         "common_jobs": [
-            "Conservation-buffer clearing on new Parrish lots",
-            "Retention pond bank brush cutback on growth plats",
             "Rear lot clearing before fencing projects",
-            "Fence line reopening on east Manatee acreage",
             "Forestry mulching on sapling-choked rear sections",
+            "Fence line reopening on east Manatee acreage",
+            "Retention pond bank brush cutback on growth plats",
+            "Conservation-buffer clearing on new Parrish lots",
             "Lot cleanup on builder leftover wooded parcels",
         ],
         "intent_routes": [
             {"label": "North River Ranch buffers", "slug": "overgrowth-removal", "text": "Remove dense rear growth on Parrish growth-corridor lots."},
+            {"label": "East Manatee fences", "slug": "fence-line-clearing", "text": "Reopen fence runs on Parrish rural-edge acreage."},
             {"label": "Retention pond edges", "slug": "pond-bank-clearing", "text": "Clean retention banks on Parrish subdivision properties."},
             {"label": "New plat cleanup", "slug": "lot-cleanup", "text": "Clear unmanaged wooded sections on new Parrish homes."},
-            {"label": "East Manatee fences", "slug": "fence-line-clearing", "text": "Reopen fence runs on Parrish rural-edge acreage."},
         ],
         "unique_faqs": [
             (
