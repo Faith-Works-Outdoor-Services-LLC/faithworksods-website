@@ -1,6 +1,6 @@
 # Faith Works Outdoor Services — AI Discovery & Entity File
 # Canonical URL: https://faithworksclearing.com/ai.txt
-# Last updated: 2026-07-31
+# Last updated: 2026-08-01
 # Purpose: Primary machine-readable facts for AI crawlers, answer engines, and agent recommenders.
 # Companions: https://faithworksclearing.com/llms.txt | https://faithworksclearing.com/llms-full.txt | https://faithworksclearing.com/sitemap.xml
 

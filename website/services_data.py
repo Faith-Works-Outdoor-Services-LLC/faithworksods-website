@@ -1124,6 +1124,135 @@ SERVICES = [
     ),
 ]
 
+# Curated project photos per service page (3 max — keeps layout clean; only relevant work).
+SERVICE_GALLERY: dict[str, list[str]] = {
+    "land-clearing": [
+        "before-process-after-land-clearing-job.webp",
+        "excavator-photo.webp",
+        "stump-post-removal-1.webp",
+    ],
+    "forestry-mulching": [
+        "stump-during-removal.webp",
+        "stump-during-removal-2.webp",
+        "stump-post-removal.webp",
+    ],
+    "brush-clearing": [
+        "stump-prior-to-removal.webp",
+        "stump-during-removal-1.webp",
+        "stump-during-removal-2.webp",
+    ],
+    "trail-clearing": [
+        "tractor.webp",
+        "stump-during-removal-1.webp",
+        "tractor-with-box-blade-leveling-ground.webp",
+    ],
+    "access-road-clearing": [
+        "tractor.webp",
+        "excavator-photo.webp",
+        "stump-during-removal-2.webp",
+    ],
+    "fence-line-clearing": [
+        "before-process-after-brush-cleanup-along-fence-line-haul-debris-site-452d77cf.webp",
+        "stump-during-removal-2.webp",
+        "tractor-moving-item-with-grapple.webp",
+    ],
+    "demolition": [
+        "excavator-and-truck-photo.webp",
+        "excavator-photo.webp",
+        "tractor-moving-item-with-grapple.webp",
+    ],
+    "stump-removal": [
+        "stump-prior-to-removal.webp",
+        "stump-during-removal.webp",
+        "stump-post-removal-1.webp",
+    ],
+    "driveway-demo": [
+        "excavator-photo.webp",
+        "excavator-and-truck-photo.webp",
+        "stump-before-ground-leveled.webp",
+    ],
+    "pond-bank-clearing": [
+        "tractor-with-box-blade-leveling-ground.webp",
+        "stump-during-removal-1.webp",
+        "tractor.webp",
+    ],
+    "pond-cleanup": [
+        "tractor-with-box-blade-leveling-ground.webp",
+        "tractor-moving-item-with-grapple.webp",
+        "1-after.webp",
+    ],
+    "pond-management": [
+        "tractor-with-box-blade-leveling-ground.webp",
+        "stump-during-removal-1.webp",
+        "tractor.webp",
+    ],
+    "ditch-clearing": [
+        "tractor-with-box-blade-leveling-ground.webp",
+        "tractor.webp",
+        "stump-during-removal-1.webp",
+    ],
+    "ditch-maintenance": [
+        "tractor-with-box-blade-leveling-ground.webp",
+        "tractor.webp",
+        "stump-during-removal-1.webp",
+    ],
+    "debris-removal": [
+        "tractor-moving-item-with-grapple.webp",
+        "stump-post-removal.webp",
+        "1-after.webp",
+    ],
+    "yard-debris-removal": [
+        "tractor-moving-item-with-grapple.webp",
+        "stump-post-removal.webp",
+        "1-after.webp",
+    ],
+    "storm-debris-cleanup": [
+        "tractor-moving-item-with-grapple.webp",
+        "1-after.webp",
+        "stump-post-removal.webp",
+    ],
+    "property-cleanup": [
+        "1-after.webp",
+        "stump-before-ground-leveled.webp",
+        "stump-post-removal.webp",
+    ],
+    "lot-cleanup": [
+        "stump-prior-to-removal.webp",
+        "stump-post-removal-1.webp",
+        "before-process-after-land-clearing-job.webp",
+    ],
+    "acreage-cleanup": [
+        "stump-during-removal-2.webp",
+        "before-process-after-land-clearing-job.webp",
+        "excavator-photo.webp",
+    ],
+    "overgrowth-removal": [
+        "stump-during-removal.webp",
+        "stump-post-removal.webp",
+        "stump-during-removal-1.webp",
+    ],
+    "pool-dig-out-support": [
+        "excavator-and-truck-photo.webp",
+        "excavator-photo.webp",
+        "photo-of-all-equipment.webp",
+    ],
+    "property-maintenance": [
+        "tractor.webp",
+        "tractor-with-box-blade-leveling-ground.webp",
+        "tractor-moving-item-with-grapple.webp",
+    ],
+    "equipment-services": [
+        "photo-of-all-equipment.webp",
+        "equipment-photos5.webp",
+        "excavator-photo.webp",
+    ],
+    "tractor-services": [
+        "tractor.webp",
+        "tractor-moving-item-with-grapple.webp",
+        "tractor-with-box-blade-leveling-ground.webp",
+    ],
+}
+
 SERVICE_COUNT = len(SERVICES)
 
 

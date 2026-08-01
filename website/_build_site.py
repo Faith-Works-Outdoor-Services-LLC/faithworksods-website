@@ -54,6 +54,7 @@ from services_data import (
     SERVICE_BY_SLUG,
     SERVICE_CATEGORIES,
     SERVICE_COUNT,
+    SERVICE_GALLERY,
     SERVICES,
     SITE_EMAIL,
     SITE_POSITIONING,
@@ -105,6 +106,61 @@ def mosaic_image_src(filename: str) -> str:
     if (ROOT / card).exists():
         return card
     return f"gallery/{filename}"
+
+
+def gallery_image_filename(image_ref: str) -> str:
+    return image_ref.replace("\\", "/").split("/")[-1]
+
+
+def gallery_image_alt(filename: str) -> str:
+    base = gallery_image_filename(filename)
+    for img, alt, _label in GALLERY:
+        if img == base:
+            return alt
+    for project in job_gallery_projects():
+        project_image = str(project.get("image") or "")
+        if base in project_image:
+            return str(project.get("title") or "Completed Faith Works project")
+    return f"Faith Works outdoor property work — {base.replace('-', ' ').replace('.webp', '')}"
+
+
+def service_gallery_images(s: dict) -> list[tuple[str, str]]:
+    images: list[str] = []
+    for project in job_gallery_projects():
+        tagged = project.get("service_slugs") or []
+        if s["slug"] not in tagged:
+            continue
+        filename = gallery_image_filename(str(project["image"]))
+        if filename and filename not in images:
+            images.append(filename)
+    for filename in SERVICE_GALLERY.get(s["slug"], []):
+        if filename not in images:
+            images.append(filename)
+    if not images:
+        images = [s["mosaic_image"]]
+    return [(filename, gallery_image_alt(filename)) for filename in images[:3]]
+
+
+def service_gallery_section(s: dict) -> str:
+    images = service_gallery_images(s)
+    if not images:
+        return ""
+    items = ""
+    for i, (filename, alt) in enumerate(images):
+        caption = alt if len(alt) <= 92 else f"{alt[:89]}..."
+        items += f"""
+            <figure data-fw-enter="bottom" style="--fw-enter-delay: {i * 60}ms;">
+              <img src="{mosaic_image_src(filename)}" alt="{alt}" loading="lazy" decoding="async" width="640" height="480">
+              <figcaption>{caption}</figcaption>
+            </figure>"""
+    return f"""
+          <div class="service-gallery">
+            <h2>Project Photos</h2>
+            <p class="service-gallery__lead">Photos from actual {s['name'].lower()} work in Polk County — scope and equipment vary by property.</p>
+            <div class="service-gallery__grid">{items}
+            </div>
+            <p class="service-gallery__more"><a href="gallery.html">View full project gallery &rarr;</a></p>
+          </div>"""
 
 
 def logo_coin(modifier: str = "fw-logo-coin--header", size: int = 68, alt: str = "", logo_src: str | None = None) -> str:
@@ -206,7 +262,19 @@ def form_action_attrs(subject: str) -> tuple[str, str, str, str, str]:
 
 GALLERY = [
     ("1-after.webp", "Completed residential property cleanup and brush clearing in Polk County Florida", "Property Cleanup"),
-
+    (
+        "before-process-after-brush-cleanup-along-fence-line-haul-debris-site-452d77cf.webp",
+        "Before, process, and after brush cleanup along a fence line with debris hauled from the site",
+        "Fence Line Clearing",
+    ),
+    (
+        "before-process-after-land-clearing-job.webp",
+        "Before, process, and after land clearing project on a Central Florida residential property",
+        "Land Clearing",
+    ),
+    ("equipment-photos.webp", "Faith Works outdoor service equipment staged on a job site", "Equipment"),
+    ("equipment-photos1.webp", "Kubota compact equipment used for land clearing and property cleanup", "Equipment"),
+    ("equipment-photos5.webp", "Faith Works Kubota fleet and trailers ready for a Polk County job", "Equipment"),
     ("excavator-and-truck-photo.webp", "Kubota excavator and dump trailer on a residential pool dig-out support site in Polk County Florida", "Pool Dig-Out Support"),
     ("excavator-photo.webp", "Kubota mini excavator on a land clearing job site in Polk County", "Land Clearing"),
     ("photo-of-all-equipment.webp", "Faith Works Outdoor Services fleet — Kubota excavator, tractor with loader, pickup, dump trailer, and flatbed trailer", "Equipment"),
@@ -2643,6 +2711,7 @@ def write_service_page(s: dict) -> None:
           <ul>{ideal_for}</ul>
           <h2>Benefits</h2>
           <ul>{benefits}</ul>
+          {service_gallery_section(s)}
           {service_opportunity_section(s)}
           {service_timeline_section(s)}
           {service_scope_details(s)}
@@ -4443,6 +4512,65 @@ def write_styles() -> None:
 }
 .service-detail-grid ul {
   padding-left: 1.05rem;
+}
+.service-gallery {
+  margin: 2rem 0 2.5rem;
+}
+.service-gallery h2 {
+  margin-bottom: 0.45rem;
+}
+.service-gallery__lead {
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+.service-gallery__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.service-gallery__grid figure {
+  margin: 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+}
+.service-gallery__grid img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+}
+.service-gallery__grid figcaption {
+  padding: 8px 10px;
+  font-size: 0.78rem;
+  color: var(--muted);
+  line-height: 1.4;
+}
+.service-gallery__more {
+  margin-top: 0.85rem;
+  font-size: 0.88rem;
+}
+.service-gallery__more a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 650;
+}
+.service-gallery__more a:hover,
+.service-gallery__more a:focus-visible {
+  text-decoration: underline;
+}
+@media (max-width: 768px) {
+  .service-gallery__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 520px) {
+  .service-gallery__grid {
+    grid-template-columns: 1fr;
+  }
 }
 .intent-card__cta {
   display: inline-flex;

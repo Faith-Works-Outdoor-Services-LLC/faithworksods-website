@@ -9,7 +9,18 @@
       "image": "gallery/before-process-after-brush-cleanup-along-fence-line-haul-debris-site-452d77cf.webp",
       "social_image": "gallery/before-process-after-brush-cleanup-along-fence-line-haul-debris-site-452d77cf-social.jpg",
       "detail_url": "gallery/before-process-after-brush-cleanup-along-fence-line-haul-debris-site-452d77cf.html",
+      "service_slugs": ["fence-line-clearing", "brush-clearing", "debris-removal"],
       "published_at": "2026-07-23T15:58:20.911849+00:00"
+    },
+    {
+      "id": "before-process-after-land-clearing-job",
+      "title": "Land clearing project — before, process, and after",
+      "summary": "Before, process, and after land clearing proof from Faith Works Outdoor Services LLC.",
+      "image": "gallery/before-process-after-land-clearing-job.webp",
+      "social_image": "gallery/before-process-after-land-clearing-job-social.jpg",
+      "detail_url": "gallery.html",
+      "service_slugs": ["land-clearing", "lot-cleanup", "acreage-cleanup"],
+      "published_at": "2026-08-01T16:00:00+00:00"
     }
   ]
 }
