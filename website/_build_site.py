@@ -163,6 +163,44 @@ def service_gallery_section(s: dict) -> str:
           </div>"""
 
 
+AREA_HERO_IMAGES = [
+    "excavator-photo.webp",
+    "tractor.webp",
+    "stump-during-removal-1.webp",
+    "tractor-moving-item-with-grapple.webp",
+    "photo-of-all-equipment.webp",
+    "excavator-and-truck-photo.webp",
+    "stump-during-removal-2.webp",
+    "tractor-with-box-blade-leveling-ground.webp",
+]
+
+STATIC_PAGE_HERO_IMAGES = {
+    "services": "photo-of-all-equipment.webp",
+    "gallery": "excavator-photo.webp",
+    "about": "photo-of-all-equipment.webp",
+    "contact": "equipment-photos5.webp",
+    "service-areas": "tractor.webp",
+    "thank-you": "1-after.webp",
+    "404": "photo-of-all-equipment.webp",
+    "privacy": "equipment-photos.webp",
+    "image-policy": "equipment-photos.webp",
+}
+
+
+def area_hero_image(slug: str) -> str:
+    return AREA_HERO_IMAGES[sum(ord(char) for char in slug) % len(AREA_HERO_IMAGES)]
+
+
+def sp_hero(bg_image: str, inner_html: str) -> str:
+    bg = mosaic_image_src(bg_image)
+    return f"""
+    <section class="sp-hero sp-hero--photo" style="--sp-hero-bg: url('{bg}');">
+      <div class="container">
+{inner_html}
+      </div>
+    </section>"""
+
+
 def logo_coin(modifier: str = "fw-logo-coin--header", size: int = 68, alt: str = "", logo_src: str | None = None) -> str:
     src = logo_src or logo_path(size)
     alt_attr = f' alt="{alt}"' if alt else ' alt=""'
@@ -2687,14 +2725,10 @@ def write_service_page(s: dict) -> None:
     )
 
     body = f"""
-    <section class="sp-hero">
-      <div class="container">
-        <p class="eyebrow"><a href="index.html">Home</a> &rsaquo; <a href="services.html">Services</a> &rsaquo; {s['name']}</p>
+    {sp_hero(s["mosaic_image"], f"""        <p class="eyebrow"><a href="index.html">Home</a> &rsaquo; <a href="services.html">Services</a> &rsaquo; {s['name']}</p>
         {phase_badge}
         <h1>{s['h1']}</h1>
-        <p>{s['desc']}</p>
-      </div>
-    </section>
+        <p>{s['desc']}</p>""")}
     <section class="section-shell">
       <div class="container sp-layout">
         <div class="sp-content" data-fw-enter="left">
@@ -2766,13 +2800,9 @@ def write_services() -> None:
     )
 
     body = f"""
-    <section class="sp-hero">
-      <div class="container">
-        <p class="eyebrow"><a href="index.html">Home</a> &rsaquo; Services</p>
+    {sp_hero(STATIC_PAGE_HERO_IMAGES["services"], f"""        <p class="eyebrow"><a href="index.html">Home</a> &rsaquo; Services</p>
         <h1>{SITE_POSITIONING}</h1>
-        <p>Faith Works Outdoor Services in {SITE['city']} and {SITE['area']} - outdoor property clearing, mulching, cleanup, and maintenance with owner-operated equipment.</p>
-      </div>
-    </section>
+        <p>Faith Works Outdoor Services in {SITE['city']} and {SITE['area']} - outdoor property clearing, mulching, cleanup, and maintenance with owner-operated equipment.</p>""")}
 
     {intent_router_section("services")}
 
@@ -2857,13 +2887,9 @@ def write_gallery() -> None:
         breadcrumbs=[("Home", "index.html"), ("Gallery", gallery_path)],
     )
     body = f"""
-    <section class="sp-hero">
-      <div class="container">
-        <p class="eyebrow"><a href="index.html">Home</a> &rsaquo; Gallery</p>
+    {sp_hero(STATIC_PAGE_HERO_IMAGES["gallery"], f"""        <p class="eyebrow"><a href="index.html">Home</a> &rsaquo; Gallery</p>
         <h1>Project Gallery</h1>
-        <p>Real outdoor work from {SITE['brand']} - land clearing, brush cutting, pond bank work, tractor support, and property cleanup across Polk County and nearby Central Florida.</p>
-      </div>
-    </section>
+        <p>Real outdoor work from {SITE['brand']} - land clearing, brush cutting, pond bank work, tractor support, and property cleanup across Polk County and nearby Central Florida.</p>""")}
     <section class="section-shell">
       <div class="container">
         <div class="section-heading" data-fw-enter="left">
@@ -2888,13 +2914,9 @@ def write_gallery() -> None:
 
 def write_about() -> None:
     body = f"""
-    <section class="sp-hero">
-      <div class="container">
-        <p class="eyebrow"><a href="index.html">Home</a> &rsaquo; About</p>
+    {sp_hero(STATIC_PAGE_HERO_IMAGES["about"], f"""        <p class="eyebrow"><a href="index.html">Home</a> &rsaquo; About</p>
         <h1>About {SITE['brand']}</h1>
-        <p>Local Auburndale outdoor services built on faith, hard work, and equipment-ready property cleanup.</p>
-      </div>
-    </section>
+        <p>Local Auburndale outdoor services built on faith, hard work, and equipment-ready property cleanup.</p>""")}
     <section class="section-shell">
       <div class="container about-grid">
         <div class="about-copy" data-fw-enter="left">
@@ -3003,13 +3025,9 @@ def write_contact() -> None:
         faqs=CONTACT_FAQS,
     )
     body = f"""
-    <section class="sp-hero">
-      <div class="container">
-        <p class="eyebrow"><a href="index.html">Home</a> &rsaquo; Contact</p>
+    {sp_hero(STATIC_PAGE_HERO_IMAGES["contact"], """        <p class="eyebrow"><a href="index.html">Home</a> &rsaquo; Contact</p>
         <h1>Request an Outdoor Property Services Estimate</h1>
-        <p>Share your name, phone, service type, and a quick description. Tyler follows up directly — we can ask for photos then if they help with your quote.</p>
-      </div>
-    </section>
+        <p>Share your name, phone, service type, and a quick description. Tyler follows up directly — we can ask for photos then if they help with your quote.</p>""")}
     <section class="section-shell">
       <div class="container">
         <div class="contact-page-form hero-card" data-fw-enter="right">
@@ -3129,13 +3147,9 @@ def write_city_area_page(city: dict, areas_dir: Path) -> None:
         ],
     )
     body = f"""
-    <section class="sp-hero">
-      <div class="container">
-        <p class="eyebrow"><a href="{root_prefix}index.html">Home</a> &rsaquo; <a href="{root_prefix}service-areas.html">Service Areas</a> &rsaquo; <a href="{county_href}">{city['county']}</a> &rsaquo; {name}</p>
+    {sp_hero(area_hero_image(city["slug"]), f"""        <p class="eyebrow"><a href="{root_prefix}index.html">Home</a> &rsaquo; <a href="{root_prefix}service-areas.html">Service Areas</a> &rsaquo; <a href="{county_href}">{city['county']}</a> &rsaquo; {name}</p>
         <h1>{title}</h1>
-        <p>{desc}</p>
-      </div>
-    </section>
+        <p>{desc}</p>""")}
     <section class="section-shell">
       <div class="container sp-layout">
         <div class="sp-content area-rich-content" data-fw-enter="left">
@@ -3230,13 +3244,9 @@ def write_county_area_page(county: dict, areas_dir: Path) -> None:
         ],
     )
     body = f"""
-    <section class="sp-hero">
-      <div class="container">
-        <p class="eyebrow"><a href="{root_prefix}index.html">Home</a> &rsaquo; <a href="{root_prefix}service-areas.html">Service Areas</a> &rsaquo; {county['name']}</p>
+    {sp_hero(area_hero_image(county["slug"]), f"""        <p class="eyebrow"><a href="{root_prefix}index.html">Home</a> &rsaquo; <a href="{root_prefix}service-areas.html">Service Areas</a> &rsaquo; {county['name']}</p>
         <h1>Outdoor Property Services in {county['name']}</h1>
-        <p>{desc}</p>
-      </div>
-    </section>
+        <p>{desc}</p>""")}
     <section class="section-shell">
       <div class="container">
         <div class="sp-content area-rich-content" data-fw-enter="left">
@@ -3331,13 +3341,9 @@ def write_service_areas() -> None:
         breadcrumbs=[("Home", "index.html"), ("Service Areas", areas_path)],
     )
     body = f"""
-    <section class="sp-hero">
-      <div class="container">
-        <p class="eyebrow"><a href="index.html">Home</a> &rsaquo; Service Areas</p>
+    {sp_hero(STATIC_PAGE_HERO_IMAGES["service-areas"], f"""        <p class="eyebrow"><a href="index.html">Home</a> &rsaquo; Service Areas</p>
         <h1>Central Florida Service Areas</h1>
-        <p>{SITE['area_detail']}</p>
-      </div>
-    </section>
+        <p>{SITE['area_detail']}</p>""")}
     <section class="section-shell">
       <div class="container">
         <div class="section-heading" data-fw-enter="left">
@@ -3374,12 +3380,8 @@ def write_service_areas() -> None:
 
 def write_thank_you() -> None:
     body = f"""
-    <section class="sp-hero">
-      <div class="container">
-        <h1>Estimate Request Received</h1>
-        <p>Thank you for contacting {SITE['brand']}.</p>
-      </div>
-    </section>
+    {sp_hero(STATIC_PAGE_HERO_IMAGES["thank-you"], f"""        <h1>Estimate Request Received</h1>
+        <p>Thank you for contacting {SITE['brand']}.</p>""")}
     <section class="section-shell">
       <div class="container sp-content">
         <h2>What happens next</h2>
@@ -3405,7 +3407,8 @@ def write_thank_you() -> None:
 
 def write_404() -> None:
     body = f"""
-    <section class="sp-hero"><div class="container"><h1>Page Not Found</h1><p>The page may have moved or the link is outdated. Start with the main services hub, browse service areas, or request an estimate.</p></div></section>
+    {sp_hero(STATIC_PAGE_HERO_IMAGES["404"], """        <h1>Page Not Found</h1>
+        <p>The page may have moved or the link is outdated. Start with the main services hub, browse service areas, or request an estimate.</p>""")}
     <section class="section-shell"><div class="container contact-inner">
       <p class="eyebrow">Need outdoor property help?</p>
       <h2>Land clearing, pond bank clearing, ditch clearing, and property cleanup in Polk County</h2>
@@ -3423,7 +3426,7 @@ def write_404() -> None:
 
 def write_privacy() -> None:
     body = f"""
-    <section class="sp-hero"><div class="container"><h1>Privacy Policy</h1></div></section>
+    {sp_hero(STATIC_PAGE_HERO_IMAGES["privacy"], "<h1>Privacy Policy</h1>")}
     <section class="section-shell"><div class="container sp-content">
       <p>{SITE['legal_name']} ("we") respects your privacy. Information submitted through our contact forms is processed by <strong>FormSubmit</strong> or <strong>Formspree</strong> and delivered to us by email. We use that information only to respond to your estimate request and provide our services.</p>
       <p>We do not sell personal information. Analytics tools may collect anonymous usage data to improve the website.</p>
@@ -3449,7 +3452,8 @@ def write_image_use_policy() -> None:
     policy_title = "Image Use Policy | Faith Works Outdoor Services"
     policy_desc = f"Image use and licensing information for photos owned by {SITE['legal_name']}."
     body = f"""
-    <section class="sp-hero"><div class="container"><h1>Image Use Policy</h1><p>Photo ownership, credit, and licensing information for {SITE['brand']}.</p></div></section>
+    {sp_hero(STATIC_PAGE_HERO_IMAGES["image-policy"], f"""        <h1>Image Use Policy</h1>
+        <p>Photo ownership, credit, and licensing information for {SITE['brand']}.</p>""")}
     <section class="section-shell"><div class="container sp-content">
       <h2>Faith Works-Owned Images</h2>
       <p>Unless otherwise noted, images on this website are owned by {SITE['legal_name']} and show Faith Works equipment, work areas, or outdoor property service examples.</p>
@@ -4565,6 +4569,59 @@ def write_styles() -> None:
 @media (max-width: 520px) {
   .service-gallery__grid {
     grid-template-columns: 1fr;
+  }
+}
+.sp-hero.sp-hero--photo {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background-color: #08101d;
+  background-image: var(--sp-hero-bg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-bottom: 1px solid var(--border);
+  padding: clamp(52px, 8vw, 78px) 0 clamp(44px, 6vw, 62px);
+  min-height: clamp(220px, 32vh, 360px);
+}
+.sp-hero.sp-hero--photo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    108deg,
+    rgba(4, 9, 20, 0.94) 0%,
+    rgba(4, 9, 20, 0.84) 40%,
+    rgba(4, 9, 20, 0.62) 72%,
+    rgba(4, 9, 20, 0.48) 100%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+.sp-hero.sp-hero--photo .container {
+  position: relative;
+  z-index: 1;
+}
+.sp-hero.sp-hero--photo h1 {
+  color: #fff;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.78);
+}
+.sp-hero.sp-hero--photo p {
+  color: #ece4d4;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.72);
+}
+@media (max-width: 768px) {
+  .sp-hero.sp-hero--photo {
+    min-height: clamp(200px, 28vh, 300px);
+    padding: 48px 0 38px;
+  }
+  .sp-hero.sp-hero--photo::before {
+    background: linear-gradient(
+      180deg,
+      rgba(4, 9, 20, 0.92) 0%,
+      rgba(4, 9, 20, 0.84) 55%,
+      rgba(4, 9, 20, 0.72) 100%
+    );
   }
 }
 .intent-card__cta {
