@@ -263,11 +263,6 @@ def form_action_attrs(subject: str) -> tuple[str, str, str, str, str]:
 GALLERY = [
     ("1-after.webp", "Completed residential property cleanup and brush clearing in Polk County Florida", "Property Cleanup"),
     (
-        "before-process-after-brush-cleanup-along-fence-line-haul-debris-site-452d77cf.webp",
-        "Before, process, and after brush cleanup along a fence line with debris hauled from the site",
-        "Fence Line Clearing",
-    ),
-    (
         "before-process-after-land-clearing-job.webp",
         "Before, process, and after land clearing project on a Central Florida residential property",
         "Land Clearing",

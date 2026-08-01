@@ -1152,8 +1152,8 @@ SERVICE_GALLERY: dict[str, list[str]] = {
         "stump-during-removal-2.webp",
     ],
     "fence-line-clearing": [
-        "before-process-after-brush-cleanup-along-fence-line-haul-debris-site-452d77cf.webp",
         "stump-during-removal-2.webp",
+        "stump-prior-to-removal.webp",
         "tractor-moving-item-with-grapple.webp",
     ],
     "demolition": [
