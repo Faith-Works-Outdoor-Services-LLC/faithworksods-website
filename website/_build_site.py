@@ -7013,16 +7013,20 @@ html.fw-js [data-fw-enter].is-visible {
   overflow: hidden;
   flex: 1;
   min-width: 0;
+  width: 100%;
+  container-type: inline-size;
+  container-name: fw-review;
 }
 .fw-review-track {
   display: flex;
   gap: 18px;
   transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
 }
 .fw-review-card {
   position: relative;
-  min-width: calc(33.333% - 12px);
-  max-width: calc(33.333% - 12px);
+  flex: 0 0 calc((100cqi - 36px) / 3);
+  min-width: 0;
   background: rgba(8, 18, 34, 0.72);
   border: 1px solid rgba(201, 162, 39, 0.16);
   border-radius: var(--radius-md);
@@ -7173,24 +7177,46 @@ html.fw-js [data-fw-enter].is-visible {
   font-size: 0.84rem;
   line-height: 1.6;
 }
-@media (max-width: 1060px) {
+@container fw-review (max-width: 960px) {
   .fw-review-card {
-    min-width: calc(50% - 9px);
-    max-width: calc(50% - 9px);
+    flex-basis: calc((100cqi - 18px) / 2);
+  }
+}
+@container fw-review (max-width: 640px) {
+  .fw-review-card {
+    flex-basis: 100cqi;
+  }
+  .fw-review-track {
+    gap: 14px;
+  }
+  .fw-review-text {
+    -webkit-line-clamp: 8;
   }
 }
 @media (max-width: 720px) {
   .fw-review-carousel {
-    gap: 8px;
+    position: relative;
+    gap: 0;
+    padding: 0 36px;
   }
-  .fw-review-card {
-    min-width: 100%;
-    max-width: 100%;
+  .fw-review-viewport {
+    width: 100%;
   }
   .fw-review-btn {
-    width: 38px;
-    height: 38px;
-    font-size: 1.25rem;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    width: 34px;
+    height: 34px;
+    font-size: 1.15rem;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.42);
+  }
+  .fw-review-carousel > .fw-review-btn:first-of-type {
+    left: 0;
+  }
+  .fw-review-carousel > .fw-review-btn:last-of-type {
+    right: 0;
   }
   .fw-review-header {
     padding-right: 0;

@@ -737,9 +737,15 @@ document.querySelectorAll(".mobile-services-toggle").forEach((toggle) => {
       }
     }
 
+    function carouselInnerWidth() {
+      const viewport = carousel.querySelector(".fw-review-viewport");
+      return viewport ? viewport.clientWidth : window.innerWidth;
+    }
+
     function perView() {
-      if (window.innerWidth < 720) return 1;
-      if (window.innerWidth < 1060) return 2;
+      const w = carouselInnerWidth();
+      if (w < 640) return 1;
+      if (w < 960) return 2;
       return 3;
     }
 
