@@ -493,13 +493,13 @@ SERVICES = [
         "storm-debris-cleanup",
         "Storm Debris Cleanup",
         category="cleanup",
-        title="Outdoor Storm Debris Cleanup in Polk County FL | Faith Works",
+        title="Storm Cleanup Near Me in Polk County FL | Faith Works",
         h1="Outdoor Storm Debris Cleanup — Auburndale & Polk County",
         desc=(
-            "Outdoor storm debris cleanup in Auburndale and Polk County — fallen limbs, brush piles, blocked driveways, "
+            "Storm cleanup near me in Auburndale & Polk County — fallen limbs, brush piles, blocked driveways, "
             "and yard access. Not roofing or insurance claims. Text photos to Tyler."
         ),
-        keyword="outdoor storm debris cleanup Polk County FL",
+        keyword="storm cleanup near me Polk County FL",
         intro=(
             "After Florida storms, property owners usually need fallen limbs, scattered brush, blocked driveways, and "
             "access paths cleared — not roof repair or insurance claim brokerage. Faith Works Outdoor Services handles "

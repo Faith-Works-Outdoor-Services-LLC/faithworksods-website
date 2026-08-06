@@ -323,6 +323,39 @@ GALLERY = [
     ("tractor-with-box-blade-leveling-ground.webp", "Kubota tractor with box blade leveling ground after brush clearing and cleanup", "Ditch Clearing"),
 ]
 
+# Curated homepage teaser — real job photos only; never auto-pick from GALLERY[:6].
+HOMEPAGE_GALLERY_TEASER = (
+    "1-after.webp",
+    "before-process-after-land-clearing-job.webp",
+    "excavator-photo.webp",
+    "stump-prior-to-removal.webp",
+    "tractor-moving-item-with-grapple.webp",
+    "excavator-and-truck-photo.webp",
+)
+
+# Demo/test composites that must never ship — purged on every build.
+DEMO_GALLERY_PATTERNS = (
+    "*452d77cf*",
+    "*brush-cleanup-along-fence*",
+)
+
+
+def homepage_gallery_teaser_items() -> list[tuple[str, str, str]]:
+    by_file = {img: (img, alt, label) for img, alt, label in GALLERY}
+    return [by_file[filename] for filename in HOMEPAGE_GALLERY_TEASER if filename in by_file]
+
+
+def purge_demo_gallery_assets() -> None:
+    """Delete known demo gallery assets so they cannot be served or rebuilt."""
+    removed: list[str] = []
+    for pattern in DEMO_GALLERY_PATTERNS:
+        for path in ROOT.rglob(pattern):
+            if path.is_file():
+                path.unlink(missing_ok=True)
+                removed.append(str(path.relative_to(ROOT)))
+    if removed:
+        print(f"Purged {len(removed)} demo gallery asset(s): {', '.join(removed)}")
+
 
 def job_gallery_projects() -> list[dict]:
     """Load app-published project composites without making the site build fragile."""
@@ -335,7 +368,7 @@ def job_gallery_projects() -> list[dict]:
         return []
     return [item for item in payload.get("projects", []) if isinstance(item, dict) and item.get("image")]
 
-ASSET_VERSION = "20260731b"
+ASSET_VERSION = "20260802g"
 HERO_DESKTOP = "photo-of-all-equipment.webp"
 HERO_MOBILE = "excavator-and-truck-photo.webp"
 HERO_MOBILE_LCP = f"heroes/{HERO_MOBILE}"
@@ -1084,7 +1117,7 @@ def home_geo_section() -> str:
 
 def gallery_teaser_section() -> str:
     thumbs = ""
-    for i, (img, alt, label) in enumerate(GALLERY[:6]):
+    for i, (img, alt, label) in enumerate(homepage_gallery_teaser_items()):
         thumbs += f"""
           <a class="work-thumb" href="gallery.html" aria-label="View {label} gallery" data-fw-enter="bottom" style="--fw-enter-delay: {(i % 3) * 70}ms;">
             <img src="{mosaic_image_src(img)}" alt="{alt}" loading="lazy" width="600" height="450">
@@ -2377,10 +2410,10 @@ def page_shell(
 {fonts_head()}
 {hero_preloads}
   <link rel="preload" href="{root_prefix}styles.css?v={ASSET_VERSION}" as="style">
-  <link rel="preload" href="{root_prefix}script.js" as="script">
+  <link rel="preload" href="{root_prefix}script.js?v={ASSET_VERSION}" as="script">
   <link rel="stylesheet" href="{root_prefix}styles.css?v={ASSET_VERSION}">
 {analytics_head()}
-  <script defer src="{root_prefix}script.js"></script>
+  <script defer src="{root_prefix}script.js?v={ASSET_VERSION}"></script>
 </head>
 <body{body_attr}>
 {header(current, root_prefix)}
@@ -2574,8 +2607,8 @@ def write_index() -> None:
         website_schema(),
         image_object_schema(HERO_DESKTOP, "Faith Works Outdoor Services equipment in Polk County, Florida", "index.html"),
         webpage_node(
-            f"{SITE['city']} Land Clearing, Mulching & Outdoor Demo | Faith Works",
-            f"{SITE['brand']} provides land clearing, forestry mulching, light demolition, fence-line clearing, stump removal, driveway demo, and pond/ditch bank clearing in Polk County, FL.",
+            "Land Clearing Near Me in Polk County FL | Faith Works",
+            "Land clearing near me in Auburndale, Lakeland & Polk County — forestry mulching, brush clearing, stump removal, and outdoor demo. Owner-operated. Free photo estimates.",
             "index.html",
             main_entity={"@id": f"{page_url('index.html')}#faq"},
             primary_image_id=f"{schema_asset_url(f'gallery/{HERO_DESKTOP}')}#image",
@@ -2689,8 +2722,8 @@ def write_index() -> None:
     </section>"""
 
     html = page_shell(
-        f"{SITE['city']} Land Clearing, Mulching & Outdoor Demo | Faith Works",
-        f"{SITE['brand']} provides land clearing, forestry mulching, light demolition, fence-line clearing, stump removal, driveway demo, and pond/ditch bank clearing in Polk County, FL.",
+        "Land Clearing Near Me in Polk County FL | Faith Works",
+        "Land clearing near me in Auburndale, Lakeland & Polk County — forestry mulching, brush clearing, stump removal, and outdoor demo. Owner-operated. Free photo estimates.",
         "index.html",
         body,
         schema,
@@ -7008,14 +7041,13 @@ html.fw-js [data-fw-enter].is-visible {
   display: flex;
   align-items: center;
   gap: 12px;
+  width: 100%;
 }
 .fw-review-viewport {
   overflow: hidden;
-  flex: 1;
+  flex: 1 1 0%;
   min-width: 0;
   width: 100%;
-  container-type: inline-size;
-  container-name: fw-review;
 }
 .fw-review-track {
   display: flex;
@@ -7035,6 +7067,7 @@ html.fw-js [data-fw-enter].is-visible {
   flex-direction: column;
   gap: 12px;
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+  box-sizing: border-box;
 }
 .fw-review-placeholder-badge {
   position: absolute;
@@ -7053,8 +7086,8 @@ html.fw-js [data-fw-enter].is-visible {
 .fw-review-header {
   display: flex;
   gap: 12px;
-  align-items: center;
-  padding-right: 72px;
+  align-items: flex-start;
+  width: 100%;
 }
 .fw-review-avatar {
   width: 44px;
@@ -7081,8 +7114,9 @@ html.fw-js [data-fw-enter].is-visible {
   color: rgba(245, 240, 232, 0.88);
   line-height: 1.72;
   font-size: 0.94rem;
-  flex: 1;
+  flex: 0 1 auto;
   margin: 0;
+  width: 100%;
   display: -webkit-box;
   -webkit-line-clamp: 5;
   -webkit-box-orient: vertical;
@@ -7099,6 +7133,8 @@ html.fw-js [data-fw-enter].is-visible {
   border-radius: 10px;
   background: rgba(201, 162, 39, 0.08);
   border-left: 3px solid var(--accent);
+  width: 100%;
+  box-sizing: border-box;
 }
 .fw-review-reply__label {
   margin: 0 0 6px;
@@ -7177,6 +7213,14 @@ html.fw-js [data-fw-enter].is-visible {
   font-size: 0.84rem;
   line-height: 1.6;
 }
+@media (max-width: 640px) {
+  .fw-review-track {
+    gap: 14px;
+  }
+  .fw-review-text {
+    -webkit-line-clamp: 8;
+  }
+}
 @container fw-review (max-width: 960px) {
   .fw-review-card {
     flex-basis: calc((100cqi - 18px) / 2);
@@ -7185,22 +7229,37 @@ html.fw-js [data-fw-enter].is-visible {
 @container fw-review (max-width: 640px) {
   .fw-review-card {
     flex-basis: 100cqi;
+    width: 100%;
+    max-width: 100%;
   }
   .fw-review-track {
-    gap: 14px;
+    gap: 0;
   }
   .fw-review-text {
-    -webkit-line-clamp: 8;
+    -webkit-line-clamp: 7;
   }
 }
 @media (max-width: 720px) {
   .fw-review-carousel {
     position: relative;
     gap: 0;
-    padding: 0 36px;
+    padding: 0;
+    align-items: stretch;
   }
   .fw-review-viewport {
     width: 100%;
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .fw-review-track {
+    gap: 0;
+  }
+  .fw-review-card {
+    flex: 0 0 100%;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 16px 40px 16px 40px;
   }
   .fw-review-btn {
     position: absolute;
@@ -7213,13 +7272,20 @@ html.fw-js [data-fw-enter].is-visible {
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.42);
   }
   .fw-review-carousel > .fw-review-btn:first-of-type {
-    left: 0;
+    left: 4px;
   }
   .fw-review-carousel > .fw-review-btn:last-of-type {
-    right: 0;
+    right: 4px;
   }
   .fw-review-header {
     padding-right: 0;
+  }
+  .fw-review-text {
+    flex: 0 1 auto;
+    -webkit-line-clamp: 7;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 }
 
@@ -8303,6 +8369,212 @@ body.home-landing .hero-social-label {
   }
 }
 
+/* ---- Mobile polish: scope, contact, reviews, spacing ---- */
+@media (max-width: 720px) {
+  html.fw-js [data-fw-enter] {
+    opacity: 1;
+    transform: none !important;
+    animation: none !important;
+  }
+  .section-shell {
+    padding: clamp(40px, 9vw, 52px) 0;
+  }
+  .section-heading {
+    margin-bottom: clamp(24px, 5.5vw, 32px);
+  }
+  body.home-landing .section-shell {
+    padding: clamp(36px, 8vw, 48px) 0;
+  }
+  .scope-grid {
+    gap: 14px;
+    width: 100%;
+    min-width: 0;
+  }
+  .scope-card {
+    padding: clamp(16px, 4vw, 20px) clamp(14px, 3.5vw, 18px);
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+  .scope-card p,
+  .scope-card li {
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
+  .scope-card .btn {
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+    margin-top: 12px;
+    white-space: normal;
+    text-align: center;
+    line-height: 1.25;
+    padding: 12px 16px;
+    min-height: 48px;
+  }
+  .btn-lg {
+    max-width: 100%;
+    white-space: normal;
+    line-height: 1.25;
+  }
+  .btn {
+    max-width: 100%;
+    white-space: normal;
+    box-sizing: border-box;
+    text-align: center;
+    line-height: 1.25;
+  }
+  .contact-section.section-shell {
+    padding: clamp(36px, 8vw, 48px) 0 clamp(44px, 10vw, 56px);
+    text-align: left;
+  }
+  .contact-inner {
+    max-width: none;
+    width: 100%;
+    min-width: 0;
+    padding-bottom: min(46vw, 210px);
+  }
+  .contact-section h2 {
+    font-size: clamp(1.4rem, 6.2vw, 1.95rem);
+    margin-bottom: 10px;
+    max-width: none;
+  }
+  .contact-section p:not(.eyebrow) {
+    max-width: none;
+    margin: 0 0 18px;
+    font-size: 0.96rem;
+    line-height: 1.58;
+  }
+  .contact-section .btn-lg,
+  .contact-inner .btn-lg {
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+    min-height: 50px;
+    padding: 12px 16px;
+    font-size: 0.92rem;
+    letter-spacing: 0.05em;
+    white-space: normal;
+    line-height: 1.25;
+    text-align: center;
+    box-sizing: border-box;
+  }
+  .contact-cutout-wrap {
+    width: min(70vw, 260px);
+    height: auto;
+    max-height: none;
+    left: 50%;
+    right: auto;
+    bottom: 0;
+    transform: translateX(-50%);
+    opacity: 0.38;
+  }
+  .contact-cutout {
+    max-height: 40vw;
+  }
+  .contact-overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(10, 10, 10, 0.95) 0%,
+      rgba(10, 10, 10, 0.9) 50%,
+      rgba(10, 10, 10, 0.75) 100%
+    );
+  }
+  .fw-reviews-showcase {
+    padding: 14px 0 16px;
+    min-width: 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .fw-map-review-shell {
+    overflow: hidden;
+    min-width: 0;
+    width: 100%;
+  }
+  .fw-reviews-header {
+    padding: 0 12px 14px;
+    margin-bottom: 12px;
+  }
+  .fw-review-carousel {
+    padding: 0;
+    width: 100%;
+  }
+  .fw-review-viewport {
+    width: 100%;
+  }
+  .fw-review-card {
+    flex: 0 0 100% !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0;
+    height: auto !important;
+    min-height: 0;
+    padding: 14px 36px;
+    box-sizing: border-box;
+    gap: 8px;
+  }
+  .fw-review-text {
+    flex: 0 0 auto !important;
+    margin: 0;
+    overflow-wrap: anywhere;
+    word-break: normal;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 1.5;
+    font-size: 0.88rem;
+  }
+  .fw-review-reply {
+    margin-top: 0;
+    padding: 8px 10px;
+  }
+  .fw-review-reply__text {
+    overflow-wrap: anywhere;
+    word-break: normal;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 1.45;
+    font-size: 0.8rem;
+  }
+  .fw-review-header {
+    padding-right: 0;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .fw-review-avatar {
+    width: 36px;
+    height: 36px;
+    font-size: 0.85rem;
+  }
+  .fw-review-name {
+    font-size: 0.92rem;
+    line-height: 1.2;
+  }
+  .fw-reviews-footnote {
+    margin: 12px 12px 0;
+  }
+  .fw-review-dots {
+    margin-top: 8px;
+  }
+}
+@media (max-width: 400px) {
+  .section-shell {
+    padding: 32px 0;
+  }
+  .contact-inner {
+    padding-bottom: min(50vw, 190px);
+  }
+  .contact-section .btn-lg,
+  .contact-inner .btn-lg {
+    font-size: 0.86rem;
+    padding: 11px 14px;
+  }
+}
+
 """
     write_site_file(ROOT / "styles.css", minify_css(src + extra))
 
@@ -8683,6 +8955,7 @@ def cleanup_obsolete_pages() -> None:
 def main() -> None:
     from optimize_images import main as optimize_images
 
+    purge_demo_gallery_assets()
     optimize_images()
     sync_logo()
     sync_favicons()
