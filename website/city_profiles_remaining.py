@@ -308,8 +308,8 @@ REMAINING_CITY_PROFILES: dict[str, dict] = {
     },
     "mulberry-fl": {
         "meta_description": (
-            "Private road clearing, land clearing, pond bank work, and acreage cleanup in Mulberry, FL. "
-            "Faith Works clears south Polk ranch access, brush, and overgrowth."
+            "Private roads Mulberry FL — ranch lane & access clearing, land clearing, and acreage cleanup in south Polk. "
+            "Text photos to Tyler for a free estimate."
         ),
         "hook": (
             "Mulberry's phosphate heritage and rural south Polk location mean large acreage, pond edges, and "
@@ -1789,8 +1789,8 @@ REMAINING_CITY_PROFILES: dict[str, dict] = {
     },
     "bushnell-fl": {
         "meta_description": (
-            "Land clearing and acreage cleanup in Bushnell, FL — Sumter County I-75 corridor and rural land. "
-            "Faith Works from Auburndale. Fence lines and pond banks. Photo-based estimates."
+            "Mulching services in Bushnell, FL — forestry mulching, land clearing, and acreage cleanup for Sumter County rural land. "
+            "Photo-based estimates from Faith Works."
         ),
         "hook": (
             "Bushnell sits along the I-75 corridor in Sumter County where rural acreage, pond edges, and "

@@ -539,8 +539,11 @@ def city_page_title(city_name: str) -> str:
         "Lakeland": "Land Clearing in Lakeland FL | Faith Works Clearing",
         "Winter Haven": "Land Clearing in Winter Haven FL | Faith Works",
         "Auburndale": "Land Clearing in Auburndale FL | Faith Works Clearing",
+        "Mulberry": "Private Roads Mulberry FL | Land Clearing & Access | Faith Works",
+        "Bushnell": "Mulching Services Bushnell FL | Forestry Mulching | Faith Works",
+        "Eagle Lake": "Land Clearing in Eagle Lake FL | Access & Acreage | Faith Works",
     }
-    return overrides.get(city_name, f"{SITE_POSITIONING} in {city_name}, FL")
+    return overrides.get(city_name, f"{city_name}, FL Outdoor Property Services | Faith Works")
 
 
 def city_meta_description(city: dict) -> str:

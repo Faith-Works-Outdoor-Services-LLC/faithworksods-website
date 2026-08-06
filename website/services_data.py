@@ -265,10 +265,10 @@ SERVICES = [
         "Forestry Mulching",
         category="phase1",
         phase1=True,
-        title="Forestry Mulching in Polk County, FL | Faith Works",
+        title="Forestry Mulching Services Near Me | Polk County FL | Faith Works",
         h1="Forestry Mulching — Auburndale, Polk County & Nearby Areas",
-        desc="Forestry mulching for overgrown acreage, brush, fence lines, access paths, and pond banks in Auburndale, Lakeland, Winter Haven, and Polk County.",
-        keyword="forestry mulching Polk County FL",
+        desc="Forestry mulching services near Auburndale, Lakeland, Winter Haven, Bushnell, and Polk County — acreage, brush, fence lines, and access paths. Free photo estimates.",
+        keyword="forestry mulching services near me Polk County FL",
         intro=(
             "Forestry mulching is one of the fastest ways to reduce dense Florida undergrowth without turning every "
             "job into a haul-off project. Faith Works Outdoor Services uses mulching equipment for overgrown acreage, "
@@ -572,10 +572,13 @@ SERVICES = [
         "lot-cleanup",
         "Lot Cleanup",
         category="cleanup",
-        title=f"Lot Cleanup Services in {AREA}, FL",
+        title=f"Lot Clearing Near Me in Polk County FL | Faith Works",
         h1=f"Lot Cleanup — {AREA}",
-        desc=f"Lot cleanup for vacant land, build-ready sites, and overgrown parcels in {CITY} and Polk County.",
-        keyword="lot cleanup Polk County FL",
+        desc=(
+            "Lot clearing near me in Auburndale & Polk County — vacant lots, overgrown parcels, "
+            "and build-ready cleanup. Owner-operated. Free photo estimates."
+        ),
+        keyword="lot clearing near me Polk County FL",
         intro=(
             "Vacant lots and unused parcels collect brush, trash, and overgrowth fast in Central Florida. "
             "Faith Works Outdoor Services clears and cleans lots for property owners, investors, and families "
@@ -646,10 +649,13 @@ SERVICES = [
         "access-road-clearing",
         "Access Road Clearing",
         category="clearing",
-        title="Private Road & Access Path Clearing in Mulberry, FL",
+        title="Private Road Clearing in Mulberry & Auburndale FL | Faith Works",
         h1="Private Road & Access Path Clearing — Polk County",
-        desc="Clear private roads, ranch lanes, driveway edges, equipment paths, and overgrown access routes in Mulberry, Eagle Lake, Auburndale, and Polk County.",
-        keyword="private road clearing Mulberry FL",
+        desc=(
+            "Private road clearing in Mulberry, Auburndale, Eagle Lake & Polk County — ranch lanes, "
+            "driveway edges, and overgrown access paths. Free photo estimates."
+        ),
+        keyword="private road clearing Mulberry Auburndale FL",
         intro=(
             "Private roads, farm lanes, driveway edges, and long equipment paths disappear under Florida growth within "
             "a season. Faith Works Outdoor Services clears access routes so you can reach barns, ponds, fields, and "

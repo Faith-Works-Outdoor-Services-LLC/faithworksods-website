@@ -3165,7 +3165,7 @@ def write_city_area_page(city: dict, areas_dir: Path) -> None:
         business_schema(),
         city_place_node(city),
         webpage_node(
-            f"{name}, FL Outdoor Property Services | {SITE['brand']}",
+            title,
             desc,
             canonical,
             about={"@id": f"{page_url(canonical)}#place"},
@@ -3225,7 +3225,7 @@ def write_city_area_page(city: dict, areas_dir: Path) -> None:
       </div>
     </section>"""
     html = page_shell(
-        f"{name}, FL Outdoor Property Services | {SITE['brand']}",
+        title,
         desc,
         canonical,
         body,
