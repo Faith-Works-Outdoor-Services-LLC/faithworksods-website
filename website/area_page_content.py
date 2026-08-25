@@ -538,10 +538,10 @@ def city_page_title(city_name: str) -> str:
         "Orlando": "Land Clearing in Orlando & Orange County FL | Faith Works",
         "Lakeland": "Land Clearing in Lakeland FL | Faith Works Clearing",
         "Winter Haven": "Land Clearing in Winter Haven FL | Faith Works",
-        "Auburndale": "Land Clearing in Auburndale FL | Faith Works Clearing",
-        "Mulberry": "Private Roads Mulberry FL | Land Clearing & Access | Faith Works",
+        "Auburndale": "Private Roads Auburndale FL | Land Clearing From 33823 | Faith Works",
+        "Mulberry": "Private Roads Mulberry FL | East & South Mulberry Access | Faith Works",
         "Bushnell": "Mulching Services Bushnell FL | Forestry Mulching | Faith Works",
-        "Eagle Lake": "Land Clearing in Eagle Lake FL | Access & Acreage | Faith Works",
+        "Eagle Lake": "Eagle Lake FL Gravel Lanes | Light Grading & Access Clearing | Faith Works",
     }
     return overrides.get(city_name, f"{city_name}, FL Outdoor Property Services | Faith Works")
 

@@ -1537,11 +1537,12 @@ def service_opportunity_section(s: dict) -> str:
             ],
         },
         "access-road-clearing": {
-            "heading": "Private Road And Access Path Clearing",
+            "heading": "Private Roads We Clear in South Polk",
             "body": (
-                "GSC is already showing access-road and private-road intent around Mulberry and Eagle Lake. This "
-                "service is positioned for private roads, ranch lanes, driveway edges, long equipment paths, and "
-                "back-acreage routes that need brush cut back before vehicles or equipment can reach the work area."
+                "If you searched private roads Mulberry, private roads East Mulberry, private roads South Mulberry, "
+                "private roads Branchborough, or private roads Auburndale, this is the job: cut brush back, restore "
+                "width, and light-grade gravel lanes so trucks and tractors can pass. Failed asphalt driveway sections "
+                "can be demoed and hauled — a paving contractor handles any new asphalt."
             ),
             "links": [
                 ("Private road clearing in Mulberry", "areas/mulberry-fl.html"),

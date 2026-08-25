@@ -8,8 +8,8 @@ from city_profiles_remaining import REMAINING_CITY_PROFILES
 _BASE_CITY_PROFILES: dict[str, dict] = {
     "auburndale-fl": {
         "meta_description": (
-            "Auburndale land clearing, forestry mulching, light demo, fence lines, stump removal, and driveway demo "
-            "from Faith Works. Owner-operated from 33823. Call or text Tyler."
+            "Private roads Auburndale FL — ranch lanes, land clearing, mulching, and driveway demo from our 33823 "
+            "base. Owner-operated. Call or text Tyler."
         ),
         "hook": (
             "Auburndale is where Faith Works Outdoor Services is headquartered — Tyler Edwards runs estimates, "
@@ -18,8 +18,9 @@ _BASE_CITY_PROFILES: dict[str, dict] = {
         "context": (
             "Between Lake Ariana, Lake Juliana, and the I-4 corridor, Auburndale mixes in-town neighborhoods "
             "with citrus acreage, old sheds and pads, fence rows that creep shut, and small-lake frontage. "
-            "Priority jobs here start with land clearing, mulching, light outdoor demo, stumps, and driveway removal — "
-            "with pond and ditch bank clearing available when edges need mechanical cleanup."
+            "Private roads Auburndale jobs — ranch lanes and gravel access — start here along with land clearing, "
+            "mulching, light outdoor demo, stumps, and driveway removal. Pond and ditch bank clearing is available "
+            "when edges need mechanical cleanup."
         ),
         "local_detail": (
             "Because we are based here, Auburndale jobs typically get the fastest response for site visits "

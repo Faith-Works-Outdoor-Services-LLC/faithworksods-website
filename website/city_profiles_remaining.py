@@ -308,18 +308,18 @@ REMAINING_CITY_PROFILES: dict[str, dict] = {
     },
     "mulberry-fl": {
         "meta_description": (
-            "Private roads Mulberry FL — ranch lane & access clearing, land clearing, and acreage cleanup in south Polk. "
-            "Text photos to Tyler for a free estimate."
+            "Private roads Mulberry FL — East Mulberry, South Mulberry, Branchborough & Pebbledale ranch lanes. "
+            "Land clearing & access. Text photos to Tyler."
         ),
         "hook": (
             "Mulberry's phosphate heritage and rural south Polk location mean large acreage, pond edges, and "
             "long fence lines where brush regrowth needs forestry equipment rather than hand labor."
         ),
         "context": (
-            "Properties between Mulberry and Bartow often combine ranch access roads, private lanes, retention ponds, "
-            "and former agricultural edges where summer growth closes paths and obscures property boundaries before "
-            "owners notice until access becomes difficult. That is why private road clearing, driveway-edge clearing, "
-            "and acreage cleanup are priority services for Mulberry property owners."
+            "Properties between Mulberry and Bartow — including East Mulberry, South Mulberry, Branchborough, and "
+            "Pebbledale — often combine ranch access roads, private lanes, retention ponds, and former agricultural "
+            "edges where summer growth closes paths. That is why private roads Mulberry, driveway-edge clearing, and "
+            "acreage cleanup are the jobs Tyler books first here."
         ),
         "local_detail": (
             "Land toward Nichols and Fort Green frequently involves multi-acre fence runs and pond banks where "
@@ -513,8 +513,8 @@ REMAINING_CITY_PROFILES: dict[str, dict] = {
     },
     "eagle-lake-fl": {
         "meta_description": (
-            "Land clearing, pond bank work, access path clearing, and brush removal in Eagle Lake, FL. "
-            "Faith Works serves Lake Eloise-area properties from Auburndale."
+            "Gravel lane clearing and light grading in Eagle Lake FL — private roads, pond banks, and access paths. "
+            "Not new paving. Photo estimates from Faith Works."
         ),
         "hook": (
             "Eagle Lake is a quiet Polk community on the Winter Haven Chain of Lakes fringe where Lake Eloise "
@@ -522,9 +522,10 @@ REMAINING_CITY_PROFILES: dict[str, dict] = {
         ),
         "context": (
             "Faith Works handles Eagle Lake jobs where lake-adjacent properties, citrus remnants, and drainage "
-            "ditches along local roads have grown beyond what lawn maintenance covers — especially on parcels "
-            "between Winter Haven and Bartow. The same properties often need access path clearing, driveway edge "
-            "cleanup, and brush removal before pond banks or fence lines can be maintained."
+            "ditches along local roads have grown beyond lawn maintenance — especially parcels between Winter Haven "
+            "and Bartow. Homeowners searching gravel and grading Eagle Lake usually need an overgrown gravel lane "
+            "reopened and light-graded with compact equipment, plus driveway-edge cleanup, before pond banks or fence "
+            "lines can be maintained. Failed asphalt driveway sections can be demoed; new paving is a different contractor."
         ),
         "local_detail": (
             "Canal-side homes near Eagle Lake often need brush cut back for water access and visibility without "

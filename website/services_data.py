@@ -649,18 +649,19 @@ SERVICES = [
         "access-road-clearing",
         "Access Road Clearing",
         category="clearing",
-        title="Private Road Clearing in Mulberry & Auburndale FL | Faith Works",
-        h1="Private Road & Access Path Clearing — Polk County",
+        title="Private Roads Mulberry, South Mulberry & Auburndale | Faith Works",
+        h1="Private Roads in Mulberry, South Mulberry & Auburndale",
         desc=(
-            "Private road clearing in Mulberry, Auburndale, Eagle Lake & Polk County — ranch lanes, "
-            "driveway edges, and overgrown access paths. Free photo estimates."
+            "Private roads in Mulberry, East Mulberry, South Mulberry, Branchborough & Auburndale — "
+            "ranch lanes, gravel access, light grading. Not new paving. Photo estimates."
         ),
-        keyword="private road clearing Mulberry Auburndale FL",
+        keyword="private roads Mulberry East Mulberry South Mulberry Auburndale",
         intro=(
-            "Private roads, farm lanes, driveway edges, and long equipment paths disappear under Florida growth within "
-            "a season. Faith Works Outdoor Services clears access routes so you can reach barns, ponds, fields, and "
-            "back acreage again — especially on rural Polk County properties around Mulberry, Eagle Lake, Auburndale, "
-            "and nearby communities."
+            "Private roads in Mulberry, East Mulberry, South Mulberry, Branchborough, and Pebbledale disappear under "
+            "Florida growth within a season. Faith Works Outdoor Services clears ranch lanes, gravel access, driveway "
+            "edges, and long equipment paths so you can reach barns, ponds, fields, and back acreage again — including "
+            "Auburndale and Eagle Lake. We reopen overgrown lanes and can light-grade gravel with compact equipment. "
+            "We do not pave new asphalt or sell asphalt road maintenance."
         ),
         bullets=[
             "Overgrown private road and lane clearing",
