@@ -76,6 +76,7 @@ def test_longform_strips_ticket_pii():
     assert "480.00" not in blob
     assert "FW-20260921-ABC" not in blob
     assert "Lakeland" in blob
+    assert "ticket numbers" in blob.lower() or "Addresses, ticket numbers" in blob
 
 
 if __name__ == "__main__":

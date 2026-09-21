@@ -21,7 +21,8 @@ _EMAIL_RE = re.compile(r"\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b", re.I)
 _PHONE_RE = re.compile(r"(?:\+?1[\s.-]?)?(?:\(?\d{3}\)?[\s.-]?)\d{3}[\s.-]?\d{4}")
 _MONEY_RE = re.compile(r"\$\s*\d[\d,]*(?:\.\d{2})?")
 _TICKET_RE = re.compile(
-    r"\b(?:FW|KG|ST|RM)-?\d{4,8}-?[A-Z0-9]{0,8}\b|\b(?:WO|ticket)\s*#?\s*[A-Z0-9-]{5,}\b",
+    r"\b(?:FW|KG|ST|RM)-?\d{4,8}-?[A-Z0-9]{0,8}\b|"
+    r"\b(?:WO|ticket)\s*#?\s*(?=[A-Z0-9-]*\d)[A-Z0-9-]{5,}\b",
     re.I,
 )
 _ZIP_RE = re.compile(r"\b\d{5}(?:-\d{4})?\b")

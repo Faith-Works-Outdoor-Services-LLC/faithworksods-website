@@ -105,7 +105,8 @@ def paint_header(draw: ImageDraw.ImageDraw, title: str, *, include_contact: bool
     text = hex_color(CONFIG.get("text", "#ffffff"))
     accent = hex_color(CONFIG["accent"])
     muted = hex_color(CONFIG.get("muted", "#c9c9c9"))
-    title_font = fit_text(draw, title.upper(), 950, 58, serif=CONFIG.get("serif_title", False))
+    max_title = 720 if include_contact else 1100
+    title_font = fit_text(draw, title.upper(), max_title, 58, serif=CONFIG.get("serif_title", False))
     title_box = draw.textbbox((0, 0), title.upper(), font=title_font)
     draw.text((210, 82 - (title_box[3] - title_box[1]) / 2), title.upper(), font=title_font, fill=text)
     info_font = font(25, serif=CONFIG.get("serif_title", False))
