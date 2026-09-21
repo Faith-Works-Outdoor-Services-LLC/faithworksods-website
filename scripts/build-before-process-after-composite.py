@@ -101,19 +101,10 @@ def paste_logo(canvas: Image.Image, draw: ImageDraw.ImageDraw) -> None:
     canvas.paste(logo, (x, y), logo)
 
 
-def build(folder: Path, title: str, out_dir: Path, basename: str) -> dict[str, Path]:
-    phases = collect(folder)
-    bg = hex_color(CONFIG["background"])
-    accent = hex_color(CONFIG["accent"])
-    surface = hex_color(CONFIG["surface"])
+def paint_header(draw: ImageDraw.ImageDraw, title: str, *, include_contact: bool) -> None:
     text = hex_color(CONFIG.get("text", "#ffffff"))
+    accent = hex_color(CONFIG["accent"])
     muted = hex_color(CONFIG.get("muted", "#c9c9c9"))
-    canvas = Image.new("RGB", (1600, 900), bg)
-    draw = ImageDraw.Draw(canvas)
-    draw.rectangle((0, 195, 1600, 200), fill=accent)
-    draw.rectangle((0, 784, 1600, 789), fill=accent)
-    paste_logo(canvas, draw)
-
     title_font = fit_text(draw, title.upper(), 950, 58, serif=CONFIG.get("serif_title", False))
     title_box = draw.textbbox((0, 0), title.upper(), font=title_font)
     draw.text((210, 82 - (title_box[3] - title_box[1]) / 2), title.upper(), font=title_font, fill=text)
@@ -123,12 +114,52 @@ def build(folder: Path, title: str, out_dir: Path, basename: str) -> dict[str, P
     company = CONFIG["company"]
     width = draw.textbbox((0, 0), company, font=info_font)[2]
     draw.text((right - width, 45), company, font=info_font, fill=accent)
-    contact = f'{CONFIG["phone"]}  •  {CONFIG["email"]}'
-    width = draw.textbbox((0, 0), contact, font=small_font)[2]
-    draw.text((right - width, 90), contact, font=small_font, fill=text)
+    if include_contact:
+        contact = f'{CONFIG["phone"]}  •  {CONFIG["email"]}'
+        width = draw.textbbox((0, 0), contact, font=small_font)[2]
+        draw.text((right - width, 90), contact, font=small_font, fill=text)
+        area_y = 126
+    else:
+        area_y = 96
     area = CONFIG["area"]
     width = draw.textbbox((0, 0), area, font=small_font)[2]
-    draw.text((right - width, 126), area, font=small_font, fill=muted)
+    draw.text((right - width, area_y), area, font=small_font, fill=muted)
+
+
+def paint_footer(draw: ImageDraw.ImageDraw, *, include_contact: bool) -> None:
+    text = hex_color(CONFIG.get("text", "#ffffff"))
+    accent = hex_color(CONFIG["accent"])
+    muted = hex_color(CONFIG.get("muted", "#c9c9c9"))
+    footer_title = font(28, serif=CONFIG.get("serif_title", False))
+    footer_small = font(20)
+    draw.text((44, 813), CONFIG["services"], font=footer_title, fill=text)
+    if include_contact:
+        draw.text((44, 855), f'{CONFIG["website"]}  •  {CONFIG["email"]}', font=footer_small, fill=accent)
+    else:
+        draw.text((44, 855), CONFIG["website"], font=footer_small, fill=accent)
+    area_width = draw.textbbox((0, 0), CONFIG["footer_area"], font=footer_small)[2]
+    draw.text((1556 - area_width, 838), CONFIG["footer_area"], font=footer_small, fill=muted)
+
+
+def to_gbp_jpeg(canvas: Image.Image, dest: Path) -> None:
+    """4:3 Google Business Profile still without phone/email chrome."""
+    gbp = Image.new("RGB", (1600, 1200), hex_color(CONFIG["background"]))
+    gbp.paste(canvas, (0, 150))
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    gbp.save(dest, "JPEG", quality=90, optimize=True, progressive=True)
+
+
+def build(folder: Path, title: str, out_dir: Path, basename: str, *, gbp_safe: bool = False) -> dict[str, Path]:
+    phases = collect(folder)
+    bg = hex_color(CONFIG["background"])
+    accent = hex_color(CONFIG["accent"])
+    surface = hex_color(CONFIG["surface"])
+    canvas = Image.new("RGB", (1600, 900), bg)
+    draw = ImageDraw.Draw(canvas)
+    draw.rectangle((0, 195, 1600, 200), fill=accent)
+    draw.rectangle((0, 784, 1600, 789), fill=accent)
+    paste_logo(canvas, draw)
+    paint_header(draw, title, include_contact=True)
 
     phase_names = list(phases)
     gap, side = 18, 34
@@ -159,22 +190,27 @@ def build(folder: Path, title: str, out_dir: Path, basename: str) -> dict[str, P
             canvas.paste(image, (x, y))
             draw.rectangle((x, y, x + cell_w, y + cell_h), outline=(15, 15, 15), width=3)
 
-    footer_title = font(28, serif=CONFIG.get("serif_title", False))
-    footer_small = font(20)
-    draw.text((44, 813), CONFIG["services"], font=footer_title, fill=text)
-    draw.text((44, 855), f'{CONFIG["website"]}  •  {CONFIG["email"]}', font=footer_small, fill=accent)
-    area_width = draw.textbbox((0, 0), CONFIG["footer_area"], font=footer_small)[2]
-    draw.text((1556 - area_width, 838), CONFIG["footer_area"], font=footer_small, fill=muted)
+    paint_footer(draw, include_contact=True)
+
+    gbp_canvas = canvas.copy()
+    gbp_draw = ImageDraw.Draw(gbp_canvas)
+    gbp_draw.rectangle((200, 0, 1600, 195), fill=bg)
+    gbp_draw.rectangle((0, 789, 1600, 900), fill=bg)
+    paste_logo(gbp_canvas, gbp_draw)
+    paint_header(gbp_draw, title, include_contact=False)
+    paint_footer(gbp_draw, include_contact=False)
 
     out_dir.mkdir(parents=True, exist_ok=True)
     paths = {
         "webp": out_dir / f"{basename}.webp",
         "webp_640": out_dir / f"{basename}-640w.webp",
         "social_jpg": out_dir / f"{basename}-social.jpg",
+        "gbp_jpg": out_dir / f"{basename}-gbp.jpg",
     }
     canvas.save(paths["webp"], "WEBP", quality=88, method=6)
     canvas.resize((640, 360), Image.Resampling.LANCZOS).save(paths["webp_640"], "WEBP", quality=86, method=6)
     canvas.save(paths["social_jpg"], "JPEG", quality=92, optimize=True, progressive=True)
+    to_gbp_jpeg(gbp_canvas, paths["gbp_jpg"])
     return paths
 
 
@@ -185,8 +221,19 @@ def main() -> int:
     parser.add_argument("--basename", required=True)
     parser.add_argument("--out", type=Path, default=None)
     parser.add_argument("--also-jpeg", action="store_true", help="Accepted for Dispatch compatibility")
+    parser.add_argument(
+        "--gbp-safe",
+        action="store_true",
+        help="Emit a 4:3 Google Business Profile JPEG without phone or email chrome",
+    )
     args = parser.parse_args()
-    outputs = build(args.folder, args.title, args.out or ROOT / CONFIG["gallery_dir"], args.basename)
+    outputs = build(
+        args.folder,
+        args.title,
+        args.out or ROOT / CONFIG["gallery_dir"],
+        args.basename,
+        gbp_safe=args.gbp_safe,
+    )
     print(json.dumps({key: str(value) for key, value in outputs.items()}, indent=2))
     return 0
 

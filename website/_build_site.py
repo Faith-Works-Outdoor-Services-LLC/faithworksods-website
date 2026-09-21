@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import argparse
 import json
 import os
 import re
@@ -12,6 +13,7 @@ from html import escape
 from pathlib import Path
 from urllib.parse import quote
 
+from gallery_longform import build_gallery_longform
 from area_page_content import (
     area_intent_cards,
     area_services_by_category,
@@ -112,6 +114,24 @@ def gallery_image_filename(image_ref: str) -> str:
     return image_ref.replace("\\", "/").split("/")[-1]
 
 
+def gallery_still_href(filename: str, label: str) -> str:
+    base = gallery_image_filename(filename)
+    for project in job_gallery_projects():
+        if gallery_image_filename(str(project.get("image") or "")) == base:
+            return str(project.get("detail_url") or f"gallery/{project.get('id')}.html")
+    label_map = {
+        "Land Clearing": "land-clearing.html",
+        "Brush Clearing": "brush-clearing.html",
+        "Overgrowth Removal": "overgrowth-removal.html",
+        "Property Cleanup": "property-cleanup.html",
+        "Acreage Cleanup": "acreage-cleanup.html",
+        "Pool Dig-Out Support": "pool-dig-out-support.html",
+        "Ditch Clearing": "ditch-clearing.html",
+        "Equipment": "equipment-services.html",
+    }
+    return label_map.get(label, "equipment-services.html")
+
+
 def gallery_image_alt(filename: str) -> str:
     base = gallery_image_filename(filename)
     for img, alt, _label in GALLERY:
@@ -148,9 +168,12 @@ def service_gallery_section(s: dict) -> str:
     items = ""
     for i, (filename, alt) in enumerate(images):
         caption = alt if len(alt) <= 92 else f"{alt[:89]}..."
+        href = gallery_still_href(filename, s["name"])
         items += f"""
             <figure data-fw-enter="bottom" style="--fw-enter-delay: {i * 60}ms;">
-              <img src="{mosaic_image_src(filename)}" alt="{alt}" loading="lazy" decoding="async" width="640" height="480">
+              <a href="{href}" aria-label="Open {caption}">
+                <img src="{mosaic_image_src(filename)}" alt="{alt}" loading="lazy" decoding="async" width="640" height="480">
+              </a>
               <figcaption>{caption}</figcaption>
             </figure>"""
     return f"""
@@ -340,9 +363,27 @@ DEMO_GALLERY_PATTERNS = (
 )
 
 
-def homepage_gallery_teaser_items() -> list[tuple[str, str, str]]:
+def homepage_gallery_teaser_items() -> list[tuple[str, str, str, str]]:
+    items: list[tuple[str, str, str, str]] = []
+    seen: set[str] = set()
+    for project in job_gallery_projects()[:4]:
+        img = gallery_image_filename(str(project.get("image") or ""))
+        if not img:
+            continue
+        href = str(project.get("detail_url") or f"gallery/{project.get('id')}.html")
+        title = str(project.get("title") or "Completed project")
+        items.append((img, title, title, href))
+        seen.add(img)
     by_file = {img: (img, alt, label) for img, alt, label in GALLERY}
-    return [by_file[filename] for filename in HOMEPAGE_GALLERY_TEASER if filename in by_file]
+    for filename in HOMEPAGE_GALLERY_TEASER:
+        if filename in seen or filename not in by_file:
+            continue
+        img, alt, label = by_file[filename]
+        items.append((img, alt, label, gallery_still_href(img, label)))
+        seen.add(img)
+        if len(items) >= 6:
+            break
+    return items[:6]
 
 
 def purge_demo_gallery_assets() -> None:
@@ -368,7 +409,7 @@ def job_gallery_projects() -> list[dict]:
         return []
     return [item for item in payload.get("projects", []) if isinstance(item, dict) and item.get("image")]
 
-ASSET_VERSION = "20260802g"
+ASSET_VERSION = "20260921a"
 HERO_DESKTOP = "photo-of-all-equipment.webp"
 HERO_MOBILE = "excavator-and-truck-photo.webp"
 HERO_MOBILE_LCP = f"heroes/{HERO_MOBILE}"
@@ -942,13 +983,13 @@ def scope_section() -> str:
     </section>"""
 
 
-def related_services_block(slugs: list[str]) -> str:
+def related_services_block(slugs: list[str], root_prefix: str = "") -> str:
     links = ""
     for slug in slugs:
         s = SERVICE_BY_SLUG.get(slug)
         if not s:
             continue
-        links += f'            <a href="{slug}.html">{s["name"]}</a>\n'
+        links += f'            <a href="{root_prefix}{slug}.html">{s["name"]}</a>\n'
     if not links:
         return ""
     return f"""
@@ -1117,9 +1158,9 @@ def home_geo_section() -> str:
 
 def gallery_teaser_section() -> str:
     thumbs = ""
-    for i, (img, alt, label) in enumerate(homepage_gallery_teaser_items()):
+    for i, (img, alt, label, href) in enumerate(homepage_gallery_teaser_items()):
         thumbs += f"""
-          <a class="work-thumb" href="gallery.html" aria-label="View {label} gallery" data-fw-enter="bottom" style="--fw-enter-delay: {(i % 3) * 70}ms;">
+          <a class="work-thumb" href="{href}" aria-label="View {label} project" data-fw-enter="bottom" style="--fw-enter-delay: {(i % 3) * 70}ms;">
             <img src="{mosaic_image_src(img)}" alt="{alt}" loading="lazy" width="600" height="450">
             <span class="work-thumb-label">{label}</span>
           </a>"""
@@ -2361,9 +2402,11 @@ def page_shell(
     preload_hero: bool = False,
     root_prefix: str = "",
     robots: str = "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1",
+    og_image: str = "",
     body_class: str = "",
 ) -> str:
     canonical_url = f"{SITE['url']}/" if canonical == "index.html" else f"{SITE['url']}/{canonical}"
+    og_image_url = og_image or public_asset_url(HERO_BANNER)
     hero_preloads = ""
     if preload_hero:
         panel_preloads = "".join(
@@ -2398,7 +2441,7 @@ def page_shell(
   <meta property="og:url" content="{canonical_url}">
   <meta property="og:title" content="{title}">
   <meta property="og:description" content="{description}">
-  <meta property="og:image" content="{public_asset_url(HERO_BANNER)}">
+  <meta property="og:image" content="{og_image_url}">
   <meta property="og:image:width" content="1672">
   <meta property="og:image:height" content="941">
   <meta property="og:site_name" content="{SITE['brand']}">
@@ -2406,7 +2449,7 @@ def page_shell(
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{title}">
   <meta name="twitter:description" content="{description}">
-  <meta name="twitter:image" content="{public_asset_url(HERO_BANNER)}">
+  <meta name="twitter:image" content="{og_image_url}">
 {extra_head}
 {fonts_head()}
 {hero_preloads}
@@ -2888,26 +2931,137 @@ def write_services() -> None:
     write_site_file(ROOT / "services.html", html)
 
 
+def persist_job_gallery(projects: list[dict]) -> None:
+    path = ROOT / "gallery" / "job-gallery.json"
+    payload = {"version": 1, "brand": "fw", "projects": projects}
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+
+def write_gallery_project_pages() -> None:
+    projects = job_gallery_projects()
+    if not projects:
+        return
+    changed = False
+    for project in projects:
+        longform = build_gallery_longform(project, root_prefix="../")
+        project["detail_url"] = longform["detail"]["path"]
+        project["scope_url"] = longform["scope"]["path"]
+        project["summary"] = longform["summary"]
+        project["service_slugs"] = longform["service_slugs"]
+        if not project.get("city_name"):
+            project["city_name"] = longform["city_name"]
+        if not project.get("city_slug"):
+            project["city_slug"] = longform["city_slug"]
+        if not project.get("county_name"):
+            project["county_name"] = longform["county_name"]
+        changed = True
+        image_filename = longform["image_filename"]
+        image_abs = ROOT / "gallery" / image_filename
+        if not image_abs.is_file():
+            continue
+        og = schema_asset_url(f"gallery/{image_filename}")
+        for kind in ("detail", "scope"):
+            page = longform[kind]
+            path = page["path"]
+            schema = page_schema_bundle(
+                path,
+                business_schema(),
+                image_object_schema(image_filename, longform["alt"], path),
+                webpage_node(
+                    page["title"],
+                    page["meta"],
+                    path,
+                    primary_image_id=f"{og}#image",
+                ),
+                faqs=page["faqs"],
+                breadcrumbs=[
+                    ("Home", "index.html"),
+                    ("Gallery", "gallery.html"),
+                    (page["h1"], path),
+                ],
+            )
+            sibling = longform["scope"] if kind == "detail" else longform["detail"]
+            sibling_label = "Read the scope of work" if kind == "detail" else "See project details"
+            hero_inner = f"""        <p class="eyebrow"><a href="../index.html">Home</a> &rsaquo; <a href="../gallery.html">Gallery</a> &rsaquo; {escape(page['h1'])}</p>
+        <h1>{escape(page['h1'])}</h1>
+        <p>{escape(page['meta'])}</p>
+        <p class="fw-project-hero-links"><a class="btn btn-primary" href="../contact.html">Request a photo estimate</a> <a class="btn btn-ghost" href="{escape(Path(sibling['path']).name)}">{escape(sibling_label)}</a></p>"""
+            body = f"""
+    <section class="sp-hero sp-hero--photo" style="--sp-hero-bg: url('{escape(image_filename, quote=True)}');">
+      <div class="container">
+{hero_inner}
+      </div>
+    </section>
+    <section class="section-shell">
+      <div class="container sp-layout">
+        <div class="sp-content fw-project-copy" data-fw-enter="left">
+          {page['body_html']}
+        </div>
+        <aside class="sp-sidebar" data-fw-enter="right">
+          <div class="hero-card" aria-label="Get a free estimate">
+            <p class="card-eyebrow">Free photo-based estimate</p>
+            <h2 class="card-name">Need similar work?</h2>
+            <p class="card-note">Text photos to <a href="tel:{SITE['phone_tel']}">{SITE['phone_display']}</a> and name the city. Tyler reviews every request.</p>
+            {estimate_form(selected=SERVICE_BY_SLUG.get(longform['primary_service'], {}).get('form_label'), subject=f"{page['h1']} estimate - {SITE['brand']}", page=path, compact=True, form_id=f"{kind}-contact-form")}
+          </div>
+        </aside>
+      </div>
+    </section>"""
+            html = page_shell(
+                page["title"],
+                page["meta"],
+                path,
+                body,
+                schema,
+                "gallery.html",
+                root_prefix="../",
+                og_image=og,
+            )
+            write_site_file(ROOT / path, html)
+    if changed:
+        persist_job_gallery(projects)
+
+
 def write_gallery() -> None:
-    items = ""
+    job_cards = ""
     for i, project in enumerate(job_gallery_projects()):
         title = escape(str(project.get("title") or "Completed Faith Works Project"))
+        summary = escape(str(project.get("summary") or "Before, process, and after outdoor property work."))
         image = escape(str(project["image"]), quote=True)
-        detail = escape(str(project.get("detail_url") or "gallery.html"), quote=True)
-        items += f"""
-          <figure class="gallery-item gallery-item--field-app" data-fw-enter="bottom" style="--fw-enter-delay: {(i % 6) * 60}ms;">
-            <a href="{detail}" aria-label="View {title} project details"><img src="{image}" alt="{title} before process and after project by Faith Works Outdoor Services" loading="lazy" width="1600" height="900"></a>
-            <figcaption>{title} | Before, Process &amp; After</figcaption>
-          </figure>"""
+        detail = escape(str(project.get("detail_url") or f"gallery/{project.get('id')}.html"), quote=True)
+        scope = escape(str(project.get("scope_url") or detail.replace(".html", "-scope.html")), quote=True)
+        job_cards += f"""
+          <article class="fw-project-card" data-fw-enter="bottom" style="--fw-enter-delay: {(i % 4) * 60}ms;">
+            <a class="fw-project-card__image" href="{detail}" aria-label="Open {title} project details">
+              <img src="{image}" alt="{title} before, process, and after project by Faith Works Outdoor Services" loading="lazy" width="1600" height="900">
+            </a>
+            <div class="fw-project-card__body">
+              <p class="eyebrow">Completed project</p>
+              <h3><a href="{detail}">{title}</a></h3>
+              <p>{summary}</p>
+              <p class="fw-project-card__actions">
+                <a class="btn btn-primary" href="{detail}">Project details</a>
+                <a class="btn btn-ghost" href="{scope}">Scope of work</a>
+              </p>
+            </div>
+          </article>"""
+    stills = ""
+    job_images = {gallery_image_filename(str(project.get("image") or "")) for project in job_gallery_projects()}
     for i, (img, alt, label) in enumerate(GALLERY):
-        items += f"""
+        if img in job_images:
+            continue
+        href = gallery_still_href(img, label)
+        stills += f"""
           <figure class="gallery-item" data-fw-enter="bottom" style="--fw-enter-delay: {(i % 6) * 60}ms;">
-            <img src="gallery/{img}" alt="{alt}" loading="lazy" width="800" height="600">
-            <figcaption>{label}</figcaption>
+            <a href="{href}" aria-label="View {label} services">
+              <img src="gallery/{img}" alt="{alt}" loading="lazy" width="800" height="600">
+            </a>
+            <figcaption><a href="{href}">{label}</a></figcaption>
           </figure>"""
     gallery_path = "gallery.html"
     gallery_title = f"Outdoor Services Project Gallery | {SITE['brand']}"
-    gallery_desc = f"View land clearing, brush cutting, tractor work, and outdoor property cleanup projects by {SITE['brand']} in Polk County, FL."
+    gallery_desc = f"Click a completed Faith Works project to open the before/process/after composite, details, and scope of work pages for land clearing and outdoor property work in Polk County, FL."
     schema = page_schema_bundle(
         gallery_path,
         business_schema(),
@@ -2920,24 +3074,42 @@ def write_gallery() -> None:
         ),
         breadcrumbs=[("Home", "index.html"), ("Gallery", gallery_path)],
     )
+    projects_section = (
+        f"""
+        <div class="section-heading" data-fw-enter="left">
+          <p class="eyebrow">Completed jobs</p>
+          <h2>Before, Process, and After Project Proof</h2>
+          <p>Each card opens a full project page with the branded composite, 750+ words of unique details, and a second page covering scope, limits, and methods. These are not unclickable thumbnails.</p>
+        </div>
+        <div class="fw-project-grid">{job_cards}
+        </div>"""
+        if job_cards
+        else """
+        <div class="section-heading" data-fw-enter="left">
+          <p class="eyebrow">Completed jobs</p>
+          <h2>Project proof is published from finished field jobs</h2>
+          <p>When a Faith Works job is completed with before and after photos, the branded composite and two longform pages are added here automatically.</p>
+        </div>"""
+    )
     body = f"""
     {sp_hero(STATIC_PAGE_HERO_IMAGES["gallery"], f"""        <p class="eyebrow"><a href="index.html">Home</a> &rsaquo; Gallery</p>
         <h1>Project Gallery</h1>
-        <p>Real outdoor work from {SITE['brand']} - land clearing, brush cutting, pond bank work, tractor support, and property cleanup across Polk County and nearby Central Florida.</p>""")}
+        <p>Click any completed job to open the composite, the project details, and the scope of work. Equipment photos below link to the matching service pages.</p>""")}
     <section class="section-shell">
       <div class="container">
-        <div class="section-heading" data-fw-enter="left">
-          <p class="eyebrow">Equipment and job photos</p>
-          <h2>Real Faith Works Equipment on Real Outdoor Property Jobs</h2>
-          <p>These images support service pages, local SEO, image search, and customer trust by showing the actual equipment used for clearing, cleanup, and tractor work.</p>
+        {projects_section}
+        <div class="section-heading" data-fw-enter="left" style="margin-top:3rem">
+          <p class="eyebrow">Equipment on jobs</p>
+          <h2>Kubota Equipment Used on Central Florida Property Work</h2>
+          <p>Every equipment photo is a link into the service it supports — land clearing, cleanup, pond banks, or equipment services — not a dead card.</p>
         </div>
-        <div class="gallery-grid">{items}
+        <div class="gallery-grid">{stills}
         </div>
       </div>
     </section>"""
     html = page_shell(
-        f"Outdoor Services Project Gallery | {SITE['brand']}",
-        f"View land clearing, brush cutting, tractor work, and outdoor property cleanup projects by {SITE['brand']} in Polk County, FL.",
+        gallery_title,
+        gallery_desc,
         "gallery.html",
         body,
         schema,
@@ -3528,6 +3700,7 @@ def sitemap_priority(path: str) -> str:
 def write_sitemap() -> None:
     pages = ["index.html", "services.html", "about.html", "contact.html", "gallery.html", "service-areas.html", "privacy-policy.html", IMAGE_LICENSE_PAGE]
     pages += [str(item.get("detail_url")) for item in job_gallery_projects() if item.get("detail_url")]
+    pages += [str(item.get("scope_url")) for item in job_gallery_projects() if item.get("scope_url")]
     pages += [f"{s['slug']}.html" for s in SERVICES]
     pages += [f"areas/{c['slug']}.html" for c in AREA_CITIES]
     pages += [f"areas/{c['slug']}.html" for c in COUNTIES]
@@ -4428,6 +4601,58 @@ def write_styles() -> None:
 .gallery-item { margin: 0; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; }
 .gallery-item img { width: 100%; aspect-ratio: 4/3; object-fit: cover; }
 .gallery-item figcaption { padding: 12px 14px; font-size: 0.85rem; color: var(--muted); }
+.gallery-item a { color: inherit; text-decoration: none; }
+.gallery-item a:hover { color: var(--accent); }
+.fw-project-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+  margin-bottom: 12px;
+}
+.fw-project-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-accent);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+.fw-project-card__image { display: block; }
+.fw-project-card img {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+}
+.fw-project-card__body { padding: 22px 22px 26px; }
+.fw-project-card__body h3 {
+  font-family: var(--font-head);
+  font-size: clamp(1.35rem, 2.4vw, 1.85rem);
+  margin: 0 0 10px;
+}
+.fw-project-card__body h3 a { color: #fff; text-decoration: none; }
+.fw-project-card__body h3 a:hover { color: var(--accent); }
+.fw-project-card__body p { color: var(--muted); line-height: 1.6; }
+.fw-project-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+.fw-project-composite {
+  margin: 0 0 1.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-accent);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+.fw-project-composite img { width: 100%; height: auto; display: block; }
+.fw-project-composite figcaption { padding: 12px 16px; color: var(--muted); }
+.fw-project-copy { max-width: 760px; }
+.fw-project-copy h2 { margin-top: 1.6em; }
+.fw-project-links { display: grid; gap: 8px; padding-left: 1.2em; }
+.fw-project-hero-links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px; }
+@media (max-width: 900px) {
+  .fw-project-grid { grid-template-columns: 1fr; }
+}
 .areas-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 .area-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 22px 20px; }
 .area-card h3 { font-family: var(--font-head); color: #fff; margin-bottom: 8px; font-size: 1.05rem; }
@@ -8953,7 +9178,27 @@ def cleanup_obsolete_pages() -> None:
             path.unlink(missing_ok=True)
 
 
-def main() -> None:
+def refresh_gallery_pages() -> None:
+    write_styles()
+    write_gallery_project_pages()
+    write_gallery()
+    write_index()
+    write_sitemap()
+
+
+def main(argv: list[str] | None = None) -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--gallery-only",
+        action="store_true",
+        help="Rebuild gallery hub, project pages, styles, and sitemap without a full site regenerate",
+    )
+    args = parser.parse_args(argv)
+    if args.gallery_only:
+        refresh_gallery_pages()
+        print(f"Rebuilt Faith Works gallery pages in {ROOT}")
+        return
+
     from optimize_images import main as optimize_images
 
     purge_demo_gallery_assets()
@@ -8967,6 +9212,7 @@ def main() -> None:
     write_services()
     for s in SERVICES:
         write_service_page(s)
+    write_gallery_project_pages()
     write_gallery()
     write_about()
     write_contact()

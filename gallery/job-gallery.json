@@ -3,14 +3,67 @@
   "brand": "fw",
   "projects": [
     {
+      "id": "before-process-after-clear-lake-front-and-remove-all-brush-and-bring-d7425afb",
+      "title": "Clear lake front and remove all brush and bring in a lot of dirt.",
+      "summary": "Pond Bank Clearing in Lake Panasoffkee, Sumter County — before, process, and after proof from Faith Works Outdoor Services. See the project details and the written-style scope of work. Photo estimates. Owner-operated.",
+      "image": "gallery/before-process-after-clear-lake-front-and-remove-all-brush-and-bring-d7425afb.webp",
+      "social_image": "gallery/before-process-after-clear-lake-front-and-remove-all-brush-and-bring-d7425afb-social.jpg",
+      "gbp_image": "gallery/before-process-after-clear-lake-front-and-remove-all-brush-and-bring-d7425afb-gbp.jpg",
+      "detail_url": "gallery/before-process-after-clear-lake-front-and-remove-all-brush-and-bring-d7425afb.html",
+      "scope_url": "gallery/before-process-after-clear-lake-front-and-remove-all-brush-and-bring-d7425afb-scope.html",
+      "service_slugs": [
+        "pond-bank-clearing",
+        "brush-clearing",
+        "equipment-services"
+      ],
+      "city_name": "Lake Panasoffkee",
+      "city_slug": "",
+      "county_name": "Sumter County",
+      "photo_before": 6,
+      "photo_process": 2,
+      "photo_after": 3,
+      "published_at": "2026-09-21T13:11:58.876823+00:00"
+    },
+    {
+      "id": "before-process-after-clear-fence-line-of-overgrown-brush-39122bea",
+      "title": "Clear fence line of overgrown brush",
+      "summary": "Fence Line Clearing in Auburndale, Polk County — before, process, and after proof from Faith Works Outdoor Services. See the project details and the written-style scope of work. Photo estimates. Owner-operated.",
+      "image": "gallery/before-process-after-clear-fence-line-of-overgrown-brush-39122bea.webp",
+      "social_image": "gallery/before-process-after-clear-fence-line-of-overgrown-brush-39122bea-social.jpg",
+      "gbp_image": "gallery/before-process-after-clear-fence-line-of-overgrown-brush-39122bea-gbp.jpg",
+      "detail_url": "gallery/before-process-after-clear-fence-line-of-overgrown-brush-39122bea.html",
+      "scope_url": "gallery/before-process-after-clear-fence-line-of-overgrown-brush-39122bea-scope.html",
+      "service_slugs": [
+        "fence-line-clearing",
+        "brush-clearing",
+        "equipment-services"
+      ],
+      "city_name": "Auburndale",
+      "city_slug": "auburndale-fl",
+      "county_name": "Polk County",
+      "photo_before": 5,
+      "photo_process": 0,
+      "photo_after": 9,
+      "published_at": "2026-09-21T13:11:49.141135+00:00"
+    },
+    {
       "id": "before-process-after-land-clearing-job",
       "title": "Land clearing project — before, process, and after",
-      "summary": "Before, process, and after land clearing proof from Faith Works Outdoor Services LLC.",
+      "summary": "Land Clearing in Auburndale, Polk County — before, process, and after proof from Faith Works Outdoor Services. See the project details and the written-style scope of work. Photo estimates. Owner-operated.",
       "image": "gallery/before-process-after-land-clearing-job.webp",
       "social_image": "gallery/before-process-after-land-clearing-job-social.jpg",
-      "detail_url": "gallery.html",
-      "service_slugs": ["land-clearing", "lot-cleanup", "acreage-cleanup"],
-      "published_at": "2026-08-01T16:00:00+00:00"
+      "detail_url": "gallery/before-process-after-land-clearing-job.html",
+      "service_slugs": [
+        "land-clearing",
+        "lot-cleanup",
+        "acreage-cleanup",
+        "equipment-services"
+      ],
+      "published_at": "2026-08-01T16:00:00+00:00",
+      "scope_url": "gallery/before-process-after-land-clearing-job-scope.html",
+      "city_name": "Auburndale",
+      "city_slug": "auburndale-fl",
+      "county_name": "Polk County"
     }
   ]
 }
