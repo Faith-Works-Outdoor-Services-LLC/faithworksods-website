@@ -84,6 +84,70 @@ def fit_text(draw: ImageDraw.ImageDraw, text: str, max_width: int, start: int, *
     return font(24, serif=serif)
 
 
+def split_sizes(total: int, parts: int, gap: int) -> list[int]:
+    if parts <= 1:
+        return [total]
+    usable = total - gap * (parts - 1)
+    base, rem = divmod(max(usable, parts), parts)
+    return [base + (1 if i < rem else 0) for i in range(parts)]
+
+
+def layout_boxes(
+    count: int,
+    left: int,
+    top: int,
+    right: int,
+    bottom: int,
+    *,
+    gap: int = 8,
+    pad: int = 8,
+) -> list[tuple[int, int, int, int]]:
+    """Photo boxes that fill a phase column. Odd leftover photos span the bottom row — no empty placeholder cells."""
+    count = max(1, int(count))
+    inner_l = left + pad
+    inner_t = top + pad
+    inner_w = max(1, right - left - pad * 2)
+    inner_h = max(1, bottom - top - pad * 2)
+
+    def row_y(heights: list[int], row: int) -> int:
+        return inner_t + sum(heights[:row]) + gap * row
+
+    if count == 1:
+        return [(inner_l, inner_t, inner_w, inner_h)]
+
+    if count == 2:
+        heights = split_sizes(inner_h, 2, gap)
+        return [
+            (inner_l, inner_t, inner_w, heights[0]),
+            (inner_l, row_y(heights, 1), inner_w, heights[1]),
+        ]
+
+    if count == 3:
+        heights = split_sizes(inner_h, 2, gap)
+        widths = split_sizes(inner_w, 2, gap)
+        return [
+            (inner_l, inner_t, widths[0], heights[0]),
+            (inner_l + widths[0] + gap, inner_t, widths[1], heights[0]),
+            (inner_l, row_y(heights, 1), inner_w, heights[1]),
+        ]
+
+    cols = 2
+    rows = math.ceil(count / cols)
+    heights = split_sizes(inner_h, rows, gap)
+    widths = split_sizes(inner_w, cols, gap)
+    boxes: list[tuple[int, int, int, int]] = []
+    for idx in range(count):
+        row, col = divmod(idx, cols)
+        y = row_y(heights, row)
+        last_is_odd = idx == count - 1 and count % cols == 1
+        if last_is_odd:
+            boxes.append((inner_l, y, inner_w, heights[row]))
+        else:
+            x = inner_l + sum(widths[:col]) + gap * col
+            boxes.append((x, y, widths[col], heights[row]))
+    return boxes
+
+
 def cover(image: Image.Image, box: tuple[int, int]) -> Image.Image:
     return ImageOps.fit(image, box, method=Image.Resampling.LANCZOS, centering=(0.5, 0.5))
 
@@ -177,16 +241,8 @@ def build(folder: Path, title: str, out_dir: Path, basename: str, *, gbp_safe: b
         draw.text((left + (column_width - label_width) / 2, 211), label, font=label_font, fill=bg)
         draw.rounded_rectangle((left, top, right_x, bottom), 12, fill=surface, outline=accent, width=2)
         paths = phases[kind]
-        count = len(paths)
-        rows = math.ceil(count / 2) if count > 1 else 1
-        cols = 2 if count > 1 else 1
-        inner_gap = 8
-        cell_w = (column_width - 16 - inner_gap * (cols - 1)) // cols
-        cell_h = (bottom - top - 16 - inner_gap * (rows - 1)) // rows
-        for idx, path in enumerate(paths):
-            row, col = divmod(idx, cols)
-            x = left + 8 + col * (cell_w + inner_gap)
-            y = top + 8 + row * (cell_h + inner_gap)
+        boxes = layout_boxes(len(paths), left, top, right_x, bottom)
+        for path, (x, y, cell_w, cell_h) in zip(paths, boxes):
             image = cover(load_image(path), (cell_w, cell_h))
             canvas.paste(image, (x, y))
             draw.rectangle((x, y, x + cell_w, y + cell_h), outline=(15, 15, 15), width=3)

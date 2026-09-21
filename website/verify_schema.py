@@ -109,6 +109,14 @@ def main() -> int:
         else:
             errors.extend(check_page(path, set(AREA_CITY_EXPECTATIONS["required"])))
 
+    for path in sorted((ROOT / "gallery").glob("before-process-after-*.html")):
+        errors.extend(
+            check_page(
+                path,
+                {"Organization", "WebPage", "ImageObject", "FAQPage", "BreadcrumbList"},
+            )
+        )
+
     if errors:
         print("Schema verification failed:")
         for err in errors:

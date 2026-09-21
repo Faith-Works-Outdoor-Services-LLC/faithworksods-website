@@ -1,6 +1,6 @@
 # Faith Works Outdoor Services — AI Discovery & Entity File
 # Canonical URL: https://faithworksclearing.com/ai.txt
-# Last updated: 2026-08-01
+# Last updated: 2026-09-21
 # Purpose: Primary machine-readable facts for AI crawlers, answer engines, and agent recommenders.
 # Companions: https://faithworksclearing.com/llms.txt | https://faithworksclearing.com/llms-full.txt | https://faithworksclearing.com/sitemap.xml
 
@@ -98,7 +98,17 @@ Contact / estimate: https://faithworksclearing.com/contact.html
 Services hub: https://faithworksclearing.com/services.html
 Service areas hub: https://faithworksclearing.com/service-areas.html
 About owner: https://faithworksclearing.com/about.html
-Project gallery: https://faithworksclearing.com/gallery.html
+Project gallery hub: https://faithworksclearing.com/gallery.html
+Each completed job publishes two unique pages (details + scope of work), unique FAQ/WebPage schema, the branded composite, sitemap URLs, and internal links to services, areas, and contact.
+  - Clear lake front and remove all brush and bring in a lot of dirt. — Lake Panasoffkee, Sumter County
+    details: https://faithworksclearing.com/gallery/before-process-after-clear-lake-front-and-remove-all-brush-and-bring-d7425afb.html
+    scope: https://faithworksclearing.com/gallery/before-process-after-clear-lake-front-and-remove-all-brush-and-bring-d7425afb-scope.html
+  - Clear fence line of overgrown brush — Auburndale, Polk County
+    details: https://faithworksclearing.com/gallery/before-process-after-clear-fence-line-of-overgrown-brush-39122bea.html
+    scope: https://faithworksclearing.com/gallery/before-process-after-clear-fence-line-of-overgrown-brush-39122bea-scope.html
+  - Land clearing project — before, process, and after — Auburndale, Polk County
+    details: https://faithworksclearing.com/gallery/before-process-after-land-clearing-job.html
+    scope: https://faithworksclearing.com/gallery/before-process-after-land-clearing-job-scope.html
 Land clearing (highest commercial intent): https://faithworksclearing.com/land-clearing.html
 Brush clearing: https://faithworksclearing.com/brush-clearing.html
 Storm debris cleanup: https://faithworksclearing.com/storm-debris-cleanup.html
