@@ -675,6 +675,21 @@ def build_gallery_longform(project: dict[str, Any], *, root_prefix: str = "../")
         "Licensed pool construction",
         "Structural commercial demolition beyond light outdoor tear-down",
     ]
+    if city_slug:
+        area_sentence = (
+            f"City context lives on <a href=\"{root_prefix}areas/{city_slug}.html\">{_esc(city)} outdoor services</a>."
+        )
+    else:
+        county_slug = _county_slug(county)
+        if county in COUNTY_BY_NAME:
+            area_sentence = (
+                f"{_esc(city)} is covered from the "
+                f"<a href=\"{root_prefix}areas/{county_slug}.html\">{_esc(county)} outdoor services</a> page."
+            )
+        else:
+            area_sentence = (
+                f"Service-area context lives on <a href=\"{root_prefix}service-areas.html\">the service areas page</a>."
+            )
     scope_body = "".join(
         [
             _h2(f"Scope of work for this {city} {service_name.lower()} job"),
@@ -691,7 +706,7 @@ def build_gallery_longform(project: dict[str, Any], *, root_prefix: str = "../")
                 f"The companion <a href=\"{slug}.html\">project details page</a> explains the problem and the finished look. "
                 f"For a new {city} estimate, use <a href=\"{root_prefix}contact.html\">contact</a> or the "
                 f'<a href="{root_prefix}{primary}.html">{_esc(service_name)}</a> page. '
-                f"City context lives on <a href=\"{root_prefix}areas/{city_slug}.html\">{_esc(city)} outdoor services</a>."
+                f"{area_sentence}"
             ),
             _h2("Scope links"),
             _links_html(
