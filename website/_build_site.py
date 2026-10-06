@@ -3476,7 +3476,7 @@ def write_vendor_page() -> None:
       </div>
     </section>
 
-    <section class="section-shell" id="vendor-intake">
+    <section class="section-shell" id="vendor-request">
       <div class="container">
         <div class="contact-page-form hero-card" data-fw-enter="right">
           <p class="card-eyebrow">Vendor desk</p>
