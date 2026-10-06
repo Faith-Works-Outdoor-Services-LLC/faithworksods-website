@@ -23,6 +23,12 @@ PAGE_EXPECTATIONS = {
     "contact.html": {
         "required": ["Organization", "WebPage", "ContactPage", "BreadcrumbList"],
     },
+    "property-managers.html": {
+        "required": ["Organization", "WebSite", "WebPage", "BreadcrumbList", "FAQPage"],
+    },
+    "safety-policy.html": {
+        "required": ["Organization", "WebPage", "BreadcrumbList", "FAQPage"],
+    },
     "gallery.html": {
         "required": ["Organization", "WebPage", "CollectionPage", "BreadcrumbList", "ImageObject"],
     },

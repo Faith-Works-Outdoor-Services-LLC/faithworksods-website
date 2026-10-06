@@ -757,10 +757,18 @@ document.querySelectorAll(".mobile-services-toggle").forEach((toggle) => {
       return Math.max(0, cards.length - perView());
     }
 
+    function clearInlineCardSizes() {
+      cards.forEach(function (card) {
+        card.style.removeProperty("flex");
+        card.style.removeProperty("width");
+        card.style.removeProperty("max-width");
+      });
+    }
+
     function cardSpan() {
       if (!cards.length) return 0;
-      const styles = window.getComputedStyle(track);
-      const gap = parseFloat(styles.columnGap || styles.gap || "18");
+      const gap =
+        parseFloat(window.getComputedStyle(track).columnGap || window.getComputedStyle(track).gap || "18") || 0;
       return cards[0].getBoundingClientRect().width + gap;
     }
 
@@ -771,7 +779,10 @@ document.querySelectorAll(".mobile-services-toggle").forEach((toggle) => {
     }
 
     function update() {
+      clearInlineCardSizes();
       currentIndex = Math.max(0, Math.min(currentIndex, maxIndex()));
+      // Force layout so cardSpan reads CSS widths, not stale inline sizes
+      void track.offsetWidth;
       track.style.transform = "translateX(" + -currentIndex * cardSpan() + "px)";
       const activePage = Math.floor(currentIndex / perView());
       Array.from(dotsWrap.children).forEach((dot, dotIndex) => {
@@ -813,7 +824,9 @@ document.querySelectorAll(".mobile-services-toggle").forEach((toggle) => {
       cards = Array.from(track.querySelectorAll(".fw-review-card"));
       currentIndex = 0;
       renderDots();
-      update();
+      requestAnimationFrame(function () {
+        requestAnimationFrame(update);
+      });
     }
 
     function parseSeedPayload() {

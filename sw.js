@@ -1,6 +1,6 @@
-/* Faith Works static asset cache v20260731b */
+/* Faith Works static asset cache v20261006a */
 "use strict";
-const CACHE = "fw-static-20260731b";
+const CACHE = "fw-static-20261006a";
 
 self.addEventListener("install", (event) => {
   self.skipWaiting();

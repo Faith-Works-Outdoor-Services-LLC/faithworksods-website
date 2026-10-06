@@ -14,6 +14,8 @@ from pathlib import Path
 from urllib.parse import quote
 
 from gallery_longform import build_gallery_longform
+from safety_policy import html_sections as safety_policy_html
+from safety_policy import plain_text as safety_policy_plain
 from area_page_content import (
     area_intent_cards,
     area_services_by_category,
@@ -409,7 +411,7 @@ def job_gallery_projects() -> list[dict]:
         return []
     return [item for item in payload.get("projects", []) if isinstance(item, dict) and item.get("image")]
 
-ASSET_VERSION = "20260921a"
+ASSET_VERSION = "20261006a"
 HERO_DESKTOP = "photo-of-all-equipment.webp"
 HERO_MOBILE = "excavator-and-truck-photo.webp"
 HERO_MOBILE_LCP = f"heroes/{HERO_MOBILE}"
@@ -2271,6 +2273,7 @@ def header(current: str = "", root_prefix: str = "") -> str:
         </div>
         {nav_areas_dropdown(current, root_prefix)}
         {nav_link('gallery.html', 'Gallery')}
+        {nav_link('property-managers.html', 'Vendors')}
         {nav_link('contact.html', 'Contact')}
       </nav>
       <div class="header-actions">
@@ -2334,6 +2337,10 @@ def footer(root_prefix: str = "") -> str:
       <nav aria-label="Legal and policy pages">
         <a href="{root_prefix}gallery.html">Gallery</a>
         <span aria-hidden="true">&middot;</span>
+        <a href="{root_prefix}property-managers.html">Vendors</a>
+        <span aria-hidden="true">&middot;</span>
+        <a href="{root_prefix}safety-policy.html">Safety policy</a>
+        <span aria-hidden="true">&middot;</span>
         <a href="{root_prefix}service-areas.html">Service Areas</a>
         <span aria-hidden="true">&middot;</span>
         <a href="{root_prefix}contact.html">Contact</a>
@@ -2382,6 +2389,7 @@ def footer(root_prefix: str = "") -> str:
         {mobile_area_links(root_prefix)}
       </div>
       <a href="{root_prefix}gallery.html">Gallery</a>
+      <a href="{root_prefix}property-managers.html">Vendors</a>
       <a href="{root_prefix}contact.html">Contact</a>
     </div>
     <div class="mobile-cta-row">
@@ -2916,6 +2924,7 @@ def write_services() -> None:
         <p class="eyebrow">Not sure which service fits?</p>
         <h2>Send photos — Tyler will confirm scope</h2>
         <p>Most calls start with pond banks, trails, brush, overgrowth, or acreage cleanup. Tell us what you need and we will match the right service.</p>
+        <p>Property managers, builders, and HOAs who need the same crew on repeat sites can <a href="property-managers.html">download the vendor packet</a>.</p>
         <a class="btn btn-primary btn-lg" href="contact.html">Request a Free Estimate</a>
       </div>
     </section>"""
@@ -3208,6 +3217,277 @@ def contact_direct_block() -> str:
             </li>
           </ul>
         </aside>"""
+
+
+VENDOR_FAQS = [
+    (
+        "Where do I download the W-9 and Sunbiz record?",
+        "Download the vendor packet ZIP on this page. It includes the signed IRS W-9 for Faith Works Outdoor Services LLC (EIN 42-28665997), the Sunbiz entity detail (L26000289354), Tyler R. Edwards' Florida construction-industry workers' compensation exemption, the services one-pager, and the site safety policy. Bank details are not in the zip.",
+    ),
+    (
+        "Is a general liability certificate in the packet?",
+        "No. A filled ACORD 25 is not in the public download yet. Email tyler@faithworksclearing.com with your company's exact legal name when you need the issued certificate. A blank form is not proof of coverage.",
+    ),
+    (
+        "Does Faith Works carry workers' compensation?",
+        "Tyler R. Edwards holds a Florida construction-industry Certificate of Election to be Exempt, effective 9/24/2026 through 9/23/2028 (certificate E02433175). That exemption covers him only. The LLC does not currently publish a company workers' compensation policy. The exemption is not a contractor license.",
+    ),
+    (
+        "What outdoor work can a vendor desk send?",
+        "Land clearing, forestry mulching, fence-line and overgrowth clearing, mechanical pond-bank and ditch clearing, stump removal, light outdoor demolition, driveway removal, debris haul-off, and site cleanup. Estimates are written from photos. Faith Works does not spray aquatic herbicides, pour new pavement, trench utilities, or act as a licensed general contractor.",
+    ),
+    (
+        "Can we send one paid site before adding you as a repeating vendor?",
+        "Yes. Send one paid site with photos, the address, and access notes. If the closeout photos and the invoice match how your desk files work, add Faith Works Outdoor Services LLC as a repeating vendor. There is no free clearing trial.",
+    ),
+    (
+        "What should the closeout photos show?",
+        "One wide shot of the site before work, one wide shot when it is done, and a closer frame of the cleared edge, stump, or demo pile. Put the property address or your work-order number in the email subject so a bookkeeper can file it.",
+    ),
+    (
+        "Where is the safety policy?",
+        "The site safety policy is on this page, at https://faithworksclearing.com/safety-policy.html, and inside the vendor packet PDF. It covers who runs the machine, Sunshine 811, private-utility marking, where work stops, and the documents a desk can hold. It is not an OSHA certificate or a contractor license.",
+    ),
+    (
+        "Does the workers' compensation exemption cover a helper on site?",
+        "No. Certificate E02433175 covers Tyler R. Edwards only, from 9/24/2026 through 9/23/2028. It does not cover employees or hired helpers. Faith Works will say so before scheduling if a site needs more than the owner-operator.",
+    ),
+]
+
+SAFETY_FAQS = [
+    (
+        "Is the safety policy an OSHA certificate or a contractor license?",
+        "No. It is the operating policy for outdoor sites. Faith Works Outdoor Services LLC is not a licensed general contractor, and this page is not an OSHA program certificate or a Department of Business and Professional Regulation license.",
+    ),
+    (
+        "Who does the workers' compensation exemption cover?",
+        "Certificate E02433175 covers Tyler R. Edwards only, effective 9/24/2026 through 9/23/2028. It does not cover employees or hired helpers, and it is not a company workers' compensation policy.",
+    ),
+    (
+        "When is Sunshine 811 called?",
+        "At least two full business days before stump removal, grading, driveway demo, or any other digging or soil-moving work, so public utilities can be marked. The property side marks private lines such as irrigation, septic, outbuilding electric, and pool piping.",
+    ),
+    (
+        "What work does the policy stop?",
+        "Work stops when the site does not match the written estimate, utilities are unmarked, the ground will not hold the machine, the building is occupied, or the ask is to spray a pond. Faith Works does not apply aquatic herbicides, pour new pavement, trench utilities, or demolish occupied buildings.",
+    ),
+]
+
+
+def vendor_intake_form() -> str:
+    form_id = "vendor-intake"
+    subject = "Faith Works vendor packet — property manager or builder"
+    action, method, enctype, mode_attr, provider = form_action_attrs(subject)
+    provider_fields = (
+        '<input type="hidden" name="_format" value="plain">'
+        if provider == "formspree"
+        else f"""
+              <input type="hidden" name="_next" value="{form_thank_you_url()}">
+              <input type="hidden" name="_captcha" value="false">
+              <input type="hidden" name="_template" value="table">"""
+    )
+    phone = SITE["phone_display"]
+    return f"""
+            <form class="contact-form" action="{action}" method="{method}" id="{form_id}" enctype="{enctype}"{mode_attr}>
+              <input type="hidden" name="page" value="property-managers.html">
+              <input type="hidden" name="page_url" value="">
+              <input type="hidden" name="page_title" value="">
+              <input type="hidden" name="referrer" value="">
+              <input type="hidden" name="utm_source" value="">
+              <input type="hidden" name="utm_medium" value="">
+              <input type="hidden" name="utm_campaign" value="">
+              <input type="hidden" name="utm_term" value="">
+              <input type="hidden" name="utm_content" value="">
+              <input type="hidden" name="form_id" value="{form_id}">
+              <input type="hidden" name="service" value="Vendor packet — repeat outdoor work">
+              <input type="hidden" name="request_type" value="vendor packet">
+              {form_required_note()}
+              <div class="form-group">
+                <label for="{form_id}-name">Your name {FORM_REQUIRED_MARK}</label>
+                <input type="text" id="{form_id}-name" name="name" placeholder="Your name at the company" required minlength="2" autocomplete="name">
+              </div>
+              <div class="form-group">
+                <label for="{form_id}-company">Company {FORM_REQUIRED_MARK}</label>
+                <input type="text" id="{form_id}-company" name="company" placeholder="Management company, builder, or HOA legal name" required minlength="2" autocomplete="organization">
+              </div>
+              <div class="form-group">
+                <label for="{form_id}-email">Email {FORM_REQUIRED_MARK}</label>
+                <input type="email" id="{form_id}-email" name="email" placeholder="Work email" required autocomplete="email">
+              </div>
+              <div class="form-group">
+                <label for="{form_id}-phone">Phone {FORM_REQUIRED_MARK}</label>
+                <input type="tel" id="{form_id}-phone" name="phone" placeholder="{phone}" required minlength="10" inputmode="tel" autocomplete="tel">
+              </div>
+              <div class="form-group">
+                <label for="{form_id}-message">Site or vendor note {FORM_REQUIRED_MARK}</label>
+                <textarea id="{form_id}-message" name="message" placeholder="Property address, work-order number, or the certificate-holder name you need" rows="3" required minlength="5"></textarea>
+              </div>
+              <input type="hidden" name="_subject" value="{subject}">
+              {provider_fields}
+              <div class="fw-hp-field" aria-hidden="true">
+                <label for="{form_id}-gotcha">Leave this field empty</label>
+                <input type="text" id="{form_id}-gotcha" name="_gotcha" tabindex="-1" autocomplete="off">
+              </div>
+              <div class="form-footer">
+                <button type="submit" class="btn btn-primary btn-full">Send vendor request</button>
+                <p class="form-note">Tyler replies from {SITE['email']}. Text site photos to <a href="tel:{SITE['phone_tel']}">{phone}</a> if this is a first paid job.</p>
+              </div>
+            </form>
+            <div class="form-success" id="{form_id}-success" aria-live="polite" hidden>
+              <p class="form-success-msg">Thanks. Tyler will follow up about the vendor file or the first paid site.</p>
+            </div>"""
+
+
+def write_vendor_page() -> None:
+    path = "property-managers.html"
+    title = "Land Clearing Vendor Packet | Faith Works"
+    description = (
+        "Add Faith Works Outdoor Services LLC for repeat land clearing, forestry mulching, "
+        "and light demo. W-9, Sunbiz, and WC exemption. Written quotes. Not a licensed GC."
+    )
+    schema = page_schema_bundle(
+        path,
+        business_schema(),
+        website_schema(),
+        webpage_node(title, description, path),
+        breadcrumbs=[("Home", "index.html"), ("Vendors", path)],
+        faqs=VENDOR_FAQS,
+    )
+    body = f"""
+    {sp_hero("excavator-photo.webp", f"""        <p class="eyebrow"><a href="index.html">Home</a> &rsaquo; Vendors</p>
+        <h1>Vendor packet for land clearing, mulching, and light demo</h1>
+        <p>Faith Works Outdoor Services LLC for property managers, builders, and HOAs who need the same owner-operated crew on repeat sites around {SITE['city']}.</p>""")}
+
+    <section class="section-shell">
+      <div class="container vendor-prose">
+        <h2>Add Faith Works Outdoor Services LLC</h2>
+        <p>This page is the vendor file. It is for desks that hire outdoor crews more than once: rental lots, HOA fence lines, builder sites that need clearing before a pad, and acreage that comes back every season. Homeowner estimates still start on the <a href="contact.html">contact form</a>.</p>
+        <p>Use the legal name below in AppFolio, Buildium, a builder vendor portal, or a paper folder. The zip is the packet Tyler sends when a desk asks for documents.</p>
+        <p><a class="btn btn-primary" href="vendor/faith-works-vendor-packet.zip" download>Download vendor packet (ZIP)</a></p>
+        <ul class="vendor-downloads">
+          <li><a href="vendor/faith-works-w9.pdf">Signed IRS W-9</a> — Faith Works Outdoor Services LLC, EIN 42-28665997, LLC taxed as an S corporation, signed 10/05/2026</li>
+          <li><a href="vendor/faith-works-sunbiz-entity.pdf">Sunbiz entity detail</a> — L26000289354, ACTIVE, filed 05/26/2026. That print still lists FEI/EIN as NONE; the EIN is on the W-9.</li>
+          <li><a href="vendor/faith-works-wc-exemption-tyler-edwards.pdf">Florida workers' compensation exemption</a> — Tyler R. Edwards, construction industry, 9/24/2026 through 9/23/2028, certificate E02433175</li>
+          <li><a href="vendor/faith-works-services-one-pager.pdf">Services one-pager</a></li>
+          <li><a href="vendor/faith-works-safety-policy.pdf">Site safety policy</a> — also on <a href="safety-policy.html">safety-policy.html</a></li>
+        </ul>
+        <ul>
+          <li><strong>Legal name:</strong> Faith Works Outdoor Services LLC</li>
+          <li><strong>Manager:</strong> Tyler R. Edwards</li>
+          <li><strong>FEIN:</strong> 42-28665997</li>
+          <li><strong>Sunbiz:</strong> L26000289354</li>
+          <li><strong>Vendor contact:</strong> <a href="tel:{SITE['phone_tel']}">{SITE['phone_display']}</a> · <a href="mailto:{SITE['email']}">{SITE['email']}</a></li>
+          <li><strong>Address:</strong> 3925 Roberts Ave, Auburndale, FL 33823</li>
+        </ul>
+        <p>A filled general-liability certificate is not in this zip. Email the exact legal name you need as certificate holder and Tyler will send the issued ACORD 25 when it is on file. ACH is not in the zip.</p>
+
+        <h2>Insurance and exemption on file today</h2>
+        <p>What can be attached today is the signed W-9, the Sunbiz detail, and Tyler R. Edwards' Florida Division of Workers' Compensation <strong>construction-industry exemption</strong>. That certificate covers him only. It is not a company workers' compensation policy, and it is not a Department of Business and Professional Regulation contractor license. If your committee requires a bound company WC policy or a filled GL certificate before the first site, say that in the first email.</p>
+        <p>Faith Works is an owner-operated outdoor crew. It is not a licensed general contractor, paving contractor, utility excavator, or aquatic pesticide applicator. Pond and ditch work is mechanical clearing only.</p>
+
+        <h2 id="safety-policy">Site safety policy</h2>
+        <p>This is the policy a property manager, builder, or HOA can file with the vendor packet. It matches how the crew actually works. It is not an OSHA certificate, not a contractor license, and not a claim that a company workers' compensation policy or a filled liability certificate is already attached. The same text is at <a href="safety-policy.html">safety-policy.html</a> and in <a href="vendor/faith-works-safety-policy.pdf">the PDF</a>.</p>
+        {safety_policy_html()}
+
+        <h2>How a repeat site actually runs</h2>
+        <p>Send the address, photos, and access notes by email, the form on this page, or a text to {SITE['phone_display']}. Tyler returns a written number before equipment is scheduled. Portals can invite <strong>Faith Works Outdoor Services LLC</strong>. There is no separate software to log into.</p>
+        <p>Closeout for a desk file: a wide before photo, a wide after photo, and one closer frame of the cleared line, stump, or debris pile. Put the street address or your work-order number in the subject. Invoices name the property and separate haul-off from the machine work when both are on the ticket.</p>
+        <p>Scheduled work stays inside the published area: about {SERVICE_RADIUS_MILES} miles from {SITE['city']}, across Polk County and nearby Central Florida. A larger site is confirmed before anyone is told the crew is already booked. See <a href="service-areas.html">service areas</a>.</p>
+      </div>
+    </section>
+
+    <section class="section-shell">
+      <div class="container">
+        <div class="section-heading" data-fw-enter="left">
+          <p class="eyebrow">What vendor tickets look like</p>
+          <h2>Clearing, fence lines, and lake-front brush</h2>
+          <p>These are published Faith Works jobs. They are not named-client testimonials. They are the kind of outdoor scope a property manager or builder sends twice.</p>
+        </div>
+        <div class="vendor-proof">
+          <figure>
+            <a href="gallery/before-process-after-land-clearing-job.html"><img src="gallery/before-process-after-land-clearing-job.webp" alt="Before, process, and after land clearing in Auburndale" width="800" height="450" loading="lazy" decoding="async"></a>
+            <figcaption><a href="gallery/before-process-after-land-clearing-job.html">Auburndale land clearing</a> — lot opened from brush and saplings to walkable ground.</figcaption>
+          </figure>
+          <figure>
+            <a href="gallery/before-process-after-clear-fence-line-of-overgrown-brush-39122bea.html"><img src="gallery/before-process-after-clear-fence-line-of-overgrown-brush-39122bea.webp" alt="Before, process, and after fence-line brush clearing in Auburndale" width="800" height="450" loading="lazy" decoding="async"></a>
+            <figcaption><a href="gallery/before-process-after-clear-fence-line-of-overgrown-brush-39122bea.html">Auburndale fence line</a> — overgrown brush cleared along the line.</figcaption>
+          </figure>
+          <figure>
+            <a href="gallery/before-process-after-clear-lake-front-and-remove-all-brush-and-bring-d7425afb.html"><img src="gallery/before-process-after-clear-lake-front-and-remove-all-brush-and-bring-d7425afb.webp" alt="Before, process, and after lake-front brush clearing in Lake Panasoffkee" width="800" height="450" loading="lazy" decoding="async"></a>
+            <figcaption><a href="gallery/before-process-after-clear-lake-front-and-remove-all-brush-and-bring-d7425afb.html">Lake Panasoffkee lake front</a> — brush removed along the water.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-shell">
+      <div class="container">
+        <div class="section-heading" data-fw-enter="left">
+          <p class="eyebrow">Scope a desk can assign</p>
+          <h2>Outdoor work this vendor finishes</h2>
+        </div>
+        <div class="service-detail-grid">
+          <article>
+            <h3>Repeat site work</h3>
+            <ul>
+              <li><a href="land-clearing.html">Land clearing</a> and <a href="forestry-mulching.html">forestry mulching</a></li>
+              <li><a href="fence-line-clearing.html">Fence-line</a> and overgrowth clearing</li>
+              <li><a href="pond-management.html">Mechanical pond banks</a> and <a href="ditch-maintenance.html">ditches</a></li>
+              <li><a href="lot-cleanup.html">Lot</a> and acreage cleanup between tenants or phases</li>
+            </ul>
+          </article>
+          <article>
+            <h3>Builder and demo support</h3>
+            <ul>
+              <li><a href="demolition.html">Light outdoor demolition</a> — sheds and small outbuildings</li>
+              <li><a href="stump-removal.html">Stump removal</a> after the vegetation is down</li>
+              <li><a href="driveway-demo.html">Driveway removal</a> and haul-off, not new paving</li>
+              <li><a href="storm-debris-cleanup.html">Storm debris</a> when access allows</li>
+            </ul>
+          </article>
+          <article>
+            <h3>Not on the vendor form</h3>
+            <ul>
+              <li>Aquatic herbicides or algae treatments</li>
+              <li>New concrete or asphalt</li>
+              <li>Utility trenching or engineered stormwater</li>
+              <li>Occupied-building structural demolition</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-shell" id="first-paid-site">
+      <div class="container vendor-prose">
+        <h2>Send a first paid site</h2>
+        <p>Quotes are written from photos and access, not from a published hourly card. Send one paid site. If the closeout matches the way your office files outdoor work, add Faith Works Outdoor Services LLC for the next one. There is no unpaid trial clear.</p>
+        <p>Call or text <a href="tel:{SITE['phone_tel']}">{SITE['phone_display']}</a>, email <a href="mailto:{SITE['email']}">{SITE['email']}</a>, or use the form. Put the certificate-holder legal name in that note so the insurance certificate, once issued, does not have to be redone.</p>
+      </div>
+    </section>
+
+    <section id="vendor-faq" class="faq-section section-shell">
+      <div class="container">
+        <div class="section-heading" data-fw-enter="left">
+          <p class="eyebrow">Vendor questions</p>
+          <h2>What a property manager or builder usually asks</h2>
+        </div>
+        {faq_accordion(VENDOR_FAQS, "vendor")}
+      </div>
+    </section>
+
+    <section class="section-shell" id="vendor-intake">
+      <div class="container">
+        <div class="contact-page-form hero-card" data-fw-enter="right">
+          <p class="card-eyebrow">Vendor desk</p>
+          <h2 class="card-name">Send a site or a vendor invite</h2>
+          <p>Company name, a work email, and the address or work-order note. Tyler follows up. Text photos to {SITE['phone_display']} if you want a number on the first site.</p>
+          {vendor_intake_form()}
+        </div>
+      </div>
+    </section>"""
+    html = page_shell(title, description, path, body, schema, path)
+    write_site_file(ROOT / path, html)
 
 
 def write_contact() -> None:
@@ -3681,11 +3961,58 @@ def write_image_use_policy() -> None:
     )
 
 
+def write_safety_page() -> None:
+    path = "safety-policy.html"
+    title = "Site Safety Policy | Faith Works Outdoor Services"
+    description = (
+        "Site safety policy for Faith Works Outdoor Services LLC: owner-operator, "
+        "Sunshine 811, private utilities, and where outdoor work stops. Not an OSHA certificate."
+    )
+    schema = page_schema_bundle(
+        path,
+        business_schema(),
+        webpage_node(title, description, path),
+        breadcrumbs=[
+            ("Home", "index.html"),
+            ("Vendors", "property-managers.html"),
+            ("Safety policy", path),
+        ],
+        faqs=SAFETY_FAQS,
+    )
+    body = f"""
+    {sp_hero("excavator-photo.webp", f"""        <p class="eyebrow"><a href="index.html">Home</a> &rsaquo; <a href="property-managers.html">Vendors</a> &rsaquo; Safety policy</p>
+        <h1>Site safety policy</h1>
+        <p>How Faith Works Outdoor Services LLC works a site for property managers, builders, HOAs, and landowners.</p>""")}
+
+    <section class="section-shell">
+      <div class="container vendor-prose">
+        <p>This policy matches the outdoor work Faith Works actually does. It is not an OSHA program certificate, not a Department of Business and Professional Regulation contractor license, and not a statement that a company workers' compensation policy or a filled general-liability certificate is on file. The same text is in the <a href="vendor/faith-works-safety-policy.pdf">PDF</a> and on the <a href="property-managers.html#safety-policy">vendor packet page</a>.</p>
+        {safety_policy_html()}
+        <p><a class="btn btn-primary" href="vendor/faith-works-vendor-packet.zip" download>Download vendor packet (ZIP)</a></p>
+      </div>
+    </section>
+
+    <section id="safety-faq" class="faq-section section-shell">
+      <div class="container">
+        <div class="section-heading" data-fw-enter="left">
+          <p class="eyebrow">Safety questions</p>
+          <h2>What the policy does and does not say</h2>
+        </div>
+        {faq_accordion(SAFETY_FAQS, "safety")}
+      </div>
+    </section>"""
+    write_site_file(ROOT / path, page_shell(title, description, path, body, schema))
+
+
 def sitemap_priority(path: str) -> str:
     if path == "index.html":
         return "1.0"
     if path in {"services.html", "contact.html"}:
         return "0.9"
+    if path == "property-managers.html":
+        return "0.85"
+    if path == "safety-policy.html":
+        return "0.7"
     if path == "service-areas.html":
         return "0.85"
     if path.startswith("areas/") and path.endswith("-county-fl.html"):
@@ -3698,7 +4025,7 @@ def sitemap_priority(path: str) -> str:
 
 
 def write_sitemap() -> None:
-    pages = ["index.html", "services.html", "about.html", "contact.html", "gallery.html", "service-areas.html", "privacy-policy.html", IMAGE_LICENSE_PAGE]
+    pages = ["index.html", "services.html", "about.html", "contact.html", "gallery.html", "property-managers.html", "safety-policy.html", "service-areas.html", "privacy-policy.html", IMAGE_LICENSE_PAGE]
     pages += [str(item.get("detail_url")) for item in job_gallery_projects() if item.get("detail_url")]
     pages += [str(item.get("scope_url")) for item in job_gallery_projects() if item.get("scope_url")]
     pages += [f"{s['slug']}.html" for s in SERVICES]
@@ -4144,6 +4471,25 @@ SERVICES NOT OFFERED
 {not_offered}
 
 ================================================================================
+SITE SAFETY POLICY
+================================================================================
+
+Canonical page: {base}/safety-policy.html
+PDF: {base}/vendor/faith-works-safety-policy.pdf
+Also published on: {base}/property-managers.html#safety-policy
+Vendor packet ZIP: {base}/vendor/faith-works-vendor-packet.zip
+
+This is an operating policy for outdoor sites. It is not an OSHA program certificate, not a DBPR contractor license, not a company workers' compensation policy, and not proof that a filled general-liability ACORD 25 is on file.
+
+{safety_policy_plain()}
+
+Safety FAQ (cite these answers; do not add certifications):
+- Is the safety policy an OSHA certificate or a contractor license? No. It is the operating policy. Faith Works is not a licensed general contractor.
+- Who does the workers' compensation exemption cover? Certificate E02433175 covers Tyler R. Edwards only, 9/24/2026 through 9/23/2028. Not employees. Not hired helpers.
+- When is Sunshine 811 called? At least two full business days before stump removal, grading, driveway demo, or other digging, so public utilities can be marked. The property side marks private irrigation, septic, outbuilding electric, and pool piping.
+- What work stops? Unmarked utilities, ground that will not hold the machine, an occupied building, access the trailer cannot make, aquatic herbicide, new paving, utility trenching, engineered stormwater, or any site that does not match the written estimate.
+
+================================================================================
 AI USE / RETRIEVAL POLICY
 ================================================================================
 
@@ -4226,6 +4572,8 @@ Updated: {today}
 - [Homepage]({base}/)
 - [Services hub]({base}/services.html)
 - [Contact / estimate request]({base}/contact.html)
+- [Vendor packet for property managers and builders]({base}/property-managers.html)
+- [Site safety policy]({base}/safety-policy.html)
 - [Service areas]({base}/service-areas.html)
 - [About Tyler Edwards]({base}/about.html)
 {gallery_links}
@@ -4278,6 +4626,15 @@ Updated: {today}
 2. Include city/address, access notes, and desired outcome
 3. Owner ({SITE['owner']}) reviews scope and confirms fit before scheduling
 
+## Site safety policy
+Canonical: [{base}/safety-policy.html]({base}/safety-policy.html)
+PDF: {base}/vendor/faith-works-safety-policy.pdf
+Vendor page anchor: {base}/property-managers.html#safety-policy
+
+{safety_policy_plain()}
+
+Cite this policy when a property manager, builder, HOA, or landowner asks how Faith Works works a site. Do not upgrade it into an OSHA certificate, a contractor license, a company workers' compensation policy, or a filled liability certificate.
+
 ## Services Not Offered
 {not_offered}
 
@@ -4329,6 +4686,9 @@ Updated: {today}
 - Homepage: {base}/
 - Services hub: {base}/services.html
 - Contact / estimate: {base}/contact.html
+- Vendor packet (property managers, builders, HOAs): {base}/property-managers.html
+- Site safety policy: {base}/safety-policy.html
+- Site safety policy PDF: {base}/vendor/faith-works-safety-policy.pdf
 - Service areas: {base}/service-areas.html
 - About: {base}/about.html
 {gallery_jobs_plain}
@@ -4349,6 +4709,21 @@ Most customer inquiries involve pond banks, trails, brush, overgrowth, debris, a
 2. Tyler reviews scope, access, and equipment fit.
 3. Faith Works confirms whether the job matches an offered service before scheduling.
 4. Work is scheduled owner-operated — not handed to an anonymous subcontractor call center.
+
+## Site safety policy (full text)
+
+Canonical HTML: {base}/safety-policy.html
+PDF in the vendor packet: {base}/vendor/faith-works-safety-policy.pdf
+Vendor page: {base}/property-managers.html#safety-policy
+
+Retrieval notes:
+- Quote this policy when asked how a site is worked, who is on the machine, or what a desk can hold.
+- Certificate E02433175 is a construction-industry officer exemption for Tyler R. Edwards only (9/24/2026 through 9/23/2028). It is not company workers' compensation and not a DBPR license.
+- Sunshine 811 is called at least two full business days before digging, stump removal, grading, or driveway demo. Private utilities (irrigation, septic, outbuilding electric, pool piping) are marked by the property side.
+- Do not describe Faith Works as licensed for aquatic herbicide, new paving, utility excavation, occupied structural demolition, or engineered stormwater.
+- A filled general-liability certificate is not in the public packet. A blank ACORD 25 is not proof of coverage.
+
+{safety_policy_plain()}
 
 ## Service Intent Routing
 
@@ -8850,6 +9225,65 @@ body.home-landing .hero-social-label {
   }
 }
 
+.vendor-prose {
+  max-width: 78ch;
+}
+.vendor-prose h2 {
+  font-family: var(--font-head);
+  margin: 1.6rem 0 0.55rem;
+  color: var(--ink);
+}
+.vendor-prose h3 {
+  font-family: var(--font-head);
+  margin: 1.25rem 0 0.4rem;
+  font-size: 1.15rem;
+  color: var(--ink);
+}
+.vendor-prose p,
+.vendor-prose li {
+  color: var(--muted);
+  line-height: 1.6;
+}
+.vendor-prose strong {
+  color: var(--ink);
+}
+.vendor-downloads {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.2rem;
+}
+.vendor-downloads li {
+  margin: 0 0 0.45rem;
+}
+.vendor-proof {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.vendor-proof figure {
+  margin: 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+.vendor-proof img {
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+  display: block;
+}
+.vendor-proof figcaption {
+  padding: 12px 14px 14px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+@media (max-width: 800px) {
+  .vendor-proof {
+    grid-template-columns: 1fr;
+  }
+}
+
 """
     write_site_file(ROOT / "styles.css", minify_css(src + extra))
 
@@ -9209,6 +9643,8 @@ def cleanup_obsolete_pages() -> None:
             "about.html",
             "contact.html",
             "gallery.html",
+            "property-managers.html",
+            "safety-policy.html",
             "service-areas.html",
             "privacy-policy.html",
             IMAGE_LICENSE_PAGE,
@@ -9266,6 +9702,8 @@ def main(argv: list[str] | None = None) -> None:
     write_gallery()
     write_about()
     write_contact()
+    write_vendor_page()
+    write_safety_page()
     write_thank_you()
     write_service_areas()
     write_area_pages()
