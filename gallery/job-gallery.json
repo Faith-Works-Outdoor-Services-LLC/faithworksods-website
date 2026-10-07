@@ -3,6 +3,27 @@
   "brand": "fw",
   "projects": [
     {
+      "id": "before-process-after-excavator-stump-removal-count-not-stated-09ebac37",
+      "title": "Stump Removal",
+      "summary": "Stump Removal in seffner, Central Florida — before, process, and after proof from Faith Works Outdoor Services. See the project details and the written-style scope of work. Photo estimates. Owner-operated.",
+      "image": "gallery/before-process-after-excavator-stump-removal-count-not-stated-09ebac37.webp",
+      "social_image": "gallery/before-process-after-excavator-stump-removal-count-not-stated-09ebac37-social.jpg",
+      "gbp_image": "gallery/before-process-after-excavator-stump-removal-count-not-stated-09ebac37-gbp.jpg",
+      "detail_url": "gallery/before-process-after-excavator-stump-removal-count-not-stated-09ebac37.html",
+      "scope_url": "gallery/before-process-after-excavator-stump-removal-count-not-stated-09ebac37-scope.html",
+      "service_slugs": [
+        "stump-removal",
+        "equipment-services"
+      ],
+      "city_name": "seffner",
+      "city_slug": "",
+      "county_name": "Central Florida",
+      "photo_before": 2,
+      "photo_process": 3,
+      "photo_after": 2,
+      "published_at": "2026-10-07T14:53:31.600818+00:00"
+    },
+    {
       "id": "before-process-after-clear-lake-front-and-remove-all-brush-and-bring-d7425afb",
       "title": "Clear lake front and remove all brush and bring in a lot of dirt.",
       "summary": "Pond Bank Clearing in Lake Panasoffkee, Sumter County — before, process, and after proof from Faith Works Outdoor Services. See the project details and the written-style scope of work. Photo estimates. Owner-operated.",
