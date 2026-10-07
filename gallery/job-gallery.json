@@ -3,6 +3,27 @@
   "brand": "fw",
   "projects": [
     {
+      "id": "before-process-after-boat-ramp-cleanup-98cb6774",
+      "title": "Boat Ramp Cleanup",
+      "summary": "Property Cleanup in Orlando, Orange County — before, process, and after proof from Faith Works Outdoor Services. See the project details and the written-style scope of work. Photo estimates. Owner-operated.",
+      "image": "gallery/before-process-after-boat-ramp-cleanup-98cb6774.webp",
+      "social_image": "gallery/before-process-after-boat-ramp-cleanup-98cb6774-social.jpg",
+      "gbp_image": "gallery/before-process-after-boat-ramp-cleanup-98cb6774-gbp.jpg",
+      "detail_url": "gallery/before-process-after-boat-ramp-cleanup-98cb6774.html",
+      "scope_url": "gallery/before-process-after-boat-ramp-cleanup-98cb6774-scope.html",
+      "service_slugs": [
+        "property-cleanup",
+        "equipment-services"
+      ],
+      "city_name": "Orlando",
+      "city_slug": "orlando-fl",
+      "county_name": "Orange County",
+      "photo_before": 3,
+      "photo_process": 0,
+      "photo_after": 2,
+      "published_at": "2026-10-07T15:38:50.026178+00:00"
+    },
+    {
       "id": "before-process-after-tree-debris-removal-8256a13b",
       "title": "Tree Debris Removal",
       "summary": "Debris Removal in Thonotosassa, Central Florida — before, process, and after proof from Faith Works Outdoor Services. See the project details and the written-style scope of work. Photo estimates. Owner-operated.",
