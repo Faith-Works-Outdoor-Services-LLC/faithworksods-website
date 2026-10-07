@@ -3,6 +3,28 @@
   "brand": "fw",
   "projects": [
     {
+      "id": "before-process-after-lot-clearing-underbrush-acreage-not-stated-7275c58d",
+      "title": "Lot clearing / underbrush (acreage not stated)",
+      "summary": "Acreage Cleanup in Clermont, Lake County — before, process, and after proof from Faith Works Outdoor Services. See the project details and the written-style scope of work. Photo estimates. Owner-operated.",
+      "image": "gallery/before-process-after-lot-clearing-underbrush-acreage-not-stated-7275c58d.webp",
+      "social_image": "gallery/before-process-after-lot-clearing-underbrush-acreage-not-stated-7275c58d-social.jpg",
+      "gbp_image": "gallery/before-process-after-lot-clearing-underbrush-acreage-not-stated-7275c58d-gbp.jpg",
+      "detail_url": "gallery/before-process-after-lot-clearing-underbrush-acreage-not-stated-7275c58d.html",
+      "scope_url": "gallery/before-process-after-lot-clearing-underbrush-acreage-not-stated-7275c58d-scope.html",
+      "service_slugs": [
+        "acreage-cleanup",
+        "brush-clearing",
+        "equipment-services"
+      ],
+      "city_name": "Clermont",
+      "city_slug": "clermont-fl",
+      "county_name": "Lake County",
+      "photo_before": 1,
+      "photo_process": 0,
+      "photo_after": 3,
+      "published_at": "2026-10-07T15:23:54.468279+00:00"
+    },
+    {
       "id": "before-process-after-pond-bank-clearing-underbrush-e9165277",
       "title": "Pond bank clearing (underbrush)",
       "summary": "Brush Clearing & Brush Cutting in auburndale, Polk County — before, process, and after proof from Faith Works Outdoor Services. See the project details and the written-style scope of work. Photo estimates. Owner-operated",
