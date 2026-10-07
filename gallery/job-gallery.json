@@ -3,6 +3,27 @@
   "brand": "fw",
   "projects": [
     {
+      "id": "before-process-after-property-cleanup-193426d0",
+      "title": "Property Cleanup",
+      "summary": "Property Cleanup in Plant City, Hillsborough County — before, process, and after proof from Faith Works Outdoor Services. See the project details and the written-style scope of work. Photo estimates. Owner-operated.",
+      "image": "gallery/before-process-after-property-cleanup-193426d0.webp",
+      "social_image": "gallery/before-process-after-property-cleanup-193426d0-social.jpg",
+      "gbp_image": "gallery/before-process-after-property-cleanup-193426d0-gbp.jpg",
+      "detail_url": "gallery/before-process-after-property-cleanup-193426d0.html",
+      "scope_url": "gallery/before-process-after-property-cleanup-193426d0-scope.html",
+      "service_slugs": [
+        "property-cleanup",
+        "equipment-services"
+      ],
+      "city_name": "Plant City",
+      "city_slug": "plant-city-fl",
+      "county_name": "Hillsborough County",
+      "photo_before": 4,
+      "photo_process": 0,
+      "photo_after": 4,
+      "published_at": "2026-10-07T15:08:31.523634+00:00"
+    },
+    {
       "id": "before-process-after-grading-09ebac37",
       "title": "Grading",
       "summary": "Land Clearing in seffner, Central Florida — before, process, and after proof from Faith Works Outdoor Services. See the project details and the written-style scope of work. Photo estimates. Owner-operated.",
