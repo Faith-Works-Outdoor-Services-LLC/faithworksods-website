@@ -3,6 +3,27 @@
   "brand": "fw",
   "projects": [
     {
+      "id": "before-process-after-tree-debris-removal-8256a13b",
+      "title": "Tree Debris Removal",
+      "summary": "Debris Removal in Thonotosassa, Central Florida — before, process, and after proof from Faith Works Outdoor Services. See the project details and the written-style scope of work. Photo estimates. Owner-operated.",
+      "image": "gallery/before-process-after-tree-debris-removal-8256a13b.webp",
+      "social_image": "gallery/before-process-after-tree-debris-removal-8256a13b-social.jpg",
+      "gbp_image": "gallery/before-process-after-tree-debris-removal-8256a13b-gbp.jpg",
+      "detail_url": "gallery/before-process-after-tree-debris-removal-8256a13b.html",
+      "scope_url": "gallery/before-process-after-tree-debris-removal-8256a13b-scope.html",
+      "service_slugs": [
+        "debris-removal",
+        "equipment-services"
+      ],
+      "city_name": "Thonotosassa",
+      "city_slug": "",
+      "county_name": "Central Florida",
+      "photo_before": 3,
+      "photo_process": 1,
+      "photo_after": 2,
+      "published_at": "2026-10-07T15:38:38.891836+00:00"
+    },
+    {
       "id": "before-process-after-excavator-stump-removal-count-not-stated-557698bf",
       "title": "Excavator stump removal (count not stated)",
       "summary": "Stump Removal in Auburndale, Polk County — before, process, and after proof from Faith Works Outdoor Services. See the project details and the written-style scope of work. Photo estimates. Owner-operated.",
