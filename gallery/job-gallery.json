@@ -3,6 +3,27 @@
   "brand": "fw",
   "projects": [
     {
+      "id": "before-process-after-hedge-removal-sod-installation-cdccd15f",
+      "title": "Hedge Removal & Sod Installation",
+      "summary": "Land Clearing in Orlando, Orange County — before, process, and after proof from Faith Works Outdoor Services. See the project details and the written-style scope of work. Photo estimates. Owner-operated.",
+      "image": "gallery/before-process-after-hedge-removal-sod-installation-cdccd15f.webp",
+      "social_image": "gallery/before-process-after-hedge-removal-sod-installation-cdccd15f-social.jpg",
+      "gbp_image": "gallery/before-process-after-hedge-removal-sod-installation-cdccd15f-gbp.jpg",
+      "detail_url": "gallery/before-process-after-hedge-removal-sod-installation-cdccd15f.html",
+      "scope_url": "gallery/before-process-after-hedge-removal-sod-installation-cdccd15f-scope.html",
+      "service_slugs": [
+        "land-clearing",
+        "equipment-services"
+      ],
+      "city_name": "Orlando",
+      "city_slug": "orlando-fl",
+      "county_name": "Orange County",
+      "photo_before": 1,
+      "photo_process": 2,
+      "photo_after": 3,
+      "published_at": "2026-10-07T15:39:04.547380+00:00"
+    },
+    {
       "id": "before-process-after-boat-ramp-cleanup-98cb6774",
       "title": "Boat Ramp Cleanup",
       "summary": "Property Cleanup in Orlando, Orange County — before, process, and after proof from Faith Works Outdoor Services. See the project details and the written-style scope of work. Photo estimates. Owner-operated.",
