@@ -3,6 +3,27 @@
   "brand": "fw",
   "projects": [
     {
+      "id": "before-process-after-pond-bank-clearing-underbrush-fb05634d",
+      "title": "Retention Pond Cleanup",
+      "summary": "Property Cleanup in Auburndale, Polk County — before, process, and after proof from Faith Works Outdoor Services. See the project details and the written-style scope of work. Photo estimates. Owner-operated.",
+      "image": "gallery/before-process-after-pond-bank-clearing-underbrush-fb05634d.webp",
+      "social_image": "gallery/before-process-after-pond-bank-clearing-underbrush-fb05634d-social.jpg",
+      "gbp_image": "gallery/before-process-after-pond-bank-clearing-underbrush-fb05634d-gbp.jpg",
+      "detail_url": "gallery/before-process-after-pond-bank-clearing-underbrush-fb05634d.html",
+      "scope_url": "gallery/before-process-after-pond-bank-clearing-underbrush-fb05634d-scope.html",
+      "service_slugs": [
+        "property-cleanup",
+        "equipment-services"
+      ],
+      "city_name": "Auburndale",
+      "city_slug": "auburndale-fl",
+      "county_name": "Polk County",
+      "photo_before": 3,
+      "photo_process": 0,
+      "photo_after": 4,
+      "published_at": "2026-10-07T15:23:23.750180+00:00"
+    },
+    {
       "id": "before-process-after-property-cleanup-193426d0",
       "title": "Property Cleanup",
       "summary": "Property Cleanup in Plant City, Hillsborough County — before, process, and after proof from Faith Works Outdoor Services. See the project details and the written-style scope of work. Photo estimates. Owner-operated.",
