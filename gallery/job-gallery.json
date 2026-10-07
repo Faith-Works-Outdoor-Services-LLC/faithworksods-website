@@ -3,6 +3,27 @@
   "brand": "fw",
   "projects": [
     {
+      "id": "before-process-after-pond-bank-clearing-underbrush-e9165277",
+      "title": "Pond bank clearing (underbrush)",
+      "summary": "Brush Clearing & Brush Cutting in auburndale, Polk County — before, process, and after proof from Faith Works Outdoor Services. See the project details and the written-style scope of work. Photo estimates. Owner-operated",
+      "image": "gallery/before-process-after-pond-bank-clearing-underbrush-e9165277.webp",
+      "social_image": "gallery/before-process-after-pond-bank-clearing-underbrush-e9165277-social.jpg",
+      "gbp_image": "gallery/before-process-after-pond-bank-clearing-underbrush-e9165277-gbp.jpg",
+      "detail_url": "gallery/before-process-after-pond-bank-clearing-underbrush-e9165277.html",
+      "scope_url": "gallery/before-process-after-pond-bank-clearing-underbrush-e9165277-scope.html",
+      "service_slugs": [
+        "brush-clearing",
+        "equipment-services"
+      ],
+      "city_name": "auburndale",
+      "city_slug": "auburndale-fl",
+      "county_name": "Polk County",
+      "photo_before": 3,
+      "photo_process": 0,
+      "photo_after": 4,
+      "published_at": "2026-10-07T15:23:43.403420+00:00"
+    },
+    {
       "id": "before-process-after-pond-bank-clearing-underbrush-fb05634d",
       "title": "Retention Pond Cleanup",
       "summary": "Property Cleanup in Auburndale, Polk County — before, process, and after proof from Faith Works Outdoor Services. See the project details and the written-style scope of work. Photo estimates. Owner-operated.",
