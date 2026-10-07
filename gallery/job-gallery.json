@@ -3,6 +3,27 @@
   "brand": "fw",
   "projects": [
     {
+      "id": "before-process-after-grading-09ebac37",
+      "title": "Grading",
+      "summary": "Land Clearing in seffner, Central Florida — before, process, and after proof from Faith Works Outdoor Services. See the project details and the written-style scope of work. Photo estimates. Owner-operated.",
+      "image": "gallery/before-process-after-grading-09ebac37.webp",
+      "social_image": "gallery/before-process-after-grading-09ebac37-social.jpg",
+      "gbp_image": "gallery/before-process-after-grading-09ebac37-gbp.jpg",
+      "detail_url": "gallery/before-process-after-grading-09ebac37.html",
+      "scope_url": "gallery/before-process-after-grading-09ebac37-scope.html",
+      "service_slugs": [
+        "land-clearing",
+        "equipment-services"
+      ],
+      "city_name": "seffner",
+      "city_slug": "",
+      "county_name": "Central Florida",
+      "photo_before": 2,
+      "photo_process": 2,
+      "photo_after": 2,
+      "published_at": "2026-10-07T14:53:45.653711+00:00"
+    },
+    {
       "id": "before-process-after-excavator-stump-removal-count-not-stated-09ebac37",
       "title": "Stump Removal",
       "summary": "Stump Removal in seffner, Central Florida — before, process, and after proof from Faith Works Outdoor Services. See the project details and the written-style scope of work. Photo estimates. Owner-operated.",
