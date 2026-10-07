@@ -3,6 +3,27 @@
   "brand": "fw",
   "projects": [
     {
+      "id": "before-process-after-land-clearing-brush-cutting-13e6d87d",
+      "title": "Land Clearing & Brush Cutting",
+      "summary": "Brush Clearing & Brush Cutting in Thonotosassa, Central Florida — before, process, and after proof from Faith Works Outdoor Services. See the project details and the written-style scope of work. Photo estimates. Owner-op",
+      "image": "gallery/before-process-after-land-clearing-brush-cutting-13e6d87d.webp",
+      "social_image": "gallery/before-process-after-land-clearing-brush-cutting-13e6d87d-social.jpg",
+      "gbp_image": "gallery/before-process-after-land-clearing-brush-cutting-13e6d87d-gbp.jpg",
+      "detail_url": "gallery/before-process-after-land-clearing-brush-cutting-13e6d87d.html",
+      "scope_url": "gallery/before-process-after-land-clearing-brush-cutting-13e6d87d-scope.html",
+      "service_slugs": [
+        "brush-clearing",
+        "equipment-services"
+      ],
+      "city_name": "Thonotosassa",
+      "city_slug": "",
+      "county_name": "Central Florida",
+      "photo_before": 3,
+      "photo_process": 2,
+      "photo_after": 3,
+      "published_at": "2026-10-07T15:24:19.045258+00:00"
+    },
+    {
       "id": "before-process-after-lot-clearing-underbrush-acreage-not-stated-7275c58d",
       "title": "Lot clearing / underbrush (acreage not stated)",
       "summary": "Acreage Cleanup in Clermont, Lake County — before, process, and after proof from Faith Works Outdoor Services. See the project details and the written-style scope of work. Photo estimates. Owner-operated.",
