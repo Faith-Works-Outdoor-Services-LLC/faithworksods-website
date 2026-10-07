@@ -3,6 +3,27 @@
   "brand": "fw",
   "projects": [
     {
+      "id": "before-process-after-excavator-stump-removal-count-not-stated-557698bf",
+      "title": "Excavator stump removal (count not stated)",
+      "summary": "Stump Removal in Auburndale, Polk County — before, process, and after proof from Faith Works Outdoor Services. See the project details and the written-style scope of work. Photo estimates. Owner-operated.",
+      "image": "gallery/before-process-after-excavator-stump-removal-count-not-stated-557698bf.webp",
+      "social_image": "gallery/before-process-after-excavator-stump-removal-count-not-stated-557698bf-social.jpg",
+      "gbp_image": "gallery/before-process-after-excavator-stump-removal-count-not-stated-557698bf-gbp.jpg",
+      "detail_url": "gallery/before-process-after-excavator-stump-removal-count-not-stated-557698bf.html",
+      "scope_url": "gallery/before-process-after-excavator-stump-removal-count-not-stated-557698bf-scope.html",
+      "service_slugs": [
+        "stump-removal",
+        "equipment-services"
+      ],
+      "city_name": "Auburndale",
+      "city_slug": "auburndale-fl",
+      "county_name": "Polk County",
+      "photo_before": 1,
+      "photo_process": 1,
+      "photo_after": 1,
+      "published_at": "2026-10-07T15:38:23.604694+00:00"
+    },
+    {
       "id": "before-process-after-land-clearing-brush-cutting-13e6d87d",
       "title": "Land Clearing & Brush Cutting",
       "summary": "Brush Clearing & Brush Cutting in Thonotosassa, Central Florida — before, process, and after proof from Faith Works Outdoor Services. See the project details and the written-style scope of work. Photo estimates. Owner-op",
