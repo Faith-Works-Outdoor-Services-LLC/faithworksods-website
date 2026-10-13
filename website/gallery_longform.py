@@ -746,7 +746,7 @@ def build_gallery_longform(project: dict[str, Any], *, root_prefix: str = "../")
         "summary": summary[:220],
         "detail": {
             "path": detail_path,
-            "title": f"{title} in {city} FL | {BRAND}",
+            "title": f"{title} in {city} FL | Faith Works",
             "h1": title,
             "meta": (
                 f"{title} in {city}, {county} — before, process, and after {service_name.lower()} "
@@ -758,7 +758,7 @@ def build_gallery_longform(project: dict[str, Any], *, root_prefix: str = "../")
         },
         "scope": {
             "path": scope_path,
-            "title": f"Scope of Work: {title} in {city} FL | {BRAND}",
+            "title": f"Scope: {title} in {city} FL | Faith Works",
             "h1": f"Scope of work — {title}",
             "meta": (
                 f"Scope of work for {title} in {city}, {county}: what {BRAND} included, excluded, "

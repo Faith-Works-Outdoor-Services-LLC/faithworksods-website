@@ -3715,7 +3715,7 @@ def write_county_area_page(county: dict, areas_dir: Path) -> None:
         business_schema(),
         county_place_node(county),
         webpage_node(
-            f"{county['name']} Outdoor Property Services | {SITE['brand']}",
+            f"{county['name']} FL Outdoor Services | Faith Works",
             desc,
             canonical,
             about={"@id": f"{page_url(canonical)}#place"},
@@ -3771,7 +3771,7 @@ def write_county_area_page(county: dict, areas_dir: Path) -> None:
       </div>
     </section>"""
     html = page_shell(
-        f"{county['name']} Outdoor Property Services | {SITE['brand']}",
+        f"{county['name']} FL Outdoor Services | Faith Works",
         desc,
         canonical,
         body,
