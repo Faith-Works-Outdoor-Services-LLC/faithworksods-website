@@ -1,6 +1,6 @@
 # Faith Works Outdoor Services — AI Discovery & Entity File
 # Canonical URL: https://faithworksclearing.com/ai.txt
-# Last updated: 2026-10-06
+# Last updated: 2026-10-07
 # Purpose: Primary machine-readable facts for AI crawlers, answer engines, and agent recommenders.
 # Companions: https://faithworksclearing.com/llms.txt | https://faithworksclearing.com/llms-full.txt | https://faithworksclearing.com/sitemap.xml
 
@@ -100,6 +100,39 @@ Service areas hub: https://faithworksclearing.com/service-areas.html
 About owner: https://faithworksclearing.com/about.html
 Project gallery hub: https://faithworksclearing.com/gallery.html
 Each completed job publishes two unique pages (details + scope of work), unique FAQ/WebPage schema, the branded composite, sitemap URLs, and internal links to services, areas, and contact.
+  - Hedge Removal & Sod Installation — Orlando, Orange County
+    details: https://faithworksclearing.com/gallery/before-process-after-hedge-removal-sod-installation-cdccd15f.html
+    scope: https://faithworksclearing.com/gallery/before-process-after-hedge-removal-sod-installation-cdccd15f-scope.html
+  - Boat Ramp Cleanup — Orlando, Orange County
+    details: https://faithworksclearing.com/gallery/before-process-after-boat-ramp-cleanup-98cb6774.html
+    scope: https://faithworksclearing.com/gallery/before-process-after-boat-ramp-cleanup-98cb6774-scope.html
+  - Tree Debris Removal — Thonotosassa, Central Florida
+    details: https://faithworksclearing.com/gallery/before-process-after-tree-debris-removal-8256a13b.html
+    scope: https://faithworksclearing.com/gallery/before-process-after-tree-debris-removal-8256a13b-scope.html
+  - Excavator stump removal (count not stated) — Auburndale, Polk County
+    details: https://faithworksclearing.com/gallery/before-process-after-excavator-stump-removal-count-not-stated-557698bf.html
+    scope: https://faithworksclearing.com/gallery/before-process-after-excavator-stump-removal-count-not-stated-557698bf-scope.html
+  - Land Clearing & Brush Cutting — Thonotosassa, Central Florida
+    details: https://faithworksclearing.com/gallery/before-process-after-land-clearing-brush-cutting-13e6d87d.html
+    scope: https://faithworksclearing.com/gallery/before-process-after-land-clearing-brush-cutting-13e6d87d-scope.html
+  - Lot clearing / underbrush (acreage not stated) — Clermont, Lake County
+    details: https://faithworksclearing.com/gallery/before-process-after-lot-clearing-underbrush-acreage-not-stated-7275c58d.html
+    scope: https://faithworksclearing.com/gallery/before-process-after-lot-clearing-underbrush-acreage-not-stated-7275c58d-scope.html
+  - Pond bank clearing (underbrush) — auburndale, Polk County
+    details: https://faithworksclearing.com/gallery/before-process-after-pond-bank-clearing-underbrush-e9165277.html
+    scope: https://faithworksclearing.com/gallery/before-process-after-pond-bank-clearing-underbrush-e9165277-scope.html
+  - Retention Pond Cleanup — Auburndale, Polk County
+    details: https://faithworksclearing.com/gallery/before-process-after-pond-bank-clearing-underbrush-fb05634d.html
+    scope: https://faithworksclearing.com/gallery/before-process-after-pond-bank-clearing-underbrush-fb05634d-scope.html
+  - Property Cleanup — Plant City, Hillsborough County
+    details: https://faithworksclearing.com/gallery/before-process-after-property-cleanup-193426d0.html
+    scope: https://faithworksclearing.com/gallery/before-process-after-property-cleanup-193426d0-scope.html
+  - Grading — seffner, Central Florida
+    details: https://faithworksclearing.com/gallery/before-process-after-grading-09ebac37.html
+    scope: https://faithworksclearing.com/gallery/before-process-after-grading-09ebac37-scope.html
+  - Stump Removal — seffner, Central Florida
+    details: https://faithworksclearing.com/gallery/before-process-after-excavator-stump-removal-count-not-stated-09ebac37.html
+    scope: https://faithworksclearing.com/gallery/before-process-after-excavator-stump-removal-count-not-stated-09ebac37-scope.html
   - Clear lake front and remove all brush and bring in a lot of dirt. — Lake Panasoffkee, Sumter County
     details: https://faithworksclearing.com/gallery/before-process-after-clear-lake-front-and-remove-all-brush-and-bring-d7425afb.html
     scope: https://faithworksclearing.com/gallery/before-process-after-clear-lake-front-and-remove-all-brush-and-bring-d7425afb-scope.html
