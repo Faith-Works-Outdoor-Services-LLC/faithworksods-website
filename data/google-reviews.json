@@ -1,63 +1,83 @@
 {
   "ratingValue": 5.0,
-  "reviewCount": 6,
-  "syncedAt": "2026-07-30T04:18:30.265948+00:00",
+  "reviewCount": 8,
+  "syncedAt": "2026-10-13T14:00:55.266430+00:00",
   "locationId": "11714542974358350290",
   "reviews": [
     {
-      "name": "RYKER B Mcdowell",
+      "name": "Chris Carson",
       "meta": "Google review",
-      "date": "2 weeks ago",
-      "text": "Tyler was amazing he even stayed with us allot longer than he needed in order to help us take out some extra rooted trees that had died from this past freeze and was great to work with!! Thx Again Tyler!!",
+      "date": "This week",
+      "text": "Tyler did great work for a reasonable price. I will be using him again in the future.",
       "stars": 5,
       "avatarColor": "#1e6b2e",
+      "createTime": "2026-10-13T02:27:09.197069Z"
+    },
+    {
+      "name": "D Hennessee",
+      "meta": "Google review",
+      "date": "1 month ago",
+      "text": "Tyler did a great job! Really nice guy and a very reasonable price.",
+      "stars": 5,
+      "avatarColor": "#c0392b",
+      "createTime": "2026-09-08T21:54:43.520350Z",
+      "reply": "Thank you for choosing us to help make your property 1 step closer to your perfect vacation spot!",
+      "replyDate": "2 weeks ago"
+    },
+    {
+      "name": "RYKER B Mcdowell",
+      "meta": "Google review",
+      "date": "3 months ago",
+      "text": "Tyler was amazing he even stayed with us allot longer than he needed in order to help us take out some extra rooted trees that had died from this past freeze and was great to work with!! Thx Again Tyler!!",
+      "stars": 5,
+      "avatarColor": "#1a56c4",
       "createTime": "2026-07-14T02:15:11.702330Z",
       "reply": "Appreciate the work! You were amazing to work for!",
-      "replyDate": "2 weeks ago"
+      "replyDate": "3 months ago"
     },
     {
       "name": "Ngan Phan",
       "meta": "Google review",
-      "date": "2 weeks ago",
+      "date": "3 months ago",
       "text": "I couldn\u2019t be happier with the work they did clearing my land. They showed up when they said they would, worked hard from start to finish, and left the property looking better than I expected. They were easy to communicate with, answered all of my questions, and made the whole process stress-free.\n\nIf you\u2019re looking for someone reliable, honest, and who takes pride in their work, I highly recommend them. I\u2019ll definitely be calling them again for future projects. Thanks again for the great job!",
       "stars": 5,
-      "avatarColor": "#c0392b",
+      "avatarColor": "#FBBC05",
       "createTime": "2026-07-12T00:41:46.248029Z",
       "reply": "Thank you for the kind words! Was a pleasure!",
-      "replyDate": "2 weeks ago"
+      "replyDate": "3 months ago"
     },
     {
       "name": "Brandon DeRemer",
       "meta": "Google review",
-      "date": "2 weeks ago",
+      "date": "3 months ago",
       "text": "Tyler was a huge help delivering materials to my job site. He was professional, punctual, and handled everything with care. Communication was excellent throughout the process, and he made sure everything arrived on time and exactly where it needed to be. I really appreciate his reliability and great attitude. I would definitely recommend Tyler to anyone looking for dependable, professional service.",
       "stars": 5,
-      "avatarColor": "#1a56c4",
+      "avatarColor": "#c9a227",
       "createTime": "2026-07-12T00:34:58.311443Z",
       "reply": "Thank you!",
-      "replyDate": "2 weeks ago"
+      "replyDate": "3 months ago"
     },
     {
       "name": "nathan guzman",
       "meta": "Google review",
-      "date": "3 weeks ago",
+      "date": "3 months ago",
       "text": "Tyler was awesome, fast and efficient and very reasonable in pricing. Looking forward in having him do some more work for me you will not be disappointed in hiring him for your next job or project at home.",
       "stars": 5,
-      "avatarColor": "#FBBC05",
+      "avatarColor": "#8e44ad",
       "createTime": "2026-07-07T00:40:17.804848Z",
       "reply": "Thank you for the great review! Much appreciated!",
-      "replyDate": "2 weeks ago"
+      "replyDate": "3 months ago"
     },
     {
       "name": "Oramasuta_Shinji 4BR",
       "meta": "Google review",
-      "date": "4 weeks ago",
+      "date": "3 months ago",
       "text": "I was very pleased and happy for the results and price that was given, stand up work and a great attention to detail, would happily recommend this service again, and in the near future.",
       "stars": 5,
-      "avatarColor": "#c9a227",
+      "avatarColor": "#2c3e50",
       "createTime": "2026-07-01T20:39:04.723940Z",
       "reply": "Thank you!",
-      "replyDate": "2 weeks ago"
+      "replyDate": "3 months ago"
     }
   ]
 }
