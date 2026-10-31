@@ -167,6 +167,9 @@ function populateLeadAttribution(form) {
 captureFirstTouchAttribution();
 
 function trackConversionEvent(eventName, params = {}) {
+  if (typeof window.clarity === "function") {
+    try { window.clarity("event", eventName); } catch (e) {}
+  }
   if (typeof gtag !== "function") return;
   gtag("event", eventName, {
     page_location: window.location.href,
@@ -1076,3 +1079,11 @@ function initHeroPanels() {
     queue();
   }, { passive: true });
 })();
+
+// 2026-10-31: count text and email taps too (GA4 + Clarity; no personal data)
+document.querySelectorAll('a[href^="sms:"], a[href^="mailto:"]').forEach((link) => {
+  link.addEventListener("click", () => {
+    const kind = link.getAttribute("href").startsWith("sms:") ? "sms_click" : "email_click";
+    trackConversionEvent(kind, { event_category: "contact" });
+  });
+});
