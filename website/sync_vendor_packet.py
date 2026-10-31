@@ -33,7 +33,7 @@ PUBLIC_DOCS: list[tuple[str, str, str]] = [
     (
         PREFIX + "Faith_Works_Outdoor_Services_W9 Completed - Signed 10-5-2026.pdf",
         "faith-works-w9.pdf",
-        "Signed IRS W-9 (Faith Works Outdoor Services LLC, EIN 42-28665997, signed 10/05/2026)",
+        "Signed IRS W-9 (Faith Works Outdoor Services LLC, EIN 42-2865997, signed 10/05/2026)",
     ),
     (
         PREFIX + "Faith_Works_Outdoor_Services_Entity Detail.pdf",
@@ -61,7 +61,7 @@ Updated {TODAY}
 
 Legal name: Faith Works Outdoor Services LLC
 Sunbiz: L26000289354 (ACTIVE)
-FEIN: 42-28665997 (on the W-9; the Sunbiz print still lists FEI/EIN as NONE)
+FEIN: 42-2865997 (on the W-9; the Sunbiz print still lists FEI/EIN as NONE)
 Address: 3925 Roberts Ave, Auburndale, FL 33823
 Contact: Tyler R. Edwards · (863) 272-1596 · tyler@faithworksclearing.com
 

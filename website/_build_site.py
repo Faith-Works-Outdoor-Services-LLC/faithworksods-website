@@ -3222,7 +3222,7 @@ def contact_direct_block() -> str:
 VENDOR_FAQS = [
     (
         "Where do I download the W-9 and Sunbiz record?",
-        "Download the vendor packet ZIP on this page. It includes the signed IRS W-9 for Faith Works Outdoor Services LLC (EIN 42-28665997), the Sunbiz entity detail (L26000289354), Tyler R. Edwards' Florida construction-industry workers' compensation exemption, the services one-pager, and the site safety policy. Bank details are not in the zip.",
+        "Download the vendor packet ZIP on this page. It includes the signed IRS W-9 for Faith Works Outdoor Services LLC (EIN 42-2865997), the Sunbiz entity detail (L26000289354), Tyler R. Edwards' Florida construction-industry workers' compensation exemption, the services one-pager, and the site safety policy. Bank details are not in the zip.",
     ),
     (
         "Is a general liability certificate in the packet?",
@@ -3365,7 +3365,7 @@ def write_vendor_page() -> None:
         <p>Use the legal name below in AppFolio, Buildium, a builder vendor portal, or a paper folder. The zip is the packet Tyler sends when a desk asks for documents.</p>
         <p><a class="btn btn-primary" href="vendor/faith-works-vendor-packet.zip" download>Download vendor packet (ZIP)</a></p>
         <ul class="vendor-downloads">
-          <li><a href="vendor/faith-works-w9.pdf">Signed IRS W-9</a> — Faith Works Outdoor Services LLC, EIN 42-28665997, LLC taxed as an S corporation, signed 10/05/2026</li>
+          <li><a href="vendor/faith-works-w9.pdf">Signed IRS W-9</a> — Faith Works Outdoor Services LLC, EIN 42-2865997, LLC taxed as an S corporation, signed 10/05/2026</li>
           <li><a href="vendor/faith-works-sunbiz-entity.pdf">Sunbiz entity detail</a> — L26000289354, ACTIVE, filed 05/26/2026. That print still lists FEI/EIN as NONE; the EIN is on the W-9.</li>
           <li><a href="vendor/faith-works-wc-exemption-tyler-edwards.pdf">Florida workers' compensation exemption</a> — Tyler R. Edwards, construction industry, 9/24/2026 through 9/23/2028, certificate E02433175</li>
           <li><a href="vendor/faith-works-services-one-pager.pdf">Services one-pager</a></li>
@@ -3374,7 +3374,7 @@ def write_vendor_page() -> None:
         <ul>
           <li><strong>Legal name:</strong> Faith Works Outdoor Services LLC</li>
           <li><strong>Manager:</strong> Tyler R. Edwards</li>
-          <li><strong>FEIN:</strong> 42-28665997</li>
+          <li><strong>FEIN:</strong> 42-2865997</li>
           <li><strong>Sunbiz:</strong> L26000289354</li>
           <li><strong>Vendor contact:</strong> <a href="tel:{SITE['phone_tel']}">{SITE['phone_display']}</a> · <a href="mailto:{SITE['email']}">{SITE['email']}</a></li>
           <li><strong>Address:</strong> 3925 Roberts Ave, Auburndale, FL 33823</li>

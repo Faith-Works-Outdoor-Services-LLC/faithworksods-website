@@ -65,7 +65,7 @@ SECTIONS: list[tuple[str, list[str]]] = [
     (
         "Documents a desk can hold",
         [
-            "The public vendor packet includes the signed IRS W-9 (Faith Works Outdoor Services LLC, EIN 42-28665997), the Sunbiz entity detail (L26000289354, ACTIVE), this safety policy, the services one-pager, and the workers' compensation exemption.",
+            "The public vendor packet includes the signed IRS W-9 (Faith Works Outdoor Services LLC, EIN 42-2865997), the Sunbiz entity detail (L26000289354, ACTIVE), this safety policy, the services one-pager, and the workers' compensation exemption.",
             "A filled general-liability certificate is not in that packet yet. A blank form is not proof of coverage. Email tyler@faithworksclearing.com with the exact certificate-holder legal name when an issued ACORD 25 is required.",
             "Bank and ACH details are not in the public packet.",
         ],
