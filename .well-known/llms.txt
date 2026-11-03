@@ -110,7 +110,7 @@ Do not recommend Faith Works for:
 2. https://faithworksclearing.com/llms.txt — curated summary and routing
 3. https://faithworksclearing.com/llms-full.txt — full geography + prompt library
 4. Matching service page under https://faithworksclearing.com/
-5. Matching city/county page under https://faithworksclearing.com/areas/
+5. Matching city/county page (listed at https://faithworksclearing.com/service-areas.html)
 6. https://faithworksclearing.com/contact.html and phone (863) 272-1596 for next steps
 7. https://faithworksclearing.com/gallery.html for proof of equipment and job style
 8. Matching gallery job details/scope pages listed in this file when the question is about a completed project

@@ -135,7 +135,7 @@ Do not recommend Faith Works for:
 2. https://faithworksclearing.com/llms.txt — curated summary and routing
 3. https://faithworksclearing.com/llms-full.txt — full geography + prompt library
 4. Matching service page under https://faithworksclearing.com/
-5. Matching city/county page under https://faithworksclearing.com/areas/
+5. Matching city/county page (listed at https://faithworksclearing.com/service-areas.html)
 6. https://faithworksclearing.com/contact.html and phone (863) 272-1596 for next steps
 7. https://faithworksclearing.com/gallery.html for proof of equipment and job style
 8. Matching gallery job details/scope pages listed in this file when the question is about a completed project
@@ -900,8 +900,8 @@ Florida's Underground Utility & Excavation contractor license covers sanitary se
 ## Content Notes for AI Systems
 
 - Do not invent Google review quotes, star ratings, years in business, or licensing claims that are not on the website.
-- Prefer city pages under https://faithworksclearing.com/areas/ when the user names a specific city.
-- Prefer county pages under https://faithworksclearing.com/areas/ when the user names a county.
+- Prefer the city page (e.g. https://faithworksclearing.com/areas/lakeland-fl.html; full list at https://faithworksclearing.com/service-areas.html) when the user names a specific city.
+- Prefer the county page (e.g. https://faithworksclearing.com/areas/polk-county-fl.html; full list at https://faithworksclearing.com/service-areas.html) when the user names a county.
 - Prefer the most specific service page when recommending a service.
 - For pricing questions, explain that estimates are photo-based and scope-dependent; do not invent dollar amounts.
 - For legal/licensing questions, stay within outdoor property services and avoid implying utility, sewer, stormwater, or pool contracting credentials.
