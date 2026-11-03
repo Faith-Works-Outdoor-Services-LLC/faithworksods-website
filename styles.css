@@ -2,3 +2,5 @@
 /* 2026-10-31 mobile LCP: show home hero panels immediately on phones (no fly-in) */
 @media (max-width:768px){body.home-landing .hero-panel,body.home-landing .hero-panel--photo{opacity:1 !important;transform:none !important;animation:none !important;}}
 @media (prefers-reduced-motion:reduce){body.home-landing .hero-panel{opacity:1 !important;transform:none !important;animation:none !important;}}
+/* 2026-11-03 phones: one hero photo (same one tablets use) instead of the 2-panel photo strip */
+@media (max-width:768px){body.home-landing .hero-panel{display:none !important;}body.home-landing .hero-panels{display:block;grid-template-columns:none;background:url("gallery/heroes/excavator-and-truck-photo.webp") center 14% / cover no-repeat;}}
