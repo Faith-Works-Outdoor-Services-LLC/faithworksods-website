@@ -141,7 +141,7 @@ SERVICES = [
         "Land Clearing",
         category="phase1",
         phase1=True,
-        title="Land Clearing Near Me in Polk County FL | Faith Works",
+        title="Land and Brush Clearing Services in Central FL | Faith Works",
         h1=f"Land Clearing Services — {AREA}",
         desc=(
             "Land clearing near Auburndale, Lakeland, Winter Haven, and Polk County — overgrown lots, brush, and acreage. "
