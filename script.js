@@ -306,13 +306,39 @@ function bindEstimateForm(form) {
 
 document.querySelectorAll(".contact-form").forEach(bindEstimateForm);
 
+
+// ---- Mobile sticky call bar (phones/tablets; added 2026-11-17 for call conversion) ----
+(function initMobileCallbar() {
+  if (!document.body || document.querySelector(".fw-callbar")) return;
+  const onContact = /\/contact(\.html)?$/.test(window.location.pathname);
+  const bar = document.createElement("div");
+  bar.className = "fw-callbar" + (onContact ? " fw-callbar--two" : "");
+  bar.setAttribute("role", "region");
+  bar.setAttribute("aria-label", "Call, text or request a free estimate");
+  const phoneIcon = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path fill="currentColor" d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>';
+  bar.innerHTML =
+    '<a class="fw-callbar__call" href="tel:8632721596" aria-label="Call (863) 272-1596">' + phoneIcon + '<span>Call Now</span></a>' +
+    '<a class="fw-callbar__text" href="sms:8632721596" aria-label="Text photos to (863) 272-1596"><span>Text Photos</span></a>' +
+    (onContact ? "" : '<a class="fw-callbar__est" href="/contact.html"><span>Free Estimate</span></a>');
+  document.body.appendChild(bar);
+  document.body.classList.add("fw-has-callbar");
+  const est = bar.querySelector(".fw-callbar__est");
+  if (est) {
+    est.addEventListener("click", () => {
+      trackConversionEvent("estimate_click", { event_category: "contact", cta_location: "sticky_bar" });
+    });
+  }
+})();
+
 document.querySelectorAll('a[href^="tel:"]').forEach((link) => {
   link.addEventListener("click", () => {
     trackConversionEvent("phone_click", {
       event_category: "contact",
       event_label: link.getAttribute("href"),
       link_text: link.textContent.trim().replace(/\s+/g, " "),
-      cta_location: link.closest("header")
+      cta_location: link.closest(".fw-callbar")
+        ? "sticky_bar"
+        : link.closest("header")
         ? "header"
         : link.closest("footer")
           ? "footer"
