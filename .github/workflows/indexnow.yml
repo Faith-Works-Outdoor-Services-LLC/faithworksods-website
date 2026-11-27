@@ -23,7 +23,7 @@ jobs:
           import urllib.request
           import xml.etree.ElementTree as ET
 
-          key = "a8f3c2e91b4d6075f8e2a1c9d0b746e"
+          key = "64f9aefc0251bed3e4ac1730d229772b"
           host = "faithworksclearing.com"
           key_location = f"https://{host}/{key}.txt"
           sitemap_path = pathlib.Path("sitemap.xml")
